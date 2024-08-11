@@ -155,10 +155,6 @@ end
 
 ![img-name](images/tissue-RGB-channel-display.png){ width="650"}
 
-![][img-tissue_split_channels]
-
-[img-tissue_split_channels]: /Users/ernesto/Pictures/work/MATLAB_images/tissue_split_channels.png
-
 ## Build an RGB Image From its Channels
 
 To build an RGB image, you simply need to recreate the 3D array. Use the **`cat`** function to easily concatenate in the third dimension.

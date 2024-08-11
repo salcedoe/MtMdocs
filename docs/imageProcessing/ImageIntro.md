@@ -422,13 +422,9 @@ binary_moon2 = logical(moon2)
 imageViewer(binary_moon2)
 ```
 
-As you can see by scrubbing around the imageViewer...
+![img-name](images/moon2-binary-imgVwr.png){ width="350"}
 
-![][img-moon2-binary]{width=400px}
-
-[img-moon2-binary]: images/moon2-imgVwr-binary.png
-
-…The binary image only contains `true` or `false`. Notice that there is no contrast tab button as this function is not relevant for binary images. Also notice that the image is listed as a 'logical' DataType in the **`imageViewer`** metadata panel.
+>Notice that the binary image only contains `true` or `false`. Also notice that the image is listed as a 'logical' DataType in the **`imageViewer`** metadata panel.
 
 ![][img-moon2-binary-info]{width=200px}
 
