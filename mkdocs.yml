@@ -1,0 +1,114 @@
+site_name: Muddling through Medical Imaging
+site_url: https://example.com
+nav:
+  - Home: index.md
+  - Setup:
+    - Computer Settings: setup/computerSetup.md
+  - Reference:
+    - MATLAB Reference Pages: matlabBasics/MATLABReferencePages.md
+  - MATLAB Basics:
+    - Introduction:
+         - Muddling Through MATLAB: matlabBasics/MatlabIntro.md
+         - The MATLAB Interface: matlabBasics/X1_MATLAB_Intro.md
+    - Basic Concepts:
+      - Data: matlabBasics/DataOverview.md
+      - Variables: matlabBasics/Variables.md
+      - Functions: matlabBasics/Functions.md
+      - Array Assignment: matlabBasics/ArrayAssignmentOverview.md
+      - Binary Numbers: matlabBasics/BinaryNumbers.md
+    - Basic Data Classes:
+       - Numeric Arrays: matlabBasics/Numeric.md
+       - Character Arrays: matlabBasics/Character.md
+       - Logical Arrays: matlabBasics/Logical.md
+    - Complex Data Classes: 
+       - Cells: matlabBasics/Cell.md
+       - Strings: matlabBasics/Strings.md
+       - Structures: matlabBasics/Structures.md
+       - Tables: matlabBasics/Tables.md
+    - Simple Programming: 
+      - Control Flow: matlabBasics/ControlFlow.md
+      - Files and Folders: matlabBasics/FilesFolders.md
+    - Plotting: 
+      - Plotting Components: matlabBasics/PlottingComponents.md
+      - Plotting Basics: matlabBasics/PlottingBasics.md   
+      - Plotting Overlays and Tiles: matlabBasics/PlottingOverlaysTiles.md   
+  - Data Wrangling:
+    - Data Types: dataWrangling/dataTypes.md
+    - Tidy Data: dataWrangling/tidyData.md
+  - Image Processing:
+    - Grayscale Images: imageProcessing/ImageIntro.md
+    - Image Enhancement: imageProcessing/ImageEnhancement.md
+    - Image Segmentation: imageProcessing/ImageSegmentation.md
+    - Segmentation Cleanup: imageProcessing/ImageSegmentationCleanup.md
+    - Region Processing: imageProcessing/ImageRegionProcessing.md
+    - RGB Images: imageProcessing/ImageRGB.md
+
+theme: 
+  name: material
+  icon: 
+    logo: material/skull-scan
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.instant
+    - navigation.top
+    - navigation.path
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+  language: en
+  palette:   
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline 
+        name: Switch to dark mode
+      primary: black
+      accent: amber
+    - scheme: slate 
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+      primary: black   
+      accent: cyan
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower      
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.arithmatex:
+      generic: true
+plugins:
+  - search
+  - table-reader
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/extra.css
+copyright: |
+  &copy; 2023 <a href="https://github.com/salcedoe"  target="_blank" rel="noopener">Ernesto Salcedo</a>
