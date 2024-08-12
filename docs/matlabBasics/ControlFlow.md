@@ -55,11 +55,9 @@ Control flow are the flow charts of computer programming. Control Flows allow yo
 
 [xkcd](https://xkcd.com/518)
 
-When programming, you often want the computer to respond differently depending on the input. Say for example that you have designed a facial recognition algorithm for your robot servant and you would like your robot servant to greet you and your family members by your proper names. Furthermore, you would like your robot servant to announce "Intruder Alert!", whenever encountering any person not recognized by the facial recognition algorithm, and to then initiate defensive measures.
+When programming, you often want the computer to respond differently depending on the input. **Conditional statements** are like programmatic flow charts that analyze values of specified variables to determine which block of code should be executed. This is useful for handling unknown situations. For example,  different blocks of code should execute depending on whether or not your robot recognizes you (or your spouse).
 
-**Conditional statements** are like programmatic flow charts that analyze values of specified variables to determine which block of code should be executed. This is useful for handling unknown situations. For example,  different blocks of code should execute depending on whether or not your robot recognizes you (or your spouse).
-
-A conditional statement typically contains a series of expressions that can resolve to either TRUE or FALSE. Each expression is followed by the block of code to be executed if the expression resolves to TRUE. So, for conditional statements to properly work, only ONE expression should resolve to TRUE on a given run of the statement.  
+A conditional statement typically contains a series of expressions that can resolve to either `true` or `false`. Each expression is followed by the block of code to be executed if the expression resolves to TRUE. So, for conditional statements to properly work, only ONE expression should resolve to TRUE on a given run of the statement.  
 
 Here is a pseudo-code version of a conditional statement:
 
@@ -72,7 +70,9 @@ OTHERWISE
 	attack INTRUDER
 ```
 
-In this example, the expressions are shown in ALL CAPS, while the executable blocks are in lower case. Notice that, depending on the expression, only one of the executable blocks will execute.
+In this example, the expressions are shown in ALL CAPS, while the executable blocks are in lower case. Notice that, depending on the expression, only one of the executable blocks will execute. The expressions are evaluated sequentially, so first it would check if "MASTER RECOGNIZED". If the master was recognized, it would then execute the ensuing statement, which in this case would be to greet the Master as "Mr. Smith". If the MASTER wasn't recognized, then the next expression would be evaluated ("MISTRESS RECOGNIZED"). If none of the expressions evaluated `true`, then the final statement would be executed: "ATTACK"
+
+<!-- Say for example that you have designed a facial recognition algorithm for your robot servant and you would like your robot servant to greet you and your family members by your proper names. Furthermore, you would like your robot servant to announce "Intruder Alert!", whenever encountering any person not recognized by the facial recognition algorithm, and to then initiate defensive measures. -->
 
 ### IF ELSE statements
 

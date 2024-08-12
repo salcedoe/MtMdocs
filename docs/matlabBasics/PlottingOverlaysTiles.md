@@ -242,20 +242,20 @@ title('Temp Correlation - September') % update title
 
 ## Tiled Layouts
 
+Sometimes, you want to add several different axes to the same figure. The functions **`nexttile`** and **`subplot`** can do this for you.
+
 ### nexttile
 
-Sometimes, you want to add several different axes to the same figure.
-
-The function **`nexttile`** simplifies the process. It is very easy to use **`nexttile`**.
+The function **`nexttile`** is the shiny new kid on the block and is very easy to use. You just call it.
 
 ```matlab linenums="1" title="nexttile - One tile"
 figure
 nexttile
 ```
 
-![img-name](images/nexttile1.png){ width="250"}
+![img-name](images/nexttile1.png){ width="350"}
 
-This is just like calling **`axes`**.
+≥This is just like calling **`axes`**.
 
 If we call **`nexttile`** two more times…
 
@@ -264,7 +264,7 @@ nexttile
 nexttile
 ```
 
-![img-name](images/nexttile-3.png){ width="250"}
+![img-name](images/nexttile-3.png){ width="350"}
 
 …We get two more axes added to the figure, nicely organized.
 
@@ -331,3 +331,63 @@ If you want a vertical organization, then you would input 'vertical' into **`til
 figure
 tiledlayout(1,3) % 1 row, three columns
 ```
+
+### subplot
+
+**`subplot`** is the older, more fussy function used to divide a figure up into tiles. When you use **`subplot`**, you have to decide beforehand how many tiles you want and in what configuration. You should use **`nexttile`** unless you absolutely have to use **`subplot`**.
+
+A function call to **`subplot`** looks like the following
+
+```matlab linenums="1"
+figure
+subplot(1,3,1) % 1 row, 3 columns, 1st position
+```
+
+…This adds one tile at the first position in a 1X3 layout
+
+To recreate the [above plot](#tiled-layouts) using subplot, we would use the following code:
+
+```matlab linenums="1" title="subplot 1X3 Tiled Layout"
+figure % create figure
+
+% set x and y
+x = T.MinTemperatureF;
+y = T.MaxTemperatureF;
+
+subplot(1,3,1) % create first tile, set first position
+hs = scatter(x, y,[],'blue','filled',MarkerFaceAlpha=0.25); % default size, blue, filled, transparency of 0.25
+xlabel('Min Temp(˚F)')
+ylabel('Max Temp (˚F)')
+title('Scatter')
+
+subplot(1,3,2) % create second tile, set second position
+histogram(x,30) % use 30 bins for Min temp
+xlabel('Temp (˚F)')
+ylabel('Count per bin')
+title('Histogram')
+hold on % turn on overlay
+histogram(y,30) % Max Temp
+
+subplot(1,3,2) % create third tile, set third position
+y = [T.MinTemperatureF   T.MaxTemperatureF]; % create new two-column matrix of data
+boxchart(y) % plot data as box plots
+xticklabels({'Min' 'Max'}) % change the tick label from a number to a label
+ylabel('Temperature (˚F)') % add a label to the y-axis
+title('BoxChart')
+```
+
+…notice for each call to subplot, the first two inputs (1,3) are the same. These set the number of tiles and layout: 1 row, 3 columns. Only the third input changes. This sets the position, indicating where to create the tile (first, second, or third position, in this case).
+
+!!! note "A note on position in subplot"
+    Unlike index, position in subplot runs from left to right (row major). So, if you had a 3X3 layout of tiles, the first three position would be the top of tiles.
+
+#### subplot Challenge
+
+Consider the following call to **`subplot`**
+
+```matlab linenums="1"
+subplot(2,3,3)
+```
+
+??? question "What would be the tile layout? Where would the tile be created (row, col)?"
+    This function call to **`subplot(2,3,3)`** would create a layout of 2 rows and 3 columns. The tile would be created in the second row, first column.
