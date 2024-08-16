@@ -4,6 +4,7 @@ nav:
   - Home: index.md
   - Setup:
     - Computer Settings: setup/computerSetup.md
+    - Useful Software Tools: setup/usefulTools.md
   - Reference:
     - MATLAB Reference Pages: matlabBasics/MATLABReferencePages.md
   - MATLAB Basics:
