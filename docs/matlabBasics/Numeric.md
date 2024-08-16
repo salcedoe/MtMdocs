@@ -199,7 +199,7 @@ c =
 
 Similarly, the function **`zeros`** creates a series of zeros.
 
-```matlab title="Create Logical array"
+```matlab title="Stack a bunch of zeros"
 d = zeros(10,1)
 ```
 
