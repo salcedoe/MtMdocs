@@ -10,7 +10,7 @@ In this module, we will learn about character  arrays, which are useful for stor
 
 ![][letterpress]
 
-[letterpress]:images/letterpress-printing.jpg 
+[letterpress]:images/letterpress-printing.jpg
 
 ## Syntax Overview
 
@@ -18,8 +18,6 @@ In this module, we will learn about character  arrays, which are useful for stor
 | ----- | :---: | --- |
 | x='a' | ' ' | assign the character a to the variable *x* |
 | x='cat' | ' ' | assign the characters 'c', 'a', and 't' to *x* |
-
-
 
 ### Learning Objectives
 
@@ -46,9 +44,12 @@ In this module, we will learn about character  arrays, which are useful for stor
 - [Character Strings](http://www.mathworks.com/help/matlab/learn_matlab/character-strings.html)
 - [Text in String and Character Arrays](https://www.mathworks.com/help/matlab/matlab_prog/represent-text-with-character-and-string-arrays.html#)
 
-### Important MATLAB Functions
+### Important MATLAB Functions You should know
 
 * [char][doc-char] - Convert to a character array
+* [ischar](https://www.mathworks.com/help/matlab/ref/ischar.html): is the array a character array?
+* [upper](https://www.mathworks.com/help/matlab/ref/upper.html) and [lower](https://www.mathworks.com/help/matlab/ref/lower.html) - Change case of letters
+* [isletter](https://www.mathworks.com/help/matlab/ref/isletter.html) and [isspace](https://www.mathworks.com/help/matlab/ref/isspace.html) - returns a logical array that masks letters or spaces in a character array
 * [sprintf][doc-sprintf] - Format data into character array
 * [regexp][doc-regexp] - Regular expression (super find function)
 * [regexprep][doc-regexprep] - Replace text using regular expression
@@ -365,7 +366,83 @@ ___
 
 ## Character Array Functions
 
-The following functions are very useful for character arrays. They can also be a little confusing. So don't get too worried if you don't get it right away.
+The following functions are very useful for character arrays.
+
+### Case functions
+
+The functions **upper** and **lower** change the case of a letter:
+
+```matlab linenums="1" title="result" Change Case
+ch = 'a':'f'
+CH = upper(ch) % change to uppercase
+ch2 = lower(CH) % change to lowercase
+```
+
+```matlab title="result"
+ch =
+
+    'abcdef'
+
+CH =
+
+    'ABCDEF'
+
+ch2 =
+
+    'abcdef'
+```
+
+### is* functions
+
+is* functions return logical array that mask certain aspects of an array
+
+- **isletter**: which elements contain letters (a-z, A-Z)
+- **isspace**: which elements contain spaces?
+
+Consider the following character array
+
+```matlab linenums="1"
+ch = ['a':'c' ' ' '1':'c' ' !@#']
+```
+
+```matlab
+ch =
+
+    'abc 123 !@#'
+```
+
+The function **isletter** returns a logical array masks the letters
+
+```matlab linenums="1" title="Mask Letters"
+laL = isletter(ch)
+```
+
+```matlab title="result"
+laL =
+
+  1×11 logical array
+
+   1   1   1   0   0   0   0   0   0   0   0
+```
+
+…Just the first three characters are letters
+
+The function **isspace** masks the spaces
+
+```matlab linenums="1" title="Mask Spaces"
+laS = isspace(ch)
+```
+
+```matlab
+laS =
+
+  1×11 logical array
+
+   0   0   0   1   0   0   0   1   0   0   0
+```
+
+…The spaces are after the letter c and after the number 3.
+
 
 ### sprintf
 
