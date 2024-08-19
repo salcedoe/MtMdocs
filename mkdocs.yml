@@ -19,8 +19,8 @@ nav:
       - Binary Numbers: matlabBasics/BinaryNumbers.md
     - Basic Data Classes:
        - Numeric Arrays: matlabBasics/Numeric.md
-       - Character Arrays: matlabBasics/Character.md
        - Logical Arrays: matlabBasics/Logical.md
+       - Character Arrays: matlabBasics/Character.md
     - Complex Data Classes: 
        - Cells: matlabBasics/Cell.md
        - Strings: matlabBasics/Strings.md
