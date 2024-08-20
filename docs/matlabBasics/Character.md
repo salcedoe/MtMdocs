@@ -443,7 +443,6 @@ laS =
 
 …The spaces are after the letter c and after the number 3.
 
-
 ### sprintf
 
 The **[sprintf][doc-sprintf]** function allows you to add data to a character array,  sort of like creating a form letter template, with the data added later.
@@ -615,6 +614,7 @@ TogetherAtLast
 ```
 
 As you can see regular expressions are an incredibly powerful way to manipulate strings. However, sometimes they can be difficult to use because the search strings are not intuitive.
+
 
 ___
 

@@ -463,7 +463,162 @@ Familiarize yourself with these functions to find many powerful ways to manipula
 
     As you can imagine, the examples are endless. Refer to the [reference page][char-string-page] as needed or for inspiration.
 
+### Example: Putting it All Together
+
+Cleaning up complex formatting.
+
+Sometimes you need to clean up extraneous characters from a string array.  For example, consider this string array that contains a string of emails in a single line:
+
+```matlab linenums="1" title="Create Array of emails"
+orig_string = "Patella, Professor <professor.patella@university.edu>; Synapse, Sydney <sydney.synapse@university.edu>; Humerus, Harry <harry.humerus@university.edu>; Quadratus, Quentin <quentin.quadratus@university.edu>; Ligament, Linus <linus.ligament@university.edu>; Cortex, Chancellor <chancellor.cortex@university.edu>; Lymph, Lyndsay <lyndsay.lymph@university.edu>; Dendrite, Doctor <doctor.dendrite@university.edu>; Sarcomere, Sarah <sarah.sarcomere@university.edu>; Endothelium, Emmett <emmett.endothelium@university.edu>"
+```
+
+This is a common formatting style you might encounter if you copy a batch of emails from an email app, like Outlook.  
+
+The string of emails are formatted with the name followed by the email, like this:
+
+`Last Name, First Name <first.last@university.edu>`
+
+And each Name-Email pair is separated by a semi-colon
+
+If you want to copy this information to say a spreadsheet, you would probably want to reformat the string  to get rid of all the extraneous characters, like the comma, the < >, and the semi-colons. Then move each Name-Email pair to a separate row. And then, have the First and Last Names and the emails in separate columns. Something more like this:
+
+| First | Last | email |
+| ---  | ---   | ---   |
+| Professor | Patella | professor.patella@university.edu |
+| Sydney | Synapse | sydney.synapse@university.edu |
+| ⋮| | |
+
+You could do this manually, by copying and pasting each bit one at a time, which would take quite a bit of time. *OR,* you could use MATLAB's handy String array functions.
+
+First, we separate all of the Name-Email pairs into separate lines.
+
+```matlab linenums="1" title="Separate Name-Email pairs"
+S_rows = split(orig_string, '; ') % split at semi-colon-space
+```
+
+…Notice that the function **split** allows you to indicate what delimiter you want to use for the split. Here we indicate the semi-colon and a space as the delimiter. This means that the function will look for a semi-colon followed by a space and split up the string there. If there is a semi-colon, without a space, it won't split at that position.
+
+```matlab title="split result"
+S_rows = 
+
+  10×1 string array
+
+    "Patella, Professor <professor.patella@university.edu>"
+    "Synapse, Sydney <sydney.synapse@university.edu>"
+    "Humerus, Harry <harry.humerus@university.edu>"
+    "Quadratus, Quentin <quentin.quadratus@university.edu>"
+    "Ligament, Linus <linus.ligament@university.edu>"
+    "Cortex, Chancellor <chancellor.cortex@university.edu>"
+    "Lymph, Lyndsay <lyndsay.lymph@university.edu>"
+    "Dendrite, Doctor <doctor.dendrite@university.edu>"
+    "Sarcomere, Sarah <sarah.sarcomere@university.edu>"
+    "Endothelium, Emmett <emmett.endothelium@university.edu>"
+```
+
+…And it works. Beautifully. Now we have each Name-Email pair in a separate element in the string. And to boot, we have eliminated the semi-colon delimiter from the string altogether. Helpfully, the default output returns a column vector, which makes the data in the string easier to read. If you wanted a row vector, you would just transpose the string.
+
+Next up, we separate the first and last names and emails from each other, again using **split.**
+
+```matlab linenums="1" title="split First and Last Names"
+S_cols = split(S_rows,{', ',' '}) % multiple delimiters
+```
+…**split**  allows you to enter multiple delimiters, packaged as a cell array. Here we enter two delimiters: `, ` and ` `.  (`comma-space` and `space`).
+
+```matlab title="split result"
+S_cols = 
+
+  10×3 string array
+
+    "Patella"        "Professor"     "<professor.patella@university.edu>" 
+    "Synapse"        "Sydney"        "<sydney.synapse@university.edu>"    
+    "Humerus"        "Harry"         "<harry.humerus@university.edu>"     
+    "Quadratus"      "Quentin"       "<quentin.quadratus@university.edu>" 
+    "Ligament"       "Linus"         "<linus.ligament@university.edu>"    
+    "Cortex"         "Chancellor"    "<chancellor.cortex@university.edu>" 
+    "Lymph"          "Lyndsay"       "<lyndsay.lymph@university.edu>"     
+    "Dendrite"       "Doctor"        "<doctor.dendrite@university.edu>"   
+    "Sarcomere"      "Sarah"         "<sarah.sarcomere@university.edu>"   
+    "Endothelium"    "Emmett"        "<emmett.endothelium@university.edu>"
+```
+
+…and now we have the names and the emails in separate columns of the string array. Notice that the commas and the spaces are also gone.
+
+Finally, we can remove the `< >` characters using the erase function.
+
+```matlab linenums="1" title="Clean up String"
+S_clean = erase(S_cols,{'<','>'})
+```
+
+```matlab
+S_clean = 
+
+  10×3 string array
+
+    "Patella"        "Professor"     "professor.patella@university.edu" 
+    "Synapse"        "Sydney"        "sydney.synapse@university.edu"    
+    "Humerus"        "Harry"         "harry.humerus@university.edu"     
+    "Quadratus"      "Quentin"       "quentin.quadratus@university.edu" 
+    "Ligament"       "Linus"         "linus.ligament@university.edu"    
+    "Cortex"         "Chancellor"    "chancellor.cortex@university.edu" 
+    "Lymph"          "Lyndsay"       "lyndsay.lymph@university.edu"     
+    "Dendrite"       "Doctor"        "doctor.dendrite@university.edu"   
+    "Sarcomere"      "Sarah"         "sarah.sarcomere@university.edu"   
+    "Endothelium"    "Emmett"        "emmett.endothelium@university.edu"
+```
+
+And we can reorder the columns with a bit of indexing
+
+```matlab linenums="1" title="Swap Columns 1 and 2"
+S = S_clean(:,[2 1 3])
+```
+
+```matlab
+S = 
+
+  10×3 string array
+
+    "Professor"     "Patella"        "professor.patella@university.edu" 
+    "Sydney"        "Synapse"        "sydney.synapse@university.edu"    
+    "Harry"         "Humerus"        "harry.humerus@university.edu"     
+    "Quentin"       "Quadratus"      "quentin.quadratus@university.edu" 
+    "Linus"         "Ligament"       "linus.ligament@university.edu"    
+    "Chancellor"    "Cortex"         "chancellor.cortex@university.edu" 
+    "Lyndsay"       "Lymph"          "lyndsay.lymph@university.edu"     
+    "Doctor"        "Dendrite"       "doctor.dendrite@university.edu"   
+    "Sarah"         "Sarcomere"      "sarah.sarcomere@university.edu"   
+    "Emmett"        "Endothelium"    "emmett.endothelium@university.edu"
+```
+
+Et voila, a nicely formatted string that we can copy into a spreadsheet file or add to a MATLAB table variable, (see next section).
+
+#### Challenge
+
+??? question "After nicely formatting the string, you realize that you got the email domain wrong. These are students from the for-profit wing of your educational enterprise and as such, should have college.com for their email domain. How would you replace "university.edu" for "college.com" in S?"
+
+    Easy-Peasy. You simply use the function **replace**, as follows:
+
+    ```matlab linenums="1" title="Replace university.edu"
+    S1 = replace(S,"university.edu","college.com")
+    ```
+
+    ```matlab title="result"
+    S1 = 
+
+    10×3 string array
+
+        "Professor"     "Patella"        "professor.patella@college.com" 
+        "Sydney"        "Synapse"        "sydney.synapse@college.com"    
+        "Harry"         "Humerus"        "harry.humerus@college.com"     
+        "Quentin"       "Quadratus"      "quentin.quadratus@college.com" 
+        "Linus"         "Ligament"       "linus.ligament@college.com"    
+        "Chancellor"    "Cortex"         "chancellor.cortex@college.com" 
+        "Lyndsay"       "Lymph"          "lyndsay.lymph@college.com"     
+        "Doctor"        "Dendrite"       "doctor.dendrite@college.com"   
+        "Sarah"         "Sarcomere"      "sarah.sarcomere@college.com"   
+        "Emmett"        "Endothelium"    "emmett.endothelium@college.com"
+    ```
+
 Module Complete 🧶
 
----
 [char-string-page]: https://www.mathworks.com/help/matlab/characters-and-strings.html
