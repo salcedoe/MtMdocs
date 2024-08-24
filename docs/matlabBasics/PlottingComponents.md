@@ -64,23 +64,10 @@ You should be able to define the following terms and use them to discuss MATLAB 
 
 [graphic object]: http://www.mathworks.com/help/matlab/graphics-objects.html
 
-## Figures and Graphic Objects
+## Figures
 
-Before we get into plotting, we need to discuss **graphic objects** and **figures**. In object-oriented computer programming (OOP), objects are abstract, stand-alone entities that can contain their own functions and data. So, like a variable, but with some functions attached. So far, we have not really used much OOP, but some things in MATLAB are objects, and  a subset of these objects are known as Graphic Objects because they contain a graphic component (basically a window or a plot).
 
-In fact, the main window of MATLAB---the one  into which you have been typing all of your commands---is a graphic object called ROOT. Any additional windows are known as **figures**.
-
-So to reiterate, windows are called figures in MATLAB, even if there is no plot or image. Think of a figure as a [tabula rasa](http://en.wikipedia.org/wiki/Tabula_rasa) onto which you can add other things, like plots, or images, or even buttons.
-
-### Parents and Children
-
-The Parent-child relationship describes the layering system in MATLAB. Children are added to parents. So, all graphic objects, including figures, have a parent-child relationship. For example, any new figure is known as a child of ROOT. And any new graphic object added to a figure is known as a child to that figure.
-
-Inversely, a figure is the parent to any and all graphic objects added to it. Think of children as layers added to the parent. The following organizational chart illustrates this relationship:
-
-![An organizational chart of graphic objects in MATLAB. In this diagram, every object (represented here as a rectangle) is a child of the object above it. And inversely, every object is the parent to the object below it. In this example, "Axes" has two children: "Charts" and "Images", whereas "Charts" and "Images" both have the same parent: "Axes"][img_obj_chart]
-
-[img_obj_chart]:images/Graphic_objects.png
+In MATLAB, a **figure** is a blank window that you can add stuff to. Think of a figure as a [tabula rasa](http://en.wikipedia.org/wiki/Tabula_rasa) onto which you can add other things, like plots, or images, or even buttons.
 
 ### Figure Creation
 
@@ -175,7 +162,10 @@ Here we use a call to the **`figure`** function with no inputs to create a *defa
 fh = figure
 ```
 
-…*`fh`* is the figure handle. Its icon is a cube (![][img-obj-icon]) and its class is "Matlab.ui.Figure", which basically means a graphical object.
+…*`fh`* is the figure handle. Its icon is a cube (![][img-obj-icon]) and its class is "Matlab.ui.Figure", which basically means a graphical object.  (1)
+{ .annotate}
+
+1. An Object is a computer element that can have both storage and functions. So, like a variable with some functions attached. Objects that have plots or images in them are called Graphic Objects.
 
 If you display *`fh`* in the command window, you will see a short list of its properties, including its name (no name) and color (a light gray).
 
@@ -230,9 +220,25 @@ fh.NumberTitle = 'off'
 
 [img-handle-fields]:images/handle-fields-popup.png
 
+## Adding Stuff to figures
+
+As previously discussed, figures are blank windows onto which you can add stuff. This stuff is added as a layer onto the figure. For example, you can add a blank axes to a blank figure. And then a line plot to the axes. The figure, the axes, and the line plot are all considered different graphic objects added to different layers of the figure. This layering systme is also known as the Parent-Child relationship between objects.
+
+### Parents and Children
+
+The Parent-child relationship describes the layering system in MATLAB. Children are added to parents. So, all graphic objects, including figures, have a parent-child relationship. For example, any new graphic object added to a figure is known as a child to that figure.
+
+Inversely, a figure is the parent to any and all graphic objects added to it. Think of children as layers added to the parent. The following organizational chart illustrates this relationship:
+
+![][img_obj_chart]{width=125px}
+
+[img_obj_chart]:images/figure-parent-child.png
+
+>Parent-Child Relationships. In this diagram, every object (represented here as a rectangle) is a child of the object above it. And inversely, every object is the parent to the object below it.
+
 ## Axes
 
-Axes serve as placeholders for plots. Remember, an axes cannot stand alone. They have to be added to figures. As such, axes are known as "children" of figures.
+Axes serve as placeholders for plots. Axes cannot stand alone. They have to be added to figures. As such, axes are known as "children" of figures.
 
 You can add an empty axes to a figure by simply calling the **`axes`** function after calling the **figure** function, as follows:
 

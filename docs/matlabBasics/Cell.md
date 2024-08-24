@@ -17,20 +17,13 @@
 ### MATLAB documentation
 
 - [Cell Arrays](https://www.mathworks.com/help/matlab/cell-arrays.html).
+- [Accessing Data in Cells](https://www.mathworks.com/help/matlab/matlab_prog/access-data-in-a-cell-array.html)
 
 ### Important MATLAB Functions
 
--  **[cellfun][cellfun]**: apply the same function to each cell of a cell array
--  **[cell2mat][cell2mat]**: convert cell arrays to numeric arrays
--  **[cellstr][cellstr]**: Convert to cell array of character vectors
-
-[cellstr]: http://www.mathworks.com/help/matlab/ref/cellstr.html
-
-[repmat]: http://www.mathworks.com/help/matlab/ref/repmat.html
-
-[cellfun]: http://www.mathworks.com/help/matlab/ref/cellfun.html
-
-[cell2mat]: https://www.mathworks.com/help/matlab/ref/cell2mat.html
+- [cellfun](http://www.mathworks.com/help/matlab/ref/cellfun.html): apply the same function to each cell of a cell array
+- [cell2mat](https://www.mathworks.com/help/matlab/ref/cell2mat.html): convert cell arrays to numeric arrays
+- [cellstr](http://www.mathworks.com/help/matlab/ref/cellstr.html): Convert to cell array of character vectors
 
 ### Special MATLAB Characters
 

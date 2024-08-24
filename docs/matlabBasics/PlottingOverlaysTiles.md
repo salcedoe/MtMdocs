@@ -223,18 +223,68 @@ title('Minimum vs Maximum temps in September')
 
 >Note, since we turned on the transparency of the dots, we get different shaded dots. The darker shaded blue dots indicate that there is more than one dot at that location.
 
-The rising trend of the scatter plot  suggests the temperatures are correlated.
+The rising trend of the scatter plot  suggests the temperatures are correlated. But are they correlated?
 
-For comparison, lets plot Minimum Temperatures vs Mean Temperatures.  But, if we just called **`scatter`** again, we would overwrite the previous scatter plot. So first, we set **`hold`** to `'on'` and then we call **`scatter`**, as follows:
+### Overlaying a Regression Line
+
+The term correlation in statistics indicates an association between two variables. We can calculate the correlation between the two variables using the function **`corr`**, as follows:
+
+```matlab linenums="1" title="Correlation between Min and Max Temps"
+c = corr(x,y)
+```
+
+```matlab title="result"
+c =
+
+      0.61158
+```
+
+…And we get a correlation of 0.61. Since the value is positive, then our data is positively correlated. Since the value is greater than 0.5 but less than 0.7, our data can be considered "mildly correlated".
+
+As our data is mildly correlated, we can calculate the linear regression of the data.  Linear regression is a mathematical model that we can use to predict one variable from the other. For example, we could use the linear regression to predict what the maximum temperature would be given a minimum temperature. It might not be a great prediction (since the data is only mildly correlated), but its a start. And once we calculate the linear regression we can plot a visualization of the model as a line overlaid on the scatter plot.
+
+We calculate the linear regression and then plot it, as follows:
+
+```matlab linenums="1" title="Calculate Linear Regression"
+% calculate linear regression
+p = polyfit(x,y,1); % simple linear regression
+f = polyval(p,x); % calculate Max temps based on min temps from line
+
+% add regression line to plot
+hold on % turn on hold
+plot(x,f,'--k',"LineWidth",1)
+legend({'temperatures','linear fit'},"Location","best") % add legend
+title('Night and Day', sprintf('Correlation = %1.2f',c)) % add a subtitle by adding a second input to title
+```
+
+![img-name](images/scatter-minVmax-regression-10yrs.png){ width="400"}
+
+>To add the regression line, we used the **plot** function. We had to turn hold on to make sure the plot function didn't overwrite the scatter plot. 
+
+Notice that the regression line goes through the middle of the cloud and trends upwards. Dots that are closest to the line are best predicted by the model. Dots further away from the line are less well predicted. Warmer temperatures seem to be better predicted than cooler temperatures.
+
+## Overlaying Multiple Scatter Plots
+
+We can of course overlay multiple scatter plots. Here we'll add the Minimum Temperatures vs Mean Temperatures to our previous scatter plot. We'll also change the color of the second scatter plot so we can differentiate the two
 
 ```matlab
+x = T.MinTemperatureF;
+y = T.MaxTemperatureF;
+hs = scatter(x, y,[],'blue','filled',MarkerFaceAlpha=0.25); % default size, blue, filled, transparency of 0.25
+xlabel('Min Temp(˚F)')
+ylabel('Max Temp (˚F)')
+
+
 hold on % turn hold on
+
 y = T.MeanTemperatureF; % set y to mean temps
 scatter(x,y,[],'green','filled',MarkerFaceAlpha=0.25) % plot the min vs mean values
 ylabel('Temp (˚F)') % relabel the y-axis to just 'Temp'
 legend('Max','Mean',location="best") % add a legend to the axes
 title('Temp Correlation - September') % update title
 ```
+
+…Again, between the **scatter** function calles, we turn hold on. 
 
 ![img-name](images/scatter-minVmaxVmean-10yrs.png){ width="400"}
 

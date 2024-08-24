@@ -34,8 +34,9 @@ nav:
       - Plotting Basics: matlabBasics/PlottingBasics.md   
       - Plotting Overlays and Tiles: matlabBasics/PlottingOverlaysTiles.md   
   - Data Wrangling:
-    - Data Types: dataWrangling/dataTypes.md
+    - Data Types and Categorical Arrays: dataWrangling/dataTypes.md
     - Tidy Data: dataWrangling/tidyData.md
+    - Group Statistics: dataWrangling/groupStats.md
   - Image Processing:
     - Grayscale Images: imageProcessing/ImageIntro.md
     - Image Enhancement: imageProcessing/ImageEnhancement.md

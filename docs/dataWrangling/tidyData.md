@@ -2,15 +2,15 @@
 
 ![img-name](images/DalleAI-DataWrangler.jpeg){width=300px}
 
-Data comes in many forms and often these forms are messy. Part of data wrangling involves organizing and cleaning up this data in a fashion that makes it easier to analyze. Usually, the first step is to organize the data into a table in a *tidy* fashion.
+Data comes in many forms and often these forms are messy. Part of data wrangling involves organizing and cleaning up this data in a fashion that makes it easier to analyze. Usually, the first step in data analysis is to organize the data in a *tidy* fashion—a concept popularized for the R programming language but applicable to all data analysis. You can read more about tidy data [here](https://vita.had.co.nz/papers/tidy-data.pdf)
 
 ## What is Tidy Data?
 
 Tidy data is data organized in a table as follows:
 
-1. each row corresponds to an observation
-2. each variable is a column
-3. each type of observation is in a different table
+1. Each row corresponds to a single observation
+2. Each variable is a column
+3. Each element in a table contains a single value
 
 ![img-name](images/tidy-table.png){ width="550"}
 
@@ -44,7 +44,7 @@ Consider the following messy data:
 
 </div>
 
-While this organization is relatively easy to read and understand (for a human), it is not considered tidy data because the variables are not organized in columns, which makes it difficult to analyze the data.
+While this organization is relatively easy to read and understand (for a human), it is not considered tidy data because the variables are not organized in columns and values are spread across three tables. This messy data organization makes it difficult to analyze the data.
 
 The tidy way to organize this data would be as  follows:
 

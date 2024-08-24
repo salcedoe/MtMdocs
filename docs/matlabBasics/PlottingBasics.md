@@ -30,6 +30,15 @@ The following site is an excellent resource for comparing types of plots and det
 
 [SWD]: https://www.storytellingwithdata.com/chart-guide  
 
+Not sure whether you should use a bar chart or a box plot? Check out these articles:
+
+- [Bar charts and box plots](https://www.nature.com/articles/nmeth.2807.pdf): this article in Neuron nicely summarizes when you should use a bar plot and when you should use a box plot. 
+- [Box Plots v Bar Plots](https://pagepiccinini.com/2016/02/23/boxplots-vs-barplots/): this author falls strongly in the box plot camp
+
+Interested in learning more about Beeswarm charts? Read these articles:
+- [Box plot Alternatives](https://www.datascienceblog.net/post/data-visualization/boxplot_alternatives/)
+- [Better Data Visualization Using Beeswarm Charts](https://towardsdatascience.com/better-data-visualization-using-beeswarm-chart-bb46a229c56b)
+
 ## Plots Tab
 
 The simplest way to explore MATLAB's plotting capabilities is through the  "Plots" tab in the ribbon interface.

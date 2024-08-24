@@ -445,7 +445,7 @@ laS =
 
 ### sprintf
 
-The **[sprintf][doc-sprintf]** function allows you to add data to a character array,  sort of like creating a form letter template, with the data added later.
+The **[sprintf][doc-sprintf]** function allows you to add data to a character array, sort of like creating a template for form letter where you add the data when you create the letter.
 
 To use **`sprintf`**, you first create a character array that has placeholders in them. These placeholders are prefaced by the `%` symbol. Some common placeholders include:
 

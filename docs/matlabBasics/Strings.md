@@ -594,7 +594,9 @@ Et voila, a nicely formatted string that we can copy into a spreadsheet file or 
 
 #### Challenge
 
-??? question "After nicely formatting the string, you realize that you got the email domain wrong. These are students from the for-profit wing of your educational enterprise and as such, should have college.com for their email domain. How would you replace "university.edu" for "college.com" in S?"
+After nicely formatting the string, you realize that you got the email domain wrong. These are students from the for-profit wing of your educational enterprise and as such, should have college.com for their email domain.
+
+??? question " How would you replace "university.edu" for "college.com" in S?"
 
     Easy-Peasy. You simply use the function **replace**, as follows:
 
