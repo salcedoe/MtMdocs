@@ -191,3 +191,35 @@ clc
 ```
 
 Your variables are now gone! Don't worry, we'll make more.
+
+## Games and Stuff
+
+Ok, break time. The following commands bring up hidden easter eggs in MATLAB. Try them all by copying and pasting the following commands in the command line.
+
+```matlab title="Play Sliding Puzzle" linenums="1"
+fifteen
+```
+
+```matlab title="Play Mine Sweeper" linenums="1"
+xpbombs
+```
+
+```matlab linenums="1" title="Plot a 3D Knot"
+knot
+```
+
+!!! example "Plot a Heart"
+    Copy and paste all three lines into the command line:
+
+    ```matlab linenums="1"
+    x=[-2:.001:2],y=(sqrt(cos(x)).*cos(200*x)+sqrt(abs(x))-0.7).*(4-x.*x).^0.01
+    figure;
+    plot(x,y);
+    ```
+
+!!! example "Answers to Life's most pressing question"
+    ```matlab linenums="1"
+    why
+    ```
+    Be sure to run repeatedly.
+    

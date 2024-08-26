@@ -75,7 +75,12 @@ version
 
 Many of these examples are designed to be copied directly into MATLAB, so you can try programming on your own. Notice if you hover over the lightly shaded area, a copy icon will appear. If you click on the icon, the code will be copied to your clipboard and you can then just paste into  MATLAB
 
-Oftentimes, for clarity, I  will include the output that is spit out after you enter a command in MATLAB. This code **should not be copied or pasted**—you'll probably get an error if you do. So, I will differentiate the output text in two ways: 1). The title of the code block will often be "result". 2). There will be no line numbers on the left-hand side of the code block. For example, the following code block contains the output found in the command line after you execute the `version` command above
+For clarity, I  will often include the output that is spit out after you enter a command in MATLAB. This code **should not be copied or pasted**—you'll probably get an error if you do. So, I will differentiate the output text in two ways:
+
+1. The title of the code block will often be "result".
+2. There will be no line numbers on the left-hand side of the code block.
+
+For example, the following code block contains the output found in the command line after you execute the `version` command above
 
 !!! warning "Don't copy or paste code that don't have line numbers."
     ```matlab title="result"
@@ -86,34 +91,3 @@ Oftentimes, for clarity, I  will include the output that is spit out after you e
     Notice that the above code block is titled **result** and there are no line numbers on the left-hand side.
 
 Try it now. Copy the **`version`** command above and paste it into the Command Line in MATLAB. After you hit enter you should get an output similar to what I got (It may be different if you are using a different version of MATLAB).
-
-## Games and Stuff
-
-Ok, break time. The following commands bring up hidden easter eggs in MATLAB. Try them all by copying and pasting the following commands in the command line.
-
-```matlab title="Play Sliding Puzzle" linenums="1"
-fifteen
-```
-
-```matlab title="Play Mine Sweeper" linenums="1"
-xpbombs
-```
-
-```matlab linenums="1" title="Plot a 3D Knot"
-knot
-```
-
-!!! example "Plot a Heart"
-    Copy and paste all three lines into the command line:
-
-    ```matlab linenums="1"
-    x=[-2:.001:2],y=(sqrt(cos(x)).*cos(200*x)+sqrt(abs(x))-0.7).*(4-x.*x).^0.01
-    figure;
-    plot(x,y);
-    ```
-
-!!! example "Answers to Life's most pressing question"
-    ```matlab linenums="1"
-    why
-    ```
-    Be sure to run repeatedly.

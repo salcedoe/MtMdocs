@@ -10,7 +10,7 @@ nav:
   - MATLAB Basics:
     - Introduction:
          - Muddling Through MATLAB: matlabBasics/MatlabIntro.md
-         - The MATLAB Interface: matlabBasics/X1_MATLAB_Intro.md
+         - The MATLAB Interface: matlabBasics/matlabInterface.md
     - Basic Concepts:
       - Data: matlabBasics/DataOverview.md
       - Variables: matlabBasics/Variables.md

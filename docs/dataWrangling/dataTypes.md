@@ -10,7 +10,7 @@ Each category can be further broken down into sub-categories. Numeric categories
 Different MATLAB variable classes are used to store these different types of data:
 
 ```mermaid
-graph LR
+graph TD
     A[DATA] --> B[Numbers];
     A[DATA] --> C[Categories];
     B --> D[Discrete];
@@ -21,17 +21,22 @@ graph LR
     E --> I(pi, height, weight)
     H --> R(double, single)
     D --> L(Whole Numbers)
-    D --> k(Counts, Ratings, Images)
+    D --> k("Counts, Ratings,
+     Images")
     L --> Q(uint8, uint16)
     F --> M(Male, Female)
     F --> N(No Order)
     G --> O(Ordered)
-    G --> P(Beginner, Intermediate, Advanced)
-    M --> S(logical, string, cell, categorical)
+    G --> P("Beginner,
+     Intermediate,
+     Advanced")
+    M --> S("logical,
+     string, cell,
+     categorical")
     O --> T(categorical)
 ```
 
-### Categorical Arrays
+## Categorical Arrays
 
 To handle Qualitative Data, MATLAB came up with the [`categorical`](https://www.mathworks.com/help/matlab/categorical-arrays.html) variable type. Categorical arrays operate similar to string arrays, but they have built-in functions for statistical uses.
 
@@ -106,7 +111,7 @@ summary(sex) % rturns category count
      3           3    
 ```
 
-#### Creating Ordinal Data
+### Creating Ordinal Data
 
 If you have ordinal data, you still use the  **`categorical`** function, but with a couple of additional inputs.
 
@@ -140,7 +145,7 @@ summary(level)
 
 …the results are reported in the order of the ordinal categories (and not in alphabetical order)
 
-#### Transforming Numeric Data into Qualitative
+### Transforming Numeric Data into Qualitative
 
 Sometimes the raw data comes in as numeric, when what you actually want is categorical.
 
