@@ -372,7 +372,7 @@ The following functions are very useful for character arrays.
 
 The functions **upper** and **lower** change the case of a letter:
 
-```matlab linenums="1" title="result" Change Case
+```matlab linenums="1" title="Change Case"
 ch = 'a':'f'
 CH = upper(ch) % change to uppercase
 ch2 = lower(CH) % change to lowercase
