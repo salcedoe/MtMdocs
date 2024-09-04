@@ -294,29 +294,6 @@ title('Temp Correlation - September') % update title
 
 Sometimes, you want to add several different axes to the same figure. The functions **`nexttile`** and **`subplot`** can do this for you.
 
-### nexttile
-
-The function **`nexttile`** is the shiny new kid on the block and is very easy to use. You just call it.
-
-```matlab linenums="1" title="nexttile - One tile"
-figure
-nexttile
-```
-
-![img-name](images/nexttile1.png){ width="350"}
-
-≥This is just like calling **`axes`**.
-
-If we call **`nexttile`** two more times…
-
-```matlab linenums="1" title="nexttile - Three tiles"
-nexttile
-nexttile
-```
-
-![img-name](images/nexttile-3.png){ width="350"}
-
-…We get two more axes added to the figure, nicely organized.
 
 To add plots, we simply enter the commands after each **`nexttile`** call.
 

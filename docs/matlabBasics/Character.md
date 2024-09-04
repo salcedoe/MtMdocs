@@ -394,7 +394,7 @@ ch2 =
 
 ### is* functions
 
-is* functions return logical array that mask certain aspects of an array
+is* functions return logical arrays that mask specific types of characters in an array
 
 - **isletter**: which elements contain letters (a-z, A-Z)
 - **isspace**: which elements contain spaces?

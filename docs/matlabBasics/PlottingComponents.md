@@ -66,7 +66,6 @@ You should be able to define the following terms and use them to discuss MATLAB 
 
 ## Figures
 
-
 In MATLAB, a **figure** is a blank window that you can add stuff to. Think of a figure as a [tabula rasa](http://en.wikipedia.org/wiki/Tabula_rasa) onto which you can add other things, like plots, or images, or even buttons.
 
 ### Figure Creation
@@ -347,6 +346,17 @@ In the axes toolbar, you have two choices for copying plots:
 - **Copy as image**: Preserves resolution of figure on the screen (probably won't be able to zoom into the image without revealing rasterized pixels). Great option for dropping the figure into a powerpoint. Most universal format - can probably paste into most software. Best option for images.
 
 - **Copy as vector graphic**. Like a PDF format. Allows nearly infinite zooming. Can edit the graphic in vector editing software, like Adobe Illustrator. Great for printing. Best option for Plots and graphs.
+
+!!! tip "I am Groot"
+    You can set figure defaults for all figures during a coding session by setting the properties for `groot` - the graphic root object. You do this using the following code.
+
+    ```matlab linenums="1" title="Set default values for figures"
+    set(groot, 'defaultAxesFontSize', 16, 'defaultFigureColor','w');
+    ```
+
+    This code sets the default figure color to white and the default axes font size to 16.
+
+    This command needs to be run each time you restart MATLAB. 
 
 ### Tiled Layouts
 
