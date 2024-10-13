@@ -71,7 +71,7 @@ Throughout the modules, the following conventions are used:
 version
 ```
 
-    The function **`version`** just reports the current version of  MATLAB. Since there is just one line, there is just one line number: `1`.
+…The comman **`version`** just reports the current version of  MATLAB. Since there is just one line of code, there is just one line number: `1`.
 
 Many of these examples are designed to be copied directly into MATLAB, so you can try programming on your own. Notice if you hover over the lightly shaded area, a copy icon will appear. If you click on the icon, the code will be copied to your clipboard and you can then just paste into  MATLAB
 

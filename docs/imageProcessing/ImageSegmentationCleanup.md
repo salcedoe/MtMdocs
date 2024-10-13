@@ -54,7 +54,16 @@ A collection of touching pixels is known by many names: connected components, bl
 
 The image processing toolbox offers many functions that manipulate connected-components based on their size, shape, or location.
 
-The most basic operations make masks thicker (aka "dilate"):
+These operations work using a Structuring Element, which is like a mini-mask with a specified shape like a disk or a diamond
+
+Morphological Operations on masks can be summarized as follows
+
+- **Dilate**: Expand the mask and shrink holes in the mask
+- **Erode**: Shrink the mask and expand holes in the mask
+- **Open**: Erosion followed by dilation.  Remove masks objects smaller than the structuring element
+- **Close**: Dilation followed by erosion. This removes holes in the mask smaller than the structuring element
+
+For example, the most basic operations make masks thicker (aka "dilate"):
 
 ![img-name](images/morph_dilate.png){ width="550"}
 
@@ -66,7 +75,7 @@ The most basic operations make masks thicker (aka "dilate"):
 
 >**Left Panel.** Original Mask. **Right Panel.** Eroded Mask
 
- Other common functions that we will use include:
+Common matlab functions that we will use include:
 
 - **`bwareaopen`** - used to clean up small pixel clusters.
 - **`bwmorph`** - a general morphologic operations tool

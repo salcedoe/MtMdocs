@@ -31,7 +31,10 @@ Notice that you will typically find the function on the right side of the equal 
 
 ## Getting Help on Functions
 
-MATLAB has thousands of built-in functions to perform almost any basic task you can think of. So, sometimes the hardest part is 1) finding the right function to do exactly what you are looking for and 2) writing the proper syntax to call that function.
+MATLAB has thousands of built-in functions to perform almost any basic task you can think of. So, sometimes the hardest part is:
+
+1. Finding the right function to do exactly what you are looking for
+2. Writing the proper syntax to call that function.
 
 The MATLAB built-in documentation is a great place to start. You can find the available MATLAB functions and the proper syntax for calling those functions using the built-in documentation.
 
