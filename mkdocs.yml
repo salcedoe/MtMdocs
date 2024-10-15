@@ -44,6 +44,10 @@ nav:
     - Segmentation Cleanup: imageProcessing/ImageSegmentationCleanup.md
     - Region Processing: imageProcessing/ImageRegionProcessing.md
     - RGB Images: imageProcessing/ImageRGB.md
+  - 3D Slicer:
+    - Introduction: slicer/InterfaceIntro.md
+    - Data Exploration:
+      - CTChest: slicer/CTChestExplore.md
 
 theme: 
   name: material
