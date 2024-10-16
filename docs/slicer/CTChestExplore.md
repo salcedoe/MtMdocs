@@ -37,7 +37,7 @@ Slicer includes many sample datasets, which you can find the Sample Data Module:
 
 2. Click on "Download Sample Data" (OR  go to **File:Download Sample Data**)
 
-    ![][load_sample_data]{width=400px}
+    ![img-name](images/Welcome-Module.png){ width="400"}
 
 2. Select "CTChest"
 
@@ -45,14 +45,11 @@ Slicer includes many sample datasets, which you can find the Sample Data Module:
 
 4. After some time, you should see CT cross-sections in the 2D Viewers.
 
-![][CTChest original]{width=600px}
+![img-name](images/CTChest-Load.png){ width="450"}
 
 ??? question "Which panel shows the original data as it was capture and which panels show the Multiplanar reconstructions"
 
     CT data is captured along the axial plane, which is shown in the Red Viewer (Coronal Slices). You can tell because this data set is circular (actually columnar). The other two viewers display the [MPRs](http://www.wikiradiography.net/page/Multiplanar+Reconstruction+(MPR)).
-
-[load_sample_data]:images/Welcome-Module-Sample-Data
-[CTChest original]: images/CTChest%20Load.png
 
 ### Data Module
 
@@ -72,7 +69,7 @@ To remove the volume from Slicer, right-click on the "CTChest" and select "Delet
 
 To track the orientation of the volume in the viewers, you can add a little human orientation marker, like this guy:
 
-![][human_orientation_marker]{width=50}
+![img-name](images/human_orientation_marker.png){ width="50"}
 
 To do so:
 
@@ -88,13 +85,9 @@ To do so:
 5. You should now see the following **little guy** in the corner of the slice viewers
 6. Hide the "more controls" by clicking on the "<<" button
 
-![][img_slice_viewer_controls]
+![slicer controls](https://github.com/Slicer/Slicer/releases/download/docs-resources/getting_started_view_controllers.png){ width="550"}
 
-[human_orientation_marker]: https://c2.staticflickr.com/2/1964/44588985245_aa56cf7693_o.png
-
-If you these orientation markers to be added on launch of Slicer, you can set the default in the Edit:Settings Menu option, under the Views tab.
-
-[img_slice_viewer_controls]: http://wiki.slicer.org/slicerWiki/images/f/fc/SliceViewerController-4.1.png
+If you want these orientation markers to be added on launch of Slicer, you can set the default in the Edit:Settings Menu option, under the Views tab.
 
 ## Navigation and control
 
@@ -283,6 +276,7 @@ You can display the 2D slices in the 3D viewer as follows:
     ![img-name](images/CTChest-3D-all-slices.png){ width="300"}
 
     - enjoy three orthogonal slices in 3D
+    - Tip: Try adjusting the Left Threshold slider in the Volumes Module. What happens?
   
   Basic controls of 3D Viewer
     - **Rotate:** drag on 3D view
@@ -424,7 +418,7 @@ So, each time you work with a volume in Slicer, you generate a lot of files, and
 6. Click OK.
 7. Now the Slicer Save dialog should look like the following:
 
-    ![img-name](images/CTChest-save-dialog-new-directory.png){ width="350"}
+    ![img-name](images/CTChest-save-dialog-new-directory.png){ width="450"}
 
    - Now all of the files will now be saved in the CTChest Folder on the Desktop
 
