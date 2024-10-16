@@ -2,7 +2,7 @@
 
 ![img-name](images/CTPET-overlay.jpg){ width="250"}
 
-This exercise was derived from a section of the Quantitate Imaging Example from the Slicer website.
+This exercise was derived from a section of the Quantitative Imaging Example from the Slicer website.
 
 [PET/CT Visualization and Analysis]
 
@@ -11,21 +11,22 @@ This exercise was derived from a section of the Quantitate Imaging Example from 
 ## FDG
 
 What's [FDG 18F](http://www.wikiwand.com/en/Fludeoxyglucose_(18F))?
+
 - Fluorodeoxyglucose: a radiopharmaceutical glucose analog. Tumors love glucose.
 
 ## Load Dataset
 
 The datasets in this exercise are multimodal PT CT datasets. They were acquired from a patient who presented with a tumor. The following are the impressions from the Surgeon.
 
-* **Pathology**: poorly differentiated squamous cell carcinoma
+- **Pathology**: poorly differentiated squamous cell carcinoma
 
-* **Treatment**: radiotherapy and chemotherapy (weekly cis-platin)
+- **Treatment**: radiotherapy and chemotherapy (weekly cis-platin)
 
-* **Datasets:** Two 18F-FDG PET and CT scans acquired within a 5-month interval.
+- **Datasets:** Two 18F-FDG PET and CT scans acquired within a 5-month interval.
 
 To load the data, we will load .MRB files. An .MRB file is like a zip file and contains all the data from a study (CT and PET images).
 
-### Method 1
+### Method 1: Add Data Dialog
 
 ![img-name](images/button-add-data.png){ width="100"}
 
@@ -35,7 +36,7 @@ To load the data, we will load .MRB files. An .MRB file is like a zip file and c
 4. Shift-Select both "PET_CT_pre-treatment.mrb" and "PET_CT_post-treatment.mrb"
 5. Click "OK""
 
-### Method 2
+### Method 2: Drag-and-drop
 
 1. Navigate to the  "dataset3_PETCT" folder in the Unit 3 data folder of the MATLAB drive.
 2. Find the file called "PET_CT_pre-treatment.mrb"
@@ -71,7 +72,7 @@ To load the data, we will load .MRB files. An .MRB file is like a zip file and c
 
 ## Display an overlay of the PET CT datasets
 
-Left click on the pin icon in the top left corner to display the red slice viewer menu.
+Left-click on the pin icon in the top left corner to display the red slice viewer menu.
 
 ![red slice viewer](images/CTPET_slice_viewer_menu.png){width=350}
 
@@ -87,16 +88,28 @@ Your settings should now be as follows:
 
 ![red slice viewer 0.6](images/CTPET_slice_viewer_0.6alpha.png){ width="350"}
 
+### Remove black edges of the orthogonal planes
+
+You can remove the black portions of the orthogonal places in the 3D Viewer using controls in the Volumes Module.
+
+1. Switch to the volumes module
+2. Set the Active Volume to "PET1."
+3. In the display tab, adjust the left Threshold slider to set the lower limit of the threshold. In this example, we use a lower Threshold setting of 400
+
+### Adjust position of the orthogonal planes
+
 - Move the mouse around the tumor.
 - Hold the shift-button to align the three slice views.
 - Note the label appears as a green outline.
 - You can toggle between an outline and a filled in object by clicking on the icon next to PET1-label.
 
+### Final Result
+
 When you are finished, you should see something similar to the following:
 
 ![img-name](images/CTPET-4up-overlay-series1.png){ width="450"}
 
-> Note: to remove the black portions of the orthogonal places in the 3D Viewer, you adjust the left Threshold slider in the Volumes module, under the Display tab. In this example, we use a Threshold setting of 400, with the Active Volume set to "PET1"
+>Four-up view of CT1 and PET1 overlay. Tumor segmentation shown in green. Edges of the orthogonal slices in the 3D viewer were removed from display using threshold settings in the volumes module.
 
 ### Add a volume render of the Skull
 
@@ -104,20 +117,20 @@ We can add a volume render to the scene fairly easily, using the Volume Render m
 
 ![img-name](images/button_volume_rendering.png){ width="150"}
 
-* Switch to the Volume Rendering Module
-* Choose the CT1 Volume
-* Select the CT-AAA preset
-* Adjust the `Shift` slider to clean-up the noise
-* Use the crop function to remove the table.
-* Scrub the Slice so that it intersects the PET1_label
+- Switch to the Volume Rendering Module
+- Choose the CT1 Volume
+- Select the CT-AAA preset
+- Adjust the `Shift` slider to clean-up the noise
+- Use the crop function to remove the table.
+- Scrub the Slice so that it intersects the PET1_label
 
 ### Create a 3D segmentation of the Tumor
 
-This is an old dataset that uses old 3D Slicer methodology. Instead of Labelmaps, Slicer has switched to using Segmentation volumes. Luckily, it is easy to convert the labelmap into a segmentation volume using the data module.
+This is an old dataset that uses old 3D Slicer methodology for their segmentations, called labelmaps. Instead of labelmaps, Slicer has switched to using Segmentation volumes. Luckily, it is easy to convert the labelmap into a segmentation volume using the Data module.
 
 ![img-name](images/button-data-module.png){ width="50"}
 
-1. Switch to the data module
+1. Switch to the Data module
 2. Right-click on PET1-label (this is the label map)
 3. From the contextual menu, select "Convert labelmap to segmentation node."
 
@@ -132,7 +145,7 @@ We can make this new segmentation appear in the 3D using the Segment Editor Modu
 
 ![img-name](images/button-segment-editor.png){ width="30"}
 
-1. Switch to the Segment Editor Module
+1. Switch to the Segment Editor Module by clicking on the icon in the toolbar (or selecting in the Modules pop-up menu)
 2. Click on the "Show 3D" button
 3. You should now see a 3D segmentation of the tumor
 
@@ -181,4 +194,6 @@ Review the results
 - Can you find the same region where the tumor was?
 - Is the tumor still there?
 
-Review the [pdf][PET/CT Visualization and Analysis] and try to scroll to the regions where reduced uptake was identified
+Review and try to match the views shown the the physicians' findings [here](PETCT-Follow-up-findings.pdf).
+
+
