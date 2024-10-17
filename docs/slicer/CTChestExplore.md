@@ -73,9 +73,9 @@ To track the orientation of the volume in the viewers, you can add a little huma
 
 To do so:
 
-1. Bring up the **viewer controller** clicking on the **Control displaypush pin** icon
+1. Click on the **Push Pin** icon to bring up the **view controls**  
 
-2. Click on the "Show more controls" button (>>).
+2. Click on the `>>` button to show more options
 
     - Notice that CTChest is shown in the Background (B) Layer.
 
@@ -91,9 +91,9 @@ If you want these orientation markers to be added on launch of Slicer, you can s
 
 ## Navigation and control
 
-To explore the dataset, you will want to scroll through the slices, zoom in, or drag th image around. You can do so as follows.
+To explore the dataset, you will want to scroll through the slices, zoom in, or drag th image around.
 
-*Note: Move the mouse over one of the viewers before attempting.*
+!!! note "The following are specific to each viewer. So, move the mouse over one of the viewers before attempting."
 
 ### Scrubbing
 
@@ -112,19 +112,16 @@ Panning is used to move the images around. Zooming enlarges the image
 
 ### Fit to Window
 
-If you mess things up, you can return the volume back to the default location by clicking on the "Fit to Window" icon in the Viewer's top toolbar menu. For your reference, here is the "Fit to Window" icon for the green viewer.
+If you mess things up, you can return the volume back to the default location by clicking on the "Fit to Window" icon in the Viewer's top toolbar menu.
 
 ![fit to window](images/button-fit-to-window-green.png){ width="30"}
+>"Fit to Window" icon for the green viewer.
 
 ### Slice Alignment
 
-For any given view location in an image, you can change the other two orthogonal views to match location of the mouse arrow by:
+You can align the location of all three viewers, by **holding down the shift button** as you move the mouse around one of the viewers. Notice how the other views become synchronized to the location to which the mouse is pointing.
 
-- Hold-shift and move the mouse to different locations on one of the views.
-
-Notice how the other views become synchronized to the location to which the mouse is pointing.
-
-### Data Probe
+## Data Probe
 
 The data probe returns information about the image under the mouse arrow head, so  move the cursor over one of the images. Here is an example of what you might see if you over the mouse arrow over the red panel:
 
@@ -160,7 +157,7 @@ The data probe returns information about the image under the mouse arrow head, s
 
 For more information, review the [Slicer Coordinate Systems](https://www.slicer.org/wiki/Coordinate_systems) documentation.
 
-## Volume Information
+## Volume Module
 
 The Volume module contains information about the active volume.
 
@@ -209,25 +206,25 @@ Click on the triangle icon besides the Name "Display" to reveal the display cont
 
 ![ctchest display](images/ctchest_display_tab.png){ width="450"}
 
-In this tab, there are a series of seven icons, that represent different Window/Level presets:
+Window/Level is the main way that radiologists adjust the contrast in CT (and X-rays). In the display tab, you can see a series of seven icons that represent different Window/Level presets:
 
-- Try these presets, by clicking on them sequentially and seeing what happens to the image display
+- Click on these presets sequentially to see how they affect the image display
 - Notice how the Window/Level slider changes with each preset
 
-You can also adjust the Lookup table. Try different LUTs for the LOLs.
+You can also adjust the Lookup table. Try different LUTs for the LULz.
 
 #### Histogram
 
-To better understand the Window/Level settings, let's reveal the histogram display. Click on the triangle icon next the Histogram Header:
+To better understand the Window/Level settings, reveal the histogram display by clicking on the triangle icon next the Histogram Header:
 
 ![img-name](images/ctchest-display-histogram.png){ width="450"}
 
-Here you see the plot of the image histogram (blue line). There is also a black-white gradient overlaid on the blue. This gradient indicates the Window/Level setting.
+>Here you see the plot of the image histogram (blue line). There is also a black-white gradient overlaid on the blue. This gradient indicates the Window/Level settings.
   
   - Change the Window/Level Presets and notice what happens to the gradient
-  - Drag the sliders around and notice what happens to the histogram and the images themselves
+  - Drag the Window/Level sliders back and forth and notice what happens to the gradient and the image display
 
-Basically, you are setting the Black and White levels (minimum and maximum levels) and the range of gray levels in between (the window). This is the main way that radiologists adjust the contrast in CT (and X-rays)
+In summary, the Window/Level doesn't change the image histogram, it changes the mapping of the lookup table (changing what is displayed as black and what is displayed as white, and what is displayed as gray in between). Level sets the black and white levels. Window determines the distance between the black and white levels (and the intensities that are shown as gray).
 
 #### Mouse Control of Window / Level
 
@@ -243,7 +240,7 @@ You can also control the Window/Level settings using the mouse and dragging on t
     - Dragging left and right adjusts the window sizes
 3. When you are done, deselect the Window/Level tool by clicking on the White Arrow tool, so you can get back to scrubbing through the images.
 
-#### Selection Mode
+##### Selection Mode
 
 If instead you would like to set the window / level based on the pixel intensity of a certain region of the image, you switch to "Select region" or "Select region - centered" mode, hold down on the triangle icon next to the  Adjust Window Level icon to bring up the context menu:
 
@@ -289,10 +286,27 @@ You can display the 2D slices in the 3D viewer as follows:
     - Or drag the Slice Viewer sliders. That's fun too.
     - Click on the "Fit to window" icon to reposition slice back to center
 
-Make Global changes to the Slice views
+### Make Global changes to the Slice views
    1. In the Red Viewer menu, click on the chain link icon to link the chain.
    2. Click on the Eye Icon to close the eye and hide all three slices from the 3D viewer (the chain link icon links the views across the 3 viewers)
-  
+   
+### Adjust 3D Slice display
+
+By default, each orthogonal slice in the 3D viewer is displayed as a rectangular plane. If there is extraneous information in the plane (like area where data was not generated), you can remove that area using the threshold setting in the Volumes Module
+
+1. Switch the Volumes module
+
+    ![][volumes_module_button]
+2. In the display tab, slide the left threshold slider to the right
+
+![img-name](images/volumes-threshold-slider-adjust.png){ width="350"}
+
+- the axial plane in the 3D viewer is now a circular (displaying only the data that was captured)
+
+    ![img-name](images/CTChest-3D-orthogonal-planes-threshold.png){ width="250"}
+
+- if you keep sliding to the right, you can remove much of what is displayed as black in the orthogonal planes
+
 ### 3D View Controls
 
 In the 3D viewer menu (blue), click on the push-pin to reveal the 3D view controls
@@ -315,7 +329,6 @@ Let's visualize the CTChest using Volume Rendering.
 1. Switch to the Volume Rendering module by selecting it in the Module Menu (in the toolbar) or by clicking on the Volume Rendering toolbar button:
 
     ![img-name](images/button_volume_rendering.png){ width="100"}
-
 
 1. Review the Volume Rendering Module ![][vol_render]
 	

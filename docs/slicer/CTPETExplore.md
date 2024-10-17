@@ -180,7 +180,6 @@ Open the View Controllers Module.
 - Reveal all of the controls by clicking on the >> icon
 - Be sure to unlink the chain (so your changes are not copied into all of the viewers)
 
-
 Use these settings:
 
 ![img-name](images/CTPET-comparison-controls.png){ width="450"}
@@ -195,5 +194,3 @@ Review the results
 - Is the tumor still there?
 
 Review and try to match the views shown the the physicians' findings [here](PETCT-Follow-up-findings.pdf).
-
-
