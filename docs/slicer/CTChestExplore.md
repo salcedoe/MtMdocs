@@ -1,14 +1,14 @@
-[slice_annotations_set]:https://c1.staticflickr.com/5/4582/37492062474_ecd4400b06_o.png
-
 # Exploring CT Datasets
 
 In this module, we explore one of the sample CT (computed tomographic) datasets included with Slicer
 
-## Resources
+## Overview
+
+### Resources
 
 The Slicer website has extensive documentation: [Slicer Documentation - GUI](https://slicer.readthedocs.io/en/latest/user_guide/getting_started.html)
 
-## Learning Objectives
+### Learning Objectives
 
 After completing this module, you should be able to
 
@@ -21,14 +21,6 @@ After completing this module, you should be able to
 7. Change the Layout of the Viewers
 8. Take Screenshots
 
-## Layout View
-
-![layout view][four_up]
-
-Select the "Four-Up" view from the toolbar
-
-[four_up]:images/layout-menu-4up.png
-
 ## Display a CT dataset
 
 Slicer includes many sample datasets, which you can find the Sample Data Module:
@@ -39,17 +31,27 @@ Slicer includes many sample datasets, which you can find the Sample Data Module:
 
     ![img-name](images/Welcome-Module.png){ width="400"}
 
-2. Select "CTChest"
+3. Select "CTChest"
 
-3. Wait... Slicer will download the volume to your computer.
+4. Wait... Slicer will download the volume to your computer.
 
-4. After some time, you should see CT cross-sections in the 2D Viewers.
+5. After some time, you should see CT cross-sections in the 2D Viewers.
 
 ![img-name](images/CTChest-Load.png){ width="450"}
 
 ??? question "Which panel shows the original data as it was capture and which panels show the Multiplanar reconstructions"
 
     CT data is captured along the axial plane, which is shown in the Red Viewer (Coronal Slices). You can tell because this data set is circular (actually columnar). The other two viewers display the [MPRs](http://www.wikiradiography.net/page/Multiplanar+Reconstruction+(MPR)).
+
+### Layout Menu
+
+The organization of the viewers can be set in the Layout menu, found in the toolbar:
+
+![layout view][four_up]
+
+Select the "Four-Up" view from the toolbar if you currently don't have that layout.
+
+[four_up]:images/layout-menu-4up.png
 
 ### Data Module
 
@@ -87,7 +89,7 @@ To do so:
 
 ![slicer controls](https://github.com/Slicer/Slicer/releases/download/docs-resources/getting_started_view_controllers.png){ width="550"}
 
-If you want these orientation markers to be added on launch of Slicer, you can set the default in the Edit:Settings Menu option, under the Views tab.
+If you want these orientation markers to be added on launch of Slicer, you can set the default in the Edit:Settings Menu option, under the Views tab (See [Interface Introduction](InterfaceIntro.md))
 
 ## Navigation and control
 
@@ -221,8 +223,8 @@ To better understand the Window/Level settings, reveal the histogram display by 
 
 >Here you see the plot of the image histogram (blue line). There is also a black-white gradient overlaid on the blue. This gradient indicates the Window/Level settings.
   
-  - Change the Window/Level Presets and notice what happens to the gradient
-  - Drag the Window/Level sliders back and forth and notice what happens to the gradient and the image display
+    - Change the Window/Level Presets and notice what happens to the gradient
+    - Drag the Window/Level sliders back and forth and notice what happens to the gradient and the image display
 
 In summary, the Window/Level doesn't change the image histogram, it changes the mapping of the lookup table (changing what is displayed as black and what is displayed as white, and what is displayed as gray in between). Level sets the black and white levels. Window determines the distance between the black and white levels (and the intensities that are shown as gray).
 
@@ -287,9 +289,10 @@ You can display the 2D slices in the 3D viewer as follows:
     - Click on the "Fit to window" icon to reposition slice back to center
 
 ### Make Global changes to the Slice views
+
    1. In the Red Viewer menu, click on the chain link icon to link the chain.
    2. Click on the Eye Icon to close the eye and hide all three slices from the 3D viewer (the chain link icon links the views across the 3 viewers)
-   
+
 ### Adjust 3D Slice display
 
 By default, each orthogonal slice in the 3D viewer is displayed as a rectangular plane. If there is extraneous information in the plane (like area where data was not generated), you can remove that area using the threshold setting in the Volumes Module
@@ -297,6 +300,7 @@ By default, each orthogonal slice in the 3D viewer is displayed as a rectangular
 1. Switch the Volumes module
 
     ![][volumes_module_button]
+
 2. In the display tab, slide the left threshold slider to the right
 
 ![img-name](images/volumes-threshold-slider-adjust.png){ width="350"}
@@ -330,22 +334,18 @@ Let's visualize the CTChest using Volume Rendering.
 
     ![img-name](images/button_volume_rendering.png){ width="100"}
 
-1. Review the Volume Rendering Module ![][vol_render]
-	
-    ![][ctchest_vol_render]
+2. Review the Volume Rendering Module
+3. Set the Volume to CTChest
+4. Click on the eye icon next to Volume:CTChest to open the eye
+        ![][ctchest_vol_render]{width=350px}
 
-    - The Volume listed should be "CTChest."
-2. Click on the eye icon next to Volume:CTChest to open the eye
-3. The volume should now be rendered in the 3D Viewer
+5. The volume should now be rendered in the 3D Viewer
 
     ![img-name](images/CTChest-3D-Render.png){ width="250"}
 
     - Drag the shift slider left and right to modify the transparency of the voxels
 
-
-[ctchest_vol_render]: https://c1.staticflickr.com/5/4736/39227109891_49b3ae4ddc.jpg
-
-[vol_render]: https://saldenest.s3.amazonaws.com/slicer/volume-render-icon.png
+[ctchest_vol_render]: images/CTChest-vol-rendering-module.png
 
 ### Display Presets
 

@@ -6,9 +6,10 @@
 
 3D Slicer has a documentation site [here](https://slicer.readthedocs.io/en/latest/index.html).
 
-### Useful Slicer Documentation
+## Useful Slicer Documentation
 
 - [Getting Started](https://slicer.readthedocs.io/en/latest/user_guide/getting_started.html#using-slicer)
+- [User Interface](https://slicer.readthedocs.io/en/latest/user_guide/user_interface.html)
 - [Coordinate Systems](https://slicer.readthedocs.io/en/latest/user_guide/coordinate_systems.html)
 - [Data Loading and Saving](https://slicer.readthedocs.io/en/latest/user_guide/data_loading_and_saving.html)
 
@@ -77,7 +78,6 @@ You set the current module by selecting its name from the Modules menu in the To
 
 ![img-name](images/modules_menu.png){ width="250"}
 
-
 ### Welcome Module
 
 The default module is the welcome module which contains key controls for loading data, customizing slicer, and downloading sample data. It also contains several panels of information about using Slicer.
@@ -88,56 +88,52 @@ The default module is the welcome module which contains key controls for loading
 
 #### Welcome Module Main Buttons
 
-* **Add DICOM data** - loading DICOM datasets
+- **Add DICOM data** - loading DICOM datasets
 
-* **Add Data** - load Slicer data
+- **Add Data** - load Slicer data
 
-* **Download Sample Data** - download and display sample datasets
+- **Download Sample Data** - download and display sample datasets
 
-* **Customize Slicer** - Opens Slicer preferences
+- **Customize Slicer** - Opens Slicer preferences
 
-* **Explore Added Data** - Brings up the data module, which shows any data that has been loaded into Slicer
-
+- **Explore Added Data** - Brings up the data module, which shows any data that has been loaded into Slicer
 
 #### Welcome Module Collapsing Tabs
 
 Each panel (indicated by a black triangle) contains basic information on how to interact with the software
 
-* **The Main Window** - information about the interface
+- **The Main Window** - information about the interface
 
-* **Loading and Saving** - how to load and save stuff
+- **Loading and Saving** - how to load and save stuff
 
-* **Display** - Display different types of data (like Volumes versus rendered volumes)
+- **Display** - Display different types of data (like Volumes versus rendered volumes)
 
-* **Mouse and Keyboard** - info about using the mouse
+- **Mouse and Keyboard** - info about using the mouse
 
-* **Documentation & Tutorials**
+- **Documentation & Tutorials**
 
-* **Data Probe**: This panel is available in most module interfaces. It contains pixel information  when the mouse is hovering over a pixel in one of the 2D viewers
+- **Data Probe**: This panel is available in most module interfaces. It contains pixel information  when the mouse is hovering over a pixel in one of the 2D viewers
 
+## Customize Application Settings
 
-<!-- ## Customize Application Settings
+It is convenient to display the human orientation marker in the viewers at startup.
 
-In the Edit menu, select "Application Settings"
+![img-name](images/human_orientation_marker.png){ width="50"}
 
-![][slicer settings]
+>the Orientation marker makes it much easier to understand the orientational of the orthogonal slices or the current view in the 3D viewer
 
-[slicer settings]:https://c1.staticflickr.com/5/4489/37492062954_ebbd555130_o.png
+To set the Slice View defaults:
 
-1. Click on Appearance
-2. Un-check "Show text under icons in toolbar buttons"
-1. Click on Modules
-2. Add Data, Volume Rendering, and Live Segmentation
-3. Restart
-4. Your slice toolbar should now have the following icons:
+1. In the Edit menu, select "Application Settings"
+2. In the dialog window, select the "Views" tab
+3. Use the following settings:
 
-![][favorite_modules]
+![img-name](images/settings-views.png){ width="650"}
 
-[favorite_modules]: https://c1.staticflickr.com/5/4525/37492066994_68a404d7df_o.png
+>When you make changes to the default settings, Slicer requires that you restart the app. Click OK to restart when prompted
 
-```{=html}
-
-### Cache ###
+<!--
+### Cache
 
 You can change the location of the cache so you can download the sample data on the class computers:
 
@@ -145,5 +141,5 @@ Edit:Application Settings:Cache
 
 ![][img_cache]
 
-[img_cache]:https://www.dropbox.com/s/z2ztcx5cvmsesrc/cache_location.png?dl=1-->
-
+[img_cache]:https://www.dropbox.com/s/z2ztcx5cvmsesrc/cache_location.png?dl=1
+-->

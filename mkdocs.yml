@@ -48,7 +48,8 @@ nav:
     - Introduction: slicer/InterfaceIntro.md
     - Data Exploration:
       - CTChest: slicer/CTChestExplore.md
-      - CT PET (Multi-modal Dataset): slicer/CTPETExplore.md
+      - PET CT (Multi-modal Dataset): slicer/CTPETExplore.md
+      - CT MRI: slicer/CTMRExplore.md
 
 theme: 
   name: material
