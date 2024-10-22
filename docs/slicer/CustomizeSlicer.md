@@ -43,8 +43,9 @@ For this course, we will use the following extensions
 1. SegmentEditorExtraEffects
 2. TotalSegmentator
 3. LungCTAnalyzer
+4. HDBrainExtraion
 
-![img-name](images/extension-segEditExtraFX.png){ width="250"} ![img-name](images/extension-LungCTAnalyzer.png){ width="250"} ![img-name](images/extension-TotalSegmentator.png){ width="250"}
+![img-name](images/extension-segEditExtraFX.png){ width="250"} ![img-name](images/extension-LungCTAnalyzer.png){ width="250"} ![img-name](images/extension-TotalSegmentator.png){ width="250"} ![img-name](images/extension-HDBrainExtraction.png){ width="250"}
 
 ### Add extensions as follows
 
