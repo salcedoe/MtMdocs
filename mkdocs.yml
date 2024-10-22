@@ -46,10 +46,13 @@ nav:
     - RGB Images: imageProcessing/ImageRGB.md
   - 3D Slicer:
     - Introduction: slicer/InterfaceIntro.md
+    - Customize Slicer: slicer/CustomizeSlicer.md
     - Data Exploration:
       - CTChest: slicer/CTChestExplore.md
       - PET CT (Multi-modal Dataset): slicer/CTPETExplore.md
       - CT MRI: slicer/CTMRExplore.md
+    - Volume Segmentation:
+      - CTACardio: slicer/CTACardioSegment.md
 
 theme: 
   name: material

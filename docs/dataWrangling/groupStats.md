@@ -68,7 +68,7 @@ A grouping variable is a variable that helps group the observations (e.g. the ro
 
 >In the above image, there are 2 groups, AB and XYZ. The data from the data variable column (in gray) is broken down into these two groups before processing
 
- In our table, the Sex column contains a categorical array with two categories: M or F. In our stats, when we calculate stats like mean height or weight, we want to first group all the male rows together and calculate those stats, and then group  the female rows together and calculate those stats
+ In our table, the Sex column contains a categorical array with two categories: M or F. In our stats, when we calculate stats like mean height or weight, we want to first group all the male rows together and calculate those stats, and then group  the female rows together and calculate those stats.
 
 ## Calculating Stats by group
 

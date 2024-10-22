@@ -23,9 +23,9 @@ Slicer has four fairly simple menus
 
 ### Toolbar
 
-Much of the control of Slicer happens in the Toolbar and modules section the application
+The Toolbar provides quick access to commonly used functions. 
 
-The Toolbar provides quick access to commonly used functions. Individual toolbar panels can be shown/hidden using menu: View / Toolbars section.
+![img-name](images/toobar_annotated.png){ width="800"}
 
 ### Viewers
 
@@ -113,24 +113,6 @@ Each panel (indicated by a black triangle) contains basic information on how to 
 - **Documentation & Tutorials**
 
 - **Data Probe**: This panel is available in most module interfaces. It contains pixel information  when the mouse is hovering over a pixel in one of the 2D viewers
-
-## Customize Application Settings
-
-It is convenient to display the human orientation marker in the viewers at startup.
-
-![img-name](images/human_orientation_marker.png){ width="50"}
-
->the Orientation marker makes it much easier to understand the orientational of the orthogonal slices or the current view in the 3D viewer
-
-To set the Slice View defaults:
-
-1. In the Edit menu, select "Application Settings"
-2. In the dialog window, select the "Views" tab
-3. Use the following settings:
-
-![img-name](images/settings-views.png){ width="650"}
-
->When you make changes to the default settings, Slicer requires that you restart the app. Click OK to restart when prompted
 
 <!--
 ### Cache
