@@ -1,0 +1,2977 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://example.com/slicer/CTACardioSegment/">
+      
+      
+        <link rel="prev" href="../ImportDICOMDataset/">
+      
+      
+        <link rel="next" href="../MRTumorSegment/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>CTACardio - Muddling through Medical Imaging</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#segmenting-a-contrast-enhanced-ct-volume" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Muddling through Medical Imaging" class="md-header__button md-logo" aria-label="Muddling through Medical Imaging" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 0C.9 0 0 .9 0 2v4h2V2h4V0zm16 0v2h4v4h2V2c0-1.1-.9-2-2-2zm-6 3c-4.4 0-8 3.6-8 8 0 2.5 1.2 4.8 3 6.2V21h2v-3h2v3h2v-3h2v3h2v-3.8c1.8-1.5 3-3.7 3-6.2 0-4.4-3.6-8-8-8M8 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m2.5 2 1.5-3 1.5 3zm5.5-2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2M0 18v4c0 1.1.9 2 2 2h4v-2H2v-4zm22 0v4h-4v2h4c1.1 0 2-.9 2-2v-4z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Muddling through Medical Imaging
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CTACardio
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../setup/computerSetup/" class="md-tabs__link">
+          
+  
+  Setup
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../matlabBasics/MATLABReferencePages/" class="md-tabs__link">
+          
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../matlabBasics/MatlabIntro/" class="md-tabs__link">
+          
+  
+  MATLAB Basics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dataWrangling/dataTypes/" class="md-tabs__link">
+          
+  
+  Data Wrangling
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../imageProcessing/ImageIntro/" class="md-tabs__link">
+          
+  
+  Image Processing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../InterfaceIntro/" class="md-tabs__link">
+          
+  
+  3D Slicer
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Muddling through Medical Imaging" class="md-nav__button md-logo" aria-label="Muddling through Medical Imaging" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 0C.9 0 0 .9 0 2v4h2V2h4V0zm16 0v2h4v4h2V2c0-1.1-.9-2-2-2zm-6 3c-4.4 0-8 3.6-8 8 0 2.5 1.2 4.8 3 6.2V21h2v-3h2v3h2v-3h2v3h2v-3.8c1.8-1.5 3-3.7 3-6.2 0-4.4-3.6-8-8-8M8 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m2.5 2 1.5-3 1.5 3zm5.5-2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2M0 18v4c0 1.1.9 2 2 2h4v-2H2v-4zm22 0v4h-4v2h4c1.1 0 2-.9 2-2v-4z"/></svg>
+
+    </a>
+    Muddling through Medical Imaging
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Setup
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Setup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/computerSetup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Computer Settings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/usefulTools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Useful Software Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/MATLABReferencePages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MATLAB Reference Pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MATLAB Basics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            MATLAB Basics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/MatlabIntro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Muddling Through MATLAB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/matlabInterface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The MATLAB Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Basic Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Basic Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/DataOverview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/ArrayAssignmentOverview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Array Assignment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/BinaryNumbers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binary Numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Basic Data Classes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Basic Data Classes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Numeric/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Numeric Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Logical/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logical Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Character/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Character Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Complex Data Classes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Complex Data Classes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Cell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cells
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Strings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Strings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Structures/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Structures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Tables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Simple Programming
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Simple Programming
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/ControlFlow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Control Flow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/FilesFolders/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Files and Folders
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Plotting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Plotting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingComponents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotting Components
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingBasics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotting Basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingOverlaysTiles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotting Overlays and Tiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data Wrangling
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Data Wrangling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataWrangling/dataTypes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Types and Categorical Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataWrangling/tidyData/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tidy Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataWrangling/groupStats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Group Statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Image Processing
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Image Processing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageIntro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Grayscale Images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageEnhancement/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image Enhancement
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageSegmentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image Segmentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageSegmentationCleanup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Segmentation Cleanup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageRegionProcessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Region Processing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageRGB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RGB Images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    3D Slicer
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            3D Slicer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../InterfaceIntro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CustomizeSlicer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Customize Slicer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Data Exploration
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Exploration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTChestExplore/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CTChest
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTPETExplore/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PET CT (Multi-modal Dataset)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTMRExplore/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CT MRI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImportDICOMDataset/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Import DICOM datasets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Volume Segmentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            Volume Segmentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    CTACardio
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    CTACardio
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-volume-and-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Volume and Review
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Load Volume and Review">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adjust-volume-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjust Volume Display
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#volume-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Volume rendering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crop-volume-down-to-the-right-kidney" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crop volume down to the Right Kidney
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-voxel-intensities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspect Voxel Intensities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segmentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment Editor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-the-right-kidney-using-grow-from-seeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment the Right Kidney Using Grow from Seeds
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment the Right Kidney Using Grow from Seeds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-a-segmentation-volume-to-segmentation-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Segmentation volume to Segmentation table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#center-viewers-on-right-kidney" class="md-nav__link">
+    <span class="md-ellipsis">
+      Center Viewers on right kidney
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set Threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hand-paint-the-green-slice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hand Paint The Green Slice
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grow-from-seeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grow from Seeds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Cleanup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save Data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Save Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#segment-the-left-kidney" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment the Left kidney
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-the-aorta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment the Aorta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment the Aorta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local Threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clean-up-aorta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clean up Aorta
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-the-lungs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment the Lungs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment the Lungs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change-windowlevel-of-ctacardio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change Window/Level of CTACardio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lung-ct-segmenter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lung CT Segmenter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-data-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review Data module
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MRTumorSegment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MR Tumors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-volume-and-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Volume and Review
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Load Volume and Review">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adjust-volume-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjust Volume Display
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#volume-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Volume rendering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crop-volume-down-to-the-right-kidney" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crop volume down to the Right Kidney
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-voxel-intensities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspect Voxel Intensities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segmentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment Editor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-the-right-kidney-using-grow-from-seeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment the Right Kidney Using Grow from Seeds
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment the Right Kidney Using Grow from Seeds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-a-segmentation-volume-to-segmentation-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Segmentation volume to Segmentation table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#center-viewers-on-right-kidney" class="md-nav__link">
+    <span class="md-ellipsis">
+      Center Viewers on right kidney
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set Threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hand-paint-the-green-slice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hand Paint The Green Slice
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grow-from-seeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grow from Seeds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Cleanup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save Data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Save Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#segment-the-left-kidney" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment the Left kidney
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-the-aorta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment the Aorta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment the Aorta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local Threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clean-up-aorta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clean up Aorta
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-the-lungs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment the Lungs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment the Lungs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change-windowlevel-of-ctacardio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change Window/Level of CTACardio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lung-ct-segmenter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lung CT Segmenter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-data-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review Data module
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="segmenting-a-contrast-enhanced-ct-volume">Segmenting a Contrast-Enhanced CT Volume</h1>
+<p>Medical image segmentation is the process of dividing a medical image into regions or segments that represent different tissue types or categories. The goal is to identify areas of interest, such as tumors, lesions, or other abnormalities. In this module, we use 3D Slicer to segment one of its sample datasets: the CTACardio Sample dataset.</p>
+<h2 id="background-information">Background information</h2>
+<p>Before we segment, we should have a reasonable understanding of the methodology used to acquire the volume:</p>
+<details class="question">
+<summary>What is a CT Angiogram?</summary>
+<p>Computed tomography angiography (also called CT angiography or CTA) is a CT technique used for angiography (blood vessel imaging). For CTA, you inject a contrast agent (e.g. iodine) into the patient's bloodstream to better visualize the arteries and veins throughout the human body.</p>
+<p><a href="http://www.wikiwand.com/en/Computed_tomography_angiography">CT angiogram</a></p>
+</details>
+<p>For this segmentation project, we will take advantage of the added contrast to segment the kidneys and aorta.</p>
+<h2 id="load-volume-and-review">Load Volume and Review</h2>
+<ol>
+<li>
+<p>Click on "Download Sample Data"  button:</p>
+<p><img alt="img-name" src="../images/mod_menu-sample-data-button.png" width="150" /></p>
+</li>
+<li>
+<p>Select "Download CTACardio"</p>
+</li>
+<li>
+<p>Switch to the <code>Volumes</code> module</p>
+<p><img alt="img-name" src="../images/button_volumes_module.png" width="50" /></p>
+</li>
+<li>
+<p>Set the Active Volume to "CTACardio"</p>
+</li>
+<li>You should now see the following:</li>
+</ol>
+<p><img alt="img-name" src="../images/ctacardio_vol_info.png" width="550" /></p>
+<details class="question">
+<summary>Volume and Voxel sizes: How many voxels in the volume and how large is each voxel?</summary>
+<ul>
+<li>Volume Size: <span class="arithmatex">\(512 * 512 * 321 = 84,148,224\)</span> voxels (~84 million)</li>
+<li>Voxel Size: <span class="arithmatex">\(0.93 * 0.93 * 1.25 = 1.08 mm^3\)</span> </li>
+</ul>
+</details>
+<details class="question">
+<summary>Are the voxels isotropic or anisotropic?</summary>
+<p>anisotropic</p>
+</details>
+<details class="question">
+<summary>What is the dynamic range of the volume?</summary>
+<p>-1024 to 3532</p>
+</details>
+<h3 id="adjust-volume-display">Adjust Volume Display</h3>
+<p>In the Volumes module, under the Display Tab, select the CT-Abdomen preset:</p>
+<p><img alt="" src="../images/volumes-display-CT-Abdoment.png" /></p>
+<h3 id="volume-rendering">Volume rendering</h3>
+<p><img alt="volume render button" src="../images/button_volume_rendering.png" width="200" /></p>
+<p>Volume rendering is a great way to determine which parts of the volume have high contrast</p>
+<ol>
+<li>Bring up the <code>Volume Rendering</code> module: </li>
+<li>Select "CTACardio" volume in the Volume menu</li>
+<li>Click open the <code>eye</code> icon to render the volume</li>
+<li>Slide the Shift slider back and forth to reveal different aspects of the volume</li>
+<li>Notice how bright the veins are in the patients arm</li>
+<li>Slide the Shift slider to the left to reveal the oxygen tank sitting atop the patient's chest</li>
+<li>Select the "CT-Chest Contrast Enhanced" Preset</li>
+<li>Slide the Shift slider to the right to reveal the kidneys</li>
+</ol>
+<p><img alt="volume render settings" height="200" src="../images/CTACardio-volume-rendering-module.png" /> <img alt="volume render CTA Cardio" height="200" src="../images/CTACardio-vol-render.png" /> <img alt="volume render CT Chest enhanced" height="200" src="../images/CTACardio-CT-chest-contrast-enhanced.png" /></p>
+<blockquote>
+<p>Notice that the kidneys, heart, vasculature, bones all segment out at the similar intensity mappings. This means that it will not be possible to use a simple threshold to segment these organs individually</p>
+</blockquote>
+<h3 id="crop-volume-down-to-the-right-kidney">Crop volume down to the Right Kidney</h3>
+<ol>
+<li>In the <code>Volume Rendering</code> module, Check "Enable" crop and click on "Display ROI"</li>
+<li>Adjust the ROI to encompass just the right kidney</li>
+<li>Under the Advanced Tab, click on the "Scalar Opacity Mapping" function to adjust the transparency of the volume</li>
+<li>Hide the Crop ROI</li>
+</ol>
+<p>You should see something that looks like this:</p>
+<p><img alt="volume render kidney" height="300" src="../images/CTACardio-vol-render-cropped-kidney.png" /></p>
+<blockquote>
+<p>The kidney is surrounded by ribs and the spinal column which imaged with similar levels of intensity. So, if we use basic thresholding, we will have to clean up a lot of the segmentation surrounding the kidney</p>
+</blockquote>
+<p><em>Before continuing, turn off the 3D render by clicking the </em><em>eye icon</em><em> closed</em></p>
+<h3 id="inspect-voxel-intensities">Inspect Voxel Intensities</h3>
+<p>The most basic segmentation techniques involve thresholding, in which an intensity cut-off value is used to create a mask. For this exercise, we want to first segment the cortex of the kidneys, so let's inspect the intensity inside the kidney and in the tissue surrounding the kidneys. </p>
+<p>Let's start with Right kidney. Remember, we should look at the right kidney in all three views. To help align the views, we will turn on the <code>Crosshair</code> tool ( <img alt="img-name" src="../images/button-crosshair.png" width="25" /> ), which adds crosshairs to each view to show the center of the alignment.</p>
+<ol>
+<li>
+<p>In the top toolbar, hold down the Crosshair tool menu and make sure the following menu items are selected:</p>
+<p><img alt="cross hair menu" src="../images/menu-crosshair.png" width="200" /></p>
+</li>
+<li>
+<p>Click on the Crosshair tool to activate</p>
+</li>
+<li>In the 2D viewers, scrub to the slices that show the <strong>right</strong> kidney. </li>
+<li>
+<p>Hold <strong>shift</strong> while you hover the mouse pointer over one kidney view to align all three views. The slice iteration lines will jump to the mouse when you hold shift. There should be yellow crosshairs in all three views to indicate the center of the alignments</p>
+<p><img alt="img-name" src="../images/CTACardio-4up-crosshair.png" width="350" /></p>
+</li>
+<li>
+<p>Release <strong>shift</strong> and move the mouse pointer over the kidney and surrounding tissue inspect the intensity values of the voxels</p>
+</li>
+<li>Compare the intensity value of the kidney to the tissue surrounding the kidney and to the spinal column. Make note of these intensity values:<ul>
+<li><strong>Kidney</strong>: <code>~245</code></li>
+<li><strong>Surrounding Tissue</strong>, <code>~80</code></li>
+<li><strong>Vertebrae:</strong> <code>~300-1000</code>.</li>
+</ul>
+</li>
+</ol>
+<h2 id="segmentation">Segmentation</h2>
+<p>For this exercise, we will segment the Kidneys, the Aorta, and the Lungs.</p>
+<h3 id="crop">Crop</h3>
+<p>Segmentation projects are often memory intensive. So, is often useful to crop the volume down to the bare minimum needed for the segmentation project. For analysis of the segmentations, it is also useful to resample the voxels so that they are isotropic.</p>
+<ol>
+<li>Switch to the <code>Volume Rendering</code> module</li>
+<li>Enable and display the crop ROI</li>
+<li>If the crop is still specific to the right kidney, click on the "Fit to Volume" icon so the ROI covers the entire volume</li>
+<li>Crop out the table and as much of the wires as you can manage</li>
+</ol>
+<p><img alt="img-name" src="../images/CTACardio-vol-render-full-crop.png" width="450" /></p>
+<ol>
+<li>Next, switch to the <code>Crop</code> module by searching for the module using the magnifying glass</li>
+<li>Use the following settings</li>
+<li><strong>Input volume</strong>: "CTACardio"</li>
+<li><strong>Input ROI:</strong> "Volume rendering ROI" - this is the ROI that we created in the <code>Volume Rendering</code> module</li>
+<li><strong>Output Volume:</strong> Create a new volume as "CTACardioCrop"
+    <img alt="img-name" src="../images/CTACardio-crop-create-new-vol.png" width="250" /></li>
+<li>Check on "Interpolated cropping"</li>
+<li>Reveal the Volume Information tab</li>
+</ol>
+<p>Your crop settings should be as follows:</p>
+<p><img alt="img-name" src="../images/CTACardio-crop-settings.png" width="450" /></p>
+<blockquote>
+<p>Notice that the new, cropped volume will have isotropic voxels</p>
+</blockquote>
+<ol>
+<li>Click Apply ( you have to scroll down from Volume Information)</li>
+<li>The new cropped volume (CTACardioCrop) should appear in the viewers</li>
+<li>Return to the <code>Volume Rendering</code> module</li>
+<li>Turn off Volume Rendering (click eye icon closed)</li>
+<li>Hide the ROI (click Display ROI off)</li>
+</ol>
+<h3 id="filter">Filter</h3>
+<p>You should also filter a volume before you segment.</p>
+<ol>
+<li>Open the <code>Median Image Filter</code> module</li>
+<li>Use the default settings (Neighborhood Size <code>1,1,1</code>)</li>
+<li>Input Volume: CTACardioCrop</li>
+<li>Output Volume: CTACardioCrop</li>
+<li>Click <code>APPLY</code></li>
+</ol>
+<p><img alt="img-name" src="../images/CTACardio-median-filter.png" width="400" /></p>
+<p>This will overwrite the cropped volume with a filtered version of the volume</p>
+<h3 id="segment-editor">Segment Editor</h3>
+<p>The <a href="http://slicer.readthedocs.io/en/latest/user_guide/module_segmenteditor.html">Segment Editor</a> module organizes a set of tools to create and manage segmentations.</p>
+<p>First, be sure to reset the volume look-up table by clicking on the CT-Abdomen present under the display tab in the <strong>Volumes</strong> module.</p>
+<h3 id="segment-the-right-kidney-using-grow-from-seeds">Segment the Right Kidney Using Grow from Seeds</h3>
+<p>We start by creating a segmentation of the Right Kidney</p>
+<h4 id="add-a-segmentation-volume-to-segmentation-table">Add a Segmentation volume to Segmentation table</h4>
+<ol>
+<li>Bring up the Segment Editor Module: <img alt="img-name" src="../images/button-segment-editor.png" width="20" /></li>
+<li><strong>Master volume:</strong> Make sure the master volume is the "CTACardioCrop" volume</li>
+<li>Click on the add button ![segment editor add button][segment editor add button]</li>
+<li>A Segmentation row should appear in the Segmentations table. The name should be "Segment_1" (or something similar)</li>
+<li>Rename this row "Right Kidney" by clicking on "Segment_1" name</li>
+</ol>
+<p><img alt="img-name" src="../images/CTACArdio-SegEditor-row1.png" width="450" /></p>
+<blockquote>
+<p>Notice that a segmentation node has been added to the <code>Data</code> module</p>
+</blockquote>
+<h4 id="center-viewers-on-right-kidney">Center Viewers on right kidney</h4>
+<ol>
+<li>In the green viewer, scrub to the center of kidneys. <ul>
+<li>Notice that the kidneys have a lighter outer area (the cortex) and a darker interior area (the medulla). We will capture the cortex in this exercise.</li>
+</ul>
+</li>
+<li>Make sure the coronal section (green viewer) is showing a slice near the <strong>center</strong> of the kidney.</li>
+<li>Align all three views to the center of the right kidney (hold shift while moving and point the mouse at the right kidney in the green viewer)</li>
+<li>All three views should now be showing the right kidney</li>
+</ol>
+<h4 id="set-threshold">Set Threshold</h4>
+<p>We can use the threshold tool to segment the kidney, but that would also segment some of the vasculature and parts of the skeletal system. Instead, we will use the threshold tool to set the Masking, which are the editable intensities in the volume (the voxels that we  can mask).</p>
+<ol>
+<li>Click on the <strong>Threshold</strong> tool <img alt="img-name" src="../images/seg-editor-threshold-button.png" width="25" /><ul>
+<li>You should see a gray flashing color overlaid on the grayscale images in the 2D viewer
+<img alt="thresh preview" src="../images/CTACardio-2D-thresh-tool-preview.png" width="250" /></li>
+</ul>
+</li>
+<li>Adjust the <strong>Threshold range</strong>: <code>150</code> to <code>300</code>. Kidney, some vasculature, and bone cortex should light up.</li>
+<li>Click on "Use for Masking"<ul>
+<li>This turns on the "Editable intensity range" and switches over to the Paint Tool</li>
+</ul>
+</li>
+</ol>
+<p><img alt="img-name" src="../images/CTACardio-threshold-mask-settings.png" width="350" /></p>
+<h4 id="hand-paint-the-green-slice">Hand Paint The Green Slice</h4>
+<p>The previous step should have switched you to the Paint Tool</p>
+<p><img alt="paint settings" src="../images/CTACardio-paint-kidneys.png" width="350" /></p>
+<blockquote>
+<p>Notice Under the Masking Tab that the "Editable Intensity Range" has been checked on and the range is the threshold values that we set in the threshold tool (150 - 300)</p>
+</blockquote>
+<ol>
+<li>Move the mouse over the kidney and click-drag to paint</li>
+<li>Notice that we can only paint inside of the cortex of the kidney.</li>
+<li>This is because of the "Editable Intensity Range" setting. </li>
+<li>If you uncheck that setting, then the paint tool will paint everywhere you click-drag (so, don't do that)</li>
+<li>Paint the Right kidney in all three views. Only paint the current slice in each viewer (don't scrub through the slices)</li>
+<li>You should now have three orthogonal segmentations of the kidney cortex.</li>
+<li>To visualize these slices in 3D, click on the Show 3D button
+    <img alt="show 3D" src="../images/seg-editor-show-3D-button.png" width="100" /></li>
+</ol>
+<p><img alt="kidney segmetnation" src="../images/CTACardio-4up-kidney-manual-seg.png" width="450" /></p>
+<p>We could repeat this process and painstakingly trace every single slice of the kidney, slice by slice, until we have the entire kidney cortex segmented. But this dataset has enough contrast between the kidney and the surrounding tissue to automate instead. For example, we can use the grow from seeds method...</p>
+<h4 id="grow-from-seeds">Grow from Seeds</h4>
+<p>The Grow from Seeds tool segments by searching for voxels sharing a similar intensity range that are adjacent. First, though, you have to establish which voxels are kidney (the 'seeds') and which voxels are definitely not kidney (background).</p>
+<p>We start the process starts by creating a new segmentation layer for the background</p>
+<ol>
+<li>Click on the "Add" button in the segment editor module <img alt="add button" src="../images/seg-editor-add-button.png" width="45" /></li>
+<li>
+<p>In the segmentations table, a new row should appear under the Left Kidney row. <strong>Rename</strong> that row "background".</p>
+<p><img alt="segmentation table" src="../images/CTACArdio-SegEditor-row2.png" width="450" /></p>
+</li>
+<li>
+<p><strong>Paint Tool</strong> Click on the "Paint tool". <img alt="paint button" src="../images/seg-editor-paint-button.png" width="25" /></p>
+</li>
+<li>Select the background segmentation row in the segmentations table.</li>
+<li>Uncheck "Editable intensity range" so you can paint everywhere</li>
+<li>Set the <strong>Editable Area</strong> to "Outside all segments"</li>
+<li>
+<p>Paint around the kidney in all three Slice Views.</p>
+<ul>
+<li>You shouldn't be able to overwrite the green (due to the Editable area setting)</li>
+<li>Be sure that you painting the background color (mustard in this case) and not the kidney color (green)</li>
+<li>Be sure to sample as many different regions of the volume that are NOT kidney, but that immediately surround the kidney.</li>
+<li>Be sure to also paint inside the kidney in the medulla areas</li>
+<li>
+<p>You should get something that looks like this:</p>
+<p><img alt="background segmentation" src="../images/CTACardio-4up-background-paint.png" width="450" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Grow From Seeds.</strong> Click on the "Grow from Seeds" icon <img alt="grow from seeds button" src="../images/seg-editor-grow-from-seeds-button.png" width="25" /></p>
+<ol>
+<li><strong>Critical!</strong> Reselect "Right Kidney" in the Segmentations table</li>
+<li>Use the following settings:
+    <img alt="grow from seeds settings" src="../images/CTACardio-grow-from-seeds-settings.png" width="350" /></li>
+<li>Click "Initialize"</li>
+<li>Scrub through the slices to make sure that the segmentation worked. Use to the paint tool to clean up any errors. After patching up, click on the "Update" button.</li>
+<li>Click on "Apply" - it may seem like Slicer crashed. Just wait</li>
+<li>After a while, you should get something like this:
+<img alt="img-name" src="../images/CTACardio-4up-grow-from-seeds.png" width="450" /></li>
+</ol>
+</li>
+<li>
+<p>Notice that the Background is now a large Cube. Grow from seeds extends the background from your background paintings into a 3D cube. Inside this cube, is the kidney.</p>
+</li>
+<li>Delete the "Background" segmentation (mustard box).<ul>
+<li>Select the "background" row in the segmentation table</li>
+<li>Click on the "Remove" button <img alt="remove button" src="../images/seg-editor-remove-button.png" width="50" /></li>
+<li>You should now see a fully segmented kidney, in all its glory, in the 3D viewer
+<img alt="r kidney segmentation" src="../images/ctacardio-3D-kidney-segmentation.png" width="250" /></li>
+</ul>
+</li>
+</ol>
+<h4 id="segmentation-cleanup">Segmentation Cleanup</h4>
+<p>After segmentation, you typically use some morphological operations to clean  up the segmentation. The <code>Segment Editor</code> contains many useful tools, such as the Islands Tool, which can remove small noise.</p>
+<p><strong>Islands Tool</strong></p>
+<p><img alt="islands tool" src="../images/seg-editor-islands-button.png" width="50" /></p>
+<ol>
+<li>Click on the <strong>Islands</strong> icon.</li>
+<li>Select "Remove small islands"</li>
+<li>Set "Editable area" to "Everywhere"</li>
+<li>Use the default setting of 1000</li>
+<li>Click Apply</li>
+<li>Small noise should be removed</li>
+</ol>
+<p><strong>Smoothing</strong></p>
+<p><img alt="img-name" src="../images/seg-editor-smoothing-button.png" width="50" /></p>
+<p>You can remove extrusions or close holes using the smoothing tool</p>
+<ol>
+<li>Click on the <strong>Smoothing</strong> icon</li>
+<li>Try the default settings for Closing (fill holes) and Opening (remove extrusions)</li>
+<li>Click "Apply" to apply the smoothing effect</li>
+</ol>
+<h3 id="save-data">Save Data</h3>
+<p>Time to save your hard work!</p>
+<ol>
+<li>Click on the save icon: <img alt="save button" src="../images/button_save.png" width="25" /></li>
+<li>In the dialog, Click on the "Change directory…" button</li>
+<li>In the file dialog that appears, create a new folder called 'CTACardio' and then click Choose
+    <img alt="save dialog" src="../images/CTACardio-save-dialog.png" width="450" /></li>
+<li>Back in the Save Dialog, Choose "Save"</li>
+<li>Everything in the table that is checked will be saved.</li>
+</ol>
+<h4 id="segment-the-left-kidney">Segment the Left kidney</h4>
+<p>Repeat the segmentation steps for the Left Kidney</p>
+<ul>
+<li>Create a new Segmentation Called Left Kidney. Set the color to Blue</li>
+<li>Settings for  <strong>Grow From Seeds</strong>
+        - Masking: Editable area: Outside all visible segments
+        - Overwrite other segments: "none"</li>
+</ul>
+<p>SAVE YOUR WORK!</p>
+<h3 id="segment-the-aorta">Segment the Aorta</h3>
+<p>For the Aorta, we will use a different segmentation method. First, though, we need to create the segmentation volume.</p>
+<ol>
+<li>In the <code>Segment Editor</code> module, Click on the Add Button</li>
+<li>Rename the new segmentation "Aorta"</li>
+<li>Change the color of the Aorta to red by double-clicking on the color tile to bring up the color selector</li>
+<li>choose "Artery" red</li>
+<li>Make sure that the Aorta segmentation is selected for the following steps</li>
+</ol>
+<p><img alt="img-name" src="../images/CTACArdio-SegEditorTable-kidney-aorta.png" width="550" /></p>
+<h4 id="local-threshold">Local Threshold</h4>
+<p><img alt="img-name" src="../images/seg-editor-local-threshold-button.png" width="50" /></p>
+<p>The local threshold tool is an add-on tool included with the "SegmentEditorExtraEffects" extension. Make sure you have that <a href="../CustomizeSlicer/">extension installed</a> before continuing. Local threshold works by setting an intensity range and then clicking on the image to add a starting point for the segmentation. The algorithm will segment any connected voxels with the same intensity range.</p>
+<ol>
+<li>Switch to the Local Threshold tool</li>
+<li>Set the threshold Range to: <code>300-600</code></li>
+<li>Under the Masking tab, set the <strong>Editable area</strong> to "Outside all segments"</li>
+<li>For <strong>Modifying other segments</strong>, choose "Overwrite visible"
+    <img alt="img-name" src="../images/CTACardio-local-threshold-preview.png" width="250" />
+    &gt;You should see a flashing color indicating what will be segmented. Notice that kidney is outside of the threshold range</li>
+<li>Once you have these settings, Ctrl- or Command- click on the descending aorta and watch the magic happen</li>
+</ol>
+<p><img alt="img-name" src="../images/CTACardio-4up-kidney-aorta-heart.png" width="450" /></p>
+<blockquote>
+<p>So, we also got the ventricles of the heart, but no matter, we can clean that up</p>
+</blockquote>
+<h4 id="clean-up-aorta">Clean up Aorta</h4>
+<ol>
+<li>Maximize the 3D viewer</li>
+<li>Switch to the Scissors tool <img alt="img-name" src="../images/seg-editor-scissors-button.png" width="25" /></li>
+<li>Make sure Aorta is selected in the Segmentation table</li>
+<li>Position the 3D view so you can see the blue background behind the aortic arch
+   <img alt="img-name" src="../images/CTACardio-scissor-tool-aorta.png" width="250" /></li>
+<li>Cut the arch by drawing an oval using the scissor tool
+   <img alt="img-name" src="../images/CTACardio-scissor-tool-aorta.gif" width="250" /></li>
+<li>Use the arrow keys to rotate the segmentation and ensure that you have separated the arch from the heart</li>
+<li>Switch to the Islands Tool</li>
+<li>Select "Remove selected island"</li>
+<li>In <strong>the 2D view</strong> of the segmentation, click on a segmentation in the heart to remove that portion of the segmentation
+    <img alt="img-name" src="../images/CTACardio-4up-remove-selected-island.png" width="350" />
+    &gt;Notice that the pointer icon shows the island tool when pointing to the segmentation in the 2D view only (not the the 3D viewer)</li>
+<li>Select "Remove small islands" using a minimum size of 1000 voxels</li>
+<li>Click apply and enjoy your segmented aorta</li>
+<li>Save your work!</li>
+</ol>
+<p><img alt="img-name" src="../images/CTACardio-3D-segmentations-kidney-aorta.png" width="250" /></p>
+<h3 id="segment-the-lungs">Segment the Lungs</h3>
+<p>This requires the Lung CT Analyzer &amp; Segmenter extension to be installed.</p>
+<h4 id="change-windowlevel-of-ctacardio">Change Window/Level of CTACardio</h4>
+<ol>
+<li>Switch to the <code>Volumes</code> module</li>
+<li>Set the <strong>Active Volume</strong> to "CTACardioCrop"</li>
+<li>Select the CTLung Preset</li>
+</ol>
+<p><img alt="img-name" src="../images/volumes-ct-lung-preset.png" width="50" /></p>
+<h4 id="lung-ct-segmenter">Lung CT Segmenter</h4>
+<p><a href="https://www.youtube.com/watch?v=fpLxm7uAvZQ">YouTube demonstration</a></p>
+<p>Open the Lung CT Segmenter:</p>
+<p><img alt="img-name" src="../images/mod-menu-LungCTSegment.png" width="250" /></p>
+<blockquote>
+<p>This menu item is only available after you have installed the extension</p>
+</blockquote>
+<p>The module looks like this:</p>
+<p><img alt="img-name" src="../images/LungCTSegmenter-module-panel.png" width="450" /></p>
+<ol>
+<li>Make sure that your <strong>Input volume</strong> is "CTACardioCrop"</li>
+<li>Otherwise, don't change any of the settings</li>
+<li>Click Start</li>
+<li>You will be present with an axial slice and Prompted to add three points to the right lung</li>
+<li>Scrub to the middle of the lungs</li>
+<li>Click on three points in the right lung, followed by three points in the left lung
+   <img alt="img-name" src="../images/LungCTSegmenter-axial-plane.png" width="350" /></li>
+<li>Once you have added the points, you will then be presented with a coronal plane</li>
+<li>Again, scrub to a region near the middle of the lungs</li>
+<li>Click on three points in the right lung, followed by three points in the left lung
+    <img alt="img-name" src="../images/LungCTSegmenter-coronal-plane.png" width="350" /></li>
+<li>Once you have added the points, you be prompted to add a point to the trachea. If you don't see the trachea, scrub through the coronal planes until you do.</li>
+<li>Add a point to the trachea</li>
+<li>If everything looks good, click Apply</li>
+<li>Enjoy segmentations of the lung and trachea</li>
+</ol>
+<p><img alt="img-name" src="../images/CTACardio-4up-lung-segmentation.png" width="450" /></p>
+<h4 id="review-data-module">Review Data module</h4>
+<p>Notice that a new Segmentation Node has been added: "Lung Segmentation". There are also some segmentations in there not being displayed</p>
+<p><img alt="img-name" src="../images/CTACardio-data-lung-segmentation.png" width="450" /></p>
+<blockquote>
+<p>Notes: models will be added in a future step</p>
+</blockquote>
+<p>Save your work!</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/salcedoe"  target="_blank" rel="noopener">Ernesto Salcedo</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.instant", "navigation.top", "navigation.path", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
