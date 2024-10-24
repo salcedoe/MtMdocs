@@ -1,67 +1,56 @@
-In this module, we will segment the femurs from a DICOM dataset. 
+# Femur Segmentation 9553F
 
-{{TOC}}
+In this module, we will segment the Pelvis and Femurs from the 9553F DICOM dataset.
 
 ## LOAD DICOM Volume
 
-In the Slicer DICOM database (see previous module page), select 9553F dataset and load the BODY BONE Volume.
+Load the `9553F Body Bone` dataset into Slicer, as discussed in the [Import DICOM datasets documentation](ImportDICOMDataset.md). Alternatively, you can load the 6 Body Bone NRRD volume from the MATLAB drive.
 
-Alternatively, you can load the 6 Body Bone NRRD volume from the MATLAB drive.
+![img-name](images/dicom-4up-9553F-body-bone-fixed.png){ width="450"}
+> Note: you won't see the 3D render until you follow [Volume Rendering](#volume-rendering) steps below
 
 ## Volumes Module
 
-- Bring up the Volumes Module ![][img-volumes-button]
-- Open the Volumes Information table and review
+Whenever you first bring up a volume in Slicer, you should always review the Volume Information. 
 
-![<p>Whenever you first bring up a volume in Slicer, you should always review the Volume Information. Notice that this volume has 512 rows and columns and 473 slices. The volume also anisotropic voxels with dimensions of 0.98mm x 0.98mm x 3.5mm</p>][img-CTFemur-Volume-Info]
+![img-name](images/button_volumes_module.png){ width="50"}
 
-[img-CTFemur-Volume-Info]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/CTFemur-Volume-Info.png width=400px
+- Bring up the Volumes Module
+- Open the Volumes Information tab and review
 
-When segmenting, it helps to adjust the contrast so that the target anatomy (e.g. the femur) is brighter than the rest of the tissue. 
+![img-name](images/CTFemur-Volume-Info.png){ width="450"}
+> - This volume has 512 rows and columns and 473 slices (124 million voxels)
+> - The volume also anisotropic voxels with dimensions of 0.98mm x 0.98mm x 3.5mm
 
-- Reveal the display tab 
+When segmenting, it helps to adjust the contrast so that the target anatomy (e.g. the femur) is brighter than the rest of the tissue.
 
-![<p></p>][img-volumes-display]
+![img-name](images/volumes-display.png){ width="450"}
 
-- Select the CT Bone Window Level Preset ![][img-volumes-ct-bone-preset]
+- Select the CT Bone Window Level Preset 
+    ![img-name](images/volumes-ct-bone-preset.png){ width="50"}
 
-[img-volumes-ct-bone-preset]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/volumes-ct-bone-preset.png width=24px
+Your volume should have the contrast shown in the right column (CT Bone LUT). 
 
-[img-volumes-display]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/volumes-display.png width=400px
-
-
-![<p>Your volume should have the contrast shown in the right column (CT Bone LUT). Notice how using this LUT deemphasizes the tissue (almost black) while highlighting the bone (almost bright white).</p>][img-CTFemur-Volumes-adjust-LUT]
-
-[img-CTFemur-Volumes-adjust-LUT]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/CTFemur-Volumes-adjust-LUT.png width=400px
-
-[img-volumes-button]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/volumes_module_button.png width=24px
-
----
+![img-name](images/CTFemur-Volumes-adjust-LUT.png){ width="450"}
+>Notice how using this LUT deemphasizes the tissue (almost black) while highlighting the bone (almost bright white).
 
 ## Volume Rendering
 
-Volume Rending is useful for exploring a volume and quickly rendering anatomical structures. This is NOT a substitute for segmentation. This is mostly for display purposes only. For example, there is nothing to export from a volume rendering. 
+![img-name](images/button_volume_rendering.png){ width="150"}
 
-That being said, it is often useful to quickly render anatomical structures before segmenting. 
+Volume Rendering is useful for exploring a volume and quickly rendering anatomical structures. This is NOT a substitute for segmentation. This is mostly for display purposes only. For example, there is nothing to export from a volume rendering. That being said, it is often useful to quickly render anatomical structures before segmenting.
 
-- Bring up the Volume Rendering Module ![][img-volume-render-icon]
-- Select the Body Bone volume from the pop up menu
+1. Bring up the Volume Rendering Module
+2. Select the Body Bone volume from the pop up menu
+    ![img-name](images/volume-render-select-volume.png){ width="450"}
+    ![img-name](images/CTFemur-vol-render-select-volume-menu.png){ width="450"}
+3. Adjust the **Shift** slider to reveal a render of the cadaver
+   ![img-name](images/volume-render-display.png){ width="450"}
+4. Select the CT-AAA to reveal a render of the cadaver's skeletal system
+   ![img-name](images/volume-render-presets.png){ width="450"}
+5. The goal is to reveal the following:
+   ![img-name](images/CTFemur-volume-rendering-3D.png){ width="450"}
 
-![<p></p>][img-vol-render-select]
-
-![<p></p>][img-vol-render-select-menu]
-
-- Under the display tab, adjust the Shift slider to reveal a render of the cadaver
-
-![<p></p>][img-vol-render-disp]
-
-- Select the CT-AAA to reveal a render of the cadaver's skeletal system
-
-![<p></p>][img-vol-render-preset]
-
-In the end, you should see the following two renders:
-
-![<p></p>][img-vol-render-3D]
 
 - **Now you try**: adjust the Shift slide to reveal the implant in the left knee. There are two parts to the implant: one in the femur and one in the tibia.
 
@@ -86,7 +75,7 @@ Cropping the volume is a critical step in Slicer as it helps reduce the memory l
 
 - Under the display tab (in the Volume rendering module) Enable Crop and Display the ROI
 
-![<p></p>][img-enable-crop]
+![    ][img-enable-crop]
 
 [img-enable-crop]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/volume-render-enable-crop.png width=400px
 
@@ -102,13 +91,13 @@ To crop the actual volume itself, we need the Crop Volume module
 
 - Search for the Crop Volume module using the module finder tool (looking glass  icon)
 
-![<p></p>][img-crop-vol-search]
+![    ][img-crop-vol-search]
 
 [img-crop-vol-search]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/crop-volume-search.png width=400px
 
 - Use the following settings:
 
-![<p></p>][img-crop-vol-settings]
+![    ][img-crop-vol-settings]
 
 > **IO tab:** Notice that  the default for `Input ROI` is already the "Volume rendering ROI" that you created in the Volume Rendering module. For `Output volume`, select "Create new volume as..." and enter "BODY BONE crop"
 > 
@@ -182,11 +171,11 @@ We are now ready to segment the femurs. Remember, when you segment, you actually
 - Bring up the Segment editor module ![][img-seg-editor]
 - Rename the Segmentation as "Femur Segmentation"
 
-![<p></p>][img-seg-edit-rename]
+![    ][img-seg-edit-rename]
 
 - Set the Master volume to "BODY BONE crop"
 
-![<p></p>][img-seg-edit-settings]
+![    ][img-seg-edit-settings]
 
 - Notice that in the Data module there is now something called "Femur Segmentation"
 
@@ -220,7 +209,7 @@ Our strategy for capturing the femurs will be to first segment the skeleton in t
 - Before proceeding, be sure to select the Skeleton Label in the Segmentation table. 
 - Bring up the Threshold Tool (![][img-thresh-tool button]) and enter the following settings:
 
-![<p></p>][img-thresh-settings]
+![    ][img-thresh-settings]
 
 - Click apply.
 
@@ -249,7 +238,7 @@ Now that we have a segmentation for the skeleton, we need to separate out the fe
 
 - Activate `Sphere Brush` and `Edit in 3D Views`
 
-![<p></p>][img-paint-settings]
+![    ][img-paint-settings]
 
 
 - Select "Femur_Right" in the segmentation table.
@@ -343,7 +332,7 @@ Since the implant is so bright, it is easy to capture using the Threshold Tool.
 
 ## Final Result
 
-![<p></p>][img-final-4up]
+![    ][img-final-4up]
 
 [img-final-4up]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/CTFemur-all-segmentations-4up.png width=500px
 

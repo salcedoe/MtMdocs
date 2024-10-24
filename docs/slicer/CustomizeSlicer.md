@@ -38,7 +38,7 @@ The favorites panel, to the right of the arrows, can be modified in the Applicat
 
 Extensions are customized modules to handle a varied specialized tasks.
 
-For this course, we will use the following extensions
+For the Slicer exercises, we will use the following extensions
 
 1. SegmentEditorExtraEffects
 2. TotalSegmentator
