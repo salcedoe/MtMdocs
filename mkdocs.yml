@@ -53,6 +53,7 @@ nav:
       - CT MRI: slicer/CTMRExplore.md
     - Volume Segmentation:
       - CTACardio: slicer/CTACardioSegment.md
+      - MR Tumors: slicer/MRTumorSegment.md
 
 theme: 
   name: material

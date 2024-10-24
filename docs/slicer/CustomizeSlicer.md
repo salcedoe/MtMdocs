@@ -44,8 +44,9 @@ For this course, we will use the following extensions
 2. TotalSegmentator
 3. LungCTAnalyzer
 4. HDBrainExtraion
+5. PyTorch
 
-![img-name](images/extension-segEditExtraFX.png){ width="250"} ![img-name](images/extension-LungCTAnalyzer.png){ width="250"} ![img-name](images/extension-TotalSegmentator.png){ width="250"} ![img-name](images/extension-HDBrainExtraction.png){ width="250"}
+![img-name](images/extension-segEditExtraFX.png){height="300"} ![img-name](images/extension-LungCTAnalyzer.png){height="300"} ![img-name](images/extension-TotalSegmentator.png){ height="300"} ![img-name](images/extension-HDBrainExtraction.png){height="300"} ![img-name](images/extension-PyTorch.png){ height="300"}
 
 ### Add extensions as follows
 
@@ -56,5 +57,8 @@ For this course, we will use the following extensions
 3. Find Extension of interest, like "SegmentEditorExtraEffects"
 4. Click the Install Button
 5. Repeat
+6. When you are finished installing extensions, restart Slicer.
 
-When you are finished installing extensions, restart Slicer when prompted.
+!!! tip "Pro-Tip: If the extension manager isn't working"
+
+    Try Clicking on the "Check for Updates" button and then on "Try again", and see if that fixes things.

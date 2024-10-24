@@ -306,54 +306,7 @@ Repeat the segmentation steps for the Left Kidney
         - Masking: Editable area: Outside all visible segments
         - Overwrite other segments: "none"
 
-### Create a model using the Segmentation Module
-
-So far, we have created a segmentation (aka a label mask) and rendered this segmentation in 3D using the `Segment Editor` module. The next step is to create a surface model (with faces and vertices) of the segmentation using the `Segmentation` module.
-
-Switch to the  `Segmentation` module by clicking on the "Segmentations..." button (right arrow) ![right arrow](images/seg-editor-right-arrow.png){ width="30"} or you can just find Segmentations in the Module Menu
-
-![segmentations menu](images/mod-menu-segmentations.png){ width="250"}
-
-The `Segmentation` module organizes all of the segments created using the `Segment Editor`. In fact, the top half of the module looks identical to the Segment Editor.
-
-Additional tabs include:
-
-- **Display**: where you can control the display of the segmentation render (in 3D)
-- **Representations**: where you can create different types of label masks
-- **Copy/move**: Where you can move segmentations to different Segmentation nodes
-- **Export/import models and labelmaps**: Create models and/or labelmaps
-- **Export to files**: save your segmentations as .OJB files
-- **Binary labelmap layers**: Controls layers in segmentations
-
-To create a surface model of the kidney, use these steps:
-
-1. Make sure that you only have the Right kidney in the segmentation table (remove the background segmentation)
-2. Click open the **Export/import models and labelmaps** tab.
-3. Use these settings:
-    ![segmentations create model](images/CTACardio-segmentations-Export-Import.png){ width="450"}
-
-4. Click on the "Export" button
-
-#### Review Model
-
-1. The 3D model should appear in the 3D viewer (it should look the same as the 3D render of the segmentation).
-2. Make sure that the segmentation render didn't reappear by toggling the 3D view at the top of the Segmentations module
-3. Switch to `Models` Module. ![img-name](images/mod-menu-models.png){ width="250"}
-4. You should see the Right Kidney listed
-    ![model r kidney](images/CTACardio-models-list-r-kidney.png){ width="450"}
-5. In the Display tab, change the opacity to 0.5
-    ![0.5 opacity](images/CTACardio-3D-kidney-0.5-opacity.png){ width="250"}
-
-[segment editor add button]: https://c1.staticflickr.com/5/4683/38636776814_0a34737e82_o.png
-
-#### Review  Data
-
-1. Click on the Data Module
-2. Review the hierarchy
-    ![img-name](images/CTACardio-data-r-kidney-model.png){ width="450"}
-3. Save your work again
-    ![img-name](images/CTACardio-save-r-kidney-model.png){ width="450"}
-   >notice, this time just a couple of things are checked… This is what has changed. Choose overwrite when asked
+SAVE YOUR WORK!
 
 ### Segment the Aorta
 
@@ -362,7 +315,7 @@ For the Aorta, we will use a different segmentation method. First, though, we ne
 1. In the `Segment Editor` module, Click on the Add Button
 2. Rename the new segmentation "Aorta"
 3. Change the color of the Aorta to red by double-clicking on the color tile to bring up the color selector
-   -  choose "Artery" red
+   - choose "Artery" red
 4. Make sure that the Aorta segmentation is selected for the following steps
 
 ![img-name](images/CTACArdio-SegEditorTable-kidney-aorta.png){ width="550"}
@@ -405,20 +358,6 @@ The local threshold tool is an add-on tool included with the "SegmentEditorExtra
 
 ![img-name](images/CTACardio-3D-segmentations-kidney-aorta.png){ width="250"}
 
-#### Create a model of the aorta
-
-Use the similar steps to create a 3D surface of the aorta as you did for the kidney, with the following changes.
-
-1. Hide the Right Kidney in the segmentation table
-2. For the Export/import models tab, use the following settings
-   - **Operation**: Export
-   - **Output type:** Models
-   - **Output Node:** Segmentation-models (you created this in the previous step)
-   - **Exported Segments:** "Visible" - that way, you don't remake the kidney model, since its not visible (see step 1)
-3. Export
-4. Switch to the `Models` module
-5. There should now be a row for the Aorta
-6. Save your work!
 
 ### Segment the Lungs
 
@@ -435,7 +374,6 @@ This requires the Lung CT Analyzer & Segmenter extension to be installed.
 #### Lung CT Segmenter
 
 [YouTube demonstration](https://www.youtube.com/watch?v=fpLxm7uAvZQ)
-
 
 Open the Lung CT Segmenter:
 
@@ -469,5 +407,6 @@ The module looks like this:
 Notice that a new Segmentation Node has been added: "Lung Segmentation". There are also some segmentations in there not being displayed
 
 ![img-name](images/CTACardio-data-lung-segmentation.png){ width="450"}
+>Notes: models will be added in a future step
 
 Save your work!
