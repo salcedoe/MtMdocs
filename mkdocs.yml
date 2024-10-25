@@ -55,6 +55,7 @@ nav:
     - Volume Segmentation:
       - CTACardio: slicer/CTACardioSegment.md
       - MR Tumors: slicer/MRTumorSegment.md
+      - CT Femur: slicer/CTFemurSegment_9553F.md
 
 theme: 
   name: material

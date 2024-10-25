@@ -110,11 +110,13 @@ Let's start with Right kidney. Remember, we should look at the right kidney in a
 
 ## Segmentation
 
-For this exercise, we will segment the Kidneys, the Aorta, and the Lungs.
+For this exercise, we will segment the Kidneys, the Aorta, and the Lungs. When you segment, you actually create a new volume that is the same size as the original volume (same number of voxels). This segmentation volume is said to mask the original volume. Segmentation volumes can be either binary volumes (true or false) or label maps, which use whole numbers to indicate connected regions. For this exercise, for example, we will create a segmentation of the Right Kidney. In this segmentation volume, all voxels pertaining to the right kidney will be labeled with a value, like 1. This is not an intensity value, but a label — that's why they are called label maps.  We will also segment the Left Kidneys — all those voxels will be labeled with a different value, like 2. And so on. Everywhere that is not segmented will have a label of 0.
 
-### Crop
+### Crop Volume
 
 Segmentation projects are often memory intensive. So, is often useful to crop the volume down to the bare minimum needed for the segmentation project. For analysis of the segmentations, it is also useful to resample the voxels so that they are isotropic.
+
+#### Create ROI
 
 1. Switch to the `Volume Rendering` module
 2. Enable and display the crop ROI
@@ -123,7 +125,10 @@ Segmentation projects are often memory intensive. So, is often useful to crop th
 
 ![img-name](images/CTACardio-vol-render-full-crop.png){ width="450"}
 
+#### Crop Module
+
 1. Next, switch to the `Crop` module by searching for the module using the magnifying glass
+   ![img-name](images/crop-volume-search.png){ width="450"}
 2. Use the following settings
    - **Input volume**: "CTACardio"
    - **Input ROI:** "Volume rendering ROI" - this is the ROI that we created in the `Volume Rendering` module
@@ -144,7 +149,7 @@ Your crop settings should be as follows:
    1. Turn off Volume Rendering (click eye icon closed)
    2. Hide the ROI (click Display ROI off)
 
-### Filter
+### Filter Volume
 
 You should also filter a volume before you segment.
 
@@ -177,7 +182,8 @@ We start by creating a segmentation of the Right Kidney
 5. Rename this row "Right Kidney" by clicking on "Segment_1" name
 
 ![img-name](images/CTACArdio-SegEditor-row1.png){ width="450"}
->Notice that a segmentation node has been added to the `Data` module
+> This table dictates what we add to our segmentation volume. Right now, we just have one segmentation, 'Right Kidney'. As we progress through this exercise, we will add the left kidney and the aorta. Each item in the table will have a different label in the segmentation volume (like a 1, a 2, or a 3). As we segment, we will add the segmentation color to the image cross-sections. When we do this, we are actually adding the label (1,2, or 3) to the corresponding location in the segmentation volume.
+
 
 #### Center Viewers on right kidney
 

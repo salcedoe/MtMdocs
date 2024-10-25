@@ -176,7 +176,8 @@ We will use the Grow-from-seeds method to segment the Tumor in the MRBrainTumor1
 Bring up the Segment Editor and use the following settings:
 
 1. **Segmentation:** Rename new segmentation as `SegTumor1`
-2. **Master Volume:** `MRBrainTumor1`
+   ![img-name](images/seg-editor-rename-segment.png){ width="450"}
+2. **Master Volume:** Set to `MRBrainTumor1`
 3. Create a new Segmentation called Tumor1
 4. Create another segmentation called Not_tumor
 
@@ -253,6 +254,8 @@ Ok, repeat the segmentation for Tumor2, with the following changes:
 1. Create a New Segmentation as `SegTumor2`
 2. Change the Master Volume to `MRBT2mvd`
 3. Create a new Segment called Tumor2. Change the color of this segment to Blue (or a different color from the original tumor)
+
+![img-name](images/MRTumor-seg-editor-seg-list2.png){ width="450"}
 
 ### Final Comparison
 
