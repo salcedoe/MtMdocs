@@ -11,28 +11,30 @@ Load the `9553F Body Bone` dataset into Slicer, as discussed in the [Import DICO
 
 ## Volumes Module
 
-Whenever you first bring up a volume in Slicer, you should always review the Volume Information. 
-
 ![img-name](images/button_volumes_module.png){ width="50"}
 
-- Bring up the Volumes Module
-- Open the Volumes Information tab and review
+Bring up the Volumes Module and review the Volumes Information tab.
 
-![img-name](images/CTFemur-Volume-Info.png){ width="450"}
-> - This volume has 512 rows and columns and 473 slices (124 million voxels)
-> - The volume also anisotropic voxels with dimensions of 0.98mm x 0.98mm x 3.5mm
+!!! abstract "Volumes Information"
+
+    ![img-name](images/CTFemur-Volume-Info.png){ width="450"}
+    
+    - This volume has `512 x 512 x 473` voxels (124 million voxels)
+    - The volume also anisotropic voxels with dimensions of `0.98mm x 0.98mm x 3.5mm`
 
 When segmenting, it helps to adjust the contrast so that the target anatomy (e.g. the femur) is brighter than the rest of the tissue.
 
-![img-name](images/volumes-display.png){ width="450"}
+!!! abstract "Set Volumes LUT Preset"
 
-- Select the CT Bone Window Level Preset 
-    ![img-name](images/volumes-ct-bone-preset.png){ width="50"}
+    Under the Display tab, Select the CT Bone Window Level Preset.
 
-Your volume should have the contrast shown in the right column (CT Bone LUT). 
+    ![img-name](images/volumes-ct-bone-preset.png){ width="50"} 
 
-![img-name](images/CTFemur-Volumes-adjust-LUT.png){ width="450"}
->Notice how using this LUT deemphasizes the tissue (almost black) while highlighting the bone (almost bright white).
+    Your volume should have the contrast shown in the right column (CT Bone LUT). 
+        
+    ![img-name](images/CTFemur-Volumes-adjust-LUT.png){ width="450"}
+    
+    Notice how using this LUT deemphasizes the tissue (almost black) while highlighting the bone (almost bright white).
 
 ## Volume Rendering
 
@@ -40,21 +42,27 @@ Your volume should have the contrast shown in the right column (CT Bone LUT).
 
 Volume Rendering is useful for exploring a volume and quickly rendering anatomical structures. This is NOT a substitute for segmentation. This is mostly for display purposes only. For example, there is nothing to export from a volume rendering. That being said, it is often useful to quickly render anatomical structures before segmenting.
 
+![select body bone](images/CTFemur-vol-render-select-volume-menu.png){ width="450"}
+
 1. Bring up the Volume Rendering Module
 2. Select the Body Bone volume from the pop up menu
-    ![select volume](images/volume-render-select-volume.png){ width="450"}
-    ![select body bone](images/CTFemur-vol-render-select-volume-menu.png){ width="450"}
 3. Adjust the **Shift** slider to reveal a render of the cadaver
-   ![adjust shift](images/volume-render-display.png){ width="450"}
 4. Select the CT-AAA to reveal a render of the cadaver's skeletal system
-   ![vol render presets](images/volume-render-presets.png){ width="450"}
 5. The goal is to reveal the following:
-   ![volume rendering of Body Bone](images/CTFemur-volume-rendering-3D.png){ width="450"}
-   >Notice how the femur heads and lower flanges are darker than the rest of the femur. This indicates a level of bone degeneration that would be expected in an older female with a knee replacement. 
-6. **Bonus**: slide the Shift slider to the right to reveal the implant in the left knee. There are two parts to the implant: one in the femur and one in the tibia.
-   ![4up implant](images/CTFemur-3D-vol-render-implant.png){ width="450"}
-7. Select the CT-AAA to again render the skeletal system
-   >Notice how the implants create a spiky distortion in the CT scan around the knee
+
+!!! example "Revealing internal structures using Volume Rendering"
+
+    ![volume rendering of Body Bone](images/CTFemur-volume-rendering-3D.png){ width="450"}
+
+    Notice how the femur heads and lower flanges are darker than the rest of the femur. This indicates a level of bone degeneration that would be expected in an older female with a knee replacement.
+
+!!! tip "Bonus Render: Reveal implant"
+
+    Slide the Shift slider to the right to reveal the implant in the left knee. There are two parts to the implant: one in the femur and one in the tibia.
+    
+    ![4up implant](images/CTFemur-3D-vol-render-implant.png){ width="450"}
+
+Before continuing, select the`CT-AAA` to again render the skeletal system. Notice how the implants create a spiky distortion in the CT scan around the knee
 
 ### Create precise ROI for cropping
 
@@ -62,34 +70,54 @@ Cropping the volume is a critical step in Slicer as it helps reduce the memory l
 
 For this exercise, we instead want to create an ROI with precise coordinates. This will allow us to compare our segmentations in a future exercise. To create a precise ROI, we need the Markup tools.
 
-1. Switch to the **Markups** module
-2. Click on the ROI icon to create a new ROI ![img-name](images/markups-roi-button.png){ width="45"}
-3. Rename the ROI "PelvisFemurROI"
-4. Under ROI settings, enter the following:
-   ![img-name](images/CTFemur-PelvisFemur-ROI.png){ width="450"}
-5. Switch back to the **Volume Rendering** module
+#### Load ROI
+
+1. Click on the **Add DATA** button
+2. Select `Choose Files to Add`
+3. Navigate to the MATLAB drive (Unit 3/data) and select "PelvisFemurROI.mrk.json"
+4. Click **OK**.
+
+??? abstract "Manually Create ROI"
+
+    If you don't have access to the file, manually create the ROI as follows:
+
+    1. Switch to the **Markups** module
+    2. Click on the ROI icon to create a new ROI ![img-name](images/markups-roi-button.png){ width="45"}
+    3. Rename the ROI "PelvisFemurROI"
+    4. Enter the following settings
+
+    ![img-name](images/CTFemur-PelvisFemur-ROI.png){ width="450"}
+
+#### Render ROI
+
+1. Switch back to the **Volume Rendering** module
    1. Set **ROI** to your new "PelvisFemurROI"
    2. Enable Crop - the skeleton should be cropped down to the femur and pelvis
-   ![img-name](images/CTFemur-4up-vol-render-crop-PelvisFemurROI.png){ width="450"}
    3. Turn off Volume Rendering
    4. Turn off **Display ROI**
 
+
+![img-name](images/CTFemur-4up-vol-render-crop-PelvisFemurROI.png){ width="450"}
+
 ### Crop Volume
 
-Now we use our ROI to crop the volume
+Now we use our ROI to crop the volume. Switch to the **Crop Volume** module and enter the following settings:
 
-1. Switch to the **Crop Volume** module
-2. Use the following settings:
+!!! abstract "Crop Volume Settings"
+
     ![img-name](images/CTFemur-crop-volume-settings.png){ width="450"}
-    > **IO tab**
-    >- Input Volume: `BODY BONE`
-    >- Input ROI: `PelvisFemurRoi`
-    >- Output volume: select "Create new volume as..." and enter "BODY BONE crop"
-    >
-    > **Advanced tab:** Be sure to check "Interpolated cropping" and "Isotropic space". Set the `Spacing Scale` to `1.10x` and select "B-spline".
-    >
-    > **Volume Information tab:** `Input Volume` indicates the dimensions of the original Body Bone volume. `Cropped volume` indicates the dimensions of the volume to be created. Notice how we will get fewer rows and columns, but more z-slices
-3. When you have set all of the settings, click "Apply".
+
+    **IO tab**
+
+    - Input Volume: `BODY BONE`
+    - Input ROI: `PelvisFemurRoi`
+    - Output volume: select "Create new volume as..." and enter "BODY BONE crop"
+    
+    **Advanced tab:** Be sure to check "Interpolated cropping" and "Isotropic space". Set the `Spacing Scale` to `1.10x` and select "B-spline".
+    
+    **Volume Information tab:** `Input Volume` indicates the dimensions of the original Body Bone volume. `Cropped volume` indicates the dimensions of the volume to be created. Notice how we will get fewer rows and columns, but more z-slices
+
+When you have set all of the settings, click "Apply".
    - This might take a bit, so don't panic if you get the spinning disk of death.
    - This may also end anticlimactically - nothing may seem to happen.
 
@@ -143,24 +171,23 @@ We are now ready to segment the femurs and pelvis.
 
 1. Switch to **Segment editor module**
 2. Rename the Segmentation as "Femur Segmentation"
-   ![img-name](images/seg-editor-rename-segment.png){ width="350"}
+   >![img-name](images/seg-editor-rename-segment.png){ width="350"}
 3. Set the Master volume to "BODY BONE crop"
-   ![img-name](images/CTFemur-seg-editor-settings.png){ width="450"}
+   >![img-name](images/CTFemur-seg-editor-settings.png){ width="450"}
 4. In the Data Module, there is now new Segmentation node called Femur Segmenation
-   ![img-name](images/CTFemur-data-segment.png){ width="450"}
-   >When you click on Femur Segmentation, BODY BONE crop becomes highlighted in yellow, indicating that the volume is linked to the segmentation
+>![img-name](images/CTFemur-data-segment.png){ width="450"}
+>
+>When you click on Femur Segmentation, BODY BONE crop becomes highlighted in yellow, indicating that the volume is linked to the segmentation
 
 ### Add Segmentations to the Segmentation table
 
-![img-name](images/seg-editor-add-button.png){ width="50"}
-
-1. In the Segment Editor, add a new segmentation by clicking on the add button
+1. In the Segment Editor, add a new segmentation by clicking on the add button ![img-name](images/seg-editor-add-button.png){ width="25"}
 2. Rename segmentation to "Skeleton" (double-click on the name to rename)
 3. Add two more segmentations called "Femur_Left" and "Femur_Right"
-    - Color to taste by double-clicking on the color swatches
-
-![img-name](images/CTFemur-seg-edit-table1.png){ width="450"}
-> With this set-up, we create three labels in our segmentation volume: One for skeleton, one for Femur-Right, one for Femur_left.
+4. Color to taste by double-clicking on the color swatches
+   >![img-name](images/CTFemur-seg-edit-table1.png){width="450"}
+   >
+   >With this set-up, we create three labels in our segmentation volume: One for skeleton, one for Femur-Right, one for Femur_left.
 
 ### Segmentation Strategy
 
@@ -174,12 +201,13 @@ To segment the femurs and pelvis, we will start by thresholding out the skeleton
 2. Bring up the Threshold Tool
 3. Set the **Threshold Range** to:  `137 - 1500`
 4. Command- or Control- click on the skeleton in one of the 2D viewers.
-   ![img-name](images/CTFemur-local-thresh-control-click.png){ height="250"}
+   >![img-name](images/CTFemur-local-thresh-control-click.png){ width="250"}
 5. To see the skeleton in 3D, click on the **Show 3D** button.
-  ![img-name](images/seg-editor-show-3D-button.png){ width="100"}
+  >![img-name](images/seg-editor-show-3D-button.png){ width="100"}
 6. Enjoy a segmentation of the Skeleton.
-    ![img-name](images/CTFemur-4up-local-thresh-segment-skeleton.png){ width="450"}
-    >Notice that our threshold settings exclude the knee implant.
+   >![img-name](images/CTFemur-4up-local-thresh-segment-skeleton.png){ width="450"}
+   >
+   >Notice that our threshold settings exclude the knee implant.
 
 ### Segment Right Femur
 
@@ -193,13 +221,13 @@ Before painting, we want to restrict where we can paint.
 2. Set the **Threshold Range** to:  `137 - 1500`
 3. Click on the "Use for masking" button.
    - This changes the Masking settings.
-   - Notice that the "editable intensity range" is now checked, which forces all segmenting tools to only label voxels that fall within that intensity range 
+   - Notice that the "editable intensity range" is now checked, which forces all segmenting tools to only label voxels that fall within that intensity range
 4. Bring up the **Paint Tool** (if not active, already). ![img-name](images/seg-editor-paint-button.png){ width="25"}
     - **Editable Area** should be set to `Everywhere`. Sometimes this gets switched to another setting and can cause confusion when you are unable to paint where you think you should be able to pain.
     - **Modify other segments** should be set to `Overwrite All`. This will allow you to overwrite one label with another, which you may need to do.
     - Ensure the **Editable intensity range** remains `checked`. This will force the Paint tool to only paint voxels that fall within that intensity range, which we set to capture bone intensities.
 5. Activate **Sphere Brush** and **Edit in 3D Views**
-   ![img-name](images/seg-editor-paint-settings.png){ width="450"}
+   >![img-name](images/seg-editor-paint-settings.png){ width="450"}
 
 [threshold-tool-button]: images/seg-editor-threshold-button.png
 
@@ -215,13 +243,17 @@ Before painting, we want to restrict where we can paint.
 6. Adjust the size of the paintbrush by holding shift while scrolling the mouse
 7. The size of the paintbrush should match the largest cross-section of the femur head.
     - You may need to scrub through several slices to find the largest cross-section.
-    - Remember, you are using a sphere brush, so you are editing in 3D. 
+    - Remember, you are using a sphere brush, so you are editing in 3D.
     - That is, you will be painting voxels that are both above and below the current slice. Keep an eye on the 3D view for reference
-    ![img-name](images/CTFemur-segment-FemurR-redViewer-paintBrush.png){ width="450"}
+    >![img-name](images/CTFemur-segment-FemurR-redViewer-paintBrush.png){ width="450"}
 8. Once you have your paintbrush in position on the largest cross-section, **click the left mouse button** once.
 9. The femur head should now be a different color from the skeleton—as long as you have selected the "Femur_Right" row in the segmentation table
+
+!!! abstract "Right Femur Head separated from Shaft"
+    
     ![img-name](images/CTFemur-segment-FemurRHead-3Diewer.png){ width="450"}
-    >Inspect your work. Make sure that the femur head is cleanly separated from the pelvis.
+    
+    Inspect your work. Make sure that the femur head is cleanly separated from the pelvis.
 
 ##### TIME TO SAVE YOUR WORK
 
@@ -302,13 +334,5 @@ Since the implant is so bright, it is easy to capture using the Threshold Tool.
 
 ## Final Result
 
-![    ][img-final-4up]
-
-[img-final-4up]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/CTFemur-all-segmentations-4up.png width=500px
-
-Your segmentations will likely be full of holes. This is likely due to the level of degeneration found in this skeleton.
-
-
-### Other Tips
-Grow from seeds is also possible, but probably more appropriate for smaller volumes. [PERKlab - Grow from seeds](https://www.youtube.com/watch?v=8Nbi1Co2rhY)
-
+![img-name](images/CTFemur-all-segmentations-4up.png){ width="450"}
+>Your segmentations will likely be full of holes. This is likely due to the level of degeneration found in this skeleton.
