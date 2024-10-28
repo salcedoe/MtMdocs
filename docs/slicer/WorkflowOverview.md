@@ -11,6 +11,8 @@
 
 When you segment, you actually create a new volume that is the same size as the original volume (same number of voxels). This segmentation volume is said to mask the original volume. Segmentation volumes can be either binary volumes (true or false) or label maps, which use whole numbers to indicate connected regions. For this exercise, for example, we will create a segmentation of the Right Kidney. In this segmentation volume, all voxels pertaining to the right kidney will be labeled with a value, like 1. This is not an intensity value, but a label — that's why they are called label maps.  We will also segment the Left Kidneys — all those voxels will be labeled with a different value, like 2. And so on. Everywhere that is not segmented will have a label of 0.
 
+**TO:DO** Diagram Showing color overlay and two volumes: one for the labelmap and one for the intensity volume
+
 ??? tip "Saving Tips and Reminders"
 
     **How to create Create a New Folder**. 
@@ -28,6 +30,8 @@ When you segment, you actually create a new volume that is the same size as the 
     - Every file should now have the same path in the directory column 
     - Every file should be checked in the check column.
     - Click on the Save Button. 
+  
+Here is a video overview of the Grow from Seeds method: [PERKlab - Grow from seeds](https://www.youtube.com/watch?v=8Nbi1Co2rhY)
 
 ## Model Creation
 

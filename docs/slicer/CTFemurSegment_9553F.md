@@ -93,7 +93,7 @@ Now we use our ROI to crop the volume
    - This might take a bit, so don't panic if you get the spinning disk of death.
    - This may also end anticlimactically - nothing may seem to happen.
 
-!!! tip "ABOUT ISOTROPIC SPACING and the Spacing Scale setting"
+??? tip "ABOUT ISOTROPIC SPACING and the Spacing Scale setting"
     What isotropic spacing actually does is up- or downsample the 3D volume. Basically, you are adding or subtracting rows, columns, or slices. Subtracting rows and columns means that you are downsampling, which should ultimately create a smaller volume, which in turns saves memory (and hopefully avoids crashing Slicer). Ultimately, you want the total volume loaded into Slicer to take only 1/10 the amount of RAM that is available on your system. For 3D processing, you rarely benefit from having high in-plane resolution if distance between planes is large. For example, a volume of `2500 x 2500 x 500` (with spacing of `0.1x0.1x0.5`) will give you approximately same quality 3D reconstructions as a volume of `500 x 500 x 500` (with spacing of `0.5x0.5x0.5`). This means we rarely want to upsample and instead should use a larger Spacing scale setting to downsample the volume (even larger than shown here). See the discussion here: [Is there a way to reduce the CPU usage and reduce the amount of RAM used? - #3 by goetzf - Support - 3D Slicer Community](https://discourse.slicer.org/t/is-there-a-way-to-reduce-the-cpu-usage-and-reduce-the-amount-of-ram-used/3181/3)
 
 ### Data Review
@@ -104,13 +104,14 @@ Review the Data module, which displays a hierarchy of the loaded volumes and oth
 
 ![img-name](images/CTFemur-data-table.png){ width="450"}
 
-You should see the new BODY BONE crop volume in this list.
+You should see the new `BODY BONE crop` volume in this list.
 
-1. **Display Crop Volume:** To display the new crop volume, click on the eye-cube icon in the BODY BONE crop row. This should display this volume in the slice viewers and hide the other volume. 
+1. **Display Crop Volume:** To display the new crop volume, click on the eye-cube icon in the `BODY BONE crop` row. This should display this volume in the slice viewers and hide the other volume. 
 2. **Delete Original Volume:** Right-Click on the original "6 BODY BONE" volume and select "delete".
     - We won't need this volume any more and deleting it will help save on computer memory (and avoid slicer crashes).
     - Also, we can always reload the volume from the DICOM dataset if needed.
-3. **Hide the PelvisFemurRoi** by clicking on the corresponding eye-icon. 
+3. **Hide the PelvisFemurRoi** by clicking on the corresponding eye-icon.
+4. In the **Volumes** module, turn on the CT-bone preset for the `BODY BONE crop` volume
 
 ### Save Your Data
 
@@ -118,7 +119,7 @@ Now would be a good time to save your data. Remember, you need to create a new f
 
 ??? tip "Saving Tips and Reminders"
 
-    **How to create Create a New Folder**. 
+    **How to create a New Folder**. 
 
     Notice in the directory column that each file has a default path. We want to change the folder paths for all of these files so that they are stored in the same new folder. To do so, do the following:
 
@@ -163,84 +164,86 @@ We are now ready to segment the femurs and pelvis.
 
 ### Segmentation Strategy
 
-To segment the femurs and pelvis, we will start by thresholding the skeleton in the volume. Since bone has such a high contrast compared to the rest of the tissue, this should be relatively easy to accomplish using the thresholding tool. Then, we will separate out the bones of interest from the skeleton.
+To segment the femurs and pelvis, we will start by thresholding out the skeleton. Since bone has such a high contrast compared to the rest of the tissue, this should be relatively easy to accomplish using the local thresholding tool. Then, we will separate out the bones of interest from the skeleton.
 
-![img-name](images/seg-editor-threshold-button.png){ width="50"}
+![img-name](images/CTFemur-segmentations-skel-selected.png){width="450"}
+
+![img-name](images/seg-editor-local-threshold-button2.png){width="150"}
 
 1. Select the Skeleton Label in the Segmentation table.
-2. Bring up the Threshold Tool and enter the following settings:
-   ![img-name](images/CTFemur-threshold-settings.png){ width="450"}
+2. Bring up the Threshold Tool
+3. Set the **Threshold Range** to:  `137 - 1500`
+4. Command- or Control- click on the skeleton in one of the 2D viewers.
+   ![img-name](images/CTFemur-local-thresh-control-click.png){ height="250"}
+5. To see the skeleton in 3D, click on the **Show 3D** button.
+  ![img-name](images/seg-editor-show-3D-button.png){ width="100"}
+6. Enjoy a segmentation of the Skeleton.
+    ![img-name](images/CTFemur-4up-local-thresh-segment-skeleton.png){ width="450"}
+    >Notice that our threshold settings exclude the knee implant.
 
-![    ][img-thresh-settings]
+### Segment Right Femur
 
-- Click apply.
+Now that we have a segmentation for the skeleton, we need to separate out the femurs. To do this, we will use a neat trick that involves painting the femur head in 3D and then changing the segmentation label of the femur using the **Island tools**. Review this video for an overview: [PERKlab - Create Femur Model](https://www.youtube.com/watch?v=0at15gjk-Ns)
 
-et Voila, le squelette. Notice that we excluded the knee implant from the segmentation.
+#### Set-up editable intensity range and turn on 3D brush
 
-![<p></p>][img-skel-3D]
+Before painting, we want to restrict where we can paint.
 
-- Click on the Show 3D button ![][img-show-3D] to see the skeleton segmentation in the 3D viewer
+1. Bring up the **Threshold tool** ![img-name][threshold-tool-button]{ width="25"}
+2. Set the **Threshold Range** to:  `137 - 1500`
+3. Click on the "Use for masking" button.
+   - This changes the Masking settings.
+   - Notice that the "editable intensity range" is now checked, which forces all segmenting tools to only label voxels that fall within that intensity range 
+4. Bring up the **Paint Tool** (if not active, already). ![img-name](images/seg-editor-paint-button.png){ width="25"}
+    - **Editable Area** should be set to `Everywhere`. Sometimes this gets switched to another setting and can cause confusion when you are unable to paint where you think you should be able to pain.
+    - **Modify other segments** should be set to `Overwrite All`. This will allow you to overwrite one label with another, which you may need to do.
+    - Ensure the **Editable intensity range** remains `checked`. This will force the Paint tool to only paint voxels that fall within that intensity range, which we set to capture bone intensities.
+5. Activate **Sphere Brush** and **Edit in 3D Views**
+   ![img-name](images/seg-editor-paint-settings.png){ width="450"}
 
-[img-show-3D]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/seg-editor-show-3D-button.png width=64px
+[threshold-tool-button]: images/seg-editor-threshold-button.png
 
-[img-skel-3D]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/CTFemur-segment-skeleton-3D.png width=500px
+#### Segment right femur head
 
+![img-name](images/CTFemur-segmentations-FemurRight-selected.png){ width="450"}
 
-[img-thresh-settings]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/CTFemur-threshold-settings.png width=400px
+1. Select "Femur_Right" in the segmentation table.
+2. In the 3D viewer, hold-shift and then hover the mouse pointer over the right femur head to align all viewers to this location
+3. In the transverse viewer (Red viewer), scrub to a section that shows the femur head inserted into the pelvis
+4. Move the mouse to the center of the femur head
+5. Maximize the red slice and zoom in on the femur head
+6. Adjust the size of the paintbrush by holding shift while scrolling the mouse
+7. The size of the paintbrush should match the largest cross-section of the femur head.
+    - You may need to scrub through several slices to find the largest cross-section.
+    - Remember, you are using a sphere brush, so you are editing in 3D. 
+    - That is, you will be painting voxels that are both above and below the current slice. Keep an eye on the 3D view for reference
+    ![img-name](images/CTFemur-segment-FemurR-redViewer-paintBrush.png){ width="450"}
+8. Once you have your paintbrush in position on the largest cross-section, **click the left mouse button** once.
+9. The femur head should now be a different color from the skeleton—as long as you have selected the "Femur_Right" row in the segmentation table
+    ![img-name](images/CTFemur-segment-FemurRHead-3Diewer.png){ width="450"}
+    >Inspect your work. Make sure that the femur head is cleanly separated from the pelvis.
 
-[img-thresh-tool button]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/seg-editor-threshold-button.png width=25px
-
-### Capture the Right Femur Head
-
-Now that we have a segmentation for the skeleton, we need to separate out the femurs. To do this, we will use a neat trick involving the Paint and Island tools. Review this video for more information: [PERKlab - Create Femur Model](https://www.youtube.com/watch?v=0at15gjk-Ns)
-
-- First, however, click on the "Use for masking" button in the Threshold tool.
-> This changes the Masking settings. Notice that the "editable intensity range" is now checked. This forces all segmenting tools to only label voxels that fall in that intensity range 
-- The Painting Tool should now be active. If not, click on the Paint tool button (![][img-paint-button])
-- Notice how the Paint Tool has the same Masking tab that we saw in the Threshold Tool. Every tool has this masking tab.
-> The `Editable Area` should be set to "Everywhere." Sometimes this gets switched to another setting and can cause confusion when you are unable to paint where you think you should be able to pain.  `Modify other segments` should be set to "Overwrite All". This will allow you to overwrite one label with another, which you may need to do. Make sure the `Editable intensity range` remains checked. This will force the Paint tool to only paint voxels that fall within that intensity range, which we set to capture bone intensities.
-
-- Activate `Sphere Brush` and `Edit in 3D Views`
-
-![    ][img-paint-settings]
-
-
-- Select "Femur_Right" in the segmentation table.
-- In the transverse viewer (Red viewer), scrub to a section that  shows the femur head inserted into the pelvis
-- Move the mouse to the center of the femur head
-- Adjust the size of the paintbrush by holding shift while scrolling on the mouse
-- The size of the paintbrush should match the largest cross-section of the femur head. 
->You may need to scrub through several slices to find the largest cross-section. Remember, you are using a sphere brush, so you are editing in 3D. That is, you will be painting voxels that are both above and below the current slice. Keep an eye on the 3D view for reference
-- Once you have your paintbrush in position on the largest cross-section, click the left mouse button once.
-- The femur head should now be a different color from the skeleton—as long as you have selected the "Femur_Right" row in the segmentation table
-
-![<p>Inspect your work. Make sure that the femur head is cleanly separated from the pelvis.</p>][img-femur-right-head-segment]
-
-**TIME TO SAVE YOUR WORK**
+##### TIME TO SAVE YOUR WORK
 
 - When you click on the Save button, you will get the "Save Scene and Unsaved Data" pop-up dialog
 - Only the files that have changed will be checked. 
->Usually its the MRML Scence file and the Segmentation.seg.nrrd file. Don't check anything else — they don't need to be updated
--  Click on "Save"
--  Click on "Yes to ALL"
+    - Usually it's the MRML Scence file and the Segmentation.seg.nrrd file. Don't check anything else—they don't need to be updated
+- Click on "Save"
+- Click on "Yes to ALL"
 
-### Add the rest of the Right Femur
-- Switch to the Island Tool (![][img-island-button])
-- Select "Add Selected Island"
-- In the Coronal View (Green Slice Viewer), click on the femur, somewhere in the middle of the shaft
-- The Right Femur should now be labeled as such
+#### Segment the rest of the Right Femur
 
-![<p>Right Femur labeled in blue. Note, your femur head may have holes in it. This is because the intensity of the femur head has decreased (due to degeneration) so its intensity matches tissue intensity.</p>][img]
+Once we have separated the femur head from the pelvis, the rest of the femur segmentation is as simple as a mouse click.
 
-[img]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/CTFemur-segment-add-selected-island-4up.png width=500px
+1. Switch to the Island Tool ![][island-tool-button]{ width="24"}
+2. Select `Add Selected Island`
+3. In the Coronal View (Green Slice Viewer), click on the femur, somewhere in the middle of the shaft
+4. The Right Femur should now be labeled as such.
 
-[img-island-button]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/seg-editor-islands-button.png width=25px
+![right femur 4up](images/CTFemur-segment-add-selected-island-4up.png){ width="450"}
+>Right Femur labeled in blue. Note, your femur head may have holes in it. This is because the intensity of the femur head has decreased (due to degeneration) so its intensity matches tissue intensity.
 
-[img-femur-right-head-segment]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/CTFemur-segment-right-femur-head.png width=500px
-
-[img-paint-settings]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/seg-editor-paint-settings.png width=400px
-
-[img-paint-button]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/seg-editor-paint-button.png width=25px
+[island-tool-button]:images/seg-editor-islands-button.png
 
 ### Remove the Tibia and miscellaneous bone
 
@@ -248,27 +251,32 @@ Time to clean up the Right Femur segmentation. In this step, you remove any bone
 
 #### Scissors Tool
 
+![scissors tool](images/seg-editor-scissors-button.png){ width="50"}
+
 The scissors tool can quickly edit your segmentation in the 3D Viewer
 
-- Bring up the Scissors Tool (![][img-scissors-button])
+- Bring up the Scissors Tool
 - Select the Right Femur label in the Segmentation table
-- Use the Scissors to capture the Tibia by drawing in the 3D view 
+- Use the Scissors to capture the Tibia by drawing in the 3D view
 - The selected portion of bone should disappear
 
 #### Erase tool
-Use the Erase tool (![][img-erase-button]) for more detailed erasures in the slice viewers
+
+![erase button](images/seg-editor-erase-button.png){width="50"}
+
+Use the Erase tool for more detailed erasures in the slice viewers
 
 #### Island Tool
-Use the Island Tool ((![][img-island-button])), "Keep Largest Island" option, to remove any small noise.
+
+![island tool button][island-tool-button]{ width="50"}
+
+Use the "Keep Largest Island" option to remove any small noise.
+
 #### Smoothing
 
 You can use the Closing Operation in the smoothing tool to close any holes in the femur head. You may need to use a large kernel, like 8 or 12mm. Be sure you don't alter the shape of the femur (remember, undo is your friend here).
 
 REMEMBER TO SAVE YOUR WORK
-
-[img-erase-button]:https://saldenest.s3-us-west-2.amazonaws.com/slicer/seg-editor-erase-button.png width=24px
-
-[img-scissors-button]: https://saldenest.s3-us-west-2.amazonaws.com/slicer/seg-editor-scissors-button.png width=24px
 
 ### Capture the Left Femur
 
@@ -280,19 +288,17 @@ REMEMBER TO SAVE YOUR WORK
 
 Since the implant is so bright, it is easy to capture using the Threshold Tool. 
 
-- Add a new segmentation to the segmentation table called "Implant". Be sure this segmentation is selected before proceeding. 
-- Hide the other segmentations by clicking on their respective eye icons
-- Scrub to the implant in the Yellow Viewer. Make sure that the implant is visible in all three planes, along with the left femur shaft
-- Bring up the Threshold tool (![][img-thresh-tool button])
-- Under the masking tab, uncheck `Editable Intensity Range`. Make sure that the `Editable Area` is set to "Everywhere" and `Modify other segments` is set to "Overwrite All".
-> Warning. These settings will allow you to overwrite the Left Femur segmentation if you are not careful. 
-- Change the Threshold range to ~1700-3961. You want just the implant to light up (and not the left femur shaft)
-- Click apply. 
-- Enjoy the segmentation of the implant.
-- Unhide the other segmentations by clicking on their respective eye icons
-- Make sure your Left Femur segmentation has not been ruined. There is always undo if you did mess it up. 
-
----
+1. Add a new segmentation to the segmentation table called "Implant". Be sure this segmentation is selected before proceeding. 
+2. Hide the other segmentations by clicking on their respective eye icons
+3. Scrub to the implant in the Yellow Viewer. Make sure that the implant is visible in all three planes, along with the left femur shaft
+4. Bring up the Threshold tool ![img-name][threshold-tool-button]{ width="25"}
+5. Under the masking tab, uncheck `Editable Intensity Range`. Make sure that the `Editable Area` is set to "Everywhere" and `Modify other segments` is set to "Overwrite All".
+   >**Warning**. These settings will allow you to overwrite the Left Femur segmentation if you are not careful.
+6. Change the Threshold range to ~1700-3961. You want just the implant to light up (and not the left femur shaft)
+7. Click **Apply**.
+8. Enjoy the segmentation of the implant.
+9. Reveal the other segmentations by clicking on their respective eye icons
+10. Make sure your Left Femur segmentation has not been ruined. There is always undo if you did mess it up.
 
 ## Final Result
 

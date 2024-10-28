@@ -171,7 +171,7 @@ First, be sure to reset the volume look-up table by clicking on the CT-Abdomen p
 
 ### Segment the Right Kidney Using Grow from Seeds
 
-We start by creating a segmentation of the Right Kidney
+We start by creating a segmentation of the Right Kidney. Here is a video overview of the Grow from Seeds method: [PERKlab - Grow from seeds](https://www.youtube.com/watch?v=8Nbi1Co2rhY)
 
 #### Add a Segmentation volume to Segmentation table
 
