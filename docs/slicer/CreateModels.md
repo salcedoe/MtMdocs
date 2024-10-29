@@ -109,17 +109,3 @@ One nice feature of Models is that you can clip them (shear off edges) using the
    1. e.g. Compare "Positive" to "Negative"
 
 ![img-name](images/CTACardio-models-clipping.png){ width="450"}
-
-## Tumor Challenge
-
-How would you create this scene with the [Tumor Segmentations](MRTumorSegment.md)?
-
-![img-name](images/MR-tumors-cropped-render-with-segs.png){ width="450"}
-
-### Volume Rendering with Tumors
-
-1. Turn on Tumor Segmentations in 3D view
-2. Turn on coronal slice view in 3D
-3. Render the Stripped Skull volume
-4. Crop the volume along the interhemispheric fissure
-5. Make sure your tumor model is visible
