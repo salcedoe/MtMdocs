@@ -77,14 +77,15 @@ The 3D models should appear in the 3D viewer (it should look the same as the 3D 
 ![img-name](images/CTACardio-save-r-kidney-model.png){ width="450"}
    >notice that just a couple of things are checked… This is what has changed. Choose overwrite when asked.
 
-### Review Model in the Models Module
+## Models Module
+
+The Models Module lists all of the models created and controls their display
 
 ![img-name](images/mod-menu-models.png){ width="250"}
 
 1. Switch to `Models` Module.
 2. You should see your models listed
 >![model r kidney](images/CTACardio-models-list.png){ width="450"}
-
 
 #### Adjust Model Opacity
 
@@ -98,17 +99,15 @@ The 3D models should appear in the 3D viewer (it should look the same as the 3D 
 
 - **3D Display**: `wireframe` shows the faces and triangles
 
-#### Create a model of the Aorta
+### Clipping Planes
 
-Use the similar steps to create a 3D surface of the aorta as you did for the kidney, with the following changes.
+One nice feature of Models is that you can clip them (shear off edges) using the orthogonal planes. 
 
-1. Hide the Right Kidney in the segmentation table
-2. For the Export/import models tab, use the following settings
-   - **Operation**: Export
-   - **Output type:** Models
-   - **Output Node:** Segmentation-models (you created this in the previous step)
-   - **Exported Segments:** "Visible" - that way, you don't remake the kidney model, since its not visible (see step 1)
-3. Export
-4. Switch to the `Models` module
-5. There should now be a row for the Aorta
-6. Save your work!
+1. Display the Red Slice in the 3D viewer
+2. Select Aorta in the Models List
+3. Under the **3D Display** tab, enable `Clipping`
+4. Click **Configure...**
+5. In the Clippings Plane, select different options to see the different effects
+   1. e.g. Compare "Positive" to "Negative"
+
+![img-name](images/CTACardio-models-clipping.png){ width="450"}

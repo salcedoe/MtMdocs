@@ -9,7 +9,7 @@ At the top of the Segmentations Module, you can set the **Active Segmentation** 
 
 ![img-name](images/segmentations-active-SegTumor1.png){ width="450"}
 
-#### Create a model of the other segme
+#### Create a model of the other segments
 
 Use the similar steps to create a 3D surface of the aorta as you did for the kidney, with the following changes.
 
@@ -23,7 +23,6 @@ Use the similar steps to create a 3D surface of the aorta as you did for the kid
 4. Switch to the `Models` module
 5. There should now be a row for the Aorta
 6. Save your work!
-
 
 ### Create Models
 
