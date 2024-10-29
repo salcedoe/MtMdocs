@@ -47,9 +47,7 @@ In the **Representations** tab:
 
 1. **Closed Surface:** Click on the `Create` or `Update` button to bring up the Advanced segmentation conversion dialog window.
 2. **Advanced segmentation conversion dialog window:** Select the `Binary labelmap->` row in the top table.
-
-    ![img-name](images/segmentations-adv-seg-conversion.png){ width="350"}
-
+>![img-name](images/segmentations-adv-seg-conversion.png){ width="350"}
 3. In the lower table, change the `Decimation Factor` to 0.5 to 0.75.
     - Keep an eye on your 3D structures and ensure that you don't over-decimate (they will start to look jagged when over-decimated.)
 
@@ -111,3 +109,17 @@ One nice feature of Models is that you can clip them (shear off edges) using the
    1. e.g. Compare "Positive" to "Negative"
 
 ![img-name](images/CTACardio-models-clipping.png){ width="450"}
+
+## Tumor Challenge
+
+How would you create this scene with the [Tumor Segmentations](MRTumorSegment.md)?
+
+![img-name](images/MR-tumors-cropped-render-with-segs.png){ width="450"}
+
+### Volume Rendering with Tumors
+
+1. Turn on Tumor Segmentations in 3D view
+2. Turn on coronal slice view in 3D
+3. Render the Stripped Skull volume
+4. Crop the volume along the interhemispheric fissure
+5. Make sure your tumor model is visible
