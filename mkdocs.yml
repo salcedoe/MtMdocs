@@ -58,6 +58,7 @@ nav:
       - CT Femur: slicer/CTFemurSegment_9553F.md
     - Surface Models:
       - Creating Surface Models: slicer/CreateModels.md
+      - Exporting Models: slicer/ExportModels.md
 
 theme: 
   name: material
