@@ -34,6 +34,8 @@ For this example, we will use the segmentations that we generated for the [CTACa
 4. Clone each segmentation (Tumor1, Tumor2, or brain) by right-clicking on the segmentation and selecting "Clone"
 5. Drag the clones to the AllSegs node
 
+![img-name](images/MRTumor-data-AllSegs.png){ width="450"}
+
 ### Export Segmentations
 
 1. Switch back to the **Segmentations** module
