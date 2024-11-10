@@ -83,6 +83,7 @@ The Models Module lists all of the models created and controls their display
 
 1. Switch to `Models` Module.
 2. You should see your models listed
+   
 >![model r kidney](images/CTACardio-models-list.png){ width="450"}
 
 #### Adjust Model Opacity
