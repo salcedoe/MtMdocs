@@ -22,6 +22,7 @@ The latest version of Total Segmentator requires a version Pytorch greater than 
 >If the Torch version is 2.2.2 or greater, you should be good to go.
 
 If your Torch version is < 2.0
+
 1. `Uninstall PyTorch`
 2. `Restart the application`
 3. Bring up PyTorch Utils again.

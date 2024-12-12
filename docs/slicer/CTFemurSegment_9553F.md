@@ -318,7 +318,7 @@ REMEMBER TO SAVE YOUR WORK
 
 ### Bonus: Capture the Implant
 
-Since the implant is so bright, it is easy to capture using the Threshold Tool. 
+Since the implant is so bright, it is easy to capture using the Threshold Tool.
 
 1. Add a new segmentation to the segmentation table called "Implant". Be sure this segmentation is selected before proceeding. 
 2. Hide the other segmentations by clicking on their respective eye icons

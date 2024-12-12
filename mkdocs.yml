@@ -60,6 +60,9 @@ nav:
     - Surface Models:
       - Creating Surface Models: slicer/CreateModels.md
       - Exporting Models: slicer/ExportModels.md
+    - Generating Animations:
+      - Screen Capture Module: slicer/ScreenCapture.md
+      - Image sequence to video (MAC): slicer/ImageSequenceToVideo.md
 
 theme: 
   name: material
