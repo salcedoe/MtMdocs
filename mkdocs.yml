@@ -37,13 +37,27 @@ nav:
     - Data Types and Categorical Arrays: dataWrangling/dataTypes.md
     - Tidy Data: dataWrangling/tidyData.md
     - Group Statistics: dataWrangling/groupStats.md
-  - Image Processing:
-    - Grayscale Images: imageProcessing/ImageIntro.md
-    - Image Enhancement: imageProcessing/ImageEnhancement.md
-    - Image Segmentation: imageProcessing/ImageSegmentation.md
-    - Segmentation Cleanup: imageProcessing/ImageSegmentationCleanup.md
-    - Region Processing: imageProcessing/ImageRegionProcessing.md
-    - RGB Images: imageProcessing/ImageRGB.md
+  - Images: 
+    - Image Processing:
+      - Grayscale Images: imageProcessing/ImageIntro.md
+      - Image Enhancement: imageProcessing/ImageEnhancement.md
+      - Image Segmentation: imageProcessing/ImageSegmentation.md
+      - Segmentation Cleanup: imageProcessing/ImageSegmentationCleanup.md
+      - Region Processing: imageProcessing/ImageRegionProcessing.md
+      - RGB Images: imageProcessing/ImageRGB.md
+    - 2D Imaging:
+      - Introduction: imageProcessing/medicalImagingIntro.md
+      - X-ray Imaging: imageProcessing/XrayImaging.md
+  - Volumes:
+    - Volume Processing:
+      - Image Stacks: volumeProcessing/ImageStacks.md
+      - Color Stacks: volumeProcessing/ImageStacksColor.md
+      # - Volume Visualization: volumeProcessing/VolumeVisualization.md
+      # - Volume Segmentation: volumeProcessing/VolumeSegmentation.md
+      # - Volume Registration: volumeProcessing/VolumeRegistration.md
+      # - Volume Analysis: volumeProcessing/VolumeAnalysis.md    
+    - 3D Imaging:
+      - Introduction: volumeProcessing/medicalImagingIntro.md
   - 3D Slicer:
     - Introduction: slicer/InterfaceIntro.md
     - Customize Slicer: slicer/CustomizeSlicer.md
@@ -63,7 +77,6 @@ nav:
     - Generating Animations:
       - Screen Capture Module: slicer/ScreenCapture.md
       - Image sequence to video (MAC): slicer/ImageSequenceToVideo.md
-
 theme: 
   name: material
   icon: 

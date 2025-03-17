@@ -26,7 +26,7 @@ Once you have a figure with an axis (see previous section), you can then add a p
 
 The following site is an excellent resource for comparing types of plots and determining when and how you should use them:
 
-- [Story Telling with Data][SWD]
+- [Storytelling with Data][SWD]
 
 [SWD]: https://www.storytellingwithdata.com/chart-guide  
 
