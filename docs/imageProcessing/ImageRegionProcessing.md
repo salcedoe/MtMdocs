@@ -161,7 +161,7 @@ However, this method requires a precise placement of the line on the image. Anot
 2. $r = \sqrt{A / π}$ *- radius from the area*
 3. $d = 2 \cdot \sqrt{A / π}$ *- diameter is 2x the radius*
 
- Now we can calculate the diameter (in pixels) using the moon area that we calculated [above](#measuring-and-counting):
+ Now we can calculate the diameter (in pixels) using the moon area that we calculated above:
 
 ```matlab linenums="1" title="Get Moon Diameter from Area"
 moon_diameter = 2 * sqrt(moon_area / pi) % diameter in pixels

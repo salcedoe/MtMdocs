@@ -21,6 +21,8 @@ After using this guide, you will be barely proficient in using
 
 ## Author
 
+Ernesto Salcedo is an Assistant Professor at the University of Colorado School of Medicine. He is a Sensory Neuroscientist and teaches in the Modern Human Anatomy Program. 
+
     Ernesto Salcedo, PhD
     Modern Human Anatomy
     University of Colorado School of Medicine

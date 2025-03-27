@@ -1,12 +1,16 @@
 site_name: Muddling through Medical Imaging
-site_url: https://example.com
+site_url: https://salcedoe.github.io/MtMdocs/
+repo_url: https://github.com/salcedoe/MtMtools
 nav:
   - Home: index.md
   - Setup:
+    - Software: setup/softwareOverview.md
+    - Installing MATLAB: setup/matlabInstallation.md
+    - Github Repositories: setup/githubRepoInstallation.md
     - Computer Settings: setup/computerSetup.md
-    - Useful Software Tools: setup/usefulTools.md
   - Reference:
-    - MATLAB Reference Pages: matlabBasics/MATLABReferencePages.md
+    - MATLAB stuff: reference/MATLABReferencePages.md
+    - MtM Course Functions: reference/courseFunctions.md
   - MATLAB Basics:
     - Introduction:
          - Muddling Through MATLAB: matlabBasics/MatlabIntro.md
@@ -48,16 +52,19 @@ nav:
     - 2D Imaging:
       - Introduction: imageProcessing/medicalImagingIntro.md
       - X-ray Imaging: imageProcessing/XrayImaging.md
-  - Volumes:
+  - Volumes: 
+    - Overview: volumeProcessing/volumeOverview.md
     - Volume Processing:
-      - Image Stacks: volumeProcessing/ImageStacks.md
-      - Color Stacks: volumeProcessing/ImageStacksColor.md
+      - Loading and Indexing: volumeProcessing/volumeLoading.md
+      - Inspecting Volumes: volumeProcessing/volumeVisualization.md
+      - 3D Visualization: volumeProcessing/volumeRendering.md
+      # - Color Stacks: volumeProcessing/ImageStacksColor.md
       # - Volume Visualization: volumeProcessing/VolumeVisualization.md
       # - Volume Segmentation: volumeProcessing/VolumeSegmentation.md
       # - Volume Registration: volumeProcessing/VolumeRegistration.md
       # - Volume Analysis: volumeProcessing/VolumeAnalysis.md    
-    - 3D Imaging:
-      - Introduction: volumeProcessing/medicalImagingIntro.md
+    #- Volume Imaging:
+      #- Introduction: volumeProcessing/medicalImagingIntro.md
   - 3D Slicer:
     - Introduction: slicer/InterfaceIntro.md
     - Customize Slicer: slicer/CustomizeSlicer.md
@@ -75,7 +82,7 @@ nav:
       - Creating Surface Models: slicer/CreateModels.md
       - Exporting Models: slicer/ExportModels.md
     - Generating Animations:
-      - Screen Capture Module: slicer/ScreenCapture.md
+      #- Screen Capture Module: slicer/ScreenCapture.md
       - Image sequence to video (MAC): slicer/ImageSequenceToVideo.md
 theme: 
   name: material

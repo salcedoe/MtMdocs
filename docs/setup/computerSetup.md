@@ -1,5 +1,7 @@
 # Settings for your Computer
 
+There are some settings you can set on your computer that will make muddling through  MATLAB a little easier.
+
 ## Turn on File Extensions
 
 A file extension identifies the type of file and is typically part of a file name. The extension follows a period in the name. For example, a PDF file might be called something like
@@ -23,16 +25,16 @@ This can be confusing! Also, in programming, you need to know the file extension
 
 So, make sure that you can can see the file extensions of your files. This will make working with files much easier and your journey into programming simpler.
 
-To turn on file extension display:
+### Instructions
 
-### On a Mac
+#### On a Mac
 
 1. In the Finder  on your Mac, choose Finder > Settings, then click Advanced.
 2. Select “Show all filename extensions.”
 
 If you select “Show all filename extensions,” all extensions are shown, even for files that have “Hide extension” selected. If you deselect “Show all filename extensions,” then file extensions are shown or hidden based on their individual “Hide extension” settings.
 
-### On a PC
+#### On a PC
 
 1. Open File Explorer; if you do not have an icon for this in the task bar; click Start, click Windows System, and then File Explorer.
 2. Click the View tab in File Explorer

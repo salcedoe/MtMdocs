@@ -17,4 +17,4 @@ An custom image stack viewer app. Can handle 3D and 4D image stacks. Can load Im
 mmSliceView(STACK)
 ```
 
-![screen grab of mmSliceView app](../imageProcessing/images/mmSliceView-screengrab.png){ width="450"}
+<!-- ![screen grab of mmSliceView app](../imageProcessing/images/mmSliceView-screengrab.png){ width="450"} -->
