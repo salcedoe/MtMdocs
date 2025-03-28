@@ -38,11 +38,11 @@ External Validity is a just a fancy term for defining how representation your sa
 
 >With a representative sample that has high external validity, you can make inferences (or predictions) about the population at large.
 
-## The Bell Curve (and other distributions)
+## The Bell Curve is Normal
 
 ![img-name](images/bell-curve-you-are-here.png){ width="250"}
 
-When you measure things, like humans, you will find that their parts vary: height, weight, foot size, the spacing between the eyes. These parts all use the same template, but vary in dimension. If you take a lot of these measurements, i.e. measure a large sample, and plot the measurements as a histogram, you often get a bell-shaped histogram. In fact, the bell curve shape was so common, they called it a "Normal" curve (or, if you're boring, a Gaussian curve, after the [wrong mathematician](https://en.wikipedia.org/wiki/Abraham_de_Moivre) Johann Carl Friedrich Gauss).
+When you measure things, like humans, you will find that their parts vary: height, weight, foot size, the spacing between the eyes. These parts all use the same template, but vary in dimension. If you take a lot of these measurements (i.e. a large sample), and plot the measurements as a histogram, you often get a bell-shaped histogram. In fact, the bell curve shape was so common, they called it a "Normal" curve (or, if you're boring, a Gaussian curve, after the [wrong mathematician](https://en.wikipedia.org/wiki/Abraham_de_Moivre) Johann Carl Friedrich Gauss).
 
 For example, if you measure the heights of a bunch of women, you get a histogram that looks something like this:
 
@@ -50,7 +50,7 @@ For example, if you measure the heights of a bunch of women, you get a histogram
 
 >**Histogram of Female Heights**. Sure looks like a bell curve.
 
-??? example "Code for above Histogram"
+??? example "Generating Normal Data for the Histogram"
 
     Note, no women were actually measured in the creation of the above histogram. Instead, we used the random number generator **`randn`** in the following code 
 
@@ -64,9 +64,9 @@ For example, if you measure the heights of a bunch of women, you get a histogram
     xlabel("Height (in)")
     ```
 
-### The Empirical power of the Bell Curves
+### The Empirical Power of the Bell Curve
 
-*Well, ok, that's interesting, but how does that help me in the real world?*
+*Well, ok, I guess that's interesting, but how does that help me in the real world?*
 
 Well, the bell curve is so powerful because we can use math to transform it into a normal probability density function that gives us the probability of any value in reference to the mean and standard deviation, as shown in this figure:
 
@@ -84,7 +84,7 @@ So, for the heights of females discussed above, 68% of all heights fall between 
 
 Statistics does not tell us whether we are right. It tells us the chances of being wrong.
 
-When we repeat an experiment  we almost never get exactly the same results. Instead, repeated measurements span a range of values due to biological variability and precision limits of measuring equipment. But if results are different each time, how do we determine whether a measurement is truly different or just randomly different?
+When we repeat an experiment, we almost never get exactly the same results. Instead, repeated measurements span a range of values due to biological variability and precision limits of measuring equipment. But if results are different each time, how do we determine whether a measurement is truly different or just randomly different?
 
 Hypothesis testing is used to determine the probability of whether a group of measurements is truly different different or not. When performing hypothesis testing, you first set up a null hypothesis, which means there is no difference between samples. The alternative hypothesis is that there is a difference.
 
