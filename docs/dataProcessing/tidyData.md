@@ -1,4 +1,4 @@
-# Tidy Data
+# Data Wrangling
 
 ![img-name](images/DalleAI-DataWrangler.jpeg){width=300px}
 

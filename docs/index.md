@@ -4,7 +4,7 @@
 
 *A beginner’s guide to barely understanding programming concepts so that you can tell your friends that you know coding.*
 
-Your Guide to learning the basics (and I mean *basics*) of:
+These days, "everything's computer", so you might as well start learning this fandangled computer stuff. This is your Guide to learning the basics (and I mean *basics*) of:
 
 - Computer Programming
 - Image Processing
@@ -21,7 +21,7 @@ After using this guide, you will be barely proficient in using
 
 ## Author
 
-Ernesto Salcedo is an Assistant Professor at the University of Colorado School of Medicine. He is a Sensory Neuroscientist and teaches in the Modern Human Anatomy Program. 
+Ernesto Salcedo is an Assistant Professor at the University of Colorado School of Medicine. He is a Sensory Neuroscientist and teaches in the Modern Human Anatomy Program.
 
     Ernesto Salcedo, PhD
     Modern Human Anatomy

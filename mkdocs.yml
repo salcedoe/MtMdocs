@@ -37,10 +37,12 @@ nav:
       - Plotting Components: matlabBasics/PlottingComponents.md
       - Plotting Basics: matlabBasics/PlottingBasics.md   
       - Plotting Overlays and Tiles: matlabBasics/PlottingOverlaysTiles.md   
-  - Data Wrangling:
-    - Data Types and Categorical Arrays: dataWrangling/dataTypes.md
-    - Tidy Data: dataWrangling/tidyData.md
-    - Group Statistics: dataWrangling/groupStats.md
+  - Data Processing: 
+    - dataProcessing/index.md
+    - Data Types and Categorical Arrays: dataProcessing/dataTypes.md
+    - Basic Stats Concepts: dataProcessing/SamplesDistributions.md
+    - Tidy Data: dataProcessing/tidyData.md
+    - Group Statistics: dataProcessing/groupStats.md
   - Images: 
     - Image Processing:
       - Grayscale Images: imageProcessing/ImageIntro.md

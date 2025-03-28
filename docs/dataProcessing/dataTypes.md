@@ -1,9 +1,9 @@
-# Statistical Data Types
+# Data Types for Stats (and MATLAB categorical arrays)
 
-When analyzing data, the values typically break down into two major Groups:
+In the stats world, there are two types of data: Quantitative and Qualitative
 
-1. **Numeric**. Also known as Quantitative, these data are used to count or measure something. Their values are stored in the numeric classes of MATLAB (double, uint8).
-2.  **Categorical**. Also known as Qualitative, these data are used to describe something using a label like Male or Female, or Good or Bad. These data take the form of booleans (true or false) or character or word data and are stored in MATLAB classes like logical, string,  or [categorical arrays (see below)](#categorical-arrays).
+1. **Quantitative**. Also known as Numeric or "Number", these data are used to count or measure something. Their values are stored in the numeric classes of MATLAB (double, uint8).
+2.  **Qualitative**. Also known as Categorical or "Word", these data are used to describe something using a label like Male or Female, or Good or Bad. These data take the form of booleans (true or false) or character or word data and are stored in MATLAB classes like logical, string,  or [categorical arrays (see below)](#categorical-arrays).
 
 Each category can be further broken down into sub-categories. Numeric categories can be **continuous** (like a measurement) or **discrete** (like a rating). Categorical categories can be **unordered** (like Sex) or **ordered** (like ranking: Beginner, Intermediate, or Advanced).
 
@@ -38,7 +38,7 @@ graph TD
 
 ## Categorical Arrays
 
-To handle Qualitative Data, MATLAB came up with the [`categorical`](https://www.mathworks.com/help/matlab/categorical-arrays.html) variable type. Categorical arrays operate similar to string arrays, but they have built-in functions for statistical uses.
+To handle Qualitative Data, MATLAB created the [`categorical`](https://www.mathworks.com/help/matlab/categorical-arrays.html) variable type. Categorical arrays operate similar to string arrays, but they have built-in functions for statistical uses.
 
 Consider the following string array.
 
@@ -70,7 +70,7 @@ sex =
      Male      Male      Female      Female      Male      Female 
 ```
 
-And that's it. *`sex`* is now a categorical array. You can do a lot of things with a categorical array that you can do with a string array
+And that's it. *`sex`* is now a categorical array. You can do a lot of the same things with a categorical array that you can do with a string array
 
 ```matlab linenums="1" title="Create logical array from a categorical array"
 la = sex == "Male" % logical array
@@ -145,7 +145,7 @@ summary(level)
 
 …the results are reported in the order of the ordinal categories (and not in alphabetical order)
 
-### Transforming Numeric Data into Qualitative
+### Transforming Numeric Data into Qualitative Data
 
 Sometimes the raw data comes in as numeric, when what you actually want is categorical.
 
