@@ -143,9 +143,9 @@ Hypothesis testing involves making assumptions: either there IS or there IS NOT 
 
 ### Control vs Experimental Groups
 
-One of the most fundamental experimental designs when Hypothesis Testing is to compare a control group with an independent group that has been subjected to some intervention. This design is called two-independent group.
+One of the most fundamental experimental designs used when Hypothesis Testing is to compare a control group with an independent group that has been subjected to some intervention. This design is called two-independent group.
 
-For these types of experiments, the null hypothesis is "There is no difference between the control and experimental group" or "Your elixir didn't do anything — I'm still not the fairest of them all".
+For these types of experiments, the Null hypothesis is "There is no difference between the control and experimental group" or "Your elixir didn't do anything — I'm still not the fairest of them all". The Alternative Hypothesis is that there is a difference between the groups.
 
 ### p-values
 
