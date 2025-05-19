@@ -38,6 +38,17 @@ When collecting data, it's good to know the data's provenance:
 
 :material-web: [Adapted from Psych Explained: Random Sampling](https://www.youtube.com/watch?v=r-rFO_2NsgI&list=PL_pCzdGjrXUXiNIaoUNjjxZ4sAu8ypV-y&index=6){target="_blank"}
 
+#### Groups
+
+Often we break our samples down into different categories, or groups. Very often, you will read about the Control Group or the Experimental Group. The Control group is typically the unmodified group, while the Experimental group has been treated in some fashion (sometimes called the Treatment Group).
+
+So, for example, we could break our CO Citizens Samples down into two groups as follows:
+
+- **Control Group**: those who have never tried marijuana before
+- **Experimental group**: those who use marijuana daily
+
+And then we measure something else, like response time, and use statistics to determine if there is a difference in response time between the groups.
+
 ### External Validity
 
 *External what?*
@@ -130,6 +141,14 @@ Hypothesis testing involves making assumptions: either there IS or there IS NOT 
     - **Null Hypothesis ($H_o$)**: No difference between the two samples being compared
     - **Alternative Hypothesis ($H_1$)**: There is a difference between the samples
 
+### Control vs Experimental Groups
+
+One of the most fundamental experimental designs when Hypothesis Testing is to compare a control group with an independent group that has been subjected to some intervention. This design is called two-independent group.
+
+For these types of experiments, the null hypothesis is "There is no difference between the control and experimental group" or "Your elixir didn't do anything — I'm still not the fairest of them all".
+
+### p-values
+
 To decide whether to accept the Null or Aternative Hypothesis, you create a probability cut-off or **p-value**(1).
 { .annotate}
 
@@ -176,12 +195,6 @@ While the inputs vary, the outputs from all these functions (at least the first 
 - **p**: The p-value. p-values range from 0 to 1.  Less than 0.05 is often considered significantly different.
 
 You can find the Null Hypothesis in the MATLAB documentation, but sometimes its a little confusing.
-
-#### Control vs Experimental groups
-
-One of the most fundamental experimental designs when Hypothesis Testing is to compare a control group with an independent group that has been subjected to some intervention. This design is called two-independent group.
-
-For these types of experiments, the null hypothesis is "There is no difference between the control and experimental group" or "Your elixir didn't do anything — I'm still not the fairest of them all".
 
 ### Testing Normal Data
 
