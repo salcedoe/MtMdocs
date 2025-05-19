@@ -40,7 +40,7 @@ nav:
   - Data Processing: 
     - dataProcessing/index.md
     - Data Types and Categorical Arrays: dataProcessing/dataTypes.md
-    - Basic Stats Concepts: dataProcessing/SamplesDistributions.md
+    - Hypothesis Testing: dataProcessing/SamplesHypTesting.md
     - Tidy Data: dataProcessing/tidyData.md
     - Group Statistics: dataProcessing/groupStats.md
   - Images: 
@@ -97,6 +97,7 @@ theme:
     - navigation.instant
     - navigation.top
     - navigation.path
+    - toc.integrate
     - search.suggest
     - search.highlight
     - search.share
