@@ -15,6 +15,7 @@ As we muddle through data analysis, we will also be muddling through some basic 
 
 - :material-web: [Investopedia Analysis Tools](https://www.investopedia.com/tools-for-fundamental-analysis-4689755){target="_blank"}
 - :material-web: [Psych Explained YouTube series](https://www.youtube.com/@PsychExplained){target="_blank"}
+- :material-web: [MATLAB Statistics Onramp](https://matlabacademy.mathworks.com/details/statistics-onramp/orst)
 
 ## Populations and Samples
 

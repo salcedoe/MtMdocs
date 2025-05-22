@@ -4,11 +4,11 @@
 
 ## Overview
 
-They say words are little more than horizontal vectors of characters. Well, I don't know if they *actually* say that, but I say that, and you should probably know that because, from the perspective of a computer, that is basically what they are.
+They say words are little more than horizontal vectors of characters. Well, I don't know if *they* say that, but I say that, and you should probably know that because, from the perspective of a computer, that is basically what they are.
 
-In this module, we will learn about character  arrays, which are useful for storing information such as names or other such unique identifiers.
+In this module, we will learn about character arrays, which are useful for storing information such as names or other such unique identifiers.
 
-![][letterpress]
+![collection metal moveable types for a letterpress ][letterpress]
 
 [letterpress]:images/letterpress-printing.jpg
 
@@ -21,38 +21,38 @@ In this module, we will learn about character  arrays, which are useful for stor
 
 ### Learning Objectives
 
-* Define a Character Array.
-* Be able to assign values to character arrays using paired single quotes
-* Be able to use the function [sprintf] to format character arrays
-* Be able to use functions discussed in this module like [sort] and [unique] to parse characters in a character array
-* Be able to use regular expressions to find and replace characters in character arrays
+- Define a Character Array.
+- Be able to assign values to character arrays using paired single quotes
+- Be able to use the function [sprintf]{target="_blank"} to format character arrays
+- Be able to use functions discussed in this module like [sort] and [unique] to parse characters in a character array
+- Be able to use regular expressions to find and replace characters in character arrays
 
 ### Special MATLAB Characters
 
-* `' '` - paired single quotes (the straight kind) are used to concatenate characters into a character array
+- `' '` - paired single quotes (the straight kind) are used to concatenate characters into a character array
 
-* `[ ]`- square brackets are used to concatenate character arrays
+- `[ ]`- square brackets are used to concatenate character arrays
   
 ### Important Terminology
 
 - **Character Arrays**: An array of characters (letters, spaces, punctuation, etc). Sometimes called a string.
 
-- [ASCII](http://en.wikipedia.org/wiki/Ascii): the American Standard Code for Information Interchange. A numeric code to indicate different characters.
+- [ASCII](http://en.wikipedia.org/wiki/Ascii){target="_blank"}: the American Standard Code for Information Interchange. A numeric code to indicate different characters.
 
 ### Useful Mathworks Documentation
 
-- [Character Strings](http://www.mathworks.com/help/matlab/learn_matlab/character-strings.html)
-- [Text in String and Character Arrays](https://www.mathworks.com/help/matlab/matlab_prog/represent-text-with-character-and-string-arrays.html#)
+- [Character Strings](http://www.mathworks.com/help/matlab/learn_matlab/character-strings.html){target="_blank"}
+- [Text in String and Character Arrays](https://www.mathworks.com/help/matlab/matlab_prog/represent-text-with-character-and-string-arrays.html#){target="_blank"}
 
 ### Important MATLAB Functions You should know
 
-* [char][doc-char] - Convert to a character array
-* [ischar](https://www.mathworks.com/help/matlab/ref/ischar.html): is the array a character array?
-* [upper](https://www.mathworks.com/help/matlab/ref/upper.html) and [lower](https://www.mathworks.com/help/matlab/ref/lower.html) - Change case of letters
-* [isletter](https://www.mathworks.com/help/matlab/ref/isletter.html) and [isspace](https://www.mathworks.com/help/matlab/ref/isspace.html) - returns a logical array that masks letters or spaces in a character array
-* [sprintf][doc-sprintf] - Format data into character array
-* [regexp][doc-regexp] - Regular expression (super find function)
-* [regexprep][doc-regexprep] - Replace text using regular expression
+- [char][doc-char]{target="_blank"} - Convert to a character array
+- [ischar](https://www.mathworks.com/help/matlab/ref/ischar.html){target="_blank"}: is the array a character array?
+- [upper](https://www.mathworks.com/help/matlab/ref/upper.html){target="_blank"} and [lower](https://www.mathworks.com/help/matlab/ref/lower.html) - Change case of letters
+- [isletter](https://www.mathworks.com/help/matlab/ref/isletter.html){target="_blank"} and [isspace](https://www.mathworks.com/help/matlab/ref/isspace.html){target="_blank"} - returns a logical array that masks letters or spaces in a character array
+- [sprintf][doc-sprintf]{target="_blank"} - Format data into character array
+- [regexp][doc-regexp]{target="_blank"} - Regular expression (super find function)
+- [regexprep][doc-regexprep]{target="_blank"} - Replace text using regular expression
 
 [doc-char]: http://www.mathworks.com/help/matlab/ref/char.html
 [doc-sprintf]: http://www.mathworks.com/help/matlab/ref/sprintf.html
@@ -61,7 +61,7 @@ In this module, we will learn about character  arrays, which are useful for stor
 [doc-regexp]: http://www.mathworks.com/help/matlab/ref/regexp.html
 [doc-regexprep]: http://www.mathworks.com/help/matlab/ref/regexprep.html
 
-![A compilation of sentences that contain all the letters from the alphabet](images/font_sample.jpg)
+![Pangrams. A compilation of sentences that contain all the letters from the alphabet](images/font_sample.jpg)
 
 ___
 
@@ -96,16 +96,12 @@ whos n
 ```
 
 ```matlab title="result"
-n = 
-
-1
-
 Name      Size            Bytes  Class    Attributes
-
   n         1x1                 2  char               
 ```
 
 ### Inspecting character arrays in the Variable Editor
+
 If you double-click on the variable name of a character array in the workspace to bring up the  "Variable Editor",  all letters of the array appear to be contained in a single element, as shown in the following image:
 
 >![variable editor][im_ch]
@@ -138,7 +134,7 @@ Character Arrays can be indexed using parentheses, just like numeric arrays.
     ```matlab hl_lines="1"
     ch(1)
     ans = 
-        'h'
+          'h'
     ```
     This syntax returns the first element in a character array, which contains the letter `h`:
 === "Last Element"
@@ -147,7 +143,7 @@ Character Arrays can be indexed using parentheses, just like numeric arrays.
     ch(end)
     
     ans = 
-        'o'
+          'o'
     ```
 
     and this syntax returns the last element in the array, which contains the letter `o`:
@@ -168,10 +164,9 @@ ct =
     'togetheragain'
 ```
 
-!!! note 
+!!! note
 
     The concatenation of character arrays takes no regard to grammar or spacing. The result is literally the two character arrays, smashed together.
-
 
 To include a space between concatenated *char* arrays, you need to specify the space, as follows:
 
@@ -182,8 +177,7 @@ ct2 = [c1 sp c2] % concatenate all three character arrays
 
 ```matlab title="result"
 ct2 =
-
-'together again' % Now there is a space between the two words
+      'together again' % Now there is a space between the two words
 ```
 
 ___
@@ -212,16 +206,15 @@ To properly concatenate the two words 'hello' and 'goodbye' into one matrix, you
 ```matlab title="result"
 ans =
 
-  2×7 char array
-
-    'hello  '
-    'goodbye' % Now we have a proper character matrix
+      2×7 char array
+      'hello  '
+      'goodbye' % Now we have a proper character matrix
 ```
 
 !!! note
     Even though the spaces are not visible, they are occupying elements in the matrix.
 
-You don't have to pad with spaces--you can use any character:
+You don't have to pad with spaces—you can use any character:
 
 ```matlab title="Asterisks-Padded Character Array" linenums="1"
 ['hello**'; 'goodbye']
@@ -229,11 +222,9 @@ You don't have to pad with spaces--you can use any character:
 
 ```matlab title="result"
 ans =
-
-  2×7 char array
-
-    'hello**'
-    'goodbye' % this matrix is padded with asterisks
+      2×7 char array
+      'hello**'
+      'goodbye' % this matrix is padded with asterisks
 ```
 
 ### The char Function
@@ -246,8 +237,7 @@ p = char('hello', 'goodbye','farewell')
 
 ```matlab title="result"
 p =
-
-  3×8 char array
+    3×8 char array
 
     'hello   '
     'goodbye '
@@ -257,7 +247,6 @@ p =
 !!! note
 
     Here, the function **`char`** automatically creates a `3X7` character array, padding both 'hello' and 'goodbye' with spaces at the end to match the length of 'farewell'.
-
 
 <!--Everything Is Not Always What It seems...
 
@@ -276,10 +265,9 @@ These character matrices can be indexed like a numeric  arrays are very much org
 
 Remember, in character arrays, each element contains one character.
 
-![<p></p>][img-char-p-matrix]
+![table of character matrix][img-char-p-matrix]
 
 [img-char-p-matrix]:images/char-matrix-p-greetings.png
-
 
 So, when indexing elements out of a character matrix, you get one character back. Consider the following examples of indexing *`p`*.
 
@@ -288,7 +276,8 @@ p(2,2)
 ```
 
 ```matlab title="result"
-ans = 'o' % you get the second 'o' in 'goodbye'
+ans =
+      'o' % you get the second 'o' in 'goodbye'
 ```
 
 ```matlab title="Index 1st row, 3rd column in p" linenums="1"
@@ -296,7 +285,8 @@ p(1,3)
 ```
 
 ```matlab title="result"
-ans =  'l' % you get the first 'l' in 'hello'
+ans =
+      'l' % you get the first 'l' in 'hello'
 ```
 
 === "Challenge"
@@ -307,9 +297,8 @@ ans =  'l' % you get the first 'l' in 'hello'
     ```matlab linenums="1"
      p(3,5)
 
-      ans =
-
-        'w'
+     ans =
+            'w'
     ```
 
     You need to index the third row, fifth column.
@@ -319,17 +308,16 @@ ans =  'l' % you get the first 'l' in 'hello'
     What does the following syntax return?
 
     ```matlab linenums="1"
-      p(1,end)
+     p(1,end)
     ```
 
 === "Answer 2"
 
     ```matlab linenums="1"
-     p(1,end)
+    p(1,end)
 
-        ans =
-
-        ' '
+    ans =
+              ' '
     ```
 
     This syntax returns a *space*.
@@ -358,8 +346,7 @@ letter_subset = 'a':2:'z'
 
 ```matlab title="result"
 letter_subset =
-
-'acegikmoqsuwy'
+                 'acegikmoqsuwy'
 ```
 
 ___
@@ -380,16 +367,13 @@ ch2 = lower(CH) % change to lowercase
 
 ```matlab title="result"
 ch =
-
-    'abcdef'
+      'abcdef'
 
 CH =
-
-    'ABCDEF'
+      'ABCDEF'
 
 ch2 =
-
-    'abcdef'
+      'abcdef'
 ```
 
 ### is* functions
@@ -407,8 +391,7 @@ ch = ['a':'c' ' ' '1':'c' ' !@#']
 
 ```matlab
 ch =
-
-    'abc 123 !@#'
+     'abc 123 !@#'
 ```
 
 The function **isletter** returns a logical array masks the letters
@@ -419,10 +402,8 @@ laL = isletter(ch)
 
 ```matlab title="result"
 laL =
-
-  1×11 logical array
-
-   1   1   1   0   0   0   0   0   0   0   0
+      1×11 logical array
+      1   1   1   0   0   0   0   0   0   0   0
 ```
 
 …Just the first three characters are letters
@@ -435,10 +416,8 @@ laS = isspace(ch)
 
 ```matlab
 laS =
-
-  1×11 logical array
-
-   0   0   0   1   0   0   0   1   0   0   0
+      1×11 logical array
+      0   0   0   1   0   0   0   1   0   0   0
 ```
 
 …The spaces are after the letter c and after the number 3.
@@ -449,13 +428,15 @@ The **[sprintf][doc-sprintf]** function allows you to add data to a character ar
 
 To use **`sprintf`**, you first create a character array that has placeholders in them. These placeholders are prefaced by the `%` symbol. Some common placeholders include:
 
-* %s - character array
-* %d - number
-* %f - floating point number
+| Placeholder | Data                  |
+| ----------- | --------------------- |
+| %s          | character array       |
+| %d          | number                |
+| %f          | floating point number |
 
 The basic syntax for **`sprintf`** is as follows:
 
-```matlab
+```matlab linenums="1"
 formatted_char_array = sprintf(char_2_format,data)
 ```
 
@@ -495,11 +476,13 @@ output_array =
 
 Sometimes you want to include a line return or a tab in your formatted string. There are special character combinations that allow you to do this. They are often preceded by the backslash. Here are a few:
 
-- **\n** - new line
-- **\t** - tab
-- **''** - single quotation
+| Escape Character | Indicates        |
+| ---------------- | ---------------- |
+| \n               | new line         |
+| \t               | tab              |
+| ''               | single quotation |
 
-The one I use the most is \n, which allows me to create a string with multiple lines. 
+The one I use the most is \n, which allows me to create a string with multiple lines.
 
 #### More Placeholders, More data
 
@@ -556,7 +539,7 @@ ___
 
 ## Regular Expressions
 
-*Now we're getting into the really complicated stuff. Don't sweat it if you don't understand this section right away.*
+*Now we're getting into the really complicated stuff. Don't sweat it if you don't understand this section.*
 
 Regular Expressions are like a super-charged search function. They are used widely—not just in MATLAB. Using regular expressions (sometimes called GREP), you can find things like all words in a paragraph that are capitalized but are not preceded by a period. Or, suppose you have a list of people’s names that you want to alphabetize. If the list is arranged first name first, but you want to alphabetize by last names, a simple grep pattern can be used to put the names in the proper order for sorting.
 
@@ -564,57 +547,71 @@ The function **`regexp`** is MATLAB's version of this an incredibly powerful sea
 
 For example, consider the following character array:
 
-```matlab
->>s = 'together at last';
+```matlab linenums="1"
+s = 'together at last';
 ```
 
-We can use **`regexp`** to return the indices of all the spaces using this syntax:
+We can use **`regexp`** to find the first letter in each word. To do this, we need to create a Regular Expression, or special code to search the character array. The easiest way to do that is to use MATLAB CoPilot or other AI. For example, you might ask
 
-```matlab
-idx = regexp(s,' ')
+>What is the regular expression to find the first letter in each word of a sentence?
+
+In this case, the regular expression we need is `'\<(\w)'` (1). We enter that as the second input into **`regexp`**, as follows:
+{ .annotate }
+
+1. The regular expression '\<(\w)' matches the first letter of each word. Here, \< asserts the position at the start of a word, and (\w) captures the first word character.
+
+```matlab linenums="1" title="Find the First letter in each word"
+idc = regexp(s,'\<(\w)')
 ```
-```matlab
-idx =
-     9    12
+
+The default output are the indices of the letters
+
+```matlab title="The indices of the First letter in each word in s"
+idc =
+      1   10    13
 ```
-In this call, the second input into **`regexp`** is simply a space (' ') and is the regular expression we would like to match. The variable *`idx`* contains the indices for the spaces found in the variable *`s`*.
 
-We can use these indices as word locators because 1+*`idx`* are the locations of the start of the words `at` and `last`. We can use that information to change the characters in those locations, as follows:
+…The variable *`idc`* contains the indices for the spaces found in the variable *`s`*.
 
-```matlab
->>s(idx+1) = upper(s(idx+1))
+We can use these indices to modify our character array, as follows
 
-s =
-together At Last
+```matlab linenums="1" title="Capitalize the first letter in each word"
+s(idc) = upper(s(idc) )
 ```
-We can capitalize the first word in the character array as follows:
 
-```matlab
->>s(1) = upper(s(1))
-
-s =
-Together At Last
+```matlab title="result"
+s = 
+    'Together At Last'
 ```
+
+…This syntax replace the lower case letters in *`s`* with the upper case version at only the *`idc`* locations in the character array
+
+
 We can use a variant of **`regexp`**, the function **`regexprep`**, to *replace* the spaces with the indicated character array, as follows:
 
-```matlab
->>t = regexprep(s,' ','_')
-
-Together_At_Last
+```matlab linenums="1" title="replace spaces with underscores"
+t = regexprep(s,' ','_')
 ```
-Notice that **`regexprep`** accepts three inputs. The second input (`' '`) is the regular expression to match. The third input is the character (`'_'`) used to replace the regular expression. In effect, we have replaced all of the spaces with the underscore character. 
+
+```matlab title="result"
+T = 
+    'Together_At_Last'
+```
+
+Notice that **`regexprep`** accepts three inputs. The second input (`' '`) is the regular expression to match. The third input is the character (`'_'`) used to replace the regular expression. In effect, we have replaced all of the spaces with the underscore character.
 
 We can eliminate the spaces entirely using an empty pair of single quotes as the third input, as follows:
 
-```matlab
->>u = regexprep(s,' ', '')
+```matlab linenums="1" title="replace spaces with nothing"
+u = regexprep(s,' ', '')
+```
 
+```matlab title="result"
 u =
-TogetherAtLast
+    'TogetherAtLast'
 ```
 
 As you can see regular expressions are an incredibly powerful way to manipulate strings. However, sometimes they can be difficult to use because the search strings are not intuitive.
-
 
 ___
 
