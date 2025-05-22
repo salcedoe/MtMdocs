@@ -28,23 +28,23 @@ So, in this module, we will learn how variables are stored in Computer Memory, w
 
 ### You should probably know these MATLAB Functions
 
-* [dec2bin](http://www.mathworks.com/help/matlab/ref/dec2bin.html) - Convert decimal to binary number in character array
+* [dec2bin](http://www.mathworks.com/help/matlab/ref/dec2bin.html){target="_blank"} - Convert decimal to binary number in character array
 
-* [bin2dec](http://www.mathworks.com/help/matlab/ref/bin2dec.html) - Convert binary number to decimal number
+* [bin2dec](http://www.mathworks.com/help/matlab/ref/bin2dec.html){target="_blank"} - Convert binary number to decimal number
 
-* [double] - convert to double precision
+* [double]{target="_blank"} - convert to double precision
 
-* [single] - convert to single precision
+* [single]{target="_blank"} - convert to single precision
 
-* [uint8] - convert the array into unsigned 8-bit (1-byte) integers 
+* [uint8]{target="_blank"} - convert the array into unsigned 8-bit (1-byte) integers
 
-* [uint16] -  convert the array into unsigned 16-bit (2-byte) integers
+* [uint16]{target="_blank"} -  convert the array into unsigned 16-bit (2-byte) integers
 
-* [logical] - convert the array to a logical class
+* [logical]{target="_blank"} - convert the array to a logical class
 
-* [char] - convert the array to a character class
+* [char]{target="_blank"} - convert the array to a character class
 
-* [num2str] - Convert character arrays to numeric arrays
+* [num2str]{target="_blank"} - Convert character arrays to numeric arrays
 
 [double]: http://www.mathworks.com/help/matlab/ref/double.html
 [single]: http://www.mathworks.com/help/matlab/ref/single.html
@@ -56,16 +56,16 @@ So, in this module, we will learn how variables are stored in Computer Memory, w
 
 ### And these terms
 
-* [base 10 numeral system][wiki_base_10] - aka decimal
-* [base 2 numeral system][wiki_base_2] - aka binary
-* [bit][wiki_bit] - an elemental unit of information in computing
-* [byte][wiki_byte] - 8 bits. The smallest addressable memory element in most computers.
-* [ASCII][wiki_ascii] - a character encoding standard
+* [base 10 numeral system][wiki_base_10]{target="_blank"} - aka decimal
+* [base 2 numeral system][wiki_base_2]{target="_blank"} - aka binary
+* [bit][wiki_bit]{target="_blank"} - an elemental unit of information in computing
+* [byte][wiki_byte]{target="_blank"} - 8 bits. The smallest addressable memory element in most computers.
+* [ASCII][wiki_ascii]{target="_blank"} - a character encoding standard
 * **Variable Class** - a class  identifies the properties of the variable such as the number of bytes required to store that variable and the possible range of values.
 * **Dynamic Range** - the ratio between the largest and smallest values possible
 * **Bit depth** - the number of bits reserved for each element of a variable
 * **Type casting** - the process of converting the contents of a variable from one class to another class
-* **[Dynamic Range][wiki_dynamic_range]**
+* **[Dynamic Range][wiki_dynamic_range]{target="_blank"}**
 
 [wiki_base_2]: https://en.wikipedia.org/wiki/Binary_number
 [wiki_base_10]: https://en.wikipedia.org/wiki/Decimal
@@ -153,9 +153,9 @@ Most computer memory, at their core, store their information as a state of energ
 
 [digital_rain]:images/matrix_digital_rain.png
 
-* A [**bit**][wiki_bit] is an elemental unit of information in computing (typically treated as a 1/0 or true/false). It is a single 0 or 1 that can represent basic information such as on/off, plus/minus, or as component in the base-2 numeral system.
+* A [**bit**][wiki_bit]{target="_blank"} is an elemental unit of information in computing (typically treated as a 1/0 or true/false). It is a single 0 or 1 that can represent basic information such as on/off, plus/minus, or as component in the base-2 numeral system.
 
-* A [**byte**][wiki_byte] contains 8 bits and is the smallest addressable memory element in most computers. This means that a computer cannot store anything smaller than a byte (even if all you need to store is just 1 bit of information).
+* A [**byte**][wiki_byte]{target="_blank"} contains 8 bits and is the smallest addressable memory element in most computers. This means that a computer cannot store anything smaller than a byte (even if all you need to store is just 1 bit of information).
 
 This is the reason why you will often see binary numbers preceded by a series of zeros. For example, when indicating the value *one* in a byte, you precede the one with 7 zeros as such:
 
@@ -188,15 +188,15 @@ Numeric class variables store numbers. There are many different numeric classes 
 [MATLAB Numeric Classes](https://www.mathworks.com/help/matlab/numeric-types.html) include signed and unsigned integers, and single- and double precision floating-point numbers. Each class has a different consequence on memory. You can find a list of the  numeric types available in MATLAB [here](http://www.mathworks.com/help/matlab/numeric-types.html). We will focus on a subset of these classes, including the following:
 
 * Floating Classes
-  * [single](#single-precision)
-  * [double](#double-precision)
-*  [Integer Classes](#integers)
-   *  uint8
-   *  uint16
+  * [single]{target="_blank"}
+  * [double]{target="_blank"}
+*  Integer Classes
+   *  [uint8]{target="_blank"}
+   *  [uint16]{target="_blank"}
 
 #### Double Precision
 
-The default MATLAB numeric class is [double](http://en.wikipedia.org/wiki/Double_precision). [Double-precision](http://www.wikiwand.com/en/Double-precision_floating-point_format) variables, use 64 bits (8 bytes) of memory per element in an array. Due to this amount of memory allocation, they can accurately represent very large numbers. This is also known as having a very large dynamic range, or a large ratio between the largest and smallest values possible.
+The default MATLAB numeric class is [double]{target="_blank"}. [Double-precision](http://www.wikiwand.com/en/Double-precision_floating-point_format) variables, use 64 bits (8 bytes) of memory per element in an array. Due to this amount of memory allocation, they can accurately represent very large numbers. This is also known as having a very large dynamic range, or a large ratio between the largest and smallest values possible.
 
 The following is an illustration of how a double precision number is stored in memory:
 
@@ -252,7 +252,7 @@ whos('var_single')
 Note that *`var_single`* requires only half of the Bytes (40) that *`c`* requires, even though it contains the exact same values (`1:10`). (1)
 {.annotate}
 
-1. The  function [whos](http://www.mathworks.com/help/matlab/ref/whos.html) displays the properties of the inputted variable name (similar to the workspace)
+1. The  function [whos](http://www.mathworks.com/help/matlab/ref/whos.html){target="_blank"} displays the properties of the inputted variable name (similar to the workspace)
 
 ### Integers
 
@@ -264,7 +264,7 @@ Digital Images are often stored in an unsigned integer class. The most common on
 
 [MATLAB_numeric_classes]: images/numeric_classes.png
 
-There are other integer classes ([int8](http://www.mathworks.com/help/matlab/ref/int8.html?searchHighlight=plot), [int16](http://www.mathworks.com/help/matlab/ref/int16.html?searchHighlight=plot)), which are signed (i.e. can have negative values), but we will not use these classes in this tutorial.
+There are other integer classes ([int8](http://www.mathworks.com/help/matlab/ref/int8.html){target="_blank"}, [int16](http://www.mathworks.com/help/matlab/ref/int16.html)){target="_blank"}, which are signed (i.e. can have negative values), but we will not use these classes in this tutorial.
 
 #### Memory Considerations
 
@@ -349,7 +349,7 @@ b =
 
 Notice that every value, except for `255`, increases by 10. This is called integer saturation or 'clamping' the value to the class maximum (`255`).
 
-For a more detail discussion of Integer and Single-Precision Math, please refer to this [article](http://www.mathworks.com/company/newsletters/articles/integer-and-single-precision-math-in-matlab-7.html).
+For a more detail discussion of Integer and Single-Precision Math, please refer to this [article](http://www.mathworks.com/company/newsletters/articles/integer-and-single-precision-math-in-matlab-7.html){target="_blank"}.
 
 ##### Challenge 2
 
@@ -381,7 +381,7 @@ For a more detail discussion of Integer and Single-Precision Math, please refer 
 
 The character class handles characters (letters, numbers, spaces, etc.). So, how are characters stored in computer memory using binary?
 
-The answer is **ASCII**. [ASCII](http://en.wikipedia.org/wiki/Ascii) stands for the "American Standard Code for Information Interchange". That's right. America. ASCII is a "character encoding scheme" (basically a look-up table) where each character of text has a numeric equivalent. So, any text that you see on a computer screen (or on your phone) has a numeric equivalent, even the commas, periods and emojis. And even the *characters* for numeric digits, like `'1'`.
+The answer is **ASCII**. [ASCII](http://en.wikipedia.org/wiki/Ascii){target="_blank"} stands for the "American Standard Code for Information Interchange". That's right. America. ASCII is a "character encoding scheme" (basically a look-up table) where each character of text has a numeric equivalent. So, any text that you see on a computer screen (or on your phone) has a numeric equivalent, even the commas, periods and emojis. And even the *characters* for numeric digits, like `'1'`.
 
 For example, the character `'1'` is stored in memory as follows:
 
@@ -479,7 +479,7 @@ ans =
 
     Count over by letters: The third and eighth letters are spaces (ASCII code `32`).
 
-??? question "Why is uint16 the best choice for type casting character arrays (and not, say, *uint8*?)?"
+??? question "Why is uint16 the best choice for type casting character arrays (and not, say, *uint8*)?"
 
     The char class requires two bytes of memory because there are more than 255 different characters that can be used on a computer. There are not more than 65,536 characters, so you don't need any more memory (as can be found in *single* or *double*).
 
@@ -668,7 +668,6 @@ However, you will typically just get all `TRUE` since all printable characters a
 
       1   1   1   1   1   0   1   1   1   1   1   1   1
     ```
-
 
 **This Module is OVER.**
 

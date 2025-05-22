@@ -24,10 +24,10 @@ Numeric arrays contain numbers (as opposed to characters or booleans).
 
 ### Relevant Mathworks Documentation
 
-* [Matrices and Arrays](http://www.mathworks.com/help/matlab/learn_matlab/matrices-and-arrays.html)
+* [Matrices and Arrays](http://www.mathworks.com/help/matlab/learn_matlab/matrices-and-arrays.html){target="_blank"}
 
-* [Array Indexing](http://www.mathworks.com/help/matlab/learn_matlab/array-indexing.html)
-* [Operators and Special Characters](https://www.mathworks.com/help/matlab/matlab_prog/matlab-operators-and-special-characters.html)
+* [Array Indexing](http://www.mathworks.com/help/matlab/learn_matlab/array-indexing.html){target="_blank"}
+* [Operators and Special Characters](https://www.mathworks.com/help/matlab/matlab_prog/matlab-operators-and-special-characters.html){target="_blank"}
 
 ## Storing Numbers
 
@@ -270,13 +270,13 @@ e =
 
 ## Indexing Arrays
 
-To [index](https://www.mathworks.com/help/matlab/math/array-indexing.html) a numeric variable, you simply use the parentheses `( )` after the name of the variable. The following shows the equivalent indexing that you can use in MATLAB: linear or standard indexing.
+To [index](https://www.mathworks.com/help/matlab/math/array-indexing.html){target="_blank"} a numeric variable, you simply use the parentheses `( )` after the name of the variable. The following shows the equivalent indexing that you can use in MATLAB: linear or standard indexing.
 
 ![Indexing Scheme image](images/indexing_schemes.png){ width="600" }
 
 ### Linear indexing
 
-Linear indexing in MATLAB uses the **[COLUMN MAJOR](http://www.wikiwand.com/en/Row-major_order)** indexing scheme, in which elements are numbered first by row, then by column.
+Linear indexing in MATLAB uses the **[COLUMN MAJOR](http://www.wikiwand.com/en/Row-major_order){target="_blank"}** indexing scheme, in which elements are numbered first by row, then by column.
 
 `name_of_variable(linear_index)`
 
@@ -710,12 +710,11 @@ Transposing interchanges the row and column index for each element. You transpos
     ```
     … a column vector
 
-
 **Congrats! You've made it to the end.**
 
 ---
 
-<!--Links-->
+<!--Links
 
 [MATLAB_var_names]: http://www.mathworks.com/help/matlab/matlab_prog/variable-names.html
 
@@ -735,4 +734,4 @@ Transposing interchanges the row and column index for each element. You transpos
 
 [wiki_array]: http://en.wikipedia.org/wiki/Array_data_structure
 
-[wiki_algorithm]: http://en.wikipedia.org/wiki/Algorithm
+[wiki_algorithm]: http://en.wikipedia.org/wiki/Algorithm-->
