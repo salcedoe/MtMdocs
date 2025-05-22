@@ -74,43 +74,43 @@ Used to combine logical functions based on logical operations such as
 
 ### Important Terminology
 
-* **BOOLEAN:** a data type that can have only two possible values
-* **Relational Operations:** operations that compare the numeric values in arrays and return logical arrays
-* [**Logical Operations**](https://www.mathworks.com/help/matlab/logical-operations.html): operations that work on logical arrays to return logical arrays (kind of like logical arithmetic)
-* [**Logical Indexing**](https://www.mathworks.com/help/matlab/math/array-indexing.html): using a logical array as an index
-* [**Logic Gates**](http://www.wikiwand.com/en/Logic_gate): A function that compares one or more logical inputs and produces a single logical output.
+- **BOOLEAN:** a data type that can have only two possible values
+- **Relational Operations:** operations that compare the numeric values in arrays and return logical arrays
+- [**Logical Operations**](https://www.mathworks.com/help/matlab/logical-operations.html){target="_blank"}: operations that work on logical arrays to return logical arrays (kind of like logical arithmetic)
+- [**Logical Indexing**](https://www.mathworks.com/help/matlab/math/array-indexing.html){target="_blank"}: using a logical array as an index
+- [**Logic Gates**](http://www.wikiwand.com/en/Logic_gate){target="_blank"}: A function that compares one or more logical inputs and produces a single logical output.
 
 ### Relevant MATLAB Documentation
 
-* [Array Comparison with Relations Operations](https://www.mathworks.com/help/releases/R2024a/matlab/matlab_prog/array-comparison-with-relational-operators.html)
-* [Relational Operations](https://www.mathworks.com/help/matlab/relational-operators.html)
-* [**Logical Operations**](https://www.mathworks.com/help/matlab/logical-operations.html)
+- [Array Comparison with Relations Operations](https://www.mathworks.com/help/matlab/matlab_prog/array-comparison-with-relational-operators.html){target="_blank"}
+- [Relational Operations](https://www.mathworks.com/help/matlab/relational-operators.html)
+- [**Logical Operations**](https://www.mathworks.com/help/matlab/logical-operations.html)
 
 ### Important MATLAB Functions
 
-* [**true**](https://www.mathworks.com/help/matlab/ref/true.html): returns a Logical `1`.
-* [**false**](https://www.mathworks.com/help/matlab/ref/false.html): returns a Logical `0`.
-* [**logical**](https://www.mathworks.com/help/matlab/ref/logical.html): converts numerical values to a logical array. All non-zero values in the array are converted to logical `1`'s
-* [**strcmp**](https://www.mathworks.com/help/matlab/ref/strcmp.html): compare strings and returns a logical `1` if the strings are EXACTLY the same
-* [**is\* functions**](https://www.mathworks.com/help/matlab/ref/true.html): a series of functions that detect states (e.g. is it a letter, a space?, a number?). Each function returns a logical array based on the outcome.
-* [**all**](https://www.mathworks.com/help/matlab/ref/all.html): function that determines if all array elements are nonzero or true
-* [**any**](https://www.mathworks.com/help/matlab/ref/all.html): function that determines if any array elements are nonzero
+- [**true**](https://www.mathworks.com/help/matlab/ref/true.html){target="_blank"}: returns a Logical `1`.
+- [**false**](https://www.mathworks.com/help/matlab/ref/false.html){target="_blank"}: returns a Logical `0`.
+- [**logical**](https://www.mathworks.com/help/matlab/ref/logical.html){target="_blank"}: converts numerical values to a logical array. All non-zero values in the array are converted to logical `1`'s
+- [**strcmp**](https://www.mathworks.com/help/matlab/ref/strcmp.html){target="_blank"}: compare strings and returns a logical `1` if the strings are EXACTLY the same
+- [**is\* functions**](https://www.mathworks.com/help/matlab/ref/true.html){target="_blank"}: a series of functions that detect states (e.g. is it a letter, a space?, a number?). Each function returns a logical array based on the outcome.
+- [**all**](https://www.mathworks.com/help/matlab/ref/all.html){target="_blank"}: function that determines if all array elements are nonzero or true
+- [**any**](https://www.mathworks.com/help/matlab/ref/all.html){target="_blank"}: function that determines if any array elements are nonzero
 
 ### Learning Objectives
 
-* Define Boolean
+- Define Boolean
 
-* Use the functions **`true`**, **`false`**, and **`logical`** to create logical arrays
+- Use the functions **`true`**, **`false`**, and **`logical`** to create logical arrays
 
-* Use Relational Operations to generate logical arrays
+- Use Relational Operations to generate logical arrays
 
-* Use Logical Operators to combine logical arrays
+- Use Logical Operators to combine logical arrays
 
-* Use logical arrays to index arrays
+- Use logical arrays to index arrays
 
-* use **`is*`** functions to detect states and create logical arrays to parse arrays
+- use **`is*`** functions to detect states and create logical arrays to parse arrays
 
-* Use **`strcmp`** on character arrays
+- Use **`strcmp`** on character arrays
   
 <!--[strcmp]: http://www.mathworks.com/help/matlab/ref/strcmp.html
 
@@ -138,28 +138,22 @@ N = [true false]
 
 ```matlab title="result"
 L =
-  logical
-
-   1
+    logical
+    1
 
 M =
-
-  logical
-
-   0
+    logical
+    0
 
 N =
-
-  1×2 logical array
-
-   1   0
-
+    1×2 logical array
+    1   0
 ```
 
 !!! note "Note the Convention"
      In MATLAB, `trues` and `falses` are indicated by a logical `1` or `0`, respectively
 
-We can further inspect our new logical arrays by examining their properties in the workspace. 
+We can further inspect our new logical arrays by examining their properties in the workspace.
 
 !!! abstract "inspect property of the new logical variable"
 
@@ -171,7 +165,6 @@ We can further inspect our new logical arrays by examining their properties in t
 
      ```matlab title="output"
          Name      Size            Bytes  Class      Attributes
-
           L         1x1                 1  logical              
           M         1x1                 1  logical              
           N         1x2                 2  logical              
@@ -179,7 +172,7 @@ We can further inspect our new logical arrays by examining their properties in t
 
      The output from **`who`** shows that both *`L`* and *`M`* are 1X1 logical arrays that each take up 1 byte of memory, while N is a `1x2` logical array that consumes 2 bytes of memory. 
 
-### true and false accept inputs
+### The functions true and false accept inputs
 
 **`true`** and **`false`** are MATLAB functions that accept inputs. The first input indicates the number of rows and the second input indicates the number of columns that you want. If you enter just one input, the function assumes you want a square matrix (i.e. the same number of rows and columns). This is easy to forget and sometimes you'll create huge matrices by accident, so keep that in mind.
 
@@ -195,16 +188,13 @@ We can further inspect our new logical arrays by examining their properties in t
 
      ```matlab title="result"
      t =
-
-     3×3 logical array
-
+          3×3 logical array
           1   1   1
           1   1   1
           1   1   1
      
      f =
-
-     3×4 logical array
+          3×4 logical array
           0     0     0     0
           0     0     0     0
           0     0     0     0
@@ -221,9 +211,7 @@ We can further inspect our new logical arrays by examining their properties in t
 
      ```matlab title="result"
      t =
-
           2×1 logical array
-
           1
           1
      ```
@@ -247,9 +235,7 @@ You can also create logical arrays by converting perfectly good numeric arrays i
           0   1   2   3
 
      L =
-
-     1×4 logical array
-
+          1×4 logical array
           0   1   1   1
      ```
 
@@ -265,19 +251,17 @@ In the above example, we actually created a new logical array, *`L`* that is the
    
 === "Answer 1"
 
-     Explicitly create the logical array `1 1 0 1` and assign to the variable *m*.
+    Explicitly create the logical array `1 1 0 1` and assign to the variable *m*.
 
     ```matlab linenums="1"
     m = [true true false true]
     ```
 
-     ```matlab title="result"
-     m =
-
-          1×4 logical array
-
-          1   1   0   1
-     ```
+    ```matlab title="result"
+    m =
+        1×4 logical array
+        1   1   0   1
+    ```
 
 === "Question 2"
 
@@ -293,9 +277,7 @@ In the above example, we actually created a new logical array, *`L`* that is the
 
      ```matlab title="result"
      L =
-
           2×1 logical array
-
           1
           1
      ```
@@ -315,10 +297,8 @@ In the above example, we actually created a new logical array, *`L`* that is the
 
     ```matlab title="result"
      ans =
-
-     1×7 logical array
-
-     1   0   1   1   1   0   1
+           1×7 logical array
+           1   0   1   1   1   0   1
     ```
 
      Five logical ones and two logical zeros
@@ -358,10 +338,8 @@ Since we already assigned the value `12` to *`a`*, we get a `1`:
 
 ```matlab title="result of a==12"
 ans =
-
-  logical
-
-   1
+      logical
+      1
 ```
 
 And, since there is no explicit assignment in the second statement, the logical `1` is assigned to the variable *`ans`*.
@@ -371,7 +349,6 @@ And, since there is no explicit assignment in the second statement, the logical 
 
      ```matlab title="whos"
           Name      Size            Bytes  Class      Attributes
-
           a         1x1                 8  double               
           ans       1x1                 1  logical              
      ```
@@ -392,10 +369,9 @@ We can assign the result of a relational operation to a variable using the follo
      b = a == 25 % b equals 'a is equal to 25'
      ```
 
-     ``` title="result"
+     ```matlab title="result"
      b =
-
-     logical
+          logical
           0
      ```
 
@@ -414,8 +390,8 @@ We can similarly compare an array of values.
 
      ```matlab title="result"
      b =
-     1×10 logical array
-     0   0   0   0   0   1   1   1   1   1
+         1×10 logical array
+         0   0   0   0   0   1   1   1   1   1
      ```
 
      Notice that *`a`* is a numeric vector, while *`b`* is a logical array with the same dimensions as *`a`* but with `1`'s wherever *`a`* is greater than 5 and `0` 's everywhere else.
@@ -431,7 +407,6 @@ Or consider this relational operation of a matrix:
 
      ```matlab title="result"
      c =
-
           1  2  3
           4  5  6
 
@@ -443,7 +418,7 @@ Or consider this relational operation of a matrix:
      Here we create a numeric array *`c`* and a logical array, *`d`*, which has the same dimensions as *`c`,* but has `1`'s wherever *`c`* has a value greater than `3`. As you can see, using logical arrays allows us to quickly identify which values in *`c`* are greater than `3`.
 
 !!! info "The term 'masking'"
-     In the above examples, we create logical arrays that are the same size as a reference numeric array. In the logical array, there are logical `1`s for elements that return true  when the relational operation was satistified (e.g. when the values in *`c`* were greater than 5). These logical `1`s are said to **mask** the elements in the numeric array that satisfy the relational operation. So, I will often say something like "create a logical array that *masks* the values greater than 5 in the numeric array *`c`*." What I mean is "create a logical array which has logical `1`s where the elements in *`c`* are greater than `5`." It's just a little shorter to use the term mask.
+     In the above examples, we create logical arrays that are the same size as a reference numeric array. In the logical array, there are logical `1`s for elements that return true  when the relational operation was satisfied (e.g. when the values in *`c`* were greater than 5). These logical `1`s are said to **mask** the elements in the numeric array that satisfy the relational operation. So, I will often say something like "create a logical array that *masks* the values greater than 5 in the numeric array *`c`*." What I mean is "create a logical array which has logical `1`s where the elements in *`c`* are greater than `5`." It's just a little shorter to use the term mask.
 
 ---
 
@@ -489,10 +464,8 @@ Or consider this relational operation of a matrix:
 
      ```matlab title="result"
      b =
-
-     logical
-
-     1     
+         logical
+         1     
      ```
      *`b`* contains a logical `1` (meaning true) because 12 is less than 20. 
 
@@ -500,7 +473,7 @@ Or consider this relational operation of a matrix:
 
 ## Combining Logical Arrays using Logical Operations
 
-As in life, sometimes you need more than one input to make a decision. Maybe you want a unanimous decision (all trues). Or maybe you want something a little more ambiguous: if one of these is true, we'll go with it.
+As in life, sometimes you need more than one input to make a decision. Maybe you want a unanimous decision (all trues). Or maybe you want something a little more ambiguous: if just one of these is true, then we'll go with it.
 
 Logical operations allow you to combine two logical arrays into a single logical array. These operations are like boolean math: you take two booleans, and get one boolean back. What you get back depends on the logical operation you use.
 
@@ -521,7 +494,7 @@ Logical operations allow you to combine two logical arrays into a single logical
 
 ### Logical Operators
 
-Use the following [operators](https://www.mathworks.com/help/matlab/matlab_prog/matlab-operators-and-special-characters.html) to perform logical operations
+Use the following [operators](https://www.mathworks.com/help/matlab/matlab_prog/matlab-operators-and-special-characters.html){target="_blank"} to perform logical operations
 
 | Symbol | Logical operation |  
 | :----------- | :----------- |
@@ -546,7 +519,6 @@ N = 1:9
 
 ```matlab title="result"
 N =
-
      1     2     3     4     5     6     7     8     9
 ```
 
@@ -558,10 +530,8 @@ L = N>4
 
 ```matlab title="result"
 L =
-
-  1×9 logical array
-
-   0   0   0   0   1   1   1   1   1
+    1×9 logical array
+    0   0   0   0   1   1   1   1   1
 ```
 
 Compare the corresponding elements in *`N`* and *`L`*. Notice there there are logical `1`s in *`L`* wherever the numeric values in *`N`* are greater than  4. And logical `0`s everywhere else
@@ -570,10 +540,8 @@ Compare the corresponding elements in *`N`* and *`L`*. Notice there there are lo
 
 ```matlab title="M"
 M =
-
-  1×9 logical array
-
-   1   0   1   0   1   0   1   0   1
+    1×9 logical array
+    1   0   1   0   1   0   1   0   1
 ```
 
 ??? info "How to find Odd numbers using the function mod"
@@ -587,7 +555,6 @@ M =
 
      ```matlab title="result"
      M =
-
           1     0     1     0     1     0     1     0     1
      ```
 
@@ -601,9 +568,7 @@ M =
 
      ```matlab
      M =
-
           1×9 logical array
-
           1   0   1   0   1   0   1   0   1
      ```
      
@@ -622,10 +587,8 @@ The logical **AND** operation returns `1` for coinciding trues and returns `0` f
 
      ```matlab title="result"
      ans =
-
-     1×9 logical array
-
-     0   0   0   0   1   0   1   0   1
+           1×9 logical array
+           0   0   0   0   1   0   1   0   1
      ```
 
      Notice that the result has a `1` **only** where there is `1` in both *`L`* and *`M`*. These `1`'s correspond to the values 5, 7, and 9 in *`N`*: the only values that meet the criteria of being **both** greater than 4 and odd. The logical array is said to *mask* those values in *`N`*
@@ -645,10 +608,8 @@ The logical **OR** operation is less discerning than **AND**: Any `1` returns a 
      
      ```matlab title="result"
      ans =
-
-          1×9 logical array
-
-          1   0   1   0   1   1   1   1   1
+           1×9 logical array
+           1   0   1   0   1   1   1   1   1
      ```
 
      Here, the result has a logical `1` wherever there was a `1` found in either `L` or `M`. It has a `false` in the elements corresponding to 2 and 4 in *`N`.*  So, 2 and 4 are neither greater than 4 or odd… The rest of the numbers are at least one or the other or both.
@@ -667,10 +628,8 @@ This operation is simple to understand: just invert the logic.
 
      ```matlab title="result"
      ans =
-
-          1×9 logical array
-
-          0   1   0   1   0   1   0   1   0
+           1×9 logical array
+           0   1   0   1   0   1   0   1   0
      ```
 
      Notice the use of the `tilde` special character. The resulting array has the inverse logical of *`M`.* `1` is `false` and `false` is `1`. UP is DOWN. CATS are DOGS. etc. Also notice that the `1`s now correspond to the **even** numbers in *`N`*.
@@ -691,10 +650,8 @@ The operation **exclusive or** is a little more confusing to understand. But the
 
      ```matlab title="result"
      ans =
-
-     1×9 logical array
-
-     1   0   1   0   0   1   0   1   0
+           1×9 logical array
+           1   0   1   0   0   1   0   1   0
      ```
 
      The resulting logical array masks the odd numbers below 4 and the even numbers above 4: `1, 3, 6, 8`
@@ -706,6 +663,11 @@ The operation **exclusive or** is a little more confusing to understand. But the
 === "Question"
 
      1. What syntax would you use to create a logical array that masks the even numbers in *`N`* that are less than 8? Assign the result to *`O`*
+    
+    ```matlab title="Contents of N"
+    N =
+        1     2     3     4     5     6     7     8     9
+    ```
 
 === "Answer"
 
@@ -718,9 +680,7 @@ The operation **exclusive or** is a little more confusing to understand. But the
 
      ```matlab title="result"
      O =
-
           1×9 logical array
-
           0   1   0   1   0   1   0   0   0
      ```
 
@@ -737,8 +697,8 @@ One of the superpowers of a logical array is its ability to be used as an index.
       Here we create a numeric matrix, *`c`* and a logical array *`d`* that masks the values in *`c`* greater than `3`.
 
      ```matlab linenums="1"
-     c =  [1 2 3; 4 5 6] % create numeric array
-     d =  c > 3 % masks values greater than 3
+     c = [1 2 3; 4 5 6] % create numeric array
+     d = c > 3 % masks values greater than 3
      ```
 
      If we index *`c`* with *`d`* …
@@ -771,22 +731,15 @@ As you can see, logical indexing returns the values in *`c`* that correspond to 
 
 Recall the variables *`N`*, *`L`*, and *`M`* that we generated in the previous section.
 
-``` 
-N  1  2  3  4  5  6  7  8  9
-L  0  0  0  0  1  1  1  1  1
-M  1  0  1  0  1  0  1  0  1
-```
-<!--
 | | | | | | | | | | |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
 | **N** | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
 | **L** | 0 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 |
 | **M** | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 |
 
-![matrices illustration][L-img-LMN]
+<!-- ![matrices illustration][L-img-LMN]
 
-[L-img-LMN]: images/logical-indexing-LMN.png
--->
+[L-img-LMN]: images/logical-indexing-LMN.png -->
 
 We can use *`L`* and *`M`* to index  *`N`*, as follows:
 
@@ -798,8 +751,7 @@ We can use *`L`* and *`M`* to index  *`N`*, as follows:
 
      ```matlab title="result"
      ans =
-
-          5     6     7     8     9
+           5     6     7     8     9
      ```
 
      you get all the values in *`N`* that are greater than `4`. Notice that these are the numbers in *`M`* that correspond to the elements in *`L`* that contain a `1`.
@@ -812,8 +764,7 @@ We can use *`L`* and *`M`* to index  *`N`*, as follows:
 
      ```matlab title="result"
      ans =
-
-          1     3     5     7     9
+           1     3     5     7     9
      ```
      
      Here you get all the odd numbers in *`N`,* which again are the numbers in *`M`* that correspond to the elements in *`N`* which contain a `1`.
@@ -830,8 +781,7 @@ If we want to get fancy, we can combine Logical operations and indexing, as foll
 
      ```matlab title="result"
      ans =
-
-          5     7     9
+           5     7     9
      ```
 
      And you get the odd numbers greater than 4.
@@ -844,8 +794,7 @@ If we want to get fancy, we can combine Logical operations and indexing, as foll
 
      ```matlab title="result"
      ans =
-
-          1     3     5     6     7     8     9
+           1     3     5     6     7     8     9
      ```
 
      Here we get all odd numbers and values over four
@@ -858,8 +807,7 @@ If we want to get fancy, we can combine Logical operations and indexing, as foll
 
      ```matlab title="result"
      ans =
-
-          1     3     6     8
+           1     3     6     8
      ```
 
      Here we get the ODD numbers below 4 and even numbers above 4. Or put another way: you get all the values in *`N`* except where *`L`* and *`M`* overlap.
@@ -881,8 +829,7 @@ If we want to get fancy, we can combine Logical operations and indexing, as foll
 
      ```matlab title="result"
      ans =
-
-          2     4     6     8
+           2     4     6     8
      ```
 
      All even numbers returned
@@ -932,10 +879,8 @@ Examples include:
 
      ```matlab title="result"
      ans =
-
-     logical
-
-     1
+           logical
+           1
      ```
 
      *`ch`* is a character array, so you get a logical 1 (or true)
@@ -952,9 +897,8 @@ Now, compare the output from **isletter** on the same character array, *ch*.
 
      ```matlab title="result"
      il =
-     1×42 logical array
-
-     0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+          1×42 logical array
+          0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
      ```
 
      So, instead of getting just one true or false, we get a true or false for every element in *ch*. Here, *`il`* contains `1`'s only where letters can be found in *`ch`*.
@@ -985,17 +929,15 @@ Sometimes you want to know whether any data has been added to a variable.
 
      ```matlab title="result"
      ans =
-
-     logical
-
-     1
+           logical
+           1
      ```
 
      …We get a true because *a* is an empty variable.
 
 !!! example "Example: **strcmp**"
 
-     The function *[strcmp]* determines whether two character arrays are identical.
+     The function *[strcmp]{target="_blank"}* determines whether two character arrays are identical.
 
      The following example should illustrate why CANVAS can be so bad at grading open responses such as "Fill in the Blank "questions.
 
@@ -1013,8 +955,8 @@ Sometimes you want to know whether any data has been added to a variable.
      ```
 
      ```matlab title="result"
-     the_same =
-          0
+     the_same = 
+                0
      ```
 
      Why did strcmp return a zero? Because the spaces in the two character arrays did not line up, so all of the letters in the array did not precisely line up.
@@ -1023,32 +965,44 @@ How do we make **`strcmp`** work for the previous example? As we found out, unev
 
 !!! example "Example: strcmp without the spaces"
 
-     We can determine if the letters match in the two  previous character arrays using the following steps:
+    We can determine if the letters match in the two  previous character arrays using the following steps:
 
-     1. Identify all the spaces using *isspace* which returns a logical array with 1s where the spaces are
+    1. Identify all the spaces using *isspace* which returns a logical array with 1s where the spaces are
 
-     2. Using the syntax `char_array(logic_array) = []`  to eliminate the spaces
+    2. Using the syntax `char_array(logic_array) = []`  to eliminate the spaces
 
-     3. Compare the new character arrays using *strcmp*
+    3. Compare the new character arrays using *strcmp*
 
-     ```matlab linenums="1"
-     cala = isspace(correct_answer) % logical array masking the spaces in correct_answer
-     sala = isspace(student_answer) % logical array masking the spaces in student_answer
+    ```matlab linenums="1"
+    cala = isspace(correct_answer) % logical array masking the spaces in correct_answer
+    sala = isspace(student_answer) % logical array masking the spaces in student_answer
 
-     correct_answer(cala) = [] % eliminate spaces in correct_answer
-     student_answer(sala) = [] % eliminate spaces in student_answer
+    correct_answer(cala) = [] % eliminate spaces in correct_answer
+    student_answer(sala) = [] % eliminate spaces in student_answer
+    ```
 
-     strcmp(correct_answer, student_answer) % compare the letters using strcmp
-     ```
+    ```matlab title="result"
+    correct_answer = 
+                     'Everygoodboydoesfine'
+    student_answer = 
+                     'Everygoodboydoesfine'
+    ```
 
-     ```matlab title="result"
-     ans = 
-          1
-     ```
+    …All that remains are the letters.
 
-     …**`strcmp`** now returns a 1 indicating that the two character arrays are the same.
+    Now when we compare the character arrays…
 
-     [strcmp]: http://www.mathworks.com/help/matlab/ref/strcmp.html
+    ```matlab linenums="1"
+    strcmp(correct_answer, student_answer) % compare the letters using strcmp
+    ```
+
+    ```matlab title="result"
+    ans = 1
+    ```
+
+    …We ge a 1, or true, indicating that the two character arrays are the same.
+
+    [strcmp]: http://www.mathworks.com/help/matlab/ref/strcmp.html
 
 ### Challenge: is* functions
 
@@ -1068,10 +1022,8 @@ How do we make **`strcmp`** work for the previous example? As we found out, unev
 
      ```matlab title="result"
      ans =
-
-          logical
-
-          0
+           logical
+           0
      ```
 
      'apple' is not a numeric array.
@@ -1082,10 +1034,8 @@ How do we make **`strcmp`** work for the previous example? As we found out, unev
 
      ```matlab title="result"
      ans =
-
-          logical
-
-          0
+           logical
+           0
      ```
 
      'Empty' is not empty -- it is character array with five characters.
@@ -1096,10 +1046,8 @@ How do we make **`strcmp`** work for the previous example? As we found out, unev
 
      ```matlab title="result"
      ans =
-
-          logical
-
-          0
+           logical
+           0
      ```
 
      `'1234'` is a character array because of the single quotes. 
@@ -1108,7 +1056,13 @@ How do we make **`strcmp`** work for the previous example? As we found out, unev
 
 ## Final Example: Putting it all together for Pangrams
 
-Pangrams are sentences that contain all of the letters of the alphabet at least once. Let's use MATLAB to determine whether a sentence is a pangram or not. To do this, we simply need to find all of the unique letters in a sentence and count them. If they add up to 26, then we have a pangram. There is even a MATLAB function that will return all of the unique characters in a character array: **`unique`**.
+Pangrams are sentences that contain all of the letters of the alphabet at least once. Let's use MATLAB to determine whether a sentence is a pangram or not. To do this, we simply need to find all of the unique letters in a sentence and count them. If they add up to 26, then we have a pangram.
+
+To accomplish this, we will use several MATLAB functions, including:
+
+- **isspace:** logical array that masks the spaces
+- **unique:** return all of the unique characters in a character array
+- **numel:** returns the number of elements in an array
 
 Here we prototype an algorithm (or series of programming steps) to test whether a sentence is a pangram or not.
 
@@ -1128,9 +1082,8 @@ space_la = isspace(sentence) % mask spaces in sentence
 
 ```matlab title="result"
 space_la =
-  1×43 logical array
-
-   0   0   0   1   0   0   0   0   0   1   0   0   0   0   0   1   0   0   0   1   0   0   0   0   0   1   0   0   0   0   1   0   0   0   1   0   0   0   0   1   0   0   0
+           1×43 logical array
+           0   0   0   1   0   0   0   0   0   1   0   0   0   0   0   1   0   0   0   1   0   0   0   0   0   1   0   0   0   0   1   0   0   0   1   0   0   0   0   1   0   0   0
 ```
 
 …*`space_la`* is a logical array that masks(1) the spaces in *`sentence`*.
@@ -1146,7 +1099,7 @@ sentence(space_la) = []; % Remove spaces from sentence
 
 ```matlab title="result: spaces removed"
 sentence =
-    'Thequickbrownfoxjumpsoverthelazydog'
+           'Thequickbrownfoxjumpsoverthelazydog'
 ```
 
 …*`sentence`* now contains no spaces.
@@ -1159,7 +1112,7 @@ letter_count = numel(sentence) % returns the number of elements in sentence
 
 ```matlab title="result"
 letter_count =
-    35
+               35
 ```
 
 …35? We have too many letters because certain letters are repeated.
@@ -1172,7 +1125,7 @@ uniq_letters = unique(sentence) % return unique letters from sentence
 
 ```matlab title="result"
 uniq_letters =
-    'Tabcdefghijklmnopqrstuvwxyz'
+               'Tabcdefghijklmnopqrstuvwxyz'
 ```
 
 …*`uniq_letters`* contains unique instances of each letter.
@@ -1185,7 +1138,7 @@ letter_count = numel(uniq_letters) % returns number of elements in uniq_letters
 
 ```matlab title="result"
 letter_count =
-    27
+                27
 ```
 
 …27? How can there be more than 26 unique letters. Ah, yes. Capital T and lowercase t are considered to be different letters since MATLAB is case-sensitive. We need to find all the unique lowercase letters.
@@ -1193,12 +1146,12 @@ letter_count =
 So, we first need to convert all letters in *`uniq_letters`* to lowercase using the function **`lower`**:
 
 ```matlab linenums="1" title="6. Convert to lowercase"
-lower_letters =lower(uniq_letters) % coverts all letters to lowercase
+lower_letters = lower(uniq_letters) % coverts all letters to lowercase
 ```
 
 ```matlab title="result"
-lower_letters =
-    'tabcdefghijklmnopqrstuvwxyz'
+lower_letters = 
+                'tabcdefghijklmnopqrstuvwxyz'
 ```
 
 Then find the unique letters in that array...
@@ -1209,7 +1162,7 @@ uniq_lower_letters = unique(lower_letters); % unique letters in lower_letters
 
 ```matlab title="result"
 uniq_lower_letters =
-    'abcdefghijklmnopqrstuvwxyz'
+                     'abcdefghijklmnopqrstuvwxyz'
 ```
 
 And then count the number of elements in *uniq_lower_letters*...
@@ -1220,7 +1173,7 @@ letter_count = numel(uniq_lower_letters) % number of elements in uniq_lower_lett
 
 ```matlab title="result"
 letter_count =
-    26
+                26
 ```
 
 Finally, we can then test whether the sentence is a pangram by using the relational operation: "Does the count equal 26":
@@ -1231,10 +1184,8 @@ la_pangram = letter_count == 26
 
 ```matlab title="result: yes, a pangram"
 la_pangram =
-
-  logical
-
-   1
+             logical
+             1
 ```
 
 …Since *`letter_count`* does equal 26, meaning there are 26 unique lowercase letters, the result, stored in *`la_pangram`*,  is true.
@@ -1255,6 +1206,6 @@ So that's how it goes when you are prototyping an algorithm. You need to test ea
      ```
      Notice for each step that we create a variable and then input that variable into the function in the next line.
 
-     Also notice that our algorithm has fewers steps than the prototype, because we didn't call the **`unique`** function twice. We only need to call it once. And we didn't count the letters until the very end. 
+     Also notice that our algorithm has fewer steps than the prototype, because we didn't call the **`unique`** function twice. We only need to call it once. And we didn't count the letters until the very end. 
 
 **MODULE COMPLETE** Good job. You made it.
