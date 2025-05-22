@@ -14,14 +14,12 @@ In this module, we cover the basics of assigning fundamental data types to varia
 
 ### Functions discussed in this Module
 
-- [size][mlb-ref-size]
-- [ismatrix][mlb-ref-ismatrix]
-- [namelengthmax][mlb-ref-namelengthmax]
-- [exist][mlb-ref-exist]
+- [size](https://www.mathworks.com/help/matlab/ref/size.html){target="_blank"}
+- [ismatrix][mlb-ref-ismatrix]{target="_blank"}
+- [namelengthmax](https://www.mathworks.com/help/matlab/ref/namelengthmax.html){target="_blank"}
+- [exist][mlb-ref-exist]{target="_blank"}
 
-[mlb-ref-size]:https://www.mathworks.com/help/matlab/ref/size.html
 [mlb-ref-ismatrix]:https://www.mathworks.com/help/matlab/ref/ismatrix.html
-[mlb-ref-namelengthmax]:https://www.mathworks.com/help/matlab/ref/namelengthmax.html
 [mlb-ref-exist]: http://www.mathworks.com/help/matlab/ref/exist.html
 
 ## Basic Data types
@@ -81,7 +79,7 @@ Now we have the value 'a' assigned to *`ans`*. We didn't get a new variable, we 
 
 To do anything serious in  MATLAB, you are going to need more than one variable. Luckily, MATLAB provides the ability for you to name your own variables.
 
-To do so, you use the following [syntax](http://en.wikipedia.org/wiki/Syntax_(programming_languages))
+To do so, you use the following [syntax](http://en.wikipedia.org/wiki/Syntax_(programming_languages)){target="_blank"}
 
 `name_of_variable = value_of_variable`
 
@@ -354,7 +352,7 @@ Here, I use the function **`whos`** to display the contents of the workspace in 
 
 ### Valid Array Names
 
-You can't just willy-nilly name your variable whatever you want. MATLAB has [rules](https://www.mathworks.com/help/matlab/matlab_prog/variable-names.html) that you must follow.
+You can't just willy-nilly name your variable whatever you want. MATLAB has [rules](https://www.mathworks.com/help/matlab/matlab_prog/variable-names.html){target="_blank"} that you must follow.
 
 Valid MATLAB variable names must start with a letter, followed by letters, digits, or underscores. They can have NO SPACES or weird characters like exclamation or hashtag. Also, MATLAB is case-sensitive; recall that *`A`* and *`a`* were treated as different variable names.
 

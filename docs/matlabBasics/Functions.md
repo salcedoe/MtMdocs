@@ -11,11 +11,11 @@
 
 ## Useful-ish MATLAB Documentation
 
-* [Calling Functions](http://www.mathworks.com/help/matlab/learn_matlab/calling-functions.html)
+* [Calling Functions](http://www.mathworks.com/help/matlab/learn_matlab/calling-functions.html){target="_blank"}
 
 ## So, What is a Function?
 
-A function takes the data from a variable and does stuff. Think of a function as a list of instructions typically designed to manipulate the inputted data in some fashion. If you want to get fancy, you can call it a [sub-routine](https://en.wikipedia.org/wiki/Subroutine) or an algorithm. Often, these programming instructions are hidden from the user, so you can think of a function a little like a black box.
+A function takes the data from a variable and does stuff. Think of a function as a list of instructions typically designed to manipulate the inputted data in some fashion. If you want to get fancy, you can call it a [sub-routine](https://en.wikipedia.org/wiki/Subroutine){target="_blank"} or an algorithm. Often, these programming instructions are hidden from the user, so you can think of a function a little like a black box.
 
 ![Function as a Black Box][img_black_box]
 
@@ -46,4 +46,4 @@ google matlab "thing I want to do"
 
 >…but not necessarily with those double quotes.
 
-Of course, now that we are living in the future, you can also use ChatGPT. Your student CU Anschutz credentials give you access to the latest version of ChatGPT through  [Microsoft Copilot](https://copilot.microsoft.com). Be sure to sign in to use the full version. The Mathworks even provides a [MATLAB ChatGPT Playground](https://www.mathworks.com/matlabcentral/playground/new) specifically for MATLAB. This might be the best place to start for using ChatGPT to answer your MATLAB-related questions.
+Of course, now that we are living in the future, MATLAB comes with an AI called  [MATLAB Copilot](https://www.mathworks.com/products/matlab-copilot.html){target="_blank"}. This is included with the Site License and should automatically be added to your MATLAB installation. Use this AI to help create code and troubleshoot errors. Your student CU Anschutz credentials also give you access to the latest version of ChatGPT through  [Microsoft Copilot](https://copilot.microsoft.com).

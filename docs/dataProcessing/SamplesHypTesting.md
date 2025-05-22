@@ -249,7 +249,7 @@ In the following example, we test the Exam 1 and Exam 4 scores for normality.
 [h4,p4] = adtest(x4) %  Anderson Darling test for Exam 4
 ```
 
-```matlab
+```matlab title="result"
 h1 =
   logical
     0
@@ -277,7 +277,7 @@ As you can see The syntax is  similar, except that you plug both *`x`* and *`y`*
 [hv,pv] = vartest2(x,y)
 ```
 
-```matlab
+```matlab title="result"
 hv = 
     0
 
@@ -302,7 +302,7 @@ As you can see below, the syntax is very similar to the other tests, although he
 [h,p] = ttest2(x1,x4) % are Exam 1 and 4 statistically different?
 ```
 
-```matlab
+```matlab title="result"
 h = 
     0
 p = 
@@ -354,7 +354,7 @@ modX4 = x4+5; % curve exam 4 grades by 5 points
 text(50,.04,sprintf('p=%1.1e',p)) % add p to axes
 ```
 
-```matlab title="t-test results"
+```matlab title="result"
 h = 
     1
 p = 
@@ -399,7 +399,6 @@ disp(s)
 ```
 
 >Modified Exam 4 scores were significantly higher than Exam 1 scores, 75.01 ± 8.72" vs 80.03 ± 8.60" (M±SD), respectively, t(238) = -4.49, p < .0001.
-
 
 
 …Notice that we include data from the `stats` variable as part of the reported t-test outcome.
@@ -459,7 +458,7 @@ If we test if data is Normally distributed using the **`adtest`**:
 [h,p] = adtest(T.ViralLoad)
 ```
 
-```matlab
+```matlab title="result"
 h = logical
    1
 p = 
@@ -490,7 +489,7 @@ y = T.ViralLoad(T.Treatment=="Untreated");
 [p,h, stats] = ranksum(x,y) % mann-whitney test
 ```
 
-```matlab title="test results"
+```matlab title="result"
 p = 
      0.028306
 h = logical
@@ -504,7 +503,7 @@ stats = struct with fields:
 
 When you report results using a Non-parametric test, you should report the median and interquartile range of values (instead of the mean and standard deviation). Something like the following:
 
-```matlab
+```matlab linenums="1" title="Reporting Mann Whitney results"
 groupsummary(T,"Treatment",["median","range"]);
 
 s = sprintf('The treated group had a significantly lower viral load than the untreated group,\n');
@@ -518,12 +517,10 @@ fprintf('%s as indicated by a Mann-Whitney U-test, U(Nleft=%d, Nright=%d)=%1.2f,
     p)
 ```
 
-```matlab
+```matlab title="result"
 The treated group had a significantly lower viral load than the untreated group,
 median=1050.00 vs 3375.00, respectively, as indicated by a Mann-Whitney U-test, U(Nleft=10, Nright=10)=75.50,z=-2.19, p=0.028.
 ```
-
-
 
 You can find an example on how to report the results from Mann-Whitney U tests [here](https://guides.library.lincoln.ac.uk/c.php?g=110730&p=4638042).
 
