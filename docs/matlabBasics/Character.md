@@ -543,6 +543,11 @@ ___
 
 Regular Expressions are like a super-charged search function. They are used widely—not just in MATLAB. Using regular expressions (sometimes called GREP), you can find things like all words in a paragraph that are capitalized but are not preceded by a period. Or, suppose you have a list of people’s names that you want to alphabetize. If the list is arranged first name first, but you want to alphabetize by last names, a simple grep pattern can be used to put the names in the proper order for sorting.
 
+- [regexp][doc-regexp]{target="_blank"} - Regular expression (super find function)
+- [regexprep][doc-regexprep]{target="_blank"} - Replace text using regular expression
+
+### regexp
+
 The function **`regexp`** is MATLAB's version of this an incredibly powerful search function.  **`regexp`** uses specified character patterns (call regular expressions) to find these snippets of strings and performs some sort of operation on those characters / snippets.
 
 For example, consider the following character array:
@@ -571,12 +576,10 @@ idc =
       1   10    13
 ```
 
-…The variable *`idc`* contains the indices for the spaces found in the variable *`s`*.
-
 We can use these indices to modify our character array, as follows
 
 ```matlab linenums="1" title="Capitalize the first letter in each word"
-s(idc) = upper(s(idc) )
+s(idc) = upper(s(idc))
 ```
 
 ```matlab title="result"
@@ -586,8 +589,11 @@ s =
 
 …This syntax replace the lower case letters in *`s`* with the upper case version at only the *`idc`* locations in the character array
 
+### regexprep
 
-We can use a variant of **`regexp`**, the function **`regexprep`**, to *replace* the spaces with the indicated character array, as follows:
+We can use a variant of **`regexp`**, the function **`regexprep`**, to *replace* characters in a character array with other characters or with nothing at all. 
+
+For example, to replace the spaces in *`s`* with underscores, we would use the following syntax:
 
 ```matlab linenums="1" title="replace spaces with underscores"
 t = regexprep(s,' ','_')
@@ -598,12 +604,12 @@ T =
     'Together_At_Last'
 ```
 
-Notice that **`regexprep`** accepts three inputs. The second input (`' '`) is the regular expression to match. The third input is the character (`'_'`) used to replace the regular expression. In effect, we have replaced all of the spaces with the underscore character.
+Notice that **`regexprep`** accepts three inputs. The second input (`' '`) is the regular expression to match (`space` in this case). The third input is the character (`'_'`) used to replace the regular expression. In effect, we have replaced all of the spaces with the underscore character.
 
-We can eliminate the spaces entirely using an empty pair of single quotes as the third input, as follows:
+We can eliminate the underscores entirely using an empty pair of single quotes as the third input, as follows:
 
-```matlab linenums="1" title="replace spaces with nothing"
-u = regexprep(s,' ', '')
+```matlab linenums="1" title="replace underscores with nothing"
+u = regexprep(s,'_', '')
 ```
 
 ```matlab title="result"
@@ -611,7 +617,7 @@ u =
     'TogetherAtLast'
 ```
 
-As you can see regular expressions are an incredibly powerful way to manipulate strings. However, sometimes they can be difficult to use because the search strings are not intuitive.
+As you can see regular expressions are an incredibly powerful way to manipulate strings. However, sometimes they can be difficult to use because the search strings are not intuitive. Use MATLAB Copilot to help.
 
 ___
 

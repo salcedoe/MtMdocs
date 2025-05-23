@@ -16,14 +16,14 @@
 
 ### MATLAB documentation
 
-- [Cell Arrays](https://www.mathworks.com/help/matlab/cell-arrays.html).
-- [Accessing Data in Cells](https://www.mathworks.com/help/matlab/matlab_prog/access-data-in-a-cell-array.html)
+- [Cell Arrays](https://www.mathworks.com/help/matlab/cell-arrays.html){target="_blank"}.
+- [Accessing Data in Cells](https://www.mathworks.com/help/matlab/matlab_prog/access-data-in-a-cell-array.html){target="_blank"}
 
 ### Important MATLAB Functions
 
-- [cellfun](http://www.mathworks.com/help/matlab/ref/cellfun.html): apply the same function to each cell of a cell array
-- [cell2mat](https://www.mathworks.com/help/matlab/ref/cell2mat.html): convert cell arrays to numeric arrays
-- [cellstr](http://www.mathworks.com/help/matlab/ref/cellstr.html): Convert to cell array of character vectors
+- [cellfun](http://www.mathworks.com/help/matlab/ref/cellfun.html){target="_blank"}: apply the same function to each cell of a cell array
+- [cell2mat](https://www.mathworks.com/help/matlab/ref/cell2mat.html){target="_blank"}: convert cell arrays to numeric arrays
+- [cellstr](http://www.mathworks.com/help/matlab/ref/cellstr.html){target="_blank"}: Convert to cell array of character vectors
 
 ### Special MATLAB Characters
 
@@ -52,10 +52,10 @@
 All right. So we already figured out how to store numbers, characters, and booleans in arrays (review the Basic Data Class modules if you don’t know what I’m talking about). Recall that in these fundamental classes, each element of the array contains a single piece of information, either a number, a character, or a true/false, depending on the class type. These three variable types can hold pretty much any type of information that we need.
 
  *So, why do we need to learn about other variable types?*
+
+Well, while very useful, the fundamental data types have certain restrictions that at times can become onerous for use at scale. For example, when storing *rows* of characters in a character array (i.e. a character *matrix*), you need to pad the array with empty spaces so that the number of columns is the same across all rows in the character matrix. This gets complicated when you are trying to store a series of characters, like names.
  
- Well, while very useful, the fundamental data types have certain restrictions that at times can become onerous for use at scale. For example, when storing *rows* of characters in a character array (i.e. a character *matrix*), you need to pad the array with empty spaces so that the number of columns is the same across all rows in the character matrix. This gets complicated when you are trying to store a series of characters, like names.
- 
- Now, the function **`char`** can simplify  this process.
+Now, the function **`char`** can simplify  this process.
 
 !!! example "Example: Using char to pad character matrices"
 
@@ -66,14 +66,12 @@ All right. So we already figured out how to store numbers, characters, and boole
     ```
 
     ```matlab title="result"
-      common_names_1995 =
-
-        4×8 char array
-
-          'Jessica '
-          'Ashley  '
-          'Emily   '
-          'Samantha'
+    common_names_1995 =
+                        4×8 char array
+                        'Jessica '
+                        'Ashley  '
+                        'Emily   '
+                        'Samantha'
     ```
 
     Note the varying number of spaces added after each name, save for the longest name, 'Samantha'
@@ -100,52 +98,46 @@ You create cell arrays using the special character Curly Brackets: `{ }`.
 
     ```matlab title="result"
     names90s =
-
-      4×1 cell array
-
-        {'Jessica' }
-        {'Ashley'  }
-        {'Emily'   }
-        {'Samantha'}
+                4×1 cell array
+                {'Jessica' }
+                {'Ashley'  }
+                {'Emily'   }
+                {'Samantha'}
     ```
 
     Here, *`names90s`* is a 4x1 cell array. Each cell (or element) in *`names90s`* contains a character array. Notice that we did not need to add any extraneous spaces to any of the character arrays. Also notice that we used the curly brackets as a concatenating tool, similar to the way we used square brackets to concatenate numbers in numeric arrays. Much of the rest of the syntax should look familiar: Inside the curly brackets, we used the single-quotes to concatenate the character arrays that we wanted packaged into the elements of the cell array. We also used semi-colons to indicate new rows in the cell array.
 
-There *are* some subtleties when creating a cell array. Consider the difference between the following syntaxes.
+There *are* some subtleties when creating a cell array.
 
-Here, we concatenate four separate character scalars:
+Compare the following:
 
-```matlab linenums="1" title="Create 1x4 cell array"
-{'a','b','c','d'}
-```
+!!! example "Concatenate four separate character scalars into a cell array"
 
-```matlab title="result"
-ans =
+    ```matlab linenums="1" title="Create 1x4 cell array"
+    {'a','b','c','d'}
+    ```
 
-  1×4 cell array
+    ```matlab title="result"
+    ans =
+          1×4 cell array
+          {'a'}    {'b'}    {'c'}    {'d'}
+    ```
 
-    {'a'}    {'b'}    {'c'}    {'d'}
-```
+    ...Here we get a 1x4 cell vector with 4 elements that each contain a separate character scalar (`a`,`b`,`c`, or `d`).
 
-...so, we get a 1x4 cell vector with 4 elements that each contain a separate character scalar (`a`,`b`,`c`, or `d`).
+!!! example "Embed a single character vector into one cell element"
 
-Whereas, here we are concatenating one character vector...
-
-```matlab linenums="1" title="Create a 1X1 cell array"
-{'abcd'}
-```
-
-```matlab title="result"
-ans =
-
-  1×1 cell array
-
+    ```matlab linenums="1" title="Create a 1X1 cell array"
     {'abcd'}
-```
+    ```
 
-…so, we get 1X1 cell scalar with a single cell that contains the character vector (`'abcd'`).
+    ```matlab title="result"
+    ans =
+          1×1 cell array
+          {'abcd'}
+    ```
 
----
+    …Here we get 1X1 cell scalar with a single cell that contains the character vector (`'abcd'`).
 
 #### Challenge: Cell Array Assignment
 
@@ -165,10 +157,8 @@ ans =
 === "Answer"
     ```matlab title="result"
     ans =
-
-    1×2 cell array
-
-    {'abcd'}    {'ef'}
+          1×2 cell array
+          {'abcd'}    {'ef'}
     ```
 
     1. What size cell array would the following return? `A 1X2 cell array: One row, two columns`
@@ -181,9 +171,7 @@ ans =
 
 ### Store Anything in Cell Arrays
 
-One of the advantages of a cell array is that you can store anything you want in its cells.
-
-Consider the following:
+One of the advantages of a cell array is that you can store anything you want in its cells. Consider the following:
 
 ```matlab linenums="1" title="Concatenating different data types in a cell array"
 cell_ar = {1 'a' true false} 
@@ -191,10 +179,8 @@ cell_ar = {1 'a' true false}
 
 ```matlab title="result"
 cell_ar =
-
-  1×4 cell array
-
-    {[1]}    {'a'}    {[1]}    {[0]}
+           1×4 cell array
+           {[1]}    {'a'}    {[1]}    {[0]}
 ```
 
 …Here, we use the curly brackets to concatenate four separate values: into a cell array: a number, a character, and two logical values, true and false. This syntax packages the values into separate cells of a cell array. Notice that the output in the command window has the value in each cell surrounded by both a square bracket (or single quotes) and a curly bracket. This means that each value is individually packaged into a separate element of the cell array.
@@ -210,17 +196,12 @@ cell_ar3 = [cell_ar cell_ar2] % concatenate the contents from two cell arrays in
 
 ```matlab title="result"
 cell_ar2 =
-
-  1×3 cell array
-
-    {[2]}    {'b'}    {[0]}
-
+            1×3 cell array
+            {[2]}    {'b'}    {[0]}
 
 cell_ar3 =
-
-  1×7 cell array
-
-    {[1]}    {'a'}    {[1]}    {[0]}    {[2]}    {'b'}    {[0]}
+            1×7 cell array
+            {[1]}    {'a'}    {[1]}    {[0]}    {[2]}    {'b'}    {[0]}
 ```
 
 …Here we first create a 1X3 cell vector, *`cell_ar2`*. Then we use the square brackets to concatenate the two cell arrays, *`cell_ar`* and *`cell_ar2`* into one larger, 1x7 cell array,  *`cell_ar3`*.
@@ -259,8 +240,7 @@ We can do the same with numeric or logical arrays.
 
     ```matlab title="result"
     ca =
-
-    6×1 cell array
+        6×1 cell array
         {'Ab'    } % 1x2 char array
         {[        1]} % 1x1 numeric array
         {[      2 3]} % 1X2 numeric array
@@ -287,10 +267,9 @@ ca(1:2)
 
 ```matlab title="result"
 ans =
-
-  2×1 cell array
-    {'Ab'}
-    {[    1]}    
+        2×1 cell array
+        {'Ab'}
+        {[    1]}    
 ```
 
 … This syntax returns the first two cells from the cell array as a new, smaller, 2x1 cell array. This type of syntax should feel familiar. This is how we index fundamental data types, which also returns smaller versions of the original arrays.  
@@ -306,8 +285,7 @@ ca{1} % extract contents from cell 1
 ```
 ```matlab title="result"
 ans =
-
-    'Ab'
+      'Ab'
 ```
 
 …Notice that this syntax returns not a smaller cell array but the contents from inside the indicated cell, replete with data type. In this case, we get a character array containing the characters `'Ab'`.
@@ -324,20 +302,14 @@ ca{1:3}
 
 ```matlab 
 ans =
-
-    'Ab'
-
+        'Ab'
 
 ans =
-
-     2     3
-
+        2     3
 
 ans =
-
-  1×2 logical array
-
-   1   0
+        1×2 logical array
+        1   0
 ```
 
 …When we index multiple cells using the curly brackets, we get the contents of each cell, spit out, one after the other, into the workspace, overwriting *`ans`* each time. Here we get the contents of the first cell, `'Ab'`, followed by the contents of the second cell, `[2 3]`, followed by the contents of the third cell, `[1 0]`. Notice that *`ans`* ends up assigned only the 1x2 logical array , `[1 0]`.
@@ -357,8 +329,7 @@ If the contents of the cell arrays are the same type, we can use the Square Brac
 
 ```matlab title="result"
 ans =
-
-    1     2     3  
+      1     2     3  
 ```
 
 This syntax just jams all of the numeric values into one numeric array. Which may be what you want. But not always.
@@ -377,23 +348,16 @@ names90{:} % extract all elements
 
 ```matlab
 ans =
-
-    'Jessica'
-
+      'Jessica'
 
 ans =
-
-    'Ashley'
-
+      'Ashley'
 
 ans =
-
-    'Emily'
-
+      'Emily'
 
 ans =
-
-    'Samantha'
+      'Samantha'
 ```
 
 But if we try to concatenate this content using the square brackets…
@@ -404,8 +368,7 @@ But if we try to concatenate this content using the square brackets…
 
 ```matlab title="result"
 ans =
-
-    'JessicaAshleyEmilySamantha'
+      'JessicaAshleyEmilySamantha'
 ```
 
 …We get all of the content crammed into one character array, which may not be what we want, especially since there is no separation between the names.
@@ -416,10 +379,9 @@ Similarly, notice that there is no easy way to concatenate cells 4 and 5 since t
 [ca{4:5}]
 ```
 
-```text title="result"
-Error using horzcat
-Dimensions of arrays being concatenated are not consistent.
-```
+!!! failure  "Error using horzcat"
+
+    Dimensions of arrays being concatenated are not consistent.
 
 Since you can put *anything* in each cell of the array, you can't easily extract and concatenate the content from multiple cells—the syntax can get convoluted to get what you want.
 
@@ -494,13 +456,12 @@ Say, we want to add up the contents from the second and third cells using the fu
 sum(ca(2:3))
 ```
 
-```text
-Error using sum
-Invalid data type. First argument must be numeric or
-logical.
-```
+!!! failure "Error using sum"
 
-…This error means that the function **sum** does not accept cell arrays as inputs. Remember, since we indexed with parentheses, we got a smaller cell array back.
+    Invalid data type. First argument must be numeric or
+    logical.
+
+    This error means that the function **sum** does not accept cell arrays as inputs. Remember, since we indexed with parentheses, we got a smaller cell array back.
 
 If we instead use the curly brackets to access the contents…
 
@@ -512,8 +473,7 @@ sum(ca{2:3})
 
 ```matlab
 ans =
-
-     1
+      1
 ```
 
 …But not the correct result. We just get the sum of the first cell, which contains the value 1. This is because using curly brackets on multiple cells of a cell array returns a comma-separate list. When that happens, the function **sum** just uses the first output.
@@ -526,8 +486,7 @@ sum([ca{2:3}])
 
 ```matlab title="result"
 ans =
-
-     6
+      6
 ```
 
 Notice that we needed to first index using the curly brackets and then concatenate the output using the square brackets. Finally, we get the right result.
@@ -548,9 +507,9 @@ numel(ca)
 
 ```matlab
 ans =
-
-     6
+      6
 ```
+
 … we get `6`, which is the number of cells in *`ca`*. But what if we wanted to know how many elements are in each array contained in the cells of *`ca`*? This is where the function **cellfun** comes in handy.
 
 !!! example "Using cellfun to count the number of elements in each cell of a cell array."
@@ -563,13 +522,12 @@ ans =
 
     ```matlab title="result"
     ans =
-
-     2
-     1
-     2
-     2
-     4
-     0
+            2
+            1
+            2
+            2
+            4
+            0
     ```
 
     …Perfect, now we get the element count for each cell in *`ca`*. Recall that the last cell in *`ca`* was empty.    
@@ -594,15 +552,14 @@ cellfun(@class,ca,'UniformOutput',false)
 
 ```matlab title="result"
 ans =
+      6×1 cell array
 
-  6×1 cell array
-
-    {'char'   }
-    {'double' }
-    {'double' }
-    {'logical'}
-    {'logical'}
-    {'double' }
+        {'char'   }
+        {'double' }
+        {'double' }
+        {'logical'}
+        {'logical'}
+        {'double' }
 ```
 
 …and we get the output nicely packaged in a cell array

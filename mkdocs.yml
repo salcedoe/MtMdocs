@@ -97,7 +97,7 @@ theme:
     - navigation.instant
     - navigation.top
     - navigation.path
-    - toc.integrate
+    #- toc.integrate
     - search.suggest
     - search.highlight
     - search.share
