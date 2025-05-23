@@ -2,7 +2,7 @@
 
 !!! abstract "*for better wrangling of characters, especially words*"
 
-🧶 String arrays are designed to manage collections of character arrays. They have only recently been added to MATLAB, but they have quickly become a powerful tool for managing collections of characters and words. 
+🧶 String arrays are designed to manage collections of character arrays. They have only recently been added to MATLAB, but they have quickly become a powerful tool for managing collections of characters and words.
 
 ## Overview
 
@@ -14,25 +14,27 @@ This module is broken down into the following sections:
 
 After completing this module, you should be able to:
 
-* Differentiate between a Character and a String Array.
-* Assign values to string arrays using paired double quotes `" "` and square brackets  `[ ]` 
-* Index string arrays using both `( )` and `{ }` be able to predict the outcome of each
-* Manipulate string arrays using mathematical operators such as `+` and logical operators such as `==` 
-* Use the functions found on the [Character and String Reference Page][char-string-page] 
+- Differentiate between a Character and a String Array.
+- Assign values to string arrays using paired double quotes `" "` and square brackets `[ ]`
+- Index string arrays using both `( )` and `{ }` be able to predict the outcome of each
+- Manipulate string arrays using mathematical operators such as `+` and logical operators such as `==`
 
 ### Relevant Mathworks Documentation
 
-- The  <a href="MATLAB:web(fullfile(docroot, 'matlab/ref/string.html'))">string</a> documentation page
-- The <a href="MATLAB:web(fullfile(docroot, 'matlab/characters-and-strings.html?s_tid=CRUX_lftnav'))">Characters and String Reference Page</a>
- 
+- [Characters and Strings][char-strings-doc]{target="_blank"}
+- [String Array](https://www.mathworks.com/help/matlab/ref/string.html){target="_blank"}
+
+[char-strings-doc]: https://www.mathworks.com/help/matlab/characters-and-strings.html
+
 ### Special MATLAB Characters
 
-*  `" "` - paired double quotes: for creating string arrays
-*  `[ ]` - square brackets: for concatenation
-*  `( )` - parentheses: for indexing
-*  `{ }` - curly brackets:  for extract contents from string array elements
+- `" "` - paired double quotes: for creating string arrays
+- `[ ]` - square brackets: for concatenation
+- `( )` - parentheses: for indexing
+- `{ }` - curly brackets: for extract contents from string array elements
 
 ---
+
 ## But First, a Bit of Background
 
 Why do we need another variable type just to manage a bunch of letters?
@@ -47,13 +49,12 @@ chary = char('one fish', 'two fish', 'red fish', 'blue fish')
 
 ```matlab title="result"
 chary =
+        4×10 char array
 
-  4×10 char array
-
-    'one fish  '
-    'two fish  '
-    'red fish'
-    'blue fish '
+        'one fish  '
+        'two fish  '
+        'red fish'
+        'blue fish '
 ```
 
 To create character array matrices, we needed the function **`char`** to properly pad the rows of the matrix with enough spaces so that there are an equal number of characters in each row (recall that `space` is a character). But this becomes burdensome rather quickly. For every new row added to a character array, the entire array needs to be re-padded with spaces. Worse, those extraneous spaces in a large character array take up valuable memory for no reason. There had to be a better way.
@@ -92,20 +93,17 @@ stringy = ["one fish", "two fish", "red fish", "blue fish"]'
 ```matlab title="result"
 stringy = 
 
-  4×1 string array
+    4×1 string array
 
-    "one fish"
-    "two fish"
-    "red fish"
-    "blue fish"
-
+        "one fish"
+        "two fish"
+        "red fish"
+        "blue fish"
 ```
 
 …Notice here that we used the transpose operator `'` to orient our new string array, *`stringy`*, as a column vector. Also notice that *`stringy`* requires less bytes to store in memory than *`celly`*: 336 vs 518 bytes, a more than 60% reduction in memory requirement.
 
----
 ### Indexing String arrays
-
 
 String arrays follow the same indexing syntax rules of other complex variable types. Indexing with parentheses `()` returns a smaller string array, whereas indexing with the curly brackets `{}` returns the contents of the elements (or in this case, the character array contained within).
 
@@ -131,8 +129,7 @@ stringy{1}
 
 ```matlab title="result"
 ans =
-
-    'one fish' % the character array contents from the first element
+      'one fish' % the character array contents from the first element
 ```
 
 …Here, we can tell that *`ans`* is a character array because the outputted result is bracketed by single quotes:  `'one fish'` (or, by examining the properties of *`ans`* in the workspace)
@@ -145,8 +142,7 @@ stringy(end)
 
 ```matlab title="result"
 ans = 
-
-    "blue fish"
+      "blue fish"
 ```
 
  …this syntax returns the last element in *`stringy`* as a smaller string array
@@ -159,8 +155,7 @@ stringy{1}(end)
 
 ```matlab title="result"
 ans =
-
-    'h' % the last character in element 1 of the string array
+      'h' % the last character in element 1 of the string array
 ```
 
 …In this syntax, the curly bracket extracts the contents from the first element in *`stringy`*, while the parentheses are used to index out the last character from that extracted character array, which happens to be the letter `h` from the word fish.
@@ -176,16 +171,16 @@ stringy = [stringy; "black fish"; "blue fish"; "old fish"; "new fish"]
 ```matlab  title="result"
 stringy = 
 
-  8×1 string array
+    8×1 string array
 
-    "one fish"
-    "two fish"
-    "red fish"
-    "blue fish"
-    "black fish"
-    "blue fish"
-    "old fish"
-    "new fish"
+        "one fish"
+        "two fish"
+        "red fish"
+        "blue fish"
+        "black fish"
+        "blue fish"
+        "old fish"
+        "new fish"
 ```
 
 …Notice the use of recursive assignment, where the variable name `stringy` appears on both sides of the assignment operator `=`. This means overwrite `stringy` with a new version of itself that contains all of its original elements, plus a bunch of fun new string elements (four new elements, to be precise). Also notice the use of semi-colons to indicate the addition of elements vertically.
@@ -260,17 +255,16 @@ You can also use relational operations on a string array in an intuitive manner.
 
     ```matlab title="Result"
     ans =
+            8×1 logical array
 
-      8×1 logical array
-
-      0
-      1
-      0
-      0
-      0
-      0
-      0
-      0
+            0
+            1
+            0
+            0
+            0
+            0
+            0
+            0
     ```
 
     …only the second element contains "two fish,".
@@ -285,17 +279,16 @@ You can also use relational operations on a string array in an intuitive manner.
 
     ``` matlab title="result"
     ans =
+            8×1 logical array
 
-      8×1 logical array
-
-      1
-      1
-      1
-      0
-      1
-      0
-      1
-      1
+            1
+            1
+            1
+            0
+            1
+            0
+            1
+            1
     ```
 
     …here, only elements 4 and 6 match 'blue fish,'.  Elements 1,2,3,5,7, and 8 do NOT match.
@@ -308,17 +301,16 @@ stringy == 'blue fish'
 
 ```matlab title="Result returns no match"
 ans =
+        8×1 logical array
 
-  8×1 logical array
-
-   0
-   0
-   0
-   0
-   0
-   0
-   0
-   0
+        0
+        0
+        0
+        0
+        0
+        0
+        0
+        0
 ```
 
 ... The syntax above finds no matches because we didn't include the `,` in the character array at the end of the character array 'blue fish'.
@@ -327,7 +319,7 @@ ans =
 
 ## String Array Functions
 
-MATLAB has many functions to manipulate and process string arrays. You can find a list of them on the  <a href="MATLAB:web(fullfile(docroot, 'matlab/characters-and-strings.html?s_tid=CRUX_lftnav'))">Characters and String Reference Page</a>. These functions are grouped into the following categories:
+MATLAB has many functions to manipulate and process string arrays. You can find a list of them on the [Characters and Strings Documentation page][char-strings-doc]{target="_blank"}. These functions are grouped into the following categories:
 
 - Create, Concatenate, Convert
 - Determine Type and Properties
@@ -351,17 +343,16 @@ Familiarize yourself with these functions to find many powerful ways to manipula
 
     ```matlab title="result"
     ans =
+            8×1 logical array
 
-      8×1 logical array
-
-      0
-      0
-      0
-      1
-      0
-      1
-      0
-      0
+            0
+            0
+            0
+            1
+            0
+            1
+            0
+            0
     ```
 
     …And we get a couple of matches (elements 4 and 6). Notice here that we don't have to match the entire content of an element in *`stringy`*, just a portion of the contents. Whereas, in the previous section, we needed a precise match when we used the logical operation `==`. 
@@ -374,17 +365,16 @@ Familiarize yourself with these functions to find many powerful ways to manipula
 
     ```matlab title="result"
     ans =
+            8×1 logical array
 
-      8×1 logical array
-
-      0
-      1
-      0
-      0
-      0
-      0
-      0
-      1
+            0
+            1
+            0
+            0
+            0
+            0
+            0
+            1
     ```
     …This syntax returns all elements that contain the letter `w` in them (`two` and `new`, in this case).
 
@@ -398,17 +388,16 @@ Familiarize yourself with these functions to find many powerful ways to manipula
     squishy = replace(stringy, 'fish', 'squish')
 
     squishy = 
+                8×1 string array
 
-      8×1 string array
-
-        "one squish,"
-        "two squish,"
-        "red squish,"
-        "blue squish,"
-        "black squish,"
-        "blue squish,"
-        "old squish,"
-        "new squish!"
+                "one squish,"
+                "two squish,"
+                "red squish,"
+                "blue squish,"
+                "black squish,"
+                "blue squish,"
+                "old squish,"
+                "new squish!"
     ```
 
 ### Example: Split
@@ -423,17 +412,16 @@ Familiarize yourself with these functions to find many powerful ways to manipula
 
     ```matlab title="Result is a new 8x2 string array"
     splity = 
+                8×2 string array
 
-      8×2 string array
-
-        "one"      "squish,"
-        "two"      "squish,"
-        "red"      "squish,"
-        "blue"     "squish,"
-        "black"    "squish,"
-        "blue"     "squish,"
-        "old"      "squish,"
-        "new"      "squish!"
+                "one"      "squish,"
+                "two"      "squish,"
+                "red"      "squish,"
+                "blue"     "squish,"
+                "black"    "squish,"
+                "blue"     "squish,"
+                "old"      "squish,"
+                "new"      "squish!"
     ```
 
     …The variable *`splity`* has two columns. The first column contains all of the characters preceding the `space` delimiter while the second column contains all of the characters that follow the delimiter.
@@ -446,22 +434,23 @@ Familiarize yourself with these functions to find many powerful ways to manipula
 
     ```matlab
     erase(splity, ["," "!"])
-
-    ans = 
-
-      8×2 string array
-
-        "one"      "squish"
-        "two"      "squish"
-        "red"      "squish"
-        "blue"     "squish"
-        "black"    "squish"
-        "blue"     "squish"
-        "old"      "squish"
-        "new"      "squish"
     ```
 
-    As you can imagine, the examples are endless. Refer to the [reference page][char-string-page] as needed or for inspiration.
+    ```matlab title="result"
+    ans = 
+            8×2 string array
+
+            "one"      "squish"
+            "two"      "squish"
+            "red"      "squish"
+            "blue"     "squish"
+            "black"    "squish"
+            "blue"     "squish"
+            "old"      "squish"
+            "new"      "squish"
+    ```
+
+    As you can imagine, the examples are endless. Refer to the [Characters and Strings Documentation][char-strings-doc]{target="_blank"} as needed or for inspiration.
 
 ### Example: Putting it All Together
 
@@ -502,7 +491,7 @@ S_rows = split(orig_string, '; ') % split at semi-colon-space
 ```matlab title="split result"
 S_rows = 
 
-  10×1 string array
+    10×1 string array
 
     "Patella, Professor <professor.patella@university.edu>"
     "Synapse, Sydney <sydney.synapse@university.edu>"
@@ -527,8 +516,8 @@ S_cols = split(S_rows,{', ',' '}) % multiple delimiters
 
 ```matlab title="split result"
 S_cols = 
-
-  10×3 string array
+        
+    10×3 string array
 
     "Patella"        "Professor"     "<professor.patella@university.edu>" 
     "Synapse"        "Sydney"        "<sydney.synapse@university.edu>"    
@@ -553,7 +542,7 @@ S_clean = erase(S_cols,{'<','>'})
 ```matlab
 S_clean = 
 
-  10×3 string array
+    10×3 string array
 
     "Patella"        "Professor"     "professor.patella@university.edu" 
     "Synapse"        "Sydney"        "sydney.synapse@university.edu"    
@@ -607,7 +596,7 @@ After nicely formatting the string, you realize that you got the email domain wr
     ```matlab title="result"
     S1 = 
 
-    10×3 string array
+        10×3 string array
 
         "Professor"     "Patella"        "professor.patella@college.com" 
         "Sydney"        "Synapse"        "sydney.synapse@college.com"    
@@ -622,5 +611,3 @@ After nicely formatting the string, you realize that you got the email domain wr
     ```
 
 Module Complete 🧶
-
-[char-string-page]: https://www.mathworks.com/help/matlab/characters-and-strings.html

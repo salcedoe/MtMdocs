@@ -541,14 +541,16 @@ ___
 
 *Now we're getting into the really complicated stuff. Don't sweat it if you don't understand this section.*
 
-Regular Expressions are like a super-charged search function. They are used widely—not just in MATLAB. Using regular expressions (sometimes called GREP), you can find things like all words in a paragraph that are capitalized but are not preceded by a period. Or, suppose you have a list of people’s names that you want to alphabetize. If the list is arranged first name first, but you want to alphabetize by last names, a simple grep pattern can be used to put the names in the proper order for sorting.
+Regular Expressions are like a super-charged search function. They are used widely—not just in MATLAB. A regular expression is nothing but a sequence of characters that match a pattern. Besides using literal characters (like 'abc'), there are some meta characters (*,+,? and so on) which have special purposes. Using regular expressions (sometimes called GREP), you can find patterns in strings, like all words in a paragraph that are capitalized but are not preceded by a period. Or, suppose you have a list of people’s names that you want to alphabetize. If the list is arranged first name first, but you want to alphabetize by last names, a simple grep pattern can be used to put the names in the proper order for sorting.
 
-- [regexp][doc-regexp]{target="_blank"} - Regular expression (super find function)
-- [regexprep][doc-regexprep]{target="_blank"} - Replace text using regular expression
+- [A Practical Guide to Regular Expressions](https://www.freecodecamp.org/news/practical-regex-guide-with-real-life-examples/){target="_blank"}
+- MATLAB Functions
+  - [regexp][doc-regexp]{target="_blank"} - Regular expression (super find function)
+  - [regexprep][doc-regexprep]{target="_blank"} - Replace text using regular expression
 
 ### regexp
 
-The function **`regexp`** is MATLAB's version of this an incredibly powerful search function.  **`regexp`** uses specified character patterns (call regular expressions) to find these snippets of strings and performs some sort of operation on those characters / snippets.
+The function **`regexp`** is MATLAB's version of this an incredibly powerful search function.  **`regexp`** uses regular expressions to find these snippets of strings and performs some sort of operation on those characters / snippets.
 
 For example, consider the following character array:
 
