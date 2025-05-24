@@ -4,7 +4,7 @@
 
     "It's Business Time" - Flight of the Conchords, [Business Time](https://www.youtube.com/watch?v=AqZcYPEszN8)
 
-![][img_table]
+![Excel spreadsheet with I Heart Spreadsheets on it][img_table]
 
 [img_table]: images/spreadsheet.png
 
@@ -16,7 +16,7 @@ The [Table][doc_table] class is the Excel spreadsheet of data types. This data t
 
 After completing this module, you should be able to:
 
-- Create your own table variables by using the [table][doc_table] function
+- Create your own table variables by using the [table][doc_table]{target="_blank"} function
 
 - Use dot notation and indexing to access content from table variables
 
@@ -36,17 +36,17 @@ You should also be able to define the following terms as they refer to MATLAB pr
 
 After reviewing this module, you should be able to use the following functions:
 
-- **[table][doc_table]**: create a table variable
+- **[table][doc_table]{target="_blank"}**: create a table variable
 
-- **[summary][doc_summary]**: print a summary of a table variable to the command window
+- **[summary][doc_summary]{target="_blank"}**: print a summary of a table variable to the command window
 
-- **[sortrows][doc_sortrows]**: sort rows of the table
+- **[sortrows][doc_sortrows]{target="_blank"}**: sort rows of the table
 
-- **[varfun][doc_varfun]**: apply functions to columns in the table
+- **[varfun][doc_varfun]{target="_blank"}**: apply functions to columns in the table
 
-- **[height][doc_height]**: number of table rows
+- **[height][doc_height]{target="_blank"}**: number of table rows
 
-- **[groupsummary][doc-groupsummary]**: Group summary computations
+- **[groupsummary][doc-groupsummary]{target="_blank"}**: Group summary computations
 
 [doc_table]: https://www.mathworks.com/help/matlab/tables.html
 
@@ -54,19 +54,17 @@ After reviewing this module, you should be able to use the following functions:
 
 [doc_sortrows]: http://www.mathworks.com/help/matlab/ref/sortrows.html
 
-[doc_histogram]: http://www.mathworks.com/help/matlab/ref/histogram.html
-
 [doc_varfun]: https://www.mathworks.com/help/matlab/ref/table.varfun.html
 
 [doc_height]: http://www.mathworks.com/help/matlab/ref/height.html
 
 [doc-groupsummary]: https://www.mathworks.com/help/matlab/ref/double.groupsummary.html
 
-[doc_grpstats]: http://www.mathworks.com/help/stats/grpstats.html
+[doc_histogram]: http://www.mathworks.com/help/matlab/ref/histogram.html
 
 ### Relevant MATLAB Documentation
 
--  [Table properties][doc-table-properties]
+- [Table properties][doc-table-properties]{target="_blank"}
   
 [doc-table-properties]: http://www.mathworks.com/help/matlab/ref/tableproperties.html
 
@@ -99,7 +97,6 @@ We can examine the properties of these variables in the workspace or using the f
 ```
 
 …Notice that all of these variables are column vectors with the same number of rows: We have one 5X1 cell array, the variable *`LastName`*. The rest of the variables are numeric arrays. *`BloodPressure`* is a 5X2 numeric array, while the rest of the variables are 5X1 numeric arrays.
-
 
 !!!example "Example: Creating a table variable using the table function"
     We can create a new table variable that combines all of these variables into a single variable called *`T`* using the **`table`** function.
@@ -156,9 +153,9 @@ So, the best way to think of a table is a data type that combines and organizes 
     Try it now:
 
     1. Type `T.` in the command window
-    2. Hit the tab key to reveal the yellow pop-up menu
+    2. Hit the tab key to reveal the pop-up menu
     3. Use arrows to select the desired field
-    4. Hit Enter to select
+    4. Hit Enter or TAB to select
 
     ![dot notation illustration][img_dot_not]
 
@@ -476,7 +473,7 @@ T =
 
 …and the BloodPressure column is unceremoniously dumped.
 
-Not to worry, though. Since we still have the numeric array `BloodPressure` in the workspace, we can easily add back the column using **dot notation**:
+But since we still have the numeric array `BloodPressure` in the workspace, we can easily add back the column using **dot notation**:
 
 ```matlab linenums="1" title="Add Column to Table Variable"
 T.BloodPressure = BloodPressure
@@ -975,7 +972,7 @@ You can also calculate multiple statistics, like mean and standard deviation, an
 
     Now we get two stats columns: One for the mean and one for the standard deviation. This is incredibly powerful for a single function call. To get the equivalent results using **`varfun`**, we would need at least two function calls and have to create two separate output variables, which would then need to be concatenated in some fashion.
 
-There are of course many ways that you can call **`groupsummary`**. Read the details on the Mathworks [**groupsummary** documentation page](https://www.mathworks.com/help/matlab/ref/double.groupsummary.html).
+There are of course many ways that you can call **`groupsummary`**. Read the details on the Mathworks [**groupsummary** documentation page](https://www.mathworks.com/help/matlab/ref/double.groupsummary.html){target="_blank"}.
 
 ### CHALLENGE: groupsummary
 
@@ -1098,4 +1095,4 @@ T =
     Brown       49       64      53.977     122     80  
 ```
 
-**Module over.**
+**Module over** :material-table-furniture:

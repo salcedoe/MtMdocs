@@ -1,13 +1,12 @@
 # Structures
 
-!!! abstract *For Storing Related but Disparate Information in a Tree-like Format*
+!!! abstract "For Storing Related but Disparate Information in a Tree-like Format"
 
-    "You're so beautiful, Like a tree" - Flight of the Conchords, [The Most Beautiful Girl in the Room
-    ](https://www.youtube.com/watch?v=89zOtd6VAiU)
+"You're so beautiful, Like a tree" - Flight of the Conchords. [The Most Beautiful Girl in the Room](https://www.youtube.com/watch?v=89zOtd6VAiU){target="_blank"}
 
 ## Overview
 
-🌳 Structure arrays have a hierarchal, trunk-and-branch data structure. They are useful for organizing disparate information and variable types into a single variable.
+Structure arrays have a hierarchal, trunk-and-branch data structure. They are useful for organizing disparate information and variable types into a single variable.
 
 ![image of a tree][img_tree]
 
@@ -24,8 +23,8 @@ After finishing this module, you should be able to:
 
 ### Relevant MATLAB Documentation
 
-- [Structures][struct-ref-page]
-- [Structure Functions][struct-fun-ref-page]
+- [Structures][struct-ref-page]{target="_blank"}
+- [Structure Functions][struct-fun-ref-page]{target="_blank"}
 
 [struct-fun-ref-page]: https://www.mathworks.com/help/matlab/structures.html
 [struct-ref-page]: https://www.mathworks.com/help/matlab/matlab_prog/create-a-structure-array.html
@@ -41,7 +40,6 @@ After finishing this module, you should be able to:
 ## Creating a Structure
 
 A structure array is a hierarchal data structure that groups data into *fields*. Structure arrays are very useful for organizing complex data, such as the metadata from image files.
-
 
 ![img-name](images/struct_illustration1.png){ width="100"}
 
@@ -81,13 +79,13 @@ ans =
     25
 ```
 
-!!! tip
+!!! tip "Pro-Tip: TAB for a list of structure fields"
     To automatically bring up a list of all of the filenames in a structure, do the following
     1. Type the variable name of the structure
     2. Type the dot (`img_info.`)
     3. Then hit the TAB button.
      
-    A yellow dialog box containing all field names of the structure should appear. Once the field name dialog appears, select a field name using the UP and DOWN arrows and then ENTER. This technique is VERY useful when there are a lot of field names
+    A dialog box containing all field names of the structure should appear. Once the field name dialog appears, select a field name using the UP and DOWN arrows and then ENTER. This technique is VERY useful when there are a lot of field names.
 
     ![][img_struct_tab]
 
@@ -122,7 +120,7 @@ You  add new elements to a structure array as you would to a numeric array: by u
     We can be visualize the elements of the nonscalar structure array like this
 
     ![nonscalar structure illustration](images/struct_illustration2.png){ width="250"}
-   
+
 ### Accessing Field Content in a Structure Array
 
 So, how do you get the data out? To get the data from the first element in the array, simply index the structure name, as follows:
@@ -171,8 +169,7 @@ filenames = {img_info.filename} % note use of curly brackets
 
 ```matlab title="result"
 filenames = 
-
-    'moonshot.jpg'    'apollo13.jpg'
+            'moonshot.jpg'    'apollo13.jpg'
 ```
 
 …The above syntax extracts the filenames from the `filename` field across all elements of *img_info* and concatenates them into a new 1X2 cell array called *`filenames`*.
@@ -208,8 +205,7 @@ filenames =
 
     ```matlab title="result"
     ans =
-
-    'moonshot.jpgapollo13.jpg'
+            'moonshot.jpgapollo13.jpg'
     ```
 
     You get the two filenames crammed into one character array
@@ -226,7 +222,7 @@ Sometimes you want to access the fields in a structure programmatically, i.e. us
 
 Do not confuse this syntax with indexing an array. Notice that in this syntax the period immediate proceeds the parentheses. Inside the parentheses, the field name is entered as a character array or a variable containing a character array. For example:
 
-```matlab
+```matlab linenums="1"
 img_info.('filename')
 ```
 
