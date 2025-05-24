@@ -55,24 +55,48 @@ Control flow are the flow charts of computer programming. Control Flows allow yo
 
 [xkcd](https://xkcd.com/518)
 
-When programming, you often want the computer to respond differently depending on the input. **Conditional statements** are like programmatic flow charts that analyze values of specified variables to determine which block of code should be executed. This is useful for handling unknown situations. For example,  different blocks of code should execute depending on whether or not your robot recognizes you (or your spouse).
+When programming, you often want the computer to respond differently depending on the input. **Conditional statements** are like programmatic flow charts that analyze values of specified variables to determine which block of code should be executed. This is useful for handling unknown situations.
 
-A conditional statement typically contains a series of expressions that can resolve to either `true` or `false`. Each expression is followed by the block of code to be executed if the expression resolves to TRUE. So, for conditional statements to properly work, only ONE expression should resolve to TRUE on a given run of the statement.  
+A conditional statement typically contains a series of **expressions** that resolve to either `true` or `false`. Each expression is followed by the block of code to be executed if the expression resolves to TRUE. So, for conditional statements to properly work, only ONE expression should resolve to TRUE on a given run of the statement.  
 
-Here is a pseudo-code version of a conditional statement:
+Say hypothetically  you have designed a facial recognition algorithm for your robot servant and you would like your robot servant to greet you and your family members by your proper names. Furthermore, say you have recently embezzled a large amount of money from a large crime family and you have been forced into hiding. So, you would like your robot servant/sentinel to announce "Intruder Alert!", whenever encountering any person not recognized by the facial recognition algorithm, and to then initiate defensive measures.
 
-```
+Here is a pseudo-code version of a conditional statement that could manage these responses:
+
+```text
 IF MASTER RECOGNIZED
 	greet MASTER as "Mr. Smith"
 OR MISTRESS RECOGNIZED
 	greet MISTRESS as "Mrs. Smith"
+OR CHILD RECOGNIZED
+    greet CHILD as "Young Master."
 OTHERWISE
 	attack INTRUDER
 ```
 
 In this example, the expressions are shown in ALL CAPS, while the executable blocks are in lower case. Notice that, depending on the expression, only one of the executable blocks will execute. The expressions are evaluated sequentially, so first it would check if "MASTER RECOGNIZED". If the master was recognized, it would then execute the ensuing statement, which in this case would be to greet the Master as "Mr. Smith". If the MASTER wasn't recognized, then the next expression would be evaluated ("MISTRESS RECOGNIZED"). If none of the expressions evaluated `true`, then the final statement would be executed: "ATTACK"
 
-<!-- Say for example that you have designed a facial recognition algorithm for your robot servant and you would like your robot servant to greet you and your family members by your proper names. Furthermore, you would like your robot servant to announce "Intruder Alert!", whenever encountering any person not recognized by the facial recognition algorithm, and to then initiate defensive measures. -->
+<!-- For example, consider taking attendance in a class. If a student is present, they should be marked "Present". If the student is absent, they should be marked "Absent". Attendance is often taken by the instructor reading the names of the students in the class. If the student is present, then they respond "Here."
+
+```text
+IF RESPONSE == "Here"
+    student = "present"
+ELSE
+    student = "absent"
+END
+```
+
+In this pseudocode example, we only test if the response is equal to "Here". If the response is equal to "here", then the *`student`* variable is set to "present". If the response is anything else or nothing, *`student`* is set to "absent". This might be problematic if the student is present, but instead says "yeah" or "present". A better way to organize this conditional statement might be as follows:
+
+```text
+IF RESPONSE == ""
+    student = "absent"
+ELSE
+    student = "present"
+END
+```
+
+In this pseudocode example, *`student`* is only set to "absent" if there is no response. So, what you test for in a conditional statement expression is very important to make sure you get the result you want.  -->
 
 ### IF ELSE statements
 
@@ -147,7 +171,7 @@ Here is some terminology to recall as you review the code:
 - **Perfect square**: a number that when you take the square root, you get a whole number
 - **Power of 2**: a number in the form $2^n$
 
-In this IF ELSE statement, we have several expressions to categorize the inputted number. The function [**isprime**](https://www.mathworks.com/help/matlab/ref/isprime.html) tests whether the number is prime. The function [**rem**](https://www.mathworks.com/help/matlab/ref/rem.html) returns the remainder after division (just like [**mod**](https://www.mathworks.com/help/matlab/ref/mod.html)). As shown here, this function can be very useful in characterize numbers in a variety of ways (1).
+In this IF ELSE statement, we have several expressions to categorize the inputted number. The function [**isprime**](https://www.mathworks.com/help/matlab/ref/isprime.html){target="_blank"} tests whether the number is prime. The function [**rem**](https://www.mathworks.com/help/matlab/ref/rem.html){target="_blank"} returns the remainder after division (just like [**mod**](https://www.mathworks.com/help/matlab/ref/mod.html){target="_blank"}). As shown here, this function can be very useful in characterize numbers in a variety of ways (1).
 { .annotate}
 
 1. `~rem(sqrt(x),1)` - A perfect square should be a whole number after taking the square root. So, in this syntax, we take the square root of the inputted number, *x*, and then ask if there is any remainder after dividing by 1. For example, if the square root is not a whole number (like `1.4142`), then we would get a remainder (like `0.4142`). Whole numbers will return a zero after division by 1 (no remainder). So, to make this expression resolve to true when we do get a zero, we flip the script, using the LOGICAL NOT special character). We use a similar logic for powers of 2.
@@ -330,7 +354,7 @@ The value of i is 10
 
 ### Preallocation
 
-FOR LOOPS are often used to fill arrays in some sequential fashion, such as element-by-element or row-by-row. When doing this, you should always *[preallocate](http://www.mathworks.com/help/matlab/math/resizing-and-reshaping-matrices.html#f1-88760)* the array, meaning that you should create an empty array that already contains the number of elements that you want to end up with. Then, during the execution of the loop, you simply fill each element of the array with the data that you want. If you know how big your final array is going to be, preallocation is easily accomplished using the function **[zeros](http://www.mathworks.com/help/matlab/ref/zeros.html),** which creates an array filled with zeros.  If you don't preallocate, MATLAB has to create a copy of the variable on each iteration of the loop which takes more time and uses more memory. 
+FOR LOOPS are often used to fill arrays in some sequential fashion, such as element-by-element or row-by-row. When doing this, you should always *[preallocate](http://www.mathworks.com/help/matlab/math/resizing-and-reshaping-matrices.html#f1-88760){target="_blank"}* the array, meaning that you should create an empty array that already contains the number of elements that you want to end up with. Then, during the execution of the loop, you simply fill each element of the array with the data that you want. If you know how big your final array is going to be, preallocation is easily accomplished using the function **[zeros](http://www.mathworks.com/help/matlab/ref/zeros.html){target="_blank"},** which creates an array filled with zeros.  If you don't preallocate, MATLAB has to create a copy of the variable on each iteration of the loop which takes more time and uses more memory. 
 
 For  example, the following creates an array *i* with 10 zeros
 
@@ -492,7 +516,7 @@ fprintf('You rolled a %d. Nice Job!',die);
 
 When you are rolling an actual die, there is no way to guess when you are going to roll a 5. You just have to roll until you get a 5. 
 
-In this example, we use the function [**randi**](https://www.mathworks.com/help/matlab/ref/randi.html) to randomly return an integer between 1 and 6. Each time the WHILE LOOP iterates, **randi** returns a different integer. The WHILE LOOP will continue to iterate until *die* is randomly set to the value `5`.
+In this example, we use the function [**randi**](https://www.mathworks.com/help/matlab/ref/randi.html){target="_blank"} to randomly return an integer between 1 and 6. Each time the WHILE LOOP iterates, **randi** returns a different integer. The WHILE LOOP will continue to iterate until *die* is randomly set to the value `5`.
 
 Here is the output I got the last time that I ran the code:
 
