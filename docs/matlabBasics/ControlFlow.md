@@ -14,15 +14,15 @@ Control flow are the flow charts of computer programming. Control Flows allow yo
 
 ### Mildly Useful MATLAB Documentation
 
-- [Loops and Conditional Statements](https://www.mathworks.com/help/matlab/control-flow.html')
+- [Loops and Conditional Statements](https://www.mathworks.com/help/matlab/control-flow.html'){target="_blank"}
 
-- [if, elseif, else](https://www.mathworks.com/help/matlab/ref/if.html')
+- [if, elseif, else](https://www.mathworks.com/help/matlab/ref/if.html'){target="_blank"}
 
-- [for loops](https://www.mathworks.com/help/matlab/ref/for.html')
+- [for loops](https://www.mathworks.com/help/matlab/ref/for.html'){target="_blank"}
 
-- [while loops](https://www.mathworks.com/help/matlab/ref/while.html')
+- [while loops](https://www.mathworks.com/help/matlab/ref/while.html'){target="_blank"}
 
-- [switch, case, otherwise](https://www.mathworks.com/help/matlab/ref/switch.html')
+- [switch, case, otherwise](https://www.mathworks.com/help/matlab/ref/switch.html'){target="_blank"}
 
 ### Keywords you should know
 
@@ -32,10 +32,10 @@ Control flow are the flow charts of computer programming. Control Flows allow yo
 - else
 - case
 - otherwise
-- [end](https://www.mathworks.com/help/matlab/ref/end.html')
-- [return](https://www.mathworks.com/help/matlab/ref/return.html')
-- [continue](https://www.mathworks.com/help/matlab/ref/continue.html')
-- [break](https://www.mathworks.com/help/matlab/ref/break.html')
+- [end](https://www.mathworks.com/help/matlab/ref/end.html'){target="_blank"}
+- [return](https://www.mathworks.com/help/matlab/ref/return.html'){target="_blank"}
+- [continue](https://www.mathworks.com/help/matlab/ref/continue.html'){target="_blank"}
+- [break](https://www.mathworks.com/help/matlab/ref/break.html'){target="_blank"}
 
 ### Terminology you should know
 
@@ -49,11 +49,11 @@ Control flow are the flow charts of computer programming. Control Flows allow yo
 
 ## Conditional Statements
 
-![][L-img-xkcd]
+![XKCD flow chart cartoon][L-img-xkcd]
 
 [L-img-xkcd]: images/xkcd_flow_charts.png "Flow Charts"
 
-[xkcd](https://xkcd.com/518)
+[xkcd 518](https://xkcd.com/518){target="_blank"}
 
 When programming, you often want the computer to respond differently depending on the input. **Conditional statements** are like programmatic flow charts that analyze values of specified variables to determine which block of code should be executed. This is useful for handling unknown situations.
 
@@ -138,7 +138,7 @@ else
 end
 ```
 
-In **line 1**, we set the value of `x` to a random integer (with a maximum possible value of 10) using the **`randi`** function. **Line 3** contains the **expression** (after the `if` keyword). This expressions evaluates whether or not the [remainder after dividing by 2](https://www.mathworks.com/help/matlab/ref/rem.html) IS EQUAL TO `1`. Recall that dividing an odd integer by 2 returns a remainder of 1.
+In **line 1**, we set the value of `x` to a random integer (with a maximum possible value of 10) using the **`randi`** function. **Line 3** contains the **expression** (after the `if` keyword). This expressions evaluates whether or not the [remainder after dividing by 2](https://www.mathworks.com/help/matlab/ref/rem.html){target="_blank"} IS EQUAL TO `1`. Recall that dividing an odd integer by 2 returns a remainder of 1.
  Depending on what random number x is set to, we will get the following:
 
 1. If x is odd, **`rem`** will return a 1, the expression will return a`true`, and the first code block will be executed.
@@ -514,7 +514,7 @@ end
 fprintf('You rolled a %d. Nice Job!',die);
 ```
 
-When you are rolling an actual die, there is no way to guess when you are going to roll a 5. You just have to roll until you get a 5. 
+When you are rolling an actual die, there is no way to guess when you are going to roll a 5. You just have to roll until you get a 5.
 
 In this example, we use the function [**randi**](https://www.mathworks.com/help/matlab/ref/randi.html){target="_blank"} to randomly return an integer between 1 and 6. Each time the WHILE LOOP iterates, **randi** returns a different integer. The WHILE LOOP will continue to iterate until *die* is randomly set to the value `5`.
 
