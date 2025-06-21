@@ -36,7 +36,9 @@ nav:
     - Plotting: 
       - Plotting Components: matlabBasics/PlottingComponents.md
       - Plotting Basics: matlabBasics/PlottingBasics.md   
-      - Plotting Overlays and Tiles: matlabBasics/PlottingOverlaysTiles.md   
+      - Plotting Overlays and Tiles: matlabBasics/PlottingOverlaysTiles.md  
+    - Scripts:
+      - Control Flow and Functions in Scripts: matlabBasics/scripts/Control_Flow_Functions.md
   - Data Processing: 
     - dataProcessing/index.md
     - Data Types and Categorical Arrays: dataProcessing/dataTypes.md
@@ -90,7 +92,7 @@ theme:
   name: material
   icon: 
     logo: material/skull-scan
-  #favicon: material/skull-scan
+  favicon: assets/skull-scan-blue.png
   features:
     - navigation.tabs
     - navigation.tabs.sticky

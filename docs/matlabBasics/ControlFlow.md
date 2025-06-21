@@ -10,9 +10,9 @@
 
 *If, then, else, when?*
 
-Control flow are the flow charts of computer programming. Control Flows allow you to create scripts or functions that execute or repeat upon meeting certain conditions. Think of a music player. When you click "Play", the Music plays. That is a type of control flow known as a "conditional statement." Similarly, when you select the "Repeat" function, the same song will play over and over. That is another type of control flow called a loop. We'll talk about that here too.
+Control flow is the flow chart of computer programming. Control Flow allow you to create scripts or functions that execute or repeat upon meeting certain conditions. Think of a music player. When you click "Play", the Music plays. That is a type of control flow known as a "conditional statement." Similarly, when you select the "Repeat" function, the same song will play over and over. That is another type of control flow called a loop. We'll talk about that too.
 
-### Mildly Useful MATLAB Documentation
+### Somewhat Useful MATLAB Documentation
 
 - [Loops and Conditional Statements](https://www.mathworks.com/help/matlab/control-flow.html'){target="_blank"}
 
@@ -59,10 +59,11 @@ When programming, you often want the computer to respond differently depending o
 
 A conditional statement typically contains a series of **expressions** that resolve to either `true` or `false`. Each expression is followed by the block of code to be executed if the expression resolves to TRUE. So, for conditional statements to properly work, only ONE expression should resolve to TRUE on a given run of the statement.  
 
-Say hypothetically  you have designed a facial recognition algorithm for your robot servant and you would like your robot servant to greet you and your family members by your proper names. Furthermore, say you have recently embezzled a large amount of money from a large crime family and you have been forced into hiding. So, you would like your robot servant/sentinel to announce "Intruder Alert!", whenever encountering any person not recognized by the facial recognition algorithm, and to then initiate defensive measures.
+<!--Say hypothetically  you have designed a facial recognition algorithm for your robot servant and you would like your robot servant to greet you and your family members by your proper names. Furthermore, say you have recently embezzled a large amount of money from a large crime family and you have been forced into hiding. So, you would like your robot servant/sentinel to announce "Intruder Alert!", whenever encountering any person not recognized by the facial recognition algorithm, and to then initiate defensive measures.
 
-Here is a pseudo-code version of a conditional statement that could manage these responses:
+Here is a pseudo-code version of a conditional statement that could manage these responses:-->
 
+<!-- 
 ```text
 IF MASTER RECOGNIZED
 	greet MASTER as "Mr. Smith"
@@ -73,28 +74,13 @@ OR CHILD RECOGNIZED
 OTHERWISE
 	attack INTRUDER
 ```
-
-In this example, the expressions are shown in ALL CAPS, while the executable blocks are in lower case. Notice that, depending on the expression, only one of the executable blocks will execute. The expressions are evaluated sequentially, so first it would check if "MASTER RECOGNIZED". If the master was recognized, it would then execute the ensuing statement, which in this case would be to greet the Master as "Mr. Smith". If the MASTER wasn't recognized, then the next expression would be evaluated ("MISTRESS RECOGNIZED"). If none of the expressions evaluated `true`, then the final statement would be executed: "ATTACK"
+-->
+<!-- 
+In this example, the expressions are shown in ALL CAPS, while the executable blocks are in lower case. Notice that, depending on the expression, only one of the executable blocks will execute. The expressions are evaluated sequentially, so first it would check if "MASTER RECOGNIZED". If the master was recognized, it would then execute the ensuing statement, which in this case would be to greet the Master as "Mr. Smith". If the MASTER wasn't recognized, then the next expression would be evaluated ("MISTRESS RECOGNIZED"). If none of the expressions evaluated `true`, then the final statement would be executed: "ATTACK" -->
 
 <!-- For example, consider taking attendance in a class. If a student is present, they should be marked "Present". If the student is absent, they should be marked "Absent". Attendance is often taken by the instructor reading the names of the students in the class. If the student is present, then they respond "Here."
 
-```text
-IF RESPONSE == "Here"
-    student = "present"
-ELSE
-    student = "absent"
-END
-```
-
-In this pseudocode example, we only test if the response is equal to "Here". If the response is equal to "here", then the *`student`* variable is set to "present". If the response is anything else or nothing, *`student`* is set to "absent". This might be problematic if the student is present, but instead says "yeah" or "present". A better way to organize this conditional statement might be as follows:
-
-```text
-IF RESPONSE == ""
-    student = "absent"
-ELSE
-    student = "present"
-END
-```
+ This might be problematic if the student is present, but instead says "yeah" or "present". A better way to organize this conditional statement might be as follows:
 
 In this pseudocode example, *`student`* is only set to "absent" if there is no response. So, what you test for in a conditional statement expression is very important to make sure you get the result you want.  -->
 
@@ -103,13 +89,14 @@ In this pseudocode example, *`student`* is only set to "absent" if there is no r
 IF, ELSE statements are the simplest and most straight forward of the conditional statements. They are used to create  programmatic flow charts.
 
 !!! abstract "Anatomy of an IF ELSE STATEMENT"
-    IF ELSE statements are bracketed by the `if` and `end` keywords. Optionally, they can contain **elseif** and **else** keywords. If you want to evaluate more than one *expression*, you need the **elseif** keyword.
 
-    >**if** *expression*
+    This is what an IF ELSE statement looks like:
+
+    >**if** *expression 1*
     >
     >>CODE BLOCK 1
     >
-    >**elseif** *expression*
+    >**elseif** *expression 2*
     >
     >> CODE BLOCK 2
     >
@@ -119,44 +106,98 @@ IF, ELSE statements are the simplest and most straight forward of the conditiona
     >
     >**end**
 
-    - *Expressions* can be logical operations, or simply numeric values, where `0` is `false`, and anything other than `0` is `true`
-    - *Expressions* are evaluated in sequential order.
-    - If the *expression* is `true`, the relevant block of code that immediately follows the *expression* is executed
-    - If the *expression* is `false`, the next *expression* is evaluated.
-    - If no *expressions* are `true`, and there is an **else** keyword, the block of code following the **else** keyword is executed (CODE BLOCK 3)
-    - If there is no *else* keyword and none of the *expressions* are `true`, nothing happens.
-
+    - **Required keywords:** `if` and `end`. 
+    - **Optional keywords:** `else` and `elseif`. `else` must be the last keyword before `end`/
+    - **Expression:** a statement that can resolve to a `0` or non-zero (e.g. a logical operation). Expressions immediately follow the keywords `if` and `elseif`. `else` and `end` do not have expressions.
+    - **Code block:** the line(s) of code that follow a key word line (except `end`). The code that is run if the immediately preceding expression resolves to a non-zero value. If none of the expressions resolve to a non-zero value, then the code block after the `else` line is run.
+    - **Evaluation order:** each expression is evaluated sequentially starting from the `if` line. Once an expression resolves to a non-zero value, the subsequent code block is executed and the IF ELSE statement is exited (no other expression is even checked)
+   
+    
 Consider the following example:
 
-```matlab linenums="1" title="Example: IF ELSE"
-x = randi(10,1,1) % generate a random number
+![img-name](images/if-else-anatomy.png){ width="650"}
 
-if rem(x,2) == 1
-    display('x is odd')
-else
-    display('x is even')
-end
-```
+- NOTE: the variable *`age`* should be set before the IF ELSE statement
+- Code Block 1 will only execute if the value of *`age`* is less than 21
+- Code Block 2 will execute if *`age`* is greater than 50
+- Otherwise, Code Block 3 will execute (for any age between 21 and 50)
 
-In **line 1**, we set the value of `x` to a random integer (with a maximum possible value of 10) using the **`randi`** function. **Line 3** contains the **expression** (after the `if` keyword). This expressions evaluates whether or not the [remainder after dividing by 2](https://www.mathworks.com/help/matlab/ref/rem.html){target="_blank"} IS EQUAL TO `1`. Recall that dividing an odd integer by 2 returns a remainder of 1.
- Depending on what random number x is set to, we will get the following:
+??? question "Challenge 1: The case of the missing else"
 
-1. If x is odd, **`rem`** will return a 1, the expression will return a`true`, and the first code block will be executed.
-2. if x is even, then **`rem`** will return a 0, the expression will return a `false`, and second code block (line 6) will be executed.
+    === "Question"
+        
+        IF ELSE statements don't actually require an else statement
 
-### Adding multiple expressions (elseif)
+        Here, we have a statement that checks whether the variable *`RESPONSE`* contains the string `"Here"`. (like a simplistic Taking Attendance Algorithm).(1)
+        { .annotate }
 
-If you need to evaluate multiple, sequential  *expressions*, you can use the `elseif` keyword in an IF ELSE statement.
+        1. Not shown here is the assignment of a value to *`RESPONSE`*, which typically occurs before the IF ELSE statement.
 
-In the following example, we will use an IF ELSE statement to characterize the inputted number.
+        ```matlab linenums="1" title="Simple Attendance Algorithm"
+        if RESPONSE == "Here"
+            student = "present"
+        end
+        ```
+
+        If *`RESPONSE`* does contain `"Here"`, then variable *`student`* gets assigned the value `"present"`. If not, nothing happens. 
+
+        **CHALLENGE:** add an `else` statement so that if *`RESPONSE`* contains anything other than `"Here"`, *`student`* is set to `"absent"`.
+    
+    === "Answer"
+
+        ```matlab linenums="1" title="The Attendance Code"
+        if RESPONSE == "Here"
+            student = "present"
+        else
+            student = "absent"
+        end
+        ```
+
+        In this IF ELSE statement, if *`RESPONSE`* is anything other than "Here", *`student`* is set to `"absent"`. 
+
+??? question "Challenge 2: When Present is not Here"
+
+    === "Question"
+
+        In the previous challenge, we only test if *`RESPONSE`* is equal to `"Here"`. This works great, if the response from the student is exactly "Here". But what if the student is not an automaton and responds with an alternate response, like "Yup", "Yo", or even "present"? The conditional statement would return a `FALSE` and the student would be marked absent. 
+        
+        Perhaps it would be more accurate to only mark the student "absent" if there is no response and "present" if there is any response at all, coherent or not, like "bussin".
+        
+        How would you modify the above IF ELSE statement so that when *`RESULT`* is set to `""`, *`student`* is set to `"absent"`, and when *`RESULT`* has any other value,  *`student`* is set to "present"?
+
+    === "Answer"
+    
+        ```matlab linenums="1" title="Updated IF ELSE statement"
+        IF RESPONSE == ""
+            student = "absent"
+        ELSE
+            student = "present"
+        END
+        ```
+        Here, when *`RESPONSE`* is empty, *`student`* is set to "absent". If  *`RESPONSE`* contains anything,  *`student`* is set to "present". 
+
+#### Organizing Multiple ELSE IFs
+
+It is important to remember that in an IF ELSE statement, each expression is evaluated sequentially. Once an expression evaluates to TRUE (or a non-zero number), all subsequent expressions are ignored. So, when you are creating an IF ELSE statement, it is critical to think about the order of the expressions to make sure each expression gets it's fair shake.
+
+The following example contains multiple expressions to test the property of a number stored in *`x`*. Here we make extensive use the [**`rem`**](https://www.mathworks.com/help/matlab/ref/double.rem.html){target="_blank"} function, which returns the remainder after division. This is a very useful function to help identify even or odd numbers , or even perfect squares and powers of two (1).
+{ .annotate}
+
+1. For example, `rem(x,2)` returns the remainder after dividing by 2. So, this expression returns a `1` if `x` is odd, and a `0` if `x` is even. Similarly, `rem(x,1)` is useful for identifying whole numbers. In this case, it returns a 0 if *`x`* is a whole number, and a fractional number otherwise. Remember, expressions in IF ELSE must resolve to zero or a non-zero number.
+   
+Here is some terminology and facts to recall as you review the following code:
+
+- **Prime Number**: a number divisible only by itself and 1. `1` is not a prime number, but `2` is. The rest of the prime numbers are odd numbers.
+- **Perfect square**: a number that when you take the square root, you get a whole number. e.g. $\sqrt 4 = 2$, so `4` is a perfect square.
+- **Power of 2**: a number in the form $2^n$. e.g. $2^3=8$ so `8` is a power of 2.
 
 ```matlab linenums="1" title="IF ELSE with Multiple expressions"
 x = 19
-if isprime(x) % tests whether a number is prime
+if isprime(x) % tests whether a number is prime (1)
     str = 'a prime number';
-elseif ~rem(sqrt(x),1) % tests for a perfect square 
+elseif ~rem(sqrt(x),1) % tests for a perfect square (2)
     str = 'a perfect square'
-elseif ~rem(log2(x),1) % tests for a power of 2
+elseif ~rem(log2(x),1) % tests for a power of 2 (3)
     str = 'a power of 2'
 else
     str =  'none of the above';
@@ -165,46 +206,67 @@ end
 fprintf('%d is %s\n', x, str) % fprintf outputs directly to the command window
 ```
 
-Here is some terminology to recall as you review the code:
+1. The function [**isprime**](https://www.mathworks.com/help/matlab/ref/isprime.html){target="_blank"} tests whether the number is prime.
+2. `~rem(sqrt(x),1)` - A perfect square should be a whole number after taking the square root. So, in this syntax, we take the square root of the inputted number, *x*, and then ask if there is any remainder after dividing by 1. If the square root is not a whole number (like `1.4142`), then we would get a remainder (like `0.4142`). Whole numbers will return a zero after division by 1 (no remainder). So,  we apply a logical NOT (`~`) to the output to make this expression resolve to true when we do get a whole number.
+3. `~rem(log2(x),1)` - A number that is a power of 2 should return a whole number when plugged into **`log2`**. `rem(x,1)` returns 0 for whole numbers, so we apply a logical NOT to the output.
 
-- **Prime Number**: a number divisible only by itself and 1
-- **Perfect square**: a number that when you take the square root, you get a whole number
-- **Power of 2**: a number in the form $2^n$
+So, for the value `19`, the `isprime(x)` expression would resolve to true, and *`str`* would be set to 'a prime number' because 19 is a prime number. No other expressions would be tested.
 
-In this IF ELSE statement, we have several expressions to categorize the inputted number. The function [**isprime**](https://www.mathworks.com/help/matlab/ref/isprime.html){target="_blank"} tests whether the number is prime. The function [**rem**](https://www.mathworks.com/help/matlab/ref/rem.html){target="_blank"} returns the remainder after division (just like [**mod**](https://www.mathworks.com/help/matlab/ref/mod.html){target="_blank"}). As shown here, this function can be very useful in characterize numbers in a variety of ways (1).
-{ .annotate}
+For the value `9`, the first expression would resolve to FALSE (`9` is not prime), but the second expression would resolve to TRUE, and *`str`* would be set to 'a perfect square` (1). The third expression would be ignored.
+{ .annotate }
 
-1. `~rem(sqrt(x),1)` - A perfect square should be a whole number after taking the square root. So, in this syntax, we take the square root of the inputted number, *x*, and then ask if there is any remainder after dividing by 1. For example, if the square root is not a whole number (like `1.4142`), then we would get a remainder (like `0.4142`). Whole numbers will return a zero after division by 1 (no remainder). So, to make this expression resolve to true when we do get a zero, we flip the script, using the LOGICAL NOT special character). We use a similar logic for powers of 2.
+1. `9` is of course a perfect square: `3 x 3`
 
-Note, IF ELSE expressions are **always evaluated sequentially**, starting with the first IF expression. So, the order of the *expressions* is a critical consideration. For example, 16 is both a perfect square and a power of 2. In this IF ELSE statement, 16 will be only be reported as a perfect square. It will never get a chance to be tested on whether it is also a power of 2. That expression will just be skipped.
+??? question annotate "Challenge: The trouble with 16"
 
-#### ADVANCED CHALLENGE: elseif
+    === "Question"
 
-=== "Question"
-    Review the IF ELSE Statement above and add the following functionality:
+        Is 16 a perfect square? (1)
+        { .annotate }
 
-    1. Reports if the Number is 'odd, but not prime' using the following expression `rem(x,2)`, which returns a 1 for odd numbers
-    2. Reports if the number is even
+        1. Yes. $4 * 4=16$
 
-=== "Answer"
+        Is 16 a power of 2? (1)
+        { .annotate }
 
-    ```matlab
-    if isprime(x) % tests whether a number is prime
-        str = 'a prime number';
-    elseif ~rem(sqrt(x),1) % tests for perfect squares
-        str = 'a perfect square';
-    elseif rem(x,2) % tests for odd numbers 
-        str = 'odd but not prime';
-    elseif ~rem(log2(x),1) % tests for powers of2
-        str = 'a power of 2!';
-    else % assumes number is even
-        str =  'even';
-    end
-    fprintf('%d is %s\n', x, str) % fprintf outputs directly to the command window
-    ```
+        1. Yes. $2^4=16$
+        
+        So, what is *`str`* set to after running the above IF ELSE statement?
+    
+    === "Answer"
 
-    1. Note the position of the 'odd, but not prime' is right after the test for prime numbers
-    2. Note that we don't have to test whether the number is even. We just assume once all of the other expressions resolve to false, that the number is even, so we place that report after the **`else`** keyword
+        Even though 16 is both a Perfect Square and a Power of 2, *`str`* will be set to `'a perfect square'` since that is the first expression encountered that resolves to true. The third expression testing for Powers of 2 will be ignored in this case.
+
+??? question "Challenge: Odds or Evens"
+
+    === "Question"
+        Review the IF ELSE Statement above and add the following functionality:
+
+        1. Reports if the Number is 'odd, but not prime or a perfect square'
+        2. Reports if the number is even
+
+        Remember that `rem(x,2)` returns a `1` if the number is odd.
+
+
+    === "Answer"
+
+        ```matlab
+        if isprime(x) % tests whether a number is prime
+            str = 'a prime number';
+        elseif ~rem(sqrt(x),1) % tests for perfect squares
+            str = 'a perfect square';
+        elseif ~rem(log2(x),1) % tests for powers of2
+            str = 'a power of 2!';
+        elseif rem(x,2) % tests for odd numbers 
+            str = 'odd';
+        else % assumes number is even
+            str =  'even';
+        end
+        fprintf('%d is %s\n', x, str) % fprintf outputs directly to the command window
+        ```
+
+        3. Notice the expression to test for 'odd' is after the other expressions. So this will only be reported once testing for the other properties have been exhausted. Remember, `1` is a power of 2 — $2^0=1$.
+        4. Note that we don't have to test whether the number is even. We just assume once all of the other expressions resolve to false, that the number is even, so we place that after the **`else`** keyword.
 
 ---
 
@@ -260,7 +322,7 @@ end
 
 ## Loops
 
-**Looping Statements** are used to repeatedly execute the same code block over and over while modifying the values of certain variables. Computers are really good at repeating tasks over and over, sometimes to a fault. For example, depending on the size of the intruder, you may want your robot to repeatedly deliver non-lethal roundhouse kicks to intruder's face until he or she is incapacitated. A FOR LOOP can help you with that, but if you don't program the loop properly, you run the risk of over-delivering roundhouse kicks to the intruder's face.
+**Looping Statements** are used to repeatedly execute the same code block over and over while modifying the values of certain variables. Computers are really good at repeating tasks over and over, sometimes to a fault.
 
 ### FOR LOOPS
 
@@ -351,6 +413,8 @@ The value of i is 10
     ```
 
 ---
+
+
 
 ### Preallocation
 

@@ -27,6 +27,7 @@ Once you have a figure with an axis (see previous section), you can then add a p
 The following site is an excellent resource for comparing types of plots and determining when and how you should use them:
 
 - [Storytelling with Data][SWD]
+- [MATLAB Blog: Making even Prettier Graphs](https://blogs.mathworks.com/graphics-and-apps/2025/05/14/making-even-prettier-graphs/#like)
 
 [SWD]: https://www.storytellingwithdata.com/chart-guide  
 

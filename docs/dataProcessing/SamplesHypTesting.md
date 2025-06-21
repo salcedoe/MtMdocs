@@ -69,15 +69,15 @@ The key to a good sample is that it is representative of the entire population. 
 
 ![bell curve with a You are here arrow pointing at the mean](images/bell-curve-you-are-here.png){ width="250"}
 
-When you measure things, like humans, you will find that their parts vary: height, weight, foot size, the spacing between the eyes (I'm looking at you, Anna Taylor Joy). But each of these measurements won't vary *too* greatly between humans—they tend to fall with a certain range. If you take a large enough sample and plot the measurements as a histogram, you should get a histogram that looks something like this:
+When you measure things, like humans, you will find that their parts vary: height, weight, foot size, the spacing between the eyes (I'm looking at you, Anna Taylor Joy). But each of these measurements won't vary *too* greatly between humans—they tend to fall with a certain range. If you take a large enough sample (>30) and plot the measurements as a histogram, you should get a histogram that looks something like this:
 
 ![img-name](images/histogram-female-heights.png){ width="450"}
 
->**Histogram of Female Heights**. This is a histogram of the heights from a bunch of women (n=1000). In this sample, the average height was 63.2 and the standard deviation was 0.25. Notice how the most frequent heights are clustered around the mean in the center of the histogram. Also notice we don't have any 50" or 80" women (4'2" or 6'7") in our sample.
+>**Histogram of Female Heights**. In this sample of 1000 women, the average height was 63.2 and the standard deviation was 0.25.  Notice how the most frequent heights are clustered around the mean in the center of the histogram. Also notice we don't have any 50" or 80" women (4'2" or 6'7") in our sample.
 
 ??? example "Generating Normal Data for the above Histogram"
 
-    Note, no women were actually measured in the creation of the above histogram. Instead, we used the random number generator **`randn`** in the following code.
+    No women were actually measured for the creation of the above histogram. Instead, we used the random number generator **`randn`** in the following code.
 
     ```matlab
     mu = 63.7; % mean height of women as reported on google
@@ -112,9 +112,9 @@ In fact, this bell-shaped curve  was so common, they called it a "Normal" curve 
 
 *I guess that's interesting, but how does that help me in the real world?*
 
-The bell curve is so powerful because it allows us to calculate the probability of any value in reference to the mean and standard deviation. This something is called a **Normal Probability Density function (PDF)**—a fancy term for the math function that creates the normal curve.
+The bell curve is so powerful because it allows us to calculate the probability of any value in reference to the mean and standard deviation. This something is called a **Normal Probability Density Function (PDF)**—a fancy term for the math function that creates the normal curve.
 
-!!! note "Key points about the PDF"
+!!! note "Key points about the Probability Density Function (PDF)"
       - It is a mathematical function that generates the normal curve.
       - It describes the likelihood of a value occurring within a specific range.
       - The area under the curve represents the total probability, which equals 1.

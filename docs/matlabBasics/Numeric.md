@@ -432,7 +432,7 @@ Notice that when we use linear indexing on a matrix, we get a strange collection
 
 #### Challenge: Indexing
 
-As we have seen, the colon can be used to mean "range", as in 1 to 10, or "all", when used alone, as in "all columns". 
+As we have seen, the colon can be used to mean "range", as in 1 to 10, or "all", when used alone, as in "all columns".
 
 !!! question "Challenge: Indexing with the colon"
 

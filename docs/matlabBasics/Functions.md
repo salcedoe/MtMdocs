@@ -54,7 +54,7 @@ Of course, now that we are living in the future, MATLAB comes with an AI called 
 
 A function is just a packaged series of commands. Often functions are stored as individual files. Sometimes they are included in the Live Scripts.
 
-The first line in a function sets the name, the inputs, and the outputs of the function. Notice how this first line also models how to call the function. Basically all the text following the keyword **function** can be used as the syntax to call the function:
+The first line in a function sets the name, the inputs, and the outputs of the function. Notice how this first line also models how to call the function — all the text following the keyword **function** can be used as the syntax to call the function.
 
 ![first line in a function](images/functions-anatomy.png){ width="450"}
 
