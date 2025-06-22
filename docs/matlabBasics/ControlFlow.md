@@ -161,7 +161,7 @@ Consider the following example:
 
         In the previous challenge, we only test if *`RESPONSE`* is equal to `"Here"`. This works great, if the response from the student is exactly "Here". But what if the student is not an automaton and responds with an alternate response, like "Yup", "Yo", or even "present"? The conditional statement would return a `FALSE` and the student would be marked absent. 
         
-        Perhaps it would be more accurate to only mark the student "absent" if there is no response and "present" if there is any response at all, coherent or not, like "bussin".
+        Perhaps it would be more accurate to only mark the student "absent" if there is no response (Bueller? Bueller? Bueller?) and "present" if there is any response at all.
         
         How would you modify the above IF ELSE statement so that when *`RESULT`* is set to `""`, *`student`* is set to `"absent"`, and when *`RESULT`* has any other value,  *`student`* is set to "present"?
 
@@ -180,10 +180,10 @@ Consider the following example:
 
 It is important to remember that in an IF ELSE statement, each expression is evaluated sequentially. Once an expression evaluates to TRUE (or a non-zero number), all subsequent expressions are ignored. So, when you are creating an IF ELSE statement, it is critical to think about the order of the expressions to make sure each expression gets it's fair shake.
 
-The following example contains multiple expressions to test the property of a number stored in *`x`*. Here we make extensive use the [**`rem`**](https://www.mathworks.com/help/matlab/ref/double.rem.html){target="_blank"} function, which returns the remainder after division. This is a very useful function to help identify even or odd numbers , or even perfect squares and powers of two (1).
+The following example contains multiple expressions to test the property of a number stored in *`x`*. Here we make extensive use the [**`mod`**](https://www.mathworks.com/help/matlab/ref/double.mod.html){target="_blank"} function, which returns the remainder after division (modulo operation). This is a very useful function to help identify even or odd numbers , or even perfect squares and powers of two (1).
 { .annotate}
 
-1. For example, `rem(x,2)` returns the remainder after dividing by 2. So, this expression returns a `1` if `x` is odd, and a `0` if `x` is even. Similarly, `rem(x,1)` is useful for identifying whole numbers. In this case, it returns a 0 if *`x`* is a whole number, and a fractional number otherwise. Remember, expressions in IF ELSE must resolve to zero or a non-zero number.
+1. For example, `mod(x,2)` returns the remainder after dividing by 2. So, this expression returns a `1` if `x` is odd, and a `0` if `x` is even. Similarly, `mod(x,1)` is useful for identifying whole numbers. In this case, it returns a 0 if *`x`* is a whole number, and a fractional number otherwise. Remember, expressions in IF ELSE must resolve to zero or a non-zero number.
    
 Here is some terminology and facts to recall as you review the following code:
 
@@ -195,9 +195,9 @@ Here is some terminology and facts to recall as you review the following code:
 x = 19
 if isprime(x) % tests whether a number is prime (1)
     str = 'a prime number';
-elseif ~rem(sqrt(x),1) % tests for a perfect square (2)
+elseif ~mod(sqrt(x),1) % tests for a perfect square (2)
     str = 'a perfect square'
-elseif ~rem(log2(x),1) % tests for a power of 2 (3)
+elseif ~mod(log2(x),1) % tests for a power of 2 (3)
     str = 'a power of 2'
 else
     str =  'none of the above';
@@ -207,8 +207,8 @@ fprintf('%d is %s\n', x, str) % fprintf outputs directly to the command window
 ```
 
 1. The function [**isprime**](https://www.mathworks.com/help/matlab/ref/isprime.html){target="_blank"} tests whether the number is prime.
-2. `~rem(sqrt(x),1)` - A perfect square should be a whole number after taking the square root. So, in this syntax, we take the square root of the inputted number, *x*, and then ask if there is any remainder after dividing by 1. If the square root is not a whole number (like `1.4142`), then we would get a remainder (like `0.4142`). Whole numbers will return a zero after division by 1 (no remainder). So,  we apply a logical NOT (`~`) to the output to make this expression resolve to true when we do get a whole number.
-3. `~rem(log2(x),1)` - A number that is a power of 2 should return a whole number when plugged into **`log2`**. `rem(x,1)` returns 0 for whole numbers, so we apply a logical NOT to the output.
+2. `~mod(sqrt(x),1)` - A perfect square should be a whole number after taking the square root. So, in this syntax, we take the square root of the inputted number, *x*, and then ask if there is any remainder after dividing by 1. If the square root is not a whole number (like `1.4142`), then we would get a remainder (like `0.4142`). Whole numbers will return a zero after division by 1 (no remainder). So,  we apply a logical NOT (`~`) to the output to make this expression resolve to true when we do get a whole number.
+3. `~mod(log2(x),1)` - A number that is a power of 2 should return a whole number when plugged into **`log2`**. `mod(x,1)` returns 0 for whole numbers, so we apply a logical NOT to the output.
 
 So, for the value `19`, the `isprime(x)` expression would resolve to true, and *`str`* would be set to 'a prime number' because 19 is a prime number. No other expressions would be tested.
 
@@ -245,7 +245,7 @@ For the value `9`, the first expression would resolve to FALSE (`9` is not prime
         1. Reports if the Number is 'odd, but not prime or a perfect square'
         2. Reports if the number is even
 
-        Remember that `rem(x,2)` returns a `1` if the number is odd.
+        Remember that `mod(x,2)` returns a `1` if the number is odd.
 
 
     === "Answer"
@@ -253,11 +253,11 @@ For the value `9`, the first expression would resolve to FALSE (`9` is not prime
         ```matlab
         if isprime(x) % tests whether a number is prime
             str = 'a prime number';
-        elseif ~rem(sqrt(x),1) % tests for perfect squares
+        elseif ~mod(sqrt(x),1) % tests for perfect squares
             str = 'a perfect square';
-        elseif ~rem(log2(x),1) % tests for powers of2
+        elseif ~mod(log2(x),1) % tests for powers of2
             str = 'a power of 2!';
-        elseif rem(x,2) % tests for odd numbers 
+        elseif mod(x,2) % tests for odd numbers 
             str = 'odd';
         else % assumes number is even
             str =  'even';
@@ -414,11 +414,9 @@ The value of i is 10
 
 ---
 
-
-
 ### Preallocation
 
-FOR LOOPS are often used to fill arrays in some sequential fashion, such as element-by-element or row-by-row. When doing this, you should always *[preallocate](http://www.mathworks.com/help/matlab/math/resizing-and-reshaping-matrices.html#f1-88760){target="_blank"}* the array, meaning that you should create an empty array that already contains the number of elements that you want to end up with. Then, during the execution of the loop, you simply fill each element of the array with the data that you want. If you know how big your final array is going to be, preallocation is easily accomplished using the function **[zeros](http://www.mathworks.com/help/matlab/ref/zeros.html){target="_blank"},** which creates an array filled with zeros.  If you don't preallocate, MATLAB has to create a copy of the variable on each iteration of the loop which takes more time and uses more memory. 
+FOR LOOPS are often used to fill arrays in some sequential fashion, such as element-by-element or row-by-row. When doing this, you should always *[preallocate](http://www.mathworks.com/help/matlab/math/resizing-and-reshaping-matrices.html#f1-88760){target="_blank"}* the array, meaning that you should create an empty array that already contains the number of elements that you want to end up with. Then, during the execution of the loop, you simply fill each element of the array with the data that you want. If you know how big your final array is going to be, preallocation is easily accomplished using the function **[zeros](http://www.mathworks.com/help/matlab/ref/zeros.html){target="_blank"},** which creates an array filled with zeros.  If you don't preallocate, MATLAB has to create a copy of the variable on each iteration of the loop which takes more time and uses more memory.
 
 For  example, the following creates an array *i* with 10 zeros
 
@@ -487,7 +485,7 @@ Control Flow statements are often used in combination. Consider the following:
 
 ```matlab linenums="1" title="a FOR LOOP containing an IF ELSE statement"
 for x = 1:10
-    if rem(x,2) % test for odd numbers
+    if mod(x,2) % test for odd numbers
         eo = 'odd';
     else % if not odd, its even
         eo = 'even';
