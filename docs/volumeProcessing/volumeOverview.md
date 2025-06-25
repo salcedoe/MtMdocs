@@ -4,7 +4,7 @@ Image volumes are like a deck of cards :material-cards-playing: in that they are
 
 ![image stack of a series of optical slices from a mouse taste bud captured by a confocal microscope](images/image-stack-tastebud-grayscale.png){ width="450"}
 
->**Confocal Image Stack from a mouse taste bud.** This image stack was created by a [confocal microscope](https://en.wikipedia.org/wiki/Confocal_microscopy), which captured the volume slice by slice. Starting at the top of the tissue, the microscope captured the top the xy-plane, then adjusted the focal plane down the z-axis, and then captured the next image. Because depth in the volume is changed by adjusting the focal plane (and not physically cutting the tissue), each image in this stack is also called an optical slice. As you can see, there are 12 optical slices in this confocal stack. Each optical slice has 512 rows and 512 columns (height and width). Note, in this visualization, the slices along the z-dimension are artificially separated for display purposes to delineate all slices in the stack
+>**Confocal Image Stack from a mouse taste bud.** This image stack was created by a [confocal microscope](https://en.wikipedia.org/wiki/Confocal_microscopy), which captured the volume slice by slice. Starting at the top of the tissue, the microscope captured the surface layer of the tissue and then adjusted the focal plane down the z-axis to captured the next layer. Because the depth of each layer is changed by adjusting the focal plane (and not physically cutting the tissue), each image in this stack is also called an optical slice. As you can see, there are 12 optical slices in this confocal stack. Each optical slice has 512 rows and 512 columns (height and width). Note, in this visualization, the slices along the z-dimension are artificially separated for display purposes to delineate all slices in the stack
 
 <!--
  In this configuration, the z-dimension usually represents either time or distance. If time, then the image stack would in fact be a movie strip. If distance, then the image stack represents the volume of something, like the volume of a tissue section.
@@ -36,17 +36,15 @@ Another way to think of an image volume is as a cube made up of smaller cubes, a
 
 ### Isotropic vs Anisotropic
 
-When the dimensions of a voxel are identical, the voxel is **isotropic**; when they are not, the voxel is **anisotropic**.
-
-In th above taste bud image stack, the voxel dimensions are 0.3 µm (x-axis) x 0.3 µm (y-axis) x 0.75 µm (z-axis). So, the voxels in this image stack are not perfect little cubes (aka isotropic), but are instead *cuboidal* (aka anisotropic).
+When the dimensions of a voxel are identical, the voxel is **isotropic**; when they are not, the voxel is **anisotropic**. In the taste bud image stack, the voxel dimensions are 0.3 µm (x-axis) x 0.3 µm (y-axis) x 0.75 µm (z-axis). So, the voxels in this image stack are not perfect little cubes (aka isotropic), but are instead *cuboidal* (aka anisotropic).
 
 ![isotropic v anisotropic cuboids](images/iso-v-anisotropic.png){ width="200"}
 
->**Isotropic vs Anistropic** The sides of the isotropic voxel are equal along all dimensions, like a perfect cube or a die, while the sides of an anisotropic voxel are equal along the x & y dimensions but different along the z-dimension, resembling a rectangular brick.
+>**Isotropic vs Anistropic.** The sides of the isotropic voxel are equal along all dimensions, like a perfect cube or a die, while the sides of an anisotropic voxel are equal along the x & y dimensions but different along the z-dimension, resembling a rectangular brick.
 
 ### Measuring the Volume
 
-Since voxels have dimensionality, i.e. the lengths of their sides represent real-world measurements, we can use voxels to measure structures inside the volume or the size of the volume itself. 
+Since voxels have dimensionality, i.e. the lengths of their sides represent real-world measurements, we can use voxels to measure structures inside the volume or the size of the volume itself.
 
 You can usually get the real-world size of a voxel by referencing the metadata. In the above example of a taste bud, the pixel dimensions are 0.3 X 0.3 in the xy plane and 0.75 in the z-plane. So, for example, to get the thickness of the tissue in µm you simply multiply the z-dimension of the voxel by 12 (since there are 12 slices).
 
@@ -56,7 +54,7 @@ $$
 
 …And we find that we have a very thin slice of tissue!
 
-To calculate  volume, you first calculate the volume of a single voxel simply by multiplying the sides of the voxel:
+To calculate  volume, you first calculate the volume of a single voxel by multiplying the sides of the voxel:
 
 $$
 0.3 * 0.3 * 0.75 = 0.0675 µm^3
@@ -64,7 +62,7 @@ $$
 
 …This volume is smaller than that of an E.coli bacterium.
 
-To calculate the volume of the whole image stack, you  simply you multiply the volume of a voxel by the total number of voxels in the stack…
+To calculate the volume of the whole image stack, you multiply the volume of a voxel by the total number of voxels in the stack…
 
 $$
 512 \times 512 \times 12 = 3,145,728 \, voxels

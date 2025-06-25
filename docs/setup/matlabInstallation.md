@@ -43,9 +43,11 @@ If you encounter issues with syncing, ensure that your internet connection is st
 
 ## Add Shared MATLAB Folders
 
-Now that you have installed MATLAB drive, you will want to add the shared course folders to your drive. You should have received an invitation to the shared MATLAB Drive folders. In the email, there should be a link that brings you to your MATLAB drive. If you have not received an email, please check your junk folder or contact the course director.
+Now that you have installed MATLAB drive, you will want to add the shared course folder to your drive. This folder, called the **MTMdata** folder, contains example data files and images. Click on this [shared folder link](https://drive.mathworks.com/sharing/36f2e302-384d-4c4e-aa98-8e853c1051c0){target="_blank"} to add the MTMdata folder to your MATLAB drive.
 
-You can also find the shared  MATLAB folders in the online version of MATLAB Drive, provided that you have logged in with your university account. To view pending invitations in MATLAB Drive online, click Shared Content on the left side of the page.
+<!-- You should have received an invitation to the shared MATLAB Drive folders. In the email, there should be a link that brings you to your MATLAB drive. If you have not received an email, please check your junk folder or contact the course director. -->
+
+You can find the shared  MATLAB folders in the online version of MATLAB Drive, provided that you have logged in with your university account. To view pending invitations in MATLAB Drive online, click Shared Content on the left side of the page.
 
 ![Screenshot showing the shared contents page in MATLAB Drive, highlighting the "Add Shortcut" option](https://www.mathworks.com/help/matlab/matlab_env/share_invite_mldo.png){ width="650"}
 

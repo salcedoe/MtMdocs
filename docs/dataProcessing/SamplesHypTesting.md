@@ -144,9 +144,7 @@ Hypothesis testing involves making assumptions: either there IS or there IS NOT 
 
 ### Control vs Experimental Groups
 
-One of the most fundamental experimental designs used when Hypothesis Testing is to compare a control group with an independent group that has been subjected to some intervention. This design is called two-independent group.
-
-For these types of experiments, the Null hypothesis is "There is no difference between the control and experimental group" or "Your elixir didn't do anything — I'm still not the fairest of them all". The Alternative Hypothesis is that there is a difference between the groups.
+One of the most fundamental experimental designs used with Hypothesis Testing is to compare a control group with an independent group that has been subjected to some intervention. The control group serves as a point of comparison to the independent (or experimental group). For these types of experiments, the Null hypothesis is "There is no difference between the control and experimental group" or "Your elixir didn't do anything — I'm still not the fairest of them all". The Alternative Hypothesis is that there is a difference between the groups.
 
 ### p-values
 
@@ -412,7 +410,7 @@ disp(s)
 
 Ok, so what if your data is not Normal? What if you have a small sample size with a bit of a skew. Nonparametric means that mathematically modeling is not used to generate the statistics.
 
-Consider the following made up data:
+Consider the following made-up data:
 
 ```matlab linenums="1" title="Create Non-normal Data and plot"
 ViralLoad = [3000 1100 800 540 670 1000 960 1200 4650 4200 5000 4200 1300 900 7400 4500 7500 3001 4999 6000]';
