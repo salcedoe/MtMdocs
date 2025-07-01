@@ -272,7 +272,7 @@ For the value `9`, the first expression would resolve to FALSE (`9` is not prime
 
 ## SWITCH CASE
 
-You use SWITCH CASE when you just want to match the variable contents to a specific value, like 'red'. *Switch, case* statements are best used when you have an exact value you want to matched, such as a word or a number.
+You use SWITCH, CASE statmements when you just want to match the variable contents to a specific value, like 'red'. In fact,  *SWITCH, CASE* statements are best used when you have an exact value you want matched, such as a word or a number.
 
 !!! abstract "Anatomy of a SWITCH CASE statement"
 
@@ -302,23 +302,70 @@ You use SWITCH CASE when you just want to match the variable contents to a speci
 Consider the following example
 
 ```matlab linenums="1" title="Example: Switch, Case"
-channel = 'red' % set channel value
+x = 'red' % set x to the char array 'red'
 
-switch channel
+switch x
     case 'red'
-        display('Roses are red')
+        str = 'Roses are red';
     case 'green'
-        display('Stems are green')
-    case 'blue'
-        display('Violets are blue')
+        str = 'Stems are green';
+    case 'blue' 
+        str = 'Violets are blue';
     case 7
-        display('Seven is a number')
+        str = 'Seven is a number'
     otherwise
-        display('try again')
+        str = 'try again'
 end
+
+fprintf('%s', str) % output string to command window
 ```
 
-…Here, since the variable  *`channel`* contains the character array 'red',  only the code on line 5 will run: `display('Roses are red')`. If you change *`channel`* to 'green', 'blue', or 7, then that corresponding line of code will run (lines 7 and 11, respectively). If you change *`channel`* to *anything* else, like 'moon' or 4, then the *otherwise* code block `display('try again')` will run (line 13). Note: this SWITCH CASE statement is case-sensitive. So, you if you change *`channel`* to 'Red', then the *otherwise* code block will execute.
+Since the variable  *`x`* was assigned the character array 'red', before the SWITCH CASE statement, only the code on line 5 will run: `Roses are red')`. If you change *`x`* to 'green', 'blue', or 7, then that corresponding line of code will run (lines 7 and 11, respectively). If you change *`x`* to *anything* else, like 'moon' or 4, then the *otherwise* code block `display('try again')` will run (line 13). IMMPORTANT: SWITCH CASE statements are case-sensitive. So, you if you change *`x`* to 'Red', the *otherwise* code block will execute.
+
+??? question "Challenge: You're on the case"
+
+    === "Challenge"
+
+        Add two additional cases to the SWITCH CASE statement that do the following
+
+        1. For 'magenta', set the variable *`str`* to 'Magenta is Magnificent'
+        2. For either 'orange' or 'yellow' (case statements can be cell arrays to indicate multiple options), set *`str`* to 'Orange you glad you chose yellow (or orange)'
+
+        Additional Changes:
+
+        - Remove the case for 7
+        - Use the function **`inputdlg`** to request a string from the user. Assign the output from the function to *`x`*
+        - Use the function **`lower`** on *`x`* so all characters in the string are lowercase.
+
+    === "Answer"
+
+        ```matlab linenums="1" title="Example: Switch, Case"
+        x = inputdlg('Enter a color') % get input from User, returns a cell array
+
+        switch lower(x{:}) % notice the indexing of x
+            case 'red'
+                str = 'Roses are red';
+            case 'green'
+                str = 'Stems are green';
+            case 'blue' 
+                str = 'Violets are blue';
+            case 'magenta'
+                str = 'Magenta is Magnificent'
+            case {'orange' 'yellow'} % notice the cell array - allows for multiple options
+                str = 'Orange you glad you chose yellow (or orange)'
+            otherwise
+                str = 'try again'
+        end
+
+        fprintf('%s', str) % output string to command window
+        ```
+    Here we use **`inputdlg`** to request a string from the user. Notice that we enter a prompt string to tel the user what to enter: `Enter a color`. 
+    
+    **`inputdlg`** returns a cell array, so we need to extract the contents of the cell using the curly brackets: `x{:}`. The contents from the x are then run through **`lower`** to change all characters to lowercase. Since **`inputdlg`** captures string arrays by default, we needed to remove the case for 7. If we wanted to have cases for numbers, we would need more complicated syntax, and we don't want that.  
+
+    For Orange or Yellow, we use a cell array for the case value: `{'orange' 'yellow'}`. This case will run for either 'orange' or 'yellow'.
+
+    Finally the function **`fprintf`** displays the string in the command window. We could have just as easily used **`display`**: `disp(str`)
 
 ## Loops
 
@@ -529,7 +576,7 @@ WHILE LOOPS are used to repeatedly execute a block of code until a condition is 
 WHILE LOOPs loop indefinitely until the *expression* resolves to `false`. On each iteration of the WHILE LOOP, the *expression* is evaluated. If the expression evaluates to `true`, then the looping continues.  So, the variable being evaluated in the expression must change in the block of code for the looping to ever stop. This also means that if you are not careful with your code and the *expression* never resolves to `false`, the WHILE LOOP will NEVER STOP LOOPING!
 
 !!! tip "Breaking out of Stuck WHILE LOOPS"
-    Sometimes while loops can be trapped in an unbreakable loop (usually due to shoddy programming). To forcefully a break out of a **while loop**, enter  `Ctrl-C`.
+    Sometimes while loops can be trapped in an unbreakable loop (usually due to shoddy programming). To force a break out from a **while loop**, enter  `Ctrl-C`.
 
 Consider the following:
 

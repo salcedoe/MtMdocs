@@ -1,4 +1,4 @@
-# Muddling through Hypothesis testing
+# Muddling through Sampling and Hypothesis testing
 
 !!! quote "On Statistics"
 

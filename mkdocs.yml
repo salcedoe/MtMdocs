@@ -42,9 +42,9 @@ nav:
   - Data Processing: 
     - dataProcessing/index.md
     - Data Types and Categorical Arrays: dataProcessing/dataTypes.md
-    - Hypothesis Testing: dataProcessing/SamplesHypTesting.md
     - Tidy Data: dataProcessing/tidyData.md
     - Group Statistics: dataProcessing/groupStats.md
+    - Sampling and Hypothesis Testing: dataProcessing/SamplesHypTesting.md
   - Images: 
     - Image Processing:
       - Grayscale Images: imageProcessing/ImageIntro.md
@@ -158,4 +158,4 @@ extra_javascript:
 extra_css:
   - stylesheets/extra.css
 copyright: |
-  &copy; 2024 <a href="https://github.com/salcedoe"  target="_blank" rel="noopener">Ernesto Salcedo</a>
+  &copy; 2025 <a href="https://github.com/salcedoe"  target="_blank" rel="noopener">Ernesto Salcedo</a>
