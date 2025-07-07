@@ -1,40 +1,68 @@
-# Data Types for Stats (and MATLAB categorical arrays)
+# Data Types
 
-In the stats world, there are two types of data: Quantitative and Qualitative
+Data can be broadly categorized into two types:
 
-1. **Quantitative**. Also known as Numeric or "Number", these data are used to count or measure something. Their values are stored in the numeric classes of MATLAB (double, uint8).
-2.  **Qualitative**. Also known as Categorical or "Word", these data are used to describe something using a label like Male or Female, or Good or Bad. These data take the form of booleans (true or false) or character or word data and are stored in MATLAB classes like logical, string,  or [categorical arrays (see below)](#categorical-arrays).
-
-Each category can be further broken down into sub-categories. Numeric categories can be **continuous** (like a measurement) or **discrete** (like a rating). Categorical categories can be **unordered** (like Sex) or **ordered** (like ranking: Beginner, Intermediate, or Advanced).
-
-Different MATLAB variable classes are used to store these different types of data:
+1. **Quantitative**. Also known as Numeric, these data are used to count or measure something. Their values are stored in various numeric classes of MATLAB, including floating-point types (such as double and single) and integer types (such as uint8, uint16, int32, etc.).
+2. **Qualitative**. Also known as Categorical, these data are used to describe something using a label like Male or Female, or Good or Bad. In MATLAB, qualitative data can be stored as logical, string, or [categorical arrays (see below)](#categorical-arrays), depending on the nature of the categories.
 
 ```mermaid
 graph TD
-    A[DATA] --> B[Numbers];
-    A[DATA] --> C[Categories];
-    B --> D[Discrete];
-    B --> E[Continuous];
-    C --> F[Nominal];
-    C --> G[Ordinal];
-    E --> H(Decimals)
-    E --> I(pi, height, weight)
-    H --> R(double, single)
-    D --> L(Whole Numbers)
-    D --> k("Counts, Ratings,
-     Images")
-    L --> Q(uint8, uint16)
-    F --> M(Male, Female)
-    F --> N(No Order)
-    G --> O(Ordered)
-    G --> P("Beginner,
+    DATA:::data --> Num[Numbers];
+    DATA --> Cat[Categories];
+    Num --> Disc[Discrete];
+    Num --> Cont[Continuous];
+    Cat --> Nom[Nominal];
+    Cat --> Ord[Ordinal];
+    Cont --> Int(interval)
+    Cont --> Rat(ratio)
+    Rat --> RatX(speed, height, weight)
+    Int --> IntX(Temp, 12-Hour Clocks)
+    IntX --> MatFloat(datetime, single, double)
+    RatX --> MatFloat
+    Disc --> Whole(Whole Numbers)
+    Whole --> WholX(Counts, Ratings,
+     Images)
+    WholX --> MatInt(uint8, uint16, etc.)
+    Nom --> NomDesc(No Order)
+    Ord --> OrdDesc(Ordered)
+    NomDesc --> NomX1(Male, Female)
+    NomDesc --> NomX2(Colors)
+    OrdDesc --> OrdX(Beginner,
      Intermediate,
-     Advanced")
-    M --> S("logical,
-     string, cell,
-     categorical")
-    O --> T(categorical)
+     Advanced)
+    NomX1 --> MatCat[string, categorical]
+    NomX2 --> MatCat
+    OrdX --> MatCat
+    class Num,Disc,Whole,WholX,Cont,Int,IntX,Rat,RatX nums
+    classDef nums fill:#5DADE2  
+    classDef data fill:#F39C12
+    class MatFloat,MatInt,MatCat mats
+    classDef mats fill:#48C9B0
+
 ```
+
+!!! abstract "Categorizing Data"
+
+    **Numeric Data** can be classified into Discrete or Continuous classes. 
+    
+    - **Discrete** numbers are whole numbers or integers.
+    
+    - **Continuous** numbers have an infinite number of possible values between whole numbers, like `1.2` or the value of $\pi$. In statistics, Continuous numbers can be further classified into **Interval** and **Ratio** values, depending on whether they have a true absolute zero point (absence of value). The presence or absence of a true zero affects the types of mathematical operations you can perform and the conclusions you can draw from the data. For example, you can't say 20°C is twice as hot as 10°C (interval), but you can say 20kg is twice as heavy as 10kg (ratio).
+
+        <div class="annotate" markdown>
+
+        - **Interval Numbers**, like Temperature (1) or Time on a clock, do not have an absolute zero reference. For example, 0 C˚ or 0 F˚ Temperature, does not mean no temperature, it simply one value in a range of values. Similarly, 0:00 does not mean the absence of time, it just means midnight. In fact, to handle time values, MATLAB came up with the [**`datetime`**](https://www.mathworks.com/help/matlab/ref/datetime.html){target="_blank"} data type.
+        
+
+        - **Ratio Numbers**, by comparison, do have an absolute zero reference. For example,  a height of 0 means the absence of height and a weight of 0 means absence of any weight, so measurements like height, weight, speed, are all Ratio Numbers. By the way, time measured in seconds would also be a Ratio number, since in this scenario 0 seconds means the absence of seconds.
+
+        </div>
+    
+
+        1. unless you're dealing with Kelvin
+       
+
+    **Categorical Data** can be further classified into Ordered (Ordinal) or Non-ordered (Nominal) categories. Ordinal categories are categories with an implied order, such as Beginner, Intermediate, or Advanced. Nominal categories do not have an implied order, e.g. Male and Female.
 
 ## Categorical Arrays
 

@@ -1,29 +1,30 @@
 # Group Statistics
 
-Once we have our data tidied, then we can get into the business of analyzing the data.
+Once we have our [data tidied](tidyData.md), we can get into the business of analyzing the data. Often, we want to calculate our stats on subgroups of the data so we can compare results across categories or groups. For example, we may want to compare the means of the female observations to the male observations. Such comparisons are known as Group Statistics.
 
 ## Overview
 
 ### Useful Resources
 
-- [Perform Calculations by Group](https://www.mathworks.com/help/matlab/matlab_prog/perform-calculations-by-group-in-table.html)
+- [Perform Calculations by Group](https://www.mathworks.com/help/matlab/matlab_prog/perform-calculations-by-group-in-table.html){target="_blank"}
 
 ### Useful Functions
 
-- [groupsummary](https://www.mathworks.com/help/matlab/ref/double.groupsummary.html)
-- [groupcounts](https://www.mathworks.com/help/matlab/ref/double.groupcounts.html)
+- [groupsummary](https://www.mathworks.com/help/matlab/ref/double.groupsummary.html){target="_blank"}
+- [groupcounts](https://www.mathworks.com/help/matlab/ref/double.groupcounts.html){target="_blank"}
 
 ## Load the Data
 
-First, we need to load the data. I have saved a csv file of some data in a secret online location
+I have saved a csv file of some tabular data in a secret online location. You can download this data using the following MATLAB code:
 
 ```matlab linenums="1" title="Load "
-url = 'https://saldenest.s3-us-west-2.amazonaws.com/MATLAB_fundamentals/class.csv';
+url = 'https://raw.githubusercontent.com/salcedoe/MtMdocs/refs/heads/main/docs/dataProcessing/class.csv';
 T = readtable(url);
 T.Name = string(T.Name); % typecast to string
 T.Sex = categorical(T.Sex) % typecast to categorical
 ```
-…after loading the data, we typecast the Name Column to a string and the sex column to a categorical array. And we get the following
+
+…after loading the data, we typecast the Name column to a **`string`** and the Sex column to a **`categorical`** array. And we get the following table of metrics from a group of adolescents.
 
 ```matlab
 T =
@@ -54,13 +55,13 @@ T =
     "William"     M     15      66.5       112 
 ```
 
-In this table, the columns contain the **variables**, so we have five variables: Name, Sex, Age, Height, and Weight. The rows contain the **observations**, so we have 20 observations. Row 1 contains all of the observed metrics from Alfred and and row 20 contains all the observed metrics from William. This appears to a table of metrics from a group of young students. 
+…Remember, the columns contain the **variables**, so we have five variables: `Name`, `Sex`, `Age`, `Height`, and `Weight`. The rows contain the **observations**, so we have `20` observations. Row `1` contains all of the observed metrics from `Alfred`, whereas row `20` contains all the observed metrics from `William`.
+
+This table has both Quantitative and Qualitative data. The Quantitative data columns are `Age`, `Height`, and `Weight`, whereas the Qualitative Data Columns are `Name` and `Sex`.
 
 ## Grouping Variables
 
-In our table we have both Quantitative and Qualitative data. The Quantitative data columns are Age, Height, and Weight, whereas the Qualitative Data Columns are Name and Sex.
-
-So in our analysis, we will calculate stats like mean and standard deviation of the Quantitative data (e.g. mean height), and we will group those statistics using the Qualitative data (e.g. mean female weight).
+In our analysis, we want to calculate stats like mean and standard deviation of the Quantitative data (e.g. mean height), but we want to group those statistics using the Qualitative data (e.g. mean female weight). So, we need to use the `Sex` column as a grouping variable. 
 
 A grouping variable is a variable that helps group the observations (e.g. the rows).
 
@@ -161,7 +162,9 @@ ylabel('Height (in)')
 
 ![img-name](images/class-mean-height-bar.png){ width="450"}
 
-### swarmchart
+### Swarm Chart
+
+Also known as a beeswarm chart, these types of visualizations plot every single data point in a cluster, or swarm, of points. These are very useful types of plots to display the true distribution of the data. They are also useful in conjunction with box or violin plots (see below)
 
 Many plotting functions accept grouping variables to sort plots by group.
 
@@ -176,22 +179,34 @@ hs = swarmchart(T,"Sex","Height","filled",MarkerFaceAlpha=0.75,XJitterWidth=0.5)
 
 ### Box Plots
 
-Similarly, we can create box plots organized by groups using the **boxchart** function.
+Similarly, we can create box plots organized by groups using the **boxchart** function. Here we overlay the box plots onto the swarm charts. 
 
-Here we overlay the box plots onto the swarm charts by turning `hold on`
-
-```matlab
+```matlab linenums="1" title="Box Plot with Swarm Chart overlay"
 hold on % overlay plot
-boxchart(T.Sex,T.Height,"BoxFaceColor",'k',"BoxFaceAlpha",0.15)
+boxchart(T,"Sex","Height","BoxFaceColor",'k',"BoxFaceAlpha",0.15)
 ```
 
-![img-name](images/class-height-swarm-boxplot.png){ width="450"}
+![swarm chart box plot overlay](images/class-height-swarm-boxplot.png){ width="450"}
 
->Notice the difference in the two function calls. For **`boxchart`**, we using dot notation to index out the Sex and Height data. For **`swarmchart`** we inputted the table, *T*, and then indicated which variable names to plot or use as a grouping variable.
+>Notice the difference in the two function calls. For **`boxchart`**, we using dot notation to index out the Sex and Height data. For **`swarmchart`**, we inputted the table, *T*, and then indicated which variable names to plot or use as a grouping variable.
+
+### Violin Plots
+
+A violin plot combines the features of a box plot with a kernel density plot, showing the distribution of the data.
+
+```matlab linenums="1" title="Violin plot with Swarm Chart overlay"
+violinplot(T,"Sex", "Height")
+hold on
+swarmchart(T, "Sex", "Height","filled",MarkerFaceAlpha=0.5,XJitterWidth=0.5) % overlay swarm chart
+```
+
+![violin plot](images/class-weight-violinplot.png){ width="450"}
+
+…Notice the bulge in the violin plots indicate the highest concentration of data points.
 
 ### Scatter
 
-The function **gscatter**, included with the Statistics and Machine Learning toolbox, plots grouped data in different colors,
+The function **gscatter**, included with the Statistics and Machine Learning toolbox, plots grouped data in different colors:
 
 ```matlab linenums="1"
 figure
@@ -202,5 +217,6 @@ xlabel('Weight (lbs)')
 
 …notice again that here we input the column data (Weight, Height, Sex) from *T* using dot notation. We also include a couple extra inputs: `'mb'` - indicates the two group colors to use, magenta and blue. `25` - indicates the size of the dot.
 
-![img-name](images/class-height-weight-gscatter.png){ width="450"}
->Height and Weight are positively correlated. Notice that **`gscatter`** automatically includes a legend in the plot.
+![Group Scatter Plot](images/class-height-weight-gscatter.png){ width="450"}
+
+>This scatter plot indicates that Height and Weight are positively correlated for both males and females. Notice that the function **`gscatter`** automatically includes a legend in the plot.

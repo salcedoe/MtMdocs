@@ -1,135 +1,10 @@
-# Muddling through Sampling and Hypothesis testing
+# Hypothesis Testing
 
-!!! quote "On Statistics"
+**Overview of Topics Covered**
 
-    "There are three kinds of Lies: Lies, Damned Lies, and Statistics." — Benjamin Disraeli (maybe).
-
-As we muddle through data analysis, we will also be muddling through some basic concepts in statistics. Here we cover arcane topics such as:
-
-- Population vs Sample
-- Normal Curves
-- Hypothesis Testing
-  - Parametric vs Nonparametric Testing
-
-## Useful Stats Resources
-
-- :material-web: [Investopedia Analysis Tools](https://www.investopedia.com/tools-for-fundamental-analysis-4689755){target="_blank"}
-- :material-web: [Psych Explained YouTube series](https://www.youtube.com/@PsychExplained){target="_blank"}
-- :material-web: [MATLAB Statistics Onramp](https://matlabacademy.mathworks.com/details/statistics-onramp/orst)
-
-## Populations and Samples
-
-When collecting data, it's good to know the data's provenance:
-
-- Where did this data come from?
-- How Representative is this Data?
-
-:material-web: **Reference:** [Investopedia - Populations](https://www.investopedia.com/terms/p/population.asp){ target="_blank" }
-
-### Important Terminology
-
-- **Population (N)**: the complete set of items or events that share a common attribute, from which data can be gathered and analyzed. Whatever it is that you want to know about. Note the big "N" here. Measuring the entire population is usually not practical due to its size, cost, or logistical challenges.
-- **Sample (n)**: a subset of the Population. Note the little "n" here. This is typically what you measure.
-  - **Non-probability Sampling:** A sample from what's available, what was convenient to collect. Great for starter data, but may not be representative
-  - **Random Sampling:** Samples selected using a randomized technique designed to increase the validity (or representativeness) of the sample
-
-![img-name](images/US-PopvSample.png){ width="550"}
-
->**Examples of Populations vs samples.** Populations (in pink) can be All US Citizens, all Adult US citizens, or even just adult citizens in the state of Colorado. Samples (in yellow) would be subsets of whatever you define as your population.
-
-:material-web: [Adapted from Psych Explained: Random Sampling](https://www.youtube.com/watch?v=r-rFO_2NsgI&list=PL_pCzdGjrXUXiNIaoUNjjxZ4sAu8ypV-y&index=6){target="_blank"}
-
-#### Groups
-
-Often we break our samples down into different categories, or groups. Very often, you will read about the Control Group or the Experimental Group. The Control group is typically the unmodified group, while the Experimental group has been treated in some fashion (sometimes called the Treatment Group).
-
-So, for example, we could break our CO Citizens Samples down into two groups as follows:
-
-- **Control Group**: those who have never tried marijuana before
-- **Experimental group**: those who use marijuana daily
-
-And then we measure something else, like response time, and use statistics to determine if there is a difference in response time between the groups.
-
-### External Validity
-
-*External what?*
-
-External Validity is a just a fancy term for defining how representative your sample (n) is of the population (N).
-
-The key to a good sample is that it is representative of the entire population. For example, if your population is 50% women, then your sample should be 50% women.
-
-- **High external validity**: Your sample is representative
-- **Low external validity**: not so much. Your sample may have some bias or is too small (and maybe has a large number of outliers)
-
-![img-name](images/Sample-inference.png){ width="350"}
-
->With a representative sample that has high external validity, you can make inferences (or predictions) about the population at large.
-
-## The Bell Curve is Normal
-
-![bell curve with a You are here arrow pointing at the mean](images/bell-curve-you-are-here.png){ width="250"}
-
-When you measure things, like humans, you will find that their parts vary: height, weight, foot size, the spacing between the eyes (I'm looking at you, Anna Taylor Joy). But each of these measurements won't vary *too* greatly between humans—they tend to fall with a certain range. If you take a large enough sample (>30) and plot the measurements as a histogram, you should get a histogram that looks something like this:
-
-![img-name](images/histogram-female-heights.png){ width="450"}
-
->**Histogram of Female Heights**. In this sample of 1000 women, the average height was 63.2 and the standard deviation was 0.25.  Notice how the most frequent heights are clustered around the mean in the center of the histogram. Also notice we don't have any 50" or 80" women (4'2" or 6'7") in our sample.
-
-??? example "Generating Normal Data for the above Histogram"
-
-    No women were actually measured for the creation of the above histogram. Instead, we used the random number generator **`randn`** in the following code.
-
-    ```matlab
-    mu = 63.7; % mean height of women as reported on google
-    sigma = 2.5; % standard deviation
-    heights = sigma.*randn(1000,1)+mu; % generate random numbers with mean mu and std sigma
-    histogram(heights) % plot histogram
-    xline(mu,'--r','mean')
-    title(sprintf("Average Female Height = %1.2f±%1.2f",mu,sigma))
-    xlabel("Height (in)")
-    ```
-
-If you fit a curve to this histogram, you get a bell-shaped curve.
-
-![img-name](images/histogram-female-heights-PDF.png){ width="450"}
-
-In fact, this bell-shaped curve  was so common, they called it a "Normal" curve (1).
-{ .annotate }
-
-1. Or, if you're boring, a "Gaussian" curve, after the [wrong mathematician](https://en.wikipedia.org/wiki/Abraham_de_Moivre){target="_blank"} Johann Gauss.
-
-!!! abstract "Anatomy of a Normal Curve"
-    A normal curve is determined by two components:
-
-    1. **The Mean**: which determines the center of the curve.
-    2. **The Standard Deviation (SD)**: which determines the width of the curve
-
-    In a Normal Curve, the Mean, Median, and Mode are all equal.
-
-    :material-web: [Investopedia: Normal Distribution](https://www.investopedia.com/terms/n/normaldistribution.asp){target="_blank"}
-
-### The Empirical Power of the Bell Curve
-
-*I guess that's interesting, but how does that help me in the real world?*
-
-The bell curve is so powerful because it allows us to calculate the probability of any value in reference to the mean and standard deviation. This something is called a **Normal Probability Density Function (PDF)**—a fancy term for the math function that creates the normal curve.
-
-!!! note "Key points about the Probability Density Function (PDF)"
-      - It is a mathematical function that generates the normal curve.
-      - It describes the likelihood of a value occurring within a specific range.
-      - The area under the curve represents the total probability, which equals 1.
-
-![img-name](images/normal-distribution-1024x640.webp){ width="550"}
-
->**The Normal Probability Distribution Function can predict frequency**. **µ**: the mean, **𝜎**: the standard deviation. Adding up the area under the curve gives you the percentage of measurements that fall in that range. For all normal distributions, 68.3% of the observations will appear within plus or minus one standard deviation of the mean; 95.4% will fall within +/- two standard deviations; and 99.7% within +/- three standard deviations. This fact is sometimes called the **"empirical rule"**, because people (math nerds) saw this phenomenon happen over and over. Read more about [PDFs here](https://en.wikipedia.org/wiki/Probability_density_function){target="_blank"} if you are looking for a good soporific.
-
-So, for the heights of females, 68% of all heights would fall between -1SD and +1SD, and 95% of heights fall between -2SD and +2SD. We can use these facts to predict the likelihood of any height. For example, a height of 64" would be pretty likely as most female heights fall in that range. And a female height that falls outside three SD from the mean, such as 71.2", would be fairly unlikely. In the population of women, there are relatively few women with a height of 5'11" or greater—a condition vernacularly known as being "really tall".
-
-![img-name](images/bell-curve-really-tall.png){ width="400"}
-
-*Not sure this helps me in the real world, but ok.*
-
-## Hypothesis Testing
+- p-values
+- Hypothesis testing for Parametric Data
+- Hypothesis testing for Nonparametric data
 
 Statistics do not tell us whether we are right. It tells us the chances of being wrong. When we repeat an experiment, we almost never get exactly the same results. Instead, repeated measurements span a range of values due to biological variability and the precision limits of measuring equipment. But if our measurements are going to be different each time, how do we determine whether a measurement in a given sample is truly different or just randomly different?
 
@@ -142,11 +17,11 @@ Hypothesis testing involves making assumptions: either there IS or there IS NOT 
     - **Null Hypothesis ($H_o$)**: No difference between the two samples being compared
     - **Alternative Hypothesis ($H_1$)**: There is a difference between the samples
 
-### Control vs Experimental Groups
+## Control vs Experimental Groups
 
 One of the most fundamental experimental designs used with Hypothesis Testing is to compare a control group with an independent group that has been subjected to some intervention. The control group serves as a point of comparison to the independent (or experimental group). For these types of experiments, the Null hypothesis is "There is no difference between the control and experimental group" or "Your elixir didn't do anything — I'm still not the fairest of them all". The Alternative Hypothesis is that there is a difference between the groups.
 
-### p-values
+## p-values
 
 To decide whether to accept the Null or Aternative Hypothesis, you create a probability cut-off or **p-value**(1).
 { .annotate}
@@ -160,7 +35,7 @@ The most common p-value used is `0.05`, or `5%`. With a `0.05` p-value, we assum
 !!! warning "Correcting p-values"
     If you are thinking that `5%` is actually not that unlikely, then you would be right. Five out of a hundred times is also one out of twenty times and that happens more often than you would think. If you are doing a lot of hypotheses testing, then you may need to adjust your p-value to take this into consideration. For example, if you are testing twenty different things using a `0.05` p-value, one of things you are testing may just randomly fall below the p-value criteria because thats how randomness works. There are many ways to adjust the p-value depending on the number of sample comparisons, including the [Bonferonni correction](https://en.wikipedia.org/wiki/Bonferroni_correction){target="_blank"} or the [False Discovery Rate](https://en.wikipedia.org/wiki/False_discovery_rate){target="_blank"}. Talk to a Doctor if you feel you need to correct your p-value.
 
-### The dark side of the p-value
+## The dark side of the p-value
 
 The danger with p-values is the temptation to use a seductively low p-value as definitive proof of the alternative hypothesis. The p-value doesn't actually do that.  Imagine that you have a coin that you suspect is weighted toward heads. Your null hypothesis is that the coin is fair. You flip it 100 times and get more heads than tails. The p-value won’t tell you whether the coin is fair, but it will tell you the probability that you’d get at least as many heads as you did if the coin was fair. That’s it — nothing more. Believing that a low p-value definitively tells you that the coin is unfair is known as the [prosecutor's fallacy](https://en.wikipedia.org/wiki/Base_rate_fallacy){target="_blank"}. (1)
 { .annotate}
@@ -180,7 +55,7 @@ And remember, this whole process is based on making assumptions. If your hypothe
 
     Adapted from: [Base Rate Fallacy with Vaccines](https://commons.wikimedia.org/wiki/File:Base_rate_fallacy_with_vaccines.svg)
     
-### Hypothesis Testing in MATLAB
+## Hypothesis Testing in MATLAB
 
 Hypothesis testing isn't always just testing whether samples are different. You can also test if samples are normally distributed or if the samples have equal variance.  MATLAB has many different functions that perform different types of hypothesis testing, including:
 
@@ -195,7 +70,7 @@ While the inputs vary, the outputs from all these functions (at least the first 
 
 You can find the Null Hypothesis in the MATLAB documentation, but sometimes its a little confusing.
 
-### Testing Normal Data
+## Testing Normal Data
 
 !!! abstract "aka Parametric Testing"
 
@@ -208,13 +83,13 @@ A common hypothesis test for normally-distributed data is the [Student's t-test]
 
 The **t-test** assumes that the data comes from a population having both a **Normal Distribution** and **Equal Variance** (same variance for both samples). So, before performing a t-test, you should test your samples for these properties.
 
-For this example, we will use fake test scores that are included with MATLAB. Specifically from this dataset, we will test the following hypothesis for Exams 1 and  4:
+For this example, we will use fake test scores that are included with MATLAB. From this dataset, we will test the following hypotheses:
 
-- Null Hypothesis: the Exam Scores are the same
-- Alternative Hypothesis: the Exam scores are different
+- **Null Hypothesis**: Exam Scores 1 and 4 are not significantly different (i.e. the same)
+- **Alternative Hypothesis**: Exam scores 1 and 4 are significantly different
 
 ```matlab linenums="1" title="Load example data and plot as histogram"
-load examgrades.mat % load example dataset grades
+load examgrades.mat % load fake dataset grades
 
 x1 = grades(:,1); % extract exam 1 grades
 x4 = grades(:,4); % extract exam 4 grades
@@ -229,7 +104,9 @@ legend("Exam 1","Exam 4")
 ![histogram of exam scores](images/histogram-exam-grades-1-4.png){ width="400"}
 >Loading the `examgrades.mat` file returns a numeric 120X5 matrix as the variable `grades`. This matrix contains exam scores ranging from 0 to 100. The scores for a given exam are organized by column, so column 1 contains Exam 1 scores, column 2 contains Exam 2 scores, etc. There are 5 different exams (columns) and 120 students (rows). Plotted here is a histogram of the scores from Exam 1 (blue) and 4 (orange). The distribution of scores appears to be normal for both exams.
 
-#### Testing for Normality
+### Testing for Normality
+
+Eyeballing the histograms, it looks like the data is normally distributed. But in an official report, you probably want a more officious way to state the data was normal. Fortunately, there are several different tests you can use.
 
 To test if your samples have a normal distribution, you can use the Anderson Darling test with the MATLAB function [**`adtest`**](https://www.mathworks.com/help/stats/adtest.html)(1).
 { .annotate}
@@ -266,7 +143,7 @@ p4 =
 
 …Since `h1=0` and `p1 > 0.05`, you fail to reject the Null Hypothesis for *`x1`* (Exam 1), meaning you accept the alternative hypothesis that the Exam 1 grades have a normal distribution and you can use them in a t-test. We get the same result for *`x4`*, the Exam 4 grades. So, the samples are normal. On to the next step.
 
-#### Testing for Equal Variance
+### Testing for Equal Variance
 
 In addition to having a normal distribution, your data should also have equal variance for t-tests. To test for equal variance, you can use [**vartest2**](https://www.mathworks.com/help/stats/vartest2.html){target="_blank"}. As in the **adtest**, the Null Hypothesis is that the samples have Equal Variance.
 
@@ -286,7 +163,7 @@ pv =
 
 …Again, since *`hv=0`* and *`pv > 0.05`*, we fail to reject the null hypothesis, meaning the Exam Scores have equal variance and can be used in a t-test.
 
-#### t-testing
+### t-testing
 
 Finally, having confirmed Normality and Equal Variance, we are ready to perform our t-test. In this example, we have two samples, so we will use the two-sample t-test function [**`ttest2`**](https://www.mathworks.com/help/stats/ttest2.html).
 
@@ -399,12 +276,11 @@ disp(s)
 
 >Modified Exam 4 scores were significantly higher than Exam 1 scores, 75.01 ± 8.72" vs 80.03 ± 8.60" (M±SD), respectively, t(238) = -4.49, p < .0001.
 
-
 …Notice that we include data from the `stats` variable as part of the reported t-test outcome.
 
 [How to properly report a t-test in APA style.](https://www.socscistatistics.com/tutorials/ttest/default.aspx)
 
-### Testing Non-normal data
+## Testing Non-normal data
 
 !!! note "aka Nonparametric Testing"
 
@@ -466,7 +342,7 @@ p =
 
 …Since `p<.05`, the data is not normal and you should use a non-parametric test, like the Mann-Whitney U test…
 
-#### Mann-Whitney U Test
+### Mann-Whitney U Test
 
 !!! abstract "Equivalent to a t-test, but for non-normal data"
 

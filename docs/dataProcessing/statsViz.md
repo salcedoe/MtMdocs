@@ -1,5 +1,4 @@
-
-## Plotting Using Grouping Variables
+## Grouping Variables
 
 Up to this point, we have been plotting entire columns of data. Sometimes though we need to separate the data in a column into distinct groups. We can group this data using grouping variables.
 
@@ -19,7 +18,6 @@ Consider for example our events column.
 
 Using grouping variables, we can group the different rows of the table into different categories, isolating these subsets of data. Notice that in our table we have columns of numbers, such as temperature, dewpoint, humidity, and windspeed, and columns of identification, such as date (MDT) and event (e.g., rain, snow, etc.). The identifying data are also known as grouping variables and can be used to group rows into different categories.
 These grouping variables are more useful when you typecast them to certain variable types, like datetime and categorical
-
 
 ### Bar Example 1: Bar Plot event counts
 
@@ -143,4 +141,4 @@ xlim([0 15])
 
 [bar-ev-count-sorted-hz]:images/bar-event-counts-hz.png  
 
-…And now our bar plot is horizontal. Notice that we had to input the correct data in the correct labeling functions and we had to use **`xlim`** instead of **`ylim`**:
+…And now our bar plot is horizontal. Notice that we had to input the correct data in the correct labeling functions and we had to use **`xlim`** instead of **`ylim`**.

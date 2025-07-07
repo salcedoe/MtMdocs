@@ -41,10 +41,11 @@ nav:
       - Control Flow and Functions in Scripts: matlabBasics/scripts/Control_Flow_Functions.md
   - Data Processing: 
     - dataProcessing/index.md
-    - Data Types and Categorical Arrays: dataProcessing/dataTypes.md
+    - Data Types: dataProcessing/dataTypes.md
     - Tidy Data: dataProcessing/tidyData.md
     - Group Statistics: dataProcessing/groupStats.md
-    - Sampling and Hypothesis Testing: dataProcessing/SamplesHypTesting.md
+    - Sampling and Distributions: dataProcessing/SamplesDistributions.md
+    - Hypothesis Testing: dataProcessing/HypTesting.md
   - Images: 
     - Image Processing:
       - Grayscale Images: imageProcessing/ImageIntro.md

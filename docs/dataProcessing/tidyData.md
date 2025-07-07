@@ -2,7 +2,9 @@
 
 ![img-name](images/DalleAI-DataWrangler.jpeg){width=300px}
 
-Data comes in many forms and often these forms are messy. Part of data wrangling involves organizing and cleaning up this data in a fashion that makes it easier to analyze. Usually, the first step in data analysis is to organize the data in a *tidy* fashion—a concept popularized for the R programming language but applicable to all data analysis. You can read more about tidy data [here](https://vita.had.co.nz/papers/tidy-data.pdf)
+Data comes in many forms and often these forms are messy. Part of data wrangling involves organizing and cleaning up this data in a fashion that makes it easier to analyze. Usually, the first step in data analysis is to organize the data in a *tidy* fashion—a concept popularized for the R programming language but applicable to all data analysis.
+
+:material-web: Read more about [tidy data](https://vita.had.co.nz/papers/tidy-data.pdf){target="_blank"} in the linked PDF.
 
 ## What is Tidy Data?
 
@@ -44,15 +46,13 @@ Consider the following messy data:
 
 </div>
 
-While this organization is relatively easy to read and understand (for a human), it is not considered tidy data because the variables are not organized in columns and values are spread across three tables. This messy data organization makes it difficult to analyze the data.
+While this organization is relatively easy to read and understand (for a human), it is not considered tidy data because the variables are not organized in columns and the values are spread across three tables. This messy data organization makes it difficult to analyze the data.
 
 The tidy way to organize this data would be as  follows:
 
 {{ read_csv('class1-3.csv') }}
 
-Notice here that each subject (or observation) is a row, and we have five Variables: Name, Sex, Age, Height, Weight.
-
-In this form, we can easily perform stats on the variables
+Notice there are five variables (5 columns: Name, Sex, Age, Height, Weight) and three observations (three rows).
 
 ## MATLAB Table
 
@@ -92,7 +92,7 @@ ans =
                 RowNames: {}
 ```
 
-Notice that the column names in a MATLAB table are Called Variable Names.
+>Notice that the column names in a MATLAB table are Called Variable Names.
 
 If we want the average height, we would simply index out the Height variable, as follows:
 
