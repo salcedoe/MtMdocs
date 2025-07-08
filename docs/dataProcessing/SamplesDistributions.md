@@ -127,13 +127,15 @@ So, for the heights of females, 68% of all heights would fall between -1SD and +
 
 *Not sure this helps me in the real world, but ok.*
 
-### Spotting normality in Distribution Plots
+### Seeing normality
 
-When visualizing data, look for symmetry in the distribution plot. This is often an indicator of normality. Consider the following two plots of the height data:
+When analyzing data, it is important to first visualize that data to get a good idea of its distribution. When you do so, look for symmetry in the distribution plot. This is often an indicator of normality.
+
+Consider the following two plots of the height data:
 
 ![box plot of female heights](images/normal-bar-histogram.png){ width="450"}
 
->Here we have the same female height data plotted as a both a box plot and a histogram. We have turned the histogram on its side for easier comparison. In the histogram, the bars are symmetrically arrayed on either side of the mean (dotted red lin). In the box plot, the mean (black line) is in the center of the interquartile range (IQR) box. Also, the whiskers extend to an equal extent on either side of the IQR. Notice in the bar plot how the mean and the median are equal.
+>Here we have the same female height data plotted as a both a box plot and a histogram. We have turned the histogram on its side for easier comparison. In the histogram, the bars are symmetrically arrayed on either side of the mean (dotted red lin). In the box plot, the mean (middle blue line) is in the center of the interquartile range (IQR) box. Also, the whiskers extend to an equal extent on either side of the IQR. Notice in the bar plot how the mean and the median are equal.
 
 ??? example "Code to Plot Box Chart and Histogram"
 
@@ -186,25 +188,55 @@ A similar symmetry can be seen in swarm and violin plots.
     sgtitle("Female Heights",fontsize=18)
     ```
 
+### Size matters for Normality
+
+Sample size is an important consideration for data processing. Generally, larger sample sizes offer more reliable results, but practical considerations like cost and time may limit how large a sample may be. A [sample of size greater than `30`](https://pmc.ncbi.nlm.nih.gov/articles/PMC3915399/) is often considered to be a good target to for a normal distribution.
+
+Part of the problem is that low sample size can be susceptible to large random effects. Even if a sample comes from a large, normally distributed population (like the heights of all Women), you likely won't get a normal distribution in the sample if your sample size is too small.
+
+Consider the following.
+
+![histogram of data with increasing sample size](images/normal-sample-size.png){ width="650"}
+
+>Here we plot a histogram of a female heights with an increasing sample size (n). We don't really see a normal distribution until `n=30`
+
+??? example "Code to generate the above tiled histogram figure"
+
+    ```matlab linenums="1"
+    female.mu = 63.7;
+    female.sigma = 2.5;
+
+    for n=[5 10 20 25 30 100]
+
+    female.height = female.sigma * randn(n,1) + female.mu;
+    
+    nexttile 
+    histfit(female.height,10); % histogram with normal curve
+    colororder("glow12") % set the color palette to glow12
+    title(sprintf('n = %d',n)) % add sample size to the title
+    xlim([40 80]) % set the x limits for better comparison
+    end
+    ```
+
 ## Skewed Distributions
 
 There are, of course, other types of data distributions. A unimodal [skewed distribution](https://en.wikipedia.org/wiki/Skewness){target="_blank"} has an asymmetry in the distribution. For example, consider the following:
 
 ![histogram of skewed left data](images/skewed-left-histfit.png){ width="450"}
 
->The data in this histogram is skewed left (tail on the left side).
+>**Left Skewed Data.** In this histogram, the high frequency data is piled up high on right side of the plot. In contrast, much of the low frequency data is spread across the left side of the plot. This low frequency data is sometimes called the tail of the plot and such a distribution of the data is considered to be **Skewed Left** because the tail is to the left of the high frequency data.
 
 Notice that the histogram is not well fit by a normal curve (orange curve) — there's a big hump on the right and a long tail on the left.
 
-By comparison the following data is skewed right…
+By comparison, the following data is skewed right…
 
 ![histogram of skewed right data](images/skewed-right-histfit.png){ width="450"}
 
->Here, the tail is to the right of the highest frequency data.
+>**Right Skewed data.** Here, the tail is to the right of the highest frequency data.
 
 ### Skewed Mean vs Median
 
-In Normal data, the mean and median are equal. In skewed data, this is not the case.
+In Normal data, the mean and median are equal. In skewed data, they are not.
 
 ![skewed histograms with mean and median overlays](images/skewed-mean-median.png){ width="450"}
 
@@ -251,13 +283,13 @@ Notice in both datasets that the median value is closer to the highest frequency
 
     Some of this code adapted from the [Mathworks Exploratory Stats documentation](https://www.mathworks.com/help/stats/exploratory-analysis-of-data.html).
 
-### Spotting Skewed Data in Distribution plots
+### Visualizing Skewed Data in Distribution plots
 
-Visualizing data helps determine whether or not the data is normal or has some other distribution. Here we plot the skewed data as box plots.
+To spot skewed data, look for asymmetry in the plots.  Here we plot our skewed data as box plots.
 
 ![skewed box plots](images/skewed-box-plots.png){ width="450"}
 
-> Notice for both plots, how the median is off-centered in the interquartile box.  The open-face blue circles indicate the outlier data, which are found in the tails of the skewed distributions. There is also an asymmetry in the extent of the whiskers on either sides of the boxes. 
+> Notice for both plots, how the median is off-centered in the interquartile box.  The open-face blue circles indicate the outlier data, which are found in the tails of the skewed distributions. There is also an asymmetry in the extent of the whiskers on either sides of the boxes.
 
 ??? example "Code to generate Box Plots"
 
@@ -284,7 +316,7 @@ And here is the same data as a swarm chart overlaid on a box plot…
 
 ![swarm chart of skewed data](images/skewed-swarm-chart.png){ width="450"}
 
->Swarm charts add jitter along the x-axis to highlight density so that the fattest (or widest) parts of the plot have the most data points. As you can see in the plots, most of the data is clustered near the median. The orange circles indicate the outlier data.
+>Swarm charts add jitter along the x-axis to highlight density so that the fattest (or widest) parts of the plot have the most data points and clustered around the median. As you can see in these plots, fat regions will be off-centered for a skewed dataset.
 
 ??? example "Code to generate Swarm Charts"
 
@@ -340,3 +372,12 @@ The shapes of a swarm and violin chart are basically the same since they both us
 
     title("Right Skewed")
     ```
+
+## Distributions all the way down
+
+Of course, there are a lot more distributions that are beyond the scope of this guide. Search for 'probabilty distributions' for more information.
+
+![Plots of various Probability Distributions](https://www.johnrobininston.com/posts/prob_1_distributions/assets/commondistributions.png){ width="650"}
+
+>borrowed from ["Probability Theory & Statistics - Probability Distributions"](https://www.johnrobininston.com/distributions/){target="_blank"}
+

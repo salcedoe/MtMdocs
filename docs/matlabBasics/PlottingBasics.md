@@ -22,7 +22,7 @@ Once you have a figure with an axis (see previous section), you can then add a p
 
 - [**`xlabel`**](https://www.mathworks.com/help/matlab/ref/xlabel.html) and  [**`ylabel`**](https://www.mathworks.com/help/matlab/ref/ylabel.html)
 
-### Useful Reference
+### Useful References
 
 The following site is an excellent resource for comparing types of plots and determining when and how you should use them:
 
@@ -362,6 +362,27 @@ title('September, 2003. Denver, CO') % add a title
 ![img-name](images/boxchart-max-temps-2003.png){ width="450"}
 
 >This plot represents the exact same data seen in the histogram above, but plotted as summary statistics along the y-axis. The box, which represents the interquartile range of data (or the middle half of the data), ranges from 70˚-85˚ F. So we know that the middle half of the maximum temperatures fall in this range. The line inside the box is the median. So, we know that half of all maximum temperatures are above and the other half are below 80˚F. And the whiskers represent the range. So, as we saw in the histograms above, the range of maximum temperatures fall between 53˚F and 97˚F.
+
+If we input a matrix with two columns, we get two box plots.
+
+```matlab linenums="1" title="Plot Max and Min Temperatures as Box Plots"
+y_mat = [T.MaxTemperatureF T.MinTemperatureF]; % group data by column
+
+boxchart(y_mat,'Notch',"on")
+xticklabels({'Max' 'Min'}) % change the tick label from a number to a label
+ylabel('Temp (˚F)')
+```
+
+
+
+## Swarm and Violin Plots
+
+While box plots nicely summarize the distribution of the data, they give little indication of the data density. One solution is to create a swarm (or beeswarm) chart. A swarm chart resembles a one-dimensional scatter plot that displaces (or jitters) the data along the orthogonal axis so there is little or no overlap between points. Swarm charts are very useful when you want to display a lot of data points at once.
+
+[:fontawesome-solid-globe: Box Plot Alternatives](https://www.datascienceblog.net/post/data-visualization/boxplot_alternatives/){target="_blank" .md-button} [:fontawesome-solid-globe: Beeswarm Charts](https://towardsdatascience.com/better-data-visualization-using-beeswarm-chart-bb46a229c56b){target="_blank" .md-button }
+
+In MATLAB, the function **`swarmchart`** accepts two vectors: 1 vector that contains positional location for the data along the x-axis and the other vector that contains the data itself. In this example, we will set all of the Max Temperatures to have an x-position of 1 and all of the Minimum temperatures to an x-position of 2. The swarmchart function will jitter that location by a fractional amount to ensures minimal overlap along the x-axs
+We first create a data vector, y, simply by stacking the maximum temperatures atop the minimum temperatures. Then we create a positional vector, x, that is the same size as y by stacking a series of 1's on top of a series of 2's. 
 
 ## Scatter Plots
 
