@@ -1,4 +1,4 @@
-# Advanced Plotting: Overlays,Transparencies, and Tiling
+# Advanced Plotting: Overlays and Tiling
 
 !!! abstract "One plot is great. Multiple plots is even greater"
 
@@ -169,39 +169,46 @@ As you review the plot, notice that:
   
     ![img-name](images/hist-min-max-mean-temps-10yrs.png){ width="400"}
 
-## Multiple Box Plots
+## Swarm + Box Chart
 
-Adding multiple box plots to the same axes works a little differently. Multiple Box PLots are typically presented side by side. One way to do this is to input a matrix (with multiple columns) into the **`boxchart`**. Each column of the matrix is added to the plot as a separate box plot. This of course only works if you have the same number of data points for each column, as we have in our table.
+Box plots visually summarize the statistics of a given dataset (median, range, and interquartile range), while Swarm Charts plot ALL the data points, typically in a shape that infers the summary statistics. Combining both charts is a great way to synergize the plots' respective advantages.
 
-Let's plot the Min and Max Temperatures as box plots in the same figure:
+We can do so using the following syntax:
 
-```matlab linenums="1" title="Multiple Box Plots in same Axes"
-figure % create a new figure
-y = [T.MinTemperatureF   T.MaxTemperatureF]; % create two-column matrix of data
-boxchart(y) % plot data as box plots
-xticklabels({'Min' 'Max'}) % change the tick label from a number to a label
-ylabel('Temperature (˚F)') % add a label to the y-axis
+```matlab linenums="1" title="Swarm Box Chart overlay"
+figure
+hold on % hold can be turned on at any point in the syntax 
+
+x = [ones(height(T),1); ones(height(T),1)+1]; % stack 1's atop of 2's
+x = categorical(x, [1, 2], ["Min","Max"]); % typecast to categorical: Min=1, Max=2
+y = [T.MinTemperatureF; T.MaxTemperatureF]; % stack min temps stacked on top of max temps into a column vector
+
+swarmchart(x,y,...
+"XJitterWidth",0.5,... % reduce jitter displacement along the x-axis
+"MarkerFaceAlpha",0.1,... % marker face transparency
+"MarkerFaceColor",'k',...% marker face color
+"MarkerEdgeColor","k",...
+"MarkerEdgeAlpha",0.15)
+
+boxchart(x,y,'Notch',"on") % box plot
+ylabel('Temp (˚F)')
 ```
 
-![img-name](images/boxplot-min-max-temps-10yrs.png){ width="400"}
+![Swarm Box Chart overlay](images/swarm-box-chart-min-max-temps-10yrs.png){ width="450"}
 
->Here we show the box plots of the Minimum and Maximum temperatures. The boxes indicate the interquartile range, while the line inside the box indicates the median. The whiskers indicate the range of data, while the circles indicate outlier data.
+>Now we can really get a sense of the distribution of the data across ten years.
 
-??? question "How would you add a box of mean temperatures ('MeanTempF') to the axes above?"
+The course function **`mmBoxSwarm`** simplifies creating these plots. The following syntax recreates the figure above.
 
-    You would need to modify the y-input:
+```matlab
+hc = mmBoxSwarm(x,y,...
+XJitterWidth=0.5,...
+MarkerFaceColor='k',...
+MarkerFaceAlpha=0.1,...
+Notch='on')
+```
 
-    ```matlab
-    y = [T.MinTemperatureF T.MeanTemperatureF T.MaxTemperatureF]; % create three-column matrix of data
-    boxchart(y) % plot data as box plots
-    xticklabels({'Min' 'Mean' 'Max'}) % add 'Mean' as a tick label
-    ylabel('Temperature (˚F)') % add a label to the y-axis
-    ```
-
-    - Notice that we had to re-run all of the code
-    - Also notice that we had to update *`y`* and the **`xticklabels`**
-  
-    ![img-name](images/boxplot-min-mean-max-temps-10yrs.png){ width="400"}
+So, with just one function call, you easily overlay box plots and swarm charts.
 
 ## Overlaying Scatter Plots
 
