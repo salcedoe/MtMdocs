@@ -345,7 +345,7 @@ xlabel('Maximum Temperature (˚F)'); % label the x-axis
 
 ### Box Plots
 
-A box plot is a visual representation of the summary statistics for a set of observations. These plots have indicators that show statistics like the median (line in box), the interquartile range (the box), and the data range (the whiskers). You also have outliers (circles), which are data points that are 1.5 x the interquartile range.
+A box plot is a visual representation of the summary statistics for the data. These plots show the median (line inside box), the interquartile range (the box), and the data range (the whiskers). You also have outliers (circles), which are data points that are 1.5 x the interquartile range.
 
 ![img-name](images/boxchart_definition.png){ width="250"}
 
@@ -362,7 +362,7 @@ title('September, 2003. Denver, CO') % add a title
 
 ![img-name](images/boxchart-max-temps-2003.png){ width="450"}
 
->This plot represents the exact same data seen in the histogram above, but plotted as summary statistics along the y-axis. The box, which represents the interquartile range of data (or the middle half of the data), ranges from 70˚-85˚ F. So we know that the middle half of the maximum temperatures fall in this range. The line inside the box is the median, which is 79.5˚F. So, we know that half of all maximum temperatures are above and the other half are below 79.5˚F. And the whiskers represent the range. So, as we saw in the histograms above, the range of maximum temperatures fall between 53˚F and 97˚F.
+>This plot represents the exact same data seen in the histogram above, but as a box plot. The box represents the interquartile range of data (or the middle half of the data) and ranges from 70˚-85˚ F. This tells us that the middle half of the maximum temperatures fall in this range. The line inside the box is the median, which is 79.5˚ F. So, we know that half of all maximum temperatures are above and the other half are below 79.5˚ F. And the whiskers represent the range. So, as we saw in the histograms above, the range of temperatures fall between 53˚ F and 97˚ F.
 
 ### Multiple Box Plots
 
@@ -378,7 +378,7 @@ ylabel('Temperature (˚F)') % add a label to the y-axis
 
 ![Box plots of  Minimum and Maximum temperatures](images/boxchart-min-max-temps-2003.png){ width="450"}
 
->**Box plots of  Minimum and Maximum temperatures**. Here, we concatenate the Minimum and Maximum Temperatures into a 30X2 matrix and input that matrix into **`boxchart`**. We also turn `Notch on`, which is a more advanced box plot that includes notches on the sides of the boxes and can be used to [statistically compare medians](https://www.mathworks.com/help/matlab/ref/boxchart.html#mw_0a6e259a-fc44-4e89-9d6f-09afc9916e0a){target="_blank"}. When we input a matrix into **`boxchart`**, the default tick labels for the x-axis are `1` and `2`—`1` for the first column and `2` for the second column in the matrix. This is not especially informative, so we replace `1` and `2` with `'Min'` and `'Max'` using the **`xticklabels`** function. 
+>**Box plots of  Minimum and Maximum temperatures**. Here, we concatenate the Minimum and Maximum Temperatures into a 30X2 matrix and input that matrix into **`boxchart`**. We also turn `Notch on`, which adds notches to the sides of the boxes and can be used to [statistically compare medians](https://www.mathworks.com/help/matlab/ref/boxchart.html#mw_0a6e259a-fc44-4e89-9d6f-09afc9916e0a){target="_blank"}. When we input a matrix into **`boxchart`**, the default tick labels for the x-axis are `1` and `2`: `1` for the first column and `2` for the second column in the matrix. This is not especially informative, so we replace `1` and `2` with `'Min'` and `'Max'` using the **`xticklabels`** function.
 
 Inputting a matrix into **`boxchart`** only works if you have the same number of data points for each category (Min and Max). If you have a different number of data points for the different categories, then you can use a **grouping variable** as we discuss on the [Group Statistics page](../dataProcessing/groupStats.md/#grouping-variables).
 
@@ -400,9 +400,9 @@ Inputting a matrix into **`boxchart`** only works if you have the same number of
 
 ## Swarm Plots
 
-Swarm Charts are one-dimensional plots of all the data. So, we are not binning or summarizing the data—we are showing *all* the data. Plus, these charts use some math to create shapes that indicate regions of high density or outliers.
+Swarm Charts are one-dimensional plots of all the data. So, we are not binning or summarizing the data—we are showing *all* the data. These charts also use some math to create shapes that indicate regions of high density or outliers.
 
-Unlike the **`boxchart`** function, which accepts a single vector of data, **`swarmchart`** requires at minimum two inputs: both an `x` and a `y` input. So, if you have a single vector of data to plot, like the Minimum Temperatures, you need to create an `x` vector of the same length, but with a constant value, like 1. In effect, you are creating a scatter plot, but where the x-coordinate for each data point is exactly the same.
+Unlike the **`boxchart`** function, which accepts a single vector of data, the **`swarmchart`** function requires at minimum two inputs: an `x` and a `y` input. So, if you have a single vector of data to plot, like the Minimum Temperatures, you need to create an `x` vector of the same length, but with a constant value, like 1. In effect, you are creating a scatter plot, but where the x-coordinate for each data point is exactly the same.
 
 Here's an example of how to plot maximum temperatures as a swarm chart:
 
@@ -410,7 +410,7 @@ Here's an example of how to plot maximum temperatures as a swarm chart:
 figure(visible="on");
 x = ones(height(T),1); % create a vector of ones for the x-coordinates
 y = T.MaxTemperatureF; % get the max temperatures as a vector
-swarmchart(x,y)
+swarmchart(x,y) % plot the swarm chart
 ylabel('Temperature (˚F)') % add a label to the y-axis
 ylim([32 100]) % set y-axis limits
 ```
@@ -419,13 +419,11 @@ ylim([32 100]) % set y-axis limits
 
 >**Swarm Chart of Maximum Temperatures.** Temperature (˚C) is plotted along the y-axis, while the x-coordinates of the data points randomly jitter around 1. If we changed *`x`* from a vector of `1`'s to a vector of `100`'s, then the values would jitter around `100`.  Notice how the shape of the swarm is dependent on the distribution of the data: the widest part of the plot is along the median temperature of `79.5˚F`, whereas the narrowest parts of the plot have the fewest data points.
 
-While box plots nicely summarize the distribution of the data, they may not  true data density. One solution is to create a swarm (or beeswarm) chart which plots all the data at once. Since the data is one-dimensional, we treat each data point as having the exact same X-coordinate (like `1`), meaning that every data point in the dataset is plotted on top of each other. To differentiate between data points, a swarm chart adds a random variation along the x-axis (or jitter) to reduce overlap of data points.
-
 ### Multiple Swarm Charts
 
 To plot multiple swarm charts in the same plot, you stack vectors (instead of creating a matrix like for boxchart or barplot).
 
-In the following example, we plot both the Minimum and Maximum Temperatures. For the `x` input, we concatenate a series of 1's followed by a series of 2's. The we typecast this vector into a [categorical array](../dataProcessing/dataTypes.md/#categorical-arrays), so we can  associate the label "Min" with the value `1` and the label "Max" with the value `2`. For the `y`, we concatenate the Min and Max Temperatures into a single vector. And then, for a more pleasing aesthetic, we add some additional inputs into swarmchart to modify the face color, transparency and jitter width of the data points.
+In the following example, we plot both the Minimum and Maximum Temperatures. For the `x` input, we concatenate a series of `1's` followed by a series of `2's`. The we typecast this vector into a [categorical array](../dataProcessing/dataTypes.md/#categorical-arrays), so we can  associate the label "Min" with the value `1` and the label "Max" with the value `2`. For the `y`, we concatenate the Min and Max Temperatures into a single vector. And then, for a more pleasing aesthetic, we add some additional inputs into the function **`swarmchart`** to modify the face color, transparency, and jitter width of the data points.
 
 ```matlab linenums="1" title="Swarm Chart of Min and Max Temperatures"
 x = [ones(height(T),1); ones(height(T),1)+1]; % stack 1's atop of 2's
@@ -446,7 +444,7 @@ ylim([32 100]) % set y-axis limits
 
 >**Min and Max Temperatures**. While the temperature is still plotted along the y-axis, the x-axis now reads "Min" and "Max" instead of 1 and 2. Notice how we tightened up the spread of the data points by modifying "XJitterWidth" setting. By filling in the faces of the data points and adjusting the transparency, we also improve the aesthetics of the plot.
 
-A swarm chart can be especially informational when overlaid with a box plot. Review the [Advanced Plotting: Overlays,Transparencies, and Tiling page](PlottingOverlaysTiles.md/#swarm-box-chart) for an example of how to do this.
+A swarm chart can be extra informative when overlaid with a box plot. Review the [Advanced Plotting: Overlays,Transparencies, and Tiling page](PlottingOverlaysTiles.md/#swarm-box-chart) for an example of how to do this.
 
 ## Scatter Plots
 

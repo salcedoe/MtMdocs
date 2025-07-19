@@ -12,9 +12,7 @@ T.Events(isundefined(T.Events)) = 'none'; % set all undefined events to the cate
 categories(T.Events) % list the categories found in events
 ```
 
-
 Consider for example our events column.
-
 
 Using grouping variables, we can group the different rows of the table into different categories, isolating these subsets of data. Notice that in our table we have columns of numbers, such as temperature, dewpoint, humidity, and windspeed, and columns of identification, such as date (MDT) and event (e.g., rain, snow, etc.). The identifying data are also known as grouping variables and can be used to group rows into different categories.
 These grouping variables are more useful when you typecast them to certain variable types, like datetime and categorical

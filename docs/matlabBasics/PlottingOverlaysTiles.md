@@ -58,7 +58,7 @@ The nice thing about **`hold`** is that you can overlay different plotting funct
 For this example, we will load the same weather data from 2013 that we used in the [previous module (Plotting Basics)](PlottingBasics.md).
 
 ```matlab linenums="1" title="Load Weather Data"
-url = "https://saldenest.s3-us-west-2.amazonaws.com/anat6205_resources/UNIT_1/w2013.csv";
+url = "https://raw.githubusercontent.com/salcedoe/MtMdocs/refs/heads/main/docs/matlabBasics/w2013.csv";
 T = readtable(url)
 ```
 
@@ -112,7 +112,7 @@ And we finish with an information dense plot of maximum, minimum and mean temper
 For the next few examples, we will load ten years worth of Denver weather data. I have stored this data in a .CSV file (spreadsheet) in a remote file on an Amazon Server. To load this file, run the following in MATLAB
 
 ```matlab linenums="1" title="Import Table"
-url="https://saldenest.s3-us-west-2.amazonaws.com/anat6205_resources/UNIT_1/weather_data_merged.csv"
+url = "https://raw.githubusercontent.com/salcedoe/MtMdocs/refs/heads/main/docs/matlabBasics/weatherDataMerged.csv"
 T =readtable(url)
 ```
 

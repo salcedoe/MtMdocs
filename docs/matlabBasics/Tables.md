@@ -77,11 +77,11 @@ A table variable is basically a container for variables of other classes, which 
 Let's first create some variables:
 
 ```matlab linenums="1" title="Create Some Data"
-LastName = {'Smith';'Johnson';'Williams';'Jones';'Brown'} % cell array
-Age = [38;43;38;40;49] % numeric array
-Height = [71;69;64;67;64] % numeric array
-Weight = [176;163;131;133;119] % numeric array
-BloodPressure = [124 93; 109 77; 125 83; 117 75; 122 80] % numeric array
+LastName = {'Smith';'Johnson';'Williams';'Jones';'Brown'}; % cell array
+Age = [38;43;38;40;49]; % numeric array
+Height = [71;69;64;67;64]; % numeric array
+Weight = [176;163;131;133;119]; % numeric array
+BloodPressure = [124 93; 109 77; 125 83; 117 75; 122 80]; % numeric array
 ```
 
 We can examine the properties of these variables in the workspace or using the function **`whos`**:
@@ -598,37 +598,24 @@ summary(T)
 ```
 
 ```matlab title="Result: Summary Output"
+T: 5×4 table
+
 Variables:
 
-    Age: 5x1 double
-        Values:
+    Age: double
+    Height: double
+    Weight: double
+    BloodPressure: 2-column double
 
-            min       38   
-            median    40   
-            max       49   
+Statistics for applicable variables:
 
-    Height: 5x1 double
-        Values:
+                          NumMissing      Min      Median       Max        Mean          Std    
 
-            min       64      
-            median    67      
-            max       71      
-
-    Weight: 5x1 double
-        Values:
-
-            min       119     
-            median    133     
-            max       176     
-
-    BloodPressure: 5x2 double
-        Values:
-                      BloodPressure_1    BloodPressure_2
-                      _______________    _______________
-
-            min       109                75             
-            median    122                80             
-            max       125                93             
+    Age                       0            38         40         49         41.6        4.6152  
+    Height                    0            64         67         71           67        3.0822  
+    Weight                    0           119        133        176        144.4        23.975  
+    BloodPressure(:,1)        0           109        122        125        119.4        6.5803  
+    BloodPressure(:,2)        0            75         80         93         81.6        7.0569        
 ```
 
 ### Height, Width, and Size functions
@@ -735,7 +722,7 @@ We can also sort by column or by multiple columns. The following syntax sorts th
 
     …now the rows are sorted in ascending order by the height, followed by the weight.
 
-### Challenge: Table Functions
+### Challenge: sortrows
 
 === "Question"
 
@@ -766,12 +753,127 @@ We can also sort by column or by multiple columns. The following syntax sorts th
 
     The table is sorted by the first column, 'Age', and the output is assigned to the default variable *ans*.
 
----
+### movevars (Moving columns around)
 
-### Applying Functions to Variables
+The function **`movevars`** can be used to reorder the variables in a table.
+
+For example, say we added two new variable to our table, "Sex" and "Region"
+
+```matlab linenums="1" title="Add variables using dot notation"
+T.Sex = ["Male"; "Male"; "Female"; "Female"; "Male"];
+T.Region = ["North"; "North"; "West"; "South"; "East"];
+```
+
+```matlab title="result"
+T =
+
+  5×6 table
+
+                Age    Height    Weight    BloodPressure      Sex       Region 
+                ___    ______    ______    _____________    ________    _______
+
+    Smith       38       71       176       124     93      "Male"      "North"
+    Johnson     43       69       163       109     77      "Male"      "North"
+    Williams    38       64       131       125     83      "Female"    "West" 
+    Jones       40       67       133       117     75      "Female"    "South"
+    Brown       49       64       119       122     80      "Male"      "East" 
+```
+
+…When you add new variables using dot notation, the default is to add these variable at the far right of the table. 
+
+To reorder the columns, you use the function **`movevars`** as follows:
+
+```matlab linenums="1" title="Reorder variables"
+T = movevars(T,["Sex" "Region"],"Before","Age")
+```
+
+```matlab
+T =
+
+  5×6 table
+
+                  Sex       Region     Age    Height    Weight    BloodPressure
+                ________    _______    ___    ______    ______    _____________
+
+    Smith       "Male"      "North"    38       71       176       124     93  
+    Johnson     "Male"      "North"    43       69       163       109     77  
+    Williams    "Female"    "West"     38       64       131       125     83  
+    Jones       "Female"    "South"    40       67       133       117     75  
+    Brown       "Male"      "East"     49       64       119       122     80  
+```
+
+…and we get a newly reordered table.
+
+### convertvars (Type Casting Variables)
+
+The function **`convertvars`** can be used to type cast multiple variables in a table at the same time.
+
+For example, in the previous section, we added two new string array variables to the table: "Sex" and "Region". However, for data processing, it's often preferable to have [categorical arrays](../dataProcessing/dataTypes.md/#categorical-arrays), instead of string arrays.
+
+We can type cast single variables in a table using dot notation, as follows:
+
+```matlab linenums="1" title="Type cast One Variable"
+T.Sex = categorical(T.Sex)
+```
+
+Or, if we want to type cast multiple variables at the same time, we can use the **`convertvars`** function:
+
+```matlab linenums="1" title="Type cast multiple variables at the same time"
+T = convertvars(T,["Sex" "Region"],'categorical')
+```
+
+```matlab title="result"
+T =
+
+  5×6 table
+
+                 Sex      Region    Age    Height    Weight    BloodPressure
+                ______    ______    ___    ______    ______    _____________
+
+    Smith       Male      North     38       71       176       124     93  
+    Johnson     Male      North     43       69       163       109     77  
+    Williams    Female    West      38       64       131       125     83  
+    Jones       Female    South     40       67       133       117     75  
+    Brown       Male      East      49       64       119       122     80  
+```
+
+…And now, "Sex" and "region" are categorical arrays (notice that there are no double quote delimiters in Sex and Region columns).
+
+Running **`summary`** on the updated table confirms these changes:
+
+```matlab linenums="1" title="Table Summary"
+summary(T)
+```
+
+```matlab
+
+T: 5×6 table
+
+Variables:
+
+    Sex: categorical (2 categories)
+    Region: categorical (4 categories)
+    Age: double
+    Height: double
+    Weight: double
+    BloodPressure: 2-column double
+
+Statistics for applicable variables:
+
+                          NumMissing      Min      Median       Max        Mean          Std    
+
+    Sex                       0                                                                 
+    Region                    0                                                                 
+    Age                       0            38         40         49         41.6        4.6152  
+    Height                    0            64         67         71           67        3.0822  
+    Weight                    0           119        133        176        144.4        23.975  
+    BloodPressure(:,1)        0           109        122        125        119.4        6.5803  
+    BloodPressure(:,2)        0            75         80         93         81.6        7.0569  
+```
+
+## Applying Functions to Variables
 
 The **`varfun`** function is used to apply a function to multiple columns in a table. You can use **`varfun`** to quickly calculate the statistics for multiple columns. In contrast to the **`summary`** function,  **`varfun`** returns a table data which can then be assigned to a new table variable (as opposed to just printing the result to the command window).
-
 
 !!! example "Using varfun to calculate the mean for all columns"
 

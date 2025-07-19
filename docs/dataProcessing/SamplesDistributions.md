@@ -192,9 +192,7 @@ A similar symmetry can be seen in swarm and violin plots.
 
 Sample size is an important consideration for data processing. Generally, larger sample sizes offer more reliable results, but practical considerations like cost and time may limit how large a sample may be. A [sample of size greater than `30`](https://pmc.ncbi.nlm.nih.gov/articles/PMC3915399/) is often considered to be a good target to for a normal distribution.
 
-Part of the problem is that low sample size can be susceptible to large random effects. Even if a sample comes from a large, normally distributed population (like the heights of all Women), you likely won't get a normal distribution in the sample if your sample size is too small.
-
-Consider the following.
+As shown below, low sample size can be susceptible to large random effects. Even if a sample comes from a large, normally distributed population (like the heights of all Women), you likely won't get a normal distribution in the sample if your sample size is too small.
 
 ![histogram of data with increasing sample size](images/normal-sample-size.png){ width="650"}
 
@@ -224,11 +222,9 @@ There are, of course, other types of data distributions. A unimodal [skewed dist
 
 ![histogram of skewed left data](images/skewed-left-histfit.png){ width="450"}
 
->**Left Skewed Data.** In this histogram, the high frequency data is piled up high on right side of the plot. In contrast, much of the low frequency data is spread across the left side of the plot. This low frequency data is sometimes called the tail of the plot and such a distribution of the data is considered to be **Skewed Left** because the tail is to the left of the high frequency data.
+>**Left Skewed Data.** In this histogram, the high frequency data is piled up high on right side of the plot, while much of the low frequency data is spread across the left side of the plot. This low frequency data is sometimes called the tail of the plot. Such a distribution of the data is considered to be **Skewed Left** because the tail is to the left of the high frequency data.
 
-Notice that the histogram is not well fit by a normal curve (orange curve) — there's a big hump on the right and a long tail on the left.
-
-By comparison, the following data is skewed right…
+Notice that the histogram is not well fit by a normal curve (orange curve) — there's a big hump on the right and a long tail on the left. By comparison, the following data is skewed right…
 
 ![histogram of skewed right data](images/skewed-right-histfit.png){ width="450"}
 
@@ -375,7 +371,7 @@ The shapes of a swarm and violin chart are basically the same since they both us
 
 ## Distributions all the way down
 
-Of course, there are a lot more distributions that are beyond the scope of this guide. Search for 'probabilty distributions' for more information.
+There are a lot more distributions beyond the scope of this guide. Search for 'probability distributions' if you're interested. 
 
 ![Plots of various Probability Distributions](https://www.johnrobininston.com/posts/prob_1_distributions/assets/commondistributions.png){ width="650"}
 

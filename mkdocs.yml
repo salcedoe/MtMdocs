@@ -36,7 +36,8 @@ nav:
     - Plotting: 
       - Plotting Components: matlabBasics/PlottingComponents.md
       - Plotting Basics: matlabBasics/PlottingBasics.md   
-      - Plotting Overlays and Tiles: matlabBasics/PlottingOverlaysTiles.md  
+      - Plotting Overlays and Tiles: matlabBasics/PlottingOverlaysTiles.md
+      - Plotting Group Statistics: dataProcessing/groupStats.md
     - Scripts:
       - Control Flow and Functions in Scripts: matlabBasics/scripts/Control_Flow_Functions.md
   - Data Processing: 
