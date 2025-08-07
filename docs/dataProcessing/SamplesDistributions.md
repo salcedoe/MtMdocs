@@ -131,11 +131,11 @@ So, for the heights of females, 68% of all heights would fall between -1SD and +
 
 When analyzing data, it is important to first visualize that data to get a good idea of its distribution. When you do so, look for symmetry in the distribution plot. This is often an indicator of normality.
 
-Consider the following two plots of the height data:
+Consider the following comparison of a box plot vs the histogram of the height data:
 
 ![box plot of female heights](images/normal-bar-histogram.png){ width="450"}
 
->Here we have the same female height data plotted as a both a box plot and a histogram. We have turned the histogram on its side for easier comparison. In the histogram, the bars are symmetrically arrayed on either side of the mean (dotted red lin). In the box plot, the mean (middle blue line) is in the center of the interquartile range (IQR) box. Also, the whiskers extend to an equal extent on either side of the IQR. Notice in the bar plot how the mean and the median are equal.
+>Here we have the same female height data plotted as a both a box plot and a histogram. We have turned the histogram on its side for easier comparison. In the histogram, the bars are symmetrically arrayed on either side of the mean (dotted red lin). In the box plot, the mean (middle blue line) is in the center of the interquartile range (IQR) box, or the middle 50% of the data. Also, the whiskers extend to an equal extent on either side of the IQR. Notice in the bar plot how the mean and the median are equal.
 
 ??? example "Code to Plot Box Chart and Histogram"
 
@@ -161,7 +161,16 @@ Consider the following two plots of the height data:
     sgtitle("Female Heights",fontsize=18)
     ```
 
-A similar symmetry can be seen in swarm and violin plots.
+!!! note "Box Plots vs Normal Curves"
+
+    Box plots summarize the data differently then PDFs. A box plot breaks down the distribution by quartiles, while PDFs use the mean and standard deviation.
+
+    ![box plot and a PDF](images/Boxplot_vs_PDF.png){ width="450"}
+    >IQR = interquartile range. The length of a whisker is typically 1.5 times the IQR.
+
+    [Wikipedia: Interquartile Range](https://en.wikipedia.org/wiki/Interquartile_range){target="_blank"}
+
+A similar symmetry around the mean can be seen in swarm and violin plots.
 
 ![swarm violin charts of female heights](images/normal-swarm-violin.png){ width="450"}
 
@@ -371,9 +380,10 @@ The shapes of a swarm and violin chart are basically the same since they both us
 
 ## Distributions all the way down
 
-There are a lot more distributions beyond the scope of this guide. Search for 'probability distributions' if you're interested. 
+There are a lot more distributions beyond the scope of this guide. Search for 'probability distributions' if you're interested.
 
+<!-- 
 ![Plots of various Probability Distributions](https://www.johnrobininston.com/posts/prob_1_distributions/assets/commondistributions.png){ width="650"}
 
->borrowed from ["Probability Theory & Statistics - Probability Distributions"](https://www.johnrobininston.com/distributions/){target="_blank"}
+>borrowed from ["Probability Theory & Statistics - Probability Distributions"](https://www.johnrobininston.com/distributions/){target="_blank"} -->
 

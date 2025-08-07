@@ -1,7 +1,7 @@
 
 # Exploring the MATLAB desktop
 
-!!! abstrct "A quick overview of the MATLAB desktop"
+!!! abstract "A quick overview of the MATLAB desktop"
 
 ## Command Window
 
@@ -21,7 +21,7 @@ a =
      1
 ```
 
-…This tells you what MATLAB did. Which is assigned the value `1` to the varible *`a`*.  
+…This tells you what MATLAB did. This assigns the value `1` to the variable *`a`*.  
 
 ## Workspace
 
@@ -46,7 +46,7 @@ Double-clicking on a variable in the workspace brings up the Variable Editor. He
 
 ## Ribbon Interface
 
- MATLAB has a context sensitive toolbar called the ribbon interface
+MATLAB has a context-sensitive toolbar called the ribbon interface
 
 ![image_3.png](images/X1_MATLAB_Intro_media_image_3.png)
 
@@ -108,7 +108,7 @@ web(fullfile(docroot, '3ptoolbox/masteringmatlabtoolbox/doc/CourseOverview.html'
 
 ## Important Preferences
 
-The following settings that can improve the performance of MATLAB for certain tasks, especially later in the semester. Lets set them now, before we forget.
+The following settings that can improve the performance of MATLAB for certain tasks, especially later in the semester. Let's set them now, before we forget.
 
 ### Java Heap Memory
 
@@ -162,7 +162,7 @@ This will freeze code execution at that location and interfere with your coding.
 
 ## Debugging controls
 
-If you a line number highlighted and execute the code block. You will enter debugging mode, which means that you manually have to advance the execution yourself.
+If you have a line number highlighted and execute the code block, you will enter debugging mode, which means that you manually have to advance the execution yourself.
 
 In the Live Editor tool strip, there are three buttons you can press: Continue, Step, Stop
 
@@ -221,5 +221,5 @@ knot
     ```matlab linenums="1"
     why
     ```
-    Be sure to run repeatedly.
+    Be sure to run this command multiple times.
     
