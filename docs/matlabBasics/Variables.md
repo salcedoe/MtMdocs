@@ -79,7 +79,7 @@ The MATLAB syntax used to store data in a variable looks like this:
 variable_name = data
 ```
 
-Notice that the variable name is located on the LEFT side of the equal sign and the data is located on the RIGHT side of the equal size. Data flows from RIGHT to LEFT.
+Notice that the variable name is located on the LEFT side of the equal sign and the data is located on the RIGHT side of the equal sign. Data flows from RIGHT to LEFT.
 
 ## What Is a Data Structure?
 
@@ -111,7 +111,7 @@ In a matrix, each element can be referenced by its [index][MATLAB_index]. To mak
 
 [indexing_scheme]: images/indexing_schemes.png
 
-On the left is the **[linear indexing][MATLAB_index]** system, which has a **[COLUMN MAJOR](http://www.wikiwand.com/en/Row-major_order)** indexing. Notice each element is numbered first by row, then by column. So, to refer to the element in row 2, column 2, you simply use the index number 5. On the right is the **[standard indexing][MATLAB_index]** system, which has the following syntax: (row, column). In this scheme, the left number indicates the row and the right number indicates the column. To refer to the element in row 2, column 2, you would use the following syntax: (2,2). These two indexing schemes can be used interchangeably in MATLAB.
+On the left is the **[linear indexing][MATLAB_index]** system, which uses **[COLUMN MAJOR](http://www.wikiwand.com/en/Row-major_order)** indexing. In column-major order, each element is numbered down each column first, before moving to the next column. So, to refer to the element in row 2, column 2, you simply use the index number 5. On the right is the **[standard indexing][MATLAB_index]** system, which has the following syntax: (row, column). In this scheme, the left number indicates the row and the right number indicates the column. To refer to the element in row 2, column 2, you would use the following syntax: (2,2). These two indexing schemes can be used interchangeably in MATLAB.
 
 [MATLAB_index]: http://www.mathworks.com/help/matlab/math/matrix-indexing.html
 
@@ -156,7 +156,7 @@ In this course, we will learn about the following [MATLAB classes][fund_data_cla
 | [logical](http://www.mathworks.com/help/matlab/ref/logical.html)| boolean (true / false) data|  
 | [table](http://www.mathworks.com/help/matlab/ref/table.html)| Complex Spreadsheet type data|  
 
-To make things even worse, the *numeric* class actually comprises several subclasses with cryptic names like *double* or *uint16*. This numeric subclasses are used to store different *kinds* of numbers, like Whole Numbers (integers) vs Numbers With Decimal Points (Floating-Point Numbers). 
+To make things even worse, the *numeric* class actually comprises several subclasses with cryptic names like *double* or *uint16*. These numeric subclasses are used to store different *kinds* of numbers, like Whole Numbers (integers) vs Numbers With Decimal Points (Floating-Point Numbers).
 
 Here are some words you probably don't understand yet:
 

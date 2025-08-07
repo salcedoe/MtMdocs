@@ -14,7 +14,7 @@ So, in this module, we will learn how variables are stored in Computer Memory, w
 
 ### After this module, you should be able to
 
-* Count in binary and how to convert binary numbers to decimal (and vice vera)
+* Count in binary and how to convert binary numbers to decimal (and vice versa)
 
 * Describe how computers store information (hint: it's in binary)
 
@@ -44,7 +44,7 @@ So, in this module, we will learn how variables are stored in Computer Memory, w
 
 * [char]{target="_blank"} - convert the array to a character class
 
-* [num2str]{target="_blank"} - Convert character arrays to numeric arrays
+* [num2str]{target="_blank"} - Convert numeric arrays to character arrays
 
 [double]: http://www.mathworks.com/help/matlab/ref/double.html
 [single]: http://www.mathworks.com/help/matlab/ref/single.html
@@ -481,7 +481,7 @@ ans =
 
 ??? question "Why is uint16 the best choice for type casting character arrays (and not, say, *uint8*)?"
 
-    The char class requires two bytes of memory because there are more than 255 different characters that can be used on a computer. There are not more than 65,536 characters, so you don't need any more memory (as can be found in *single* or *double*).
+    ASCII characters only require one byte (uint8), but MATLAB uses uint16 for character arrays to support Unicode/UTF-16 encoding, which allows for a much larger set of characters beyond standard ASCII.
 
 You can also type cast an integer array into a character array using the function *char*
 
@@ -543,7 +543,7 @@ c =
 
 …Here we create two character arrays containing the letters `'a'` through `'f'` and `'A'` through `'F'`.
 
-If we typecase the variables *`b`* and *`c`* to an integer class≥
+If we typecast the variables *`b`* and *`c`* to an integer class:
 
 ```matlab linenums="1" title="Type cast character arrays to integer class"
 uint16(b)

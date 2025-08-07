@@ -44,7 +44,7 @@ If you can't find it in the MATLAB documentation, then you can search the intern
 google matlab "thing I want to do"
 ```
 
->…but not necessarily with those double quotes.
+…but not necessarily with those double quotes.
 
 Of course, now that we are living in the future, MATLAB comes with an AI called  [MATLAB Copilot](https://www.mathworks.com/products/matlab-copilot.html){target="_blank"}. This is included with the Site License and should automatically be added to your MATLAB installation. Use this AI to help create code and troubleshoot errors. Your student CU Anschutz credentials also give you access to the latest version of ChatGPT through  [Microsoft Copilot](https://copilot.microsoft.com).
 
@@ -75,7 +75,7 @@ open mean.m
 
 …This will open the file in the editor. If you do so, you will see the function has quite a bit of code and may be difficult to understand. Notice that the first few lines in function is basically a series of comments to help explain how to use the function. This is good coding practice
 
-An easier function to review may be one of the functions included with the MtM documentation, such as the **`mmGetChannelMap** function
+An easier function to review may be one of the functions included with the MtM documentation, such as the **`mmGetChannelMap`** function
 
 ```matlab
 open mmGetChannelMap.m

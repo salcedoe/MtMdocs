@@ -171,7 +171,7 @@ To concatenate characters, we use the single quotes, as follows
 === "Answer"
 
     ```matlab linenums="1"
-    d2 = [11 12 13]
+    d2 = [11 12 15]
     ```
 
     ```matlab
@@ -374,7 +374,7 @@ In the workspace, there is now a variable called *`monkey_brains_2`* with an ass
 
 ??? question "How long can your variable name be?"
 
-    The function **[namelengthmax][mlb-ref-namelengthmax]**</a> returns the maximum length of a variable name can be:
+    The function **[namelengthmax](https://www.mathworks.com/help/matlab/ref/namelengthmax.html){target="_blank"}** returns the maximum length a variable name can be:
 
     ```matlab linenums="1"
     namelengthmax
