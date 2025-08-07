@@ -1,0 +1,3878 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://salcedoe.github.io/MtMdocs/slicer/CTFemurSegment_9553F/">
+      
+      
+        <link rel="prev" href="../MRTumorSegment/">
+      
+      
+        <link rel="next" href="../TotalSegmentator/">
+      
+      
+      <link rel="icon" href="../../assets/skull-scan-blue.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>CT Femur - Muddling through Medical Imaging</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#femur-segmentation-9553f" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Muddling through Medical Imaging" class="md-header__button md-logo" aria-label="Muddling through Medical Imaging" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 0C.9 0 0 .9 0 2v4h2V2h4V0zm16 0v2h4v4h2V2c0-1.1-.9-2-2-2zm-6 3c-4.4 0-8 3.6-8 8 0 2.5 1.2 4.8 3 6.2V21h2v-3h2v3h2v-3h2v3h2v-3.8c1.8-1.5 3-3.7 3-6.2 0-4.4-3.6-8-8-8M8 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m2.5 2 1.5-3 1.5 3zm5.5-2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2M0 18v4c0 1.1.9 2 2 2h4v-2H2v-4zm22 0v4h-4v2h4c1.1 0 2-.9 2-2v-4z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Muddling through Medical Imaging
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CT Femur
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/salcedoe/MtMtools" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../setup/softwareOverview/" class="md-tabs__link">
+          
+  
+  
+  Setup
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/MATLABReferencePages/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../matlabBasics/MatlabIntro/" class="md-tabs__link">
+          
+  
+  
+  MATLAB Basics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dataProcessing/" class="md-tabs__link">
+          
+  
+  
+  Data Processing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../imageProcessing/ImageIntro/" class="md-tabs__link">
+          
+  
+  
+  Images
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../volumeProcessing/volumeOverview/" class="md-tabs__link">
+          
+  
+  
+  Volumes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../InterfaceIntro/" class="md-tabs__link">
+          
+  
+  
+  3D Slicer
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Muddling through Medical Imaging" class="md-nav__button md-logo" aria-label="Muddling through Medical Imaging" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 0C.9 0 0 .9 0 2v4h2V2h4V0zm16 0v2h4v4h2V2c0-1.1-.9-2-2-2zm-6 3c-4.4 0-8 3.6-8 8 0 2.5 1.2 4.8 3 6.2V21h2v-3h2v3h2v-3h2v3h2v-3.8c1.8-1.5 3-3.7 3-6.2 0-4.4-3.6-8-8-8M8 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m2.5 2 1.5-3 1.5 3zm5.5-2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2M0 18v4c0 1.1.9 2 2 2h4v-2H2v-4zm22 0v4h-4v2h4c1.1 0 2-.9 2-2v-4z"/></svg>
+
+    </a>
+    Muddling through Medical Imaging
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/salcedoe/MtMtools" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Setup
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Setup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/softwareOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Software
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/matlabInstallation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing MATLAB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/githubRepoInstallation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Github Repositories
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/computerSetup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Computer Settings
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/MATLABReferencePages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MATLAB stuff
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/courseFunctions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MtM Course Functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    MATLAB Basics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            MATLAB Basics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/MatlabIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Muddling Through MATLAB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/matlabInterface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The MATLAB Interface
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Basic Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Basic Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/DataOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/ArrayAssignmentOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Array Assignment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/BinaryNumbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Binary Numbers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Basic Data Classes
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Basic Data Classes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Numeric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Numeric Arrays
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Logical/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logical Arrays
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Character/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Character Arrays
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Complex Data Classes
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Complex Data Classes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Cell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cells
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Strings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strings
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Simple Programming
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Simple Programming
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/ControlFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control Flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/FilesFolders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Files and Folders
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Plotting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Plotting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingComponents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plotting Components
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingBasics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plotting Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingOverlaysTiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plotting Overlays and Tiles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/groupStats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plotting Group Statistics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Scripts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            Scripts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/scripts/Control_Flow_Functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control Flow and Functions in Scripts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Data Processing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Data Processing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/dataTypes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Types
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/tidyData/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tidy Data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/groupStats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plotting Group Statistics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/SamplesDistributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sampling and Distributions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/HypTesting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hypothesis Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Images
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Images
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Image Processing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            Image Processing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Grayscale Images
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageEnhancement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Image Enhancement
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageSegmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Image Segmentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageSegmentationCleanup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Segmentation Cleanup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageRegionProcessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Region Processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageRGB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RGB Images
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2D Imaging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            2D Imaging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/medicalImagingIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/XrayImaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    X-ray Imaging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Volumes
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Volumes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volumeOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Volume Processing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            Volume Processing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volumeLoading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Loading and Indexing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volumeVisualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inspecting Volumes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volumeRendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3D Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    3D Slicer
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            3D Slicer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../InterfaceIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CustomizeSlicer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customize Slicer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_3" id="__nav_8_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Data Exploration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Exploration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTChestExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CTChest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTPETExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PET CT (Multi-modal Dataset)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTMRExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CT MRI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImportDICOMDataset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Import DICOM datasets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8_4" id="__nav_8_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Volume Segmentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8_4">
+            <span class="md-nav__icon md-icon"></span>
+            Volume Segmentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTACardioSegment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CTACardio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MRTumorSegment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MR Tumors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    CT Femur
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    CT Femur
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#load-dicom-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      LOAD DICOM Volume
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volumes-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      Volumes Module
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volume-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Volume Rendering
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Volume Rendering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-precise-roi-for-cropping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create precise ROI for cropping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create precise ROI for cropping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-roi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load ROI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render-roi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Render ROI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crop-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crop Volume
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Review
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save Your Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segment-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment Editor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment Editor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-segmentations-to-the-segmentation-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add Segmentations to the Segmentation table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-right-femur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment Right Femur
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment Right Femur">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-up-editable-intensity-range-and-turn-on-3d-brush" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set-up editable intensity range and turn on 3D brush
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-right-femur-head" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment right femur head
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment right femur head">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#time-to-save-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      TIME TO SAVE YOUR WORK
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-the-rest-of-the-right-femur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment the rest of the Right Femur
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-the-tibia-and-miscellaneous-bone" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove the Tibia and miscellaneous bone
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Remove the Tibia and miscellaneous bone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scissors-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scissors Tool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erase-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erase tool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#island-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Island Tool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smoothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Smoothing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capture-the-left-femur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capture the Left Femur
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bonus-capture-the-implant" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bonus: Capture the Implant
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Result
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TotalSegmentator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Total Segmentator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_5" id="__nav_8_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Surface Models
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_5">
+            <span class="md-nav__icon md-icon"></span>
+            Surface Models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CreateModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating Surface Models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ExportModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Exporting Models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_6" id="__nav_8_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Generating Animations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_6">
+            <span class="md-nav__icon md-icon"></span>
+            Generating Animations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImageSequenceToVideo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Image sequence to video (MAC)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#load-dicom-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      LOAD DICOM Volume
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volumes-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      Volumes Module
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volume-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Volume Rendering
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Volume Rendering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-precise-roi-for-cropping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create precise ROI for cropping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create precise ROI for cropping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-roi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load ROI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render-roi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Render ROI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crop-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crop Volume
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Review
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save Your Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segment-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment Editor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment Editor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-segmentations-to-the-segmentation-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add Segmentations to the Segmentation table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segmentation Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-right-femur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment Right Femur
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment Right Femur">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-up-editable-intensity-range-and-turn-on-3d-brush" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set-up editable intensity range and turn on 3D brush
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-right-femur-head" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment right femur head
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segment right femur head">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#time-to-save-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      TIME TO SAVE YOUR WORK
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-the-rest-of-the-right-femur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Segment the rest of the Right Femur
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-the-tibia-and-miscellaneous-bone" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove the Tibia and miscellaneous bone
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Remove the Tibia and miscellaneous bone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scissors-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scissors Tool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erase-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erase tool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#island-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Island Tool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smoothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Smoothing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capture-the-left-femur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capture the Left Femur
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bonus-capture-the-implant" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bonus: Capture the Implant
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Result
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="femur-segmentation-9553f">Femur Segmentation 9553F</h1>
+<p>In this module, we will segment the Pelvis and Femurs from the 9553F DICOM dataset.</p>
+<h2 id="load-dicom-volume">LOAD DICOM Volume</h2>
+<p>Load the <code>9553F Body Bone</code> dataset into Slicer, as discussed in the <a href="../ImportDICOMDataset/">Import DICOM datasets documentation</a>. Alternatively, you can load the 6 Body Bone NRRD volume from the MATLAB drive.</p>
+<p><img alt="img-name" src="../images/dicom-4up-9553F-body-bone-fixed.png" width="450" /></p>
+<blockquote>
+<p>Note: you won't see the 3D render until you follow <a href="#volume-rendering">Volume Rendering</a> steps below</p>
+</blockquote>
+<h2 id="volumes-module">Volumes Module</h2>
+<p><img alt="img-name" src="../images/button_volumes_module.png" width="50" /></p>
+<p>Bring up the Volumes Module and review the Volumes Information tab.</p>
+<div class="admonition abstract">
+<p class="admonition-title">Volumes Information</p>
+<p><img alt="img-name" src="../images/CTFemur-Volume-Info.png" width="450" /></p>
+<ul>
+<li>This volume has <code>512 x 512 x 473</code> voxels (124 million voxels)</li>
+<li>The volume also anisotropic voxels with dimensions of <code>0.98mm x 0.98mm x 3.5mm</code></li>
+</ul>
+</div>
+<p>When segmenting, it helps to adjust the contrast so that the target anatomy (e.g. the femur) is brighter than the rest of the tissue.</p>
+<div class="admonition abstract">
+<p class="admonition-title">Set Volumes LUT Preset</p>
+<p>Under the Display tab, Select the CT Bone Window Level Preset.</p>
+<p><img alt="img-name" src="../images/volumes-ct-bone-preset.png" width="50" /> </p>
+<p>Your volume should have the contrast shown in the right column (CT Bone LUT). </p>
+<p><img alt="img-name" src="../images/CTFemur-Volumes-adjust-LUT.png" width="450" /></p>
+<p>Notice how using this LUT deemphasizes the tissue (almost black) while highlighting the bone (almost bright white).</p>
+</div>
+<h2 id="volume-rendering">Volume Rendering</h2>
+<p><img alt="img-name" src="../images/button_volume_rendering.png" width="150" /></p>
+<p>Volume Rendering is useful for exploring a volume and quickly rendering anatomical structures. This is NOT a substitute for segmentation. This is mostly for display purposes only. For example, there is nothing to export from a volume rendering. That being said, it is often useful to quickly render anatomical structures before segmenting.</p>
+<p><img alt="select body bone" src="../images/CTFemur-vol-render-select-volume-menu.png" width="450" /></p>
+<ol>
+<li>Bring up the Volume Rendering Module</li>
+<li>Select the Body Bone volume from the pop up menu</li>
+<li>Adjust the <strong>Shift</strong> slider to reveal a render of the cadaver</li>
+<li>Select the CT-AAA to reveal a render of the cadaver's skeletal system</li>
+<li>The goal is to reveal the following:</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Revealing internal structures using Volume Rendering</p>
+<p><img alt="volume rendering of Body Bone" src="../images/CTFemur-volume-rendering-3D.png" width="450" /></p>
+<p>Notice how the femur heads and lower flanges are darker than the rest of the femur. This indicates a level of bone degeneration that would be expected in an older female with a knee replacement.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Bonus Render: Reveal implant</p>
+<p>Slide the Shift slider to the right to reveal the implant in the left knee. There are two parts to the implant: one in the femur and one in the tibia.</p>
+<p><img alt="4up implant" src="../images/CTFemur-3D-vol-render-implant.png" width="450" /></p>
+</div>
+<p>Before continuing, select the<code>CT-AAA</code> to again render the skeletal system. Notice how the implants create a spiky distortion in the CT scan around the knee</p>
+<h3 id="create-precise-roi-for-cropping">Create precise ROI for cropping</h3>
+<p>Cropping the volume is a critical step in Slicer as it helps reduce the memory load (and avoid crashes) by eliminating parts of the volume that are not relevant to your project. We can create an ROI in the <strong>Volume Rendering</strong> module, but then the ROI has to be manually drawn.</p>
+<p>For this exercise, we instead want to create an ROI with precise coordinates. This will allow us to compare our segmentations in a future exercise. To create a precise ROI, we need the Markup tools.</p>
+<h4 id="load-roi">Load ROI</h4>
+<ol>
+<li>Click on the <strong>Add DATA</strong> button</li>
+<li>Select <code>Choose Files to Add</code></li>
+<li>Navigate to the MATLAB drive (Unit 3/data) and select "PelvisFemurROI.mrk.json"</li>
+<li>Click <strong>OK</strong>.</li>
+</ol>
+<details class="abstract">
+<summary>Manually Create ROI</summary>
+<p>If you don't have access to the file, manually create the ROI as follows:</p>
+<ol>
+<li>Switch to the <strong>Markups</strong> module</li>
+<li>Click on the ROI icon to create a new ROI <img alt="img-name" src="../images/markups-roi-button.png" width="45" /></li>
+<li>Rename the ROI "PelvisFemurROI"</li>
+<li>Enter the following settings</li>
+</ol>
+<p><img alt="img-name" src="../images/CTFemur-PelvisFemur-ROI.png" width="450" /></p>
+</details>
+<h4 id="render-roi">Render ROI</h4>
+<ol>
+<li>Switch back to the <strong>Volume Rendering</strong> module</li>
+<li>Set <strong>ROI</strong> to your new "PelvisFemurROI"</li>
+<li>Enable Crop - the skeleton should be cropped down to the femur and pelvis</li>
+<li>Turn off Volume Rendering</li>
+<li>Turn off <strong>Display ROI</strong></li>
+</ol>
+<p><img alt="img-name" src="../images/CTFemur-4up-vol-render-crop-PelvisFemurROI.png" width="450" /></p>
+<h3 id="crop-volume">Crop Volume</h3>
+<p>Now we use our ROI to crop the volume. Switch to the <strong>Crop Volume</strong> module and enter the following settings:</p>
+<div class="admonition abstract">
+<p class="admonition-title">Crop Volume Settings</p>
+<p><img alt="img-name" src="../images/CTFemur-crop-volume-settings.png" width="450" /></p>
+<p><strong>IO tab</strong></p>
+<ul>
+<li>Input Volume: <code>BODY BONE</code></li>
+<li>Input ROI: <code>PelvisFemurRoi</code></li>
+<li>Output volume: select "Create new volume as..." and enter "BODY BONE crop"</li>
+</ul>
+<p><strong>Advanced tab:</strong> Be sure to check "Interpolated cropping" and "Isotropic space". Set the <code>Spacing Scale</code> to <code>1.10x</code> and select "B-spline".</p>
+<p><strong>Volume Information tab:</strong> <code>Input Volume</code> indicates the dimensions of the original Body Bone volume. <code>Cropped volume</code> indicates the dimensions of the volume to be created. Notice how we will get fewer rows and columns, but more z-slices</p>
+</div>
+<p>When you have set all of the settings, click "Apply".
+   - This might take a bit, so don't panic if you get the spinning disk of death.
+   - This may also end anticlimactically - nothing may seem to happen.</p>
+<details class="tip">
+<summary>ABOUT ISOTROPIC SPACING and the Spacing Scale setting</summary>
+<p>What isotropic spacing actually does is up- or downsample the 3D volume. Basically, you are adding or subtracting rows, columns, or slices. Subtracting rows and columns means that you are downsampling, which should ultimately create a smaller volume, which in turns saves memory (and hopefully avoids crashing Slicer). Ultimately, you want the total volume loaded into Slicer to take only 1/10 the amount of RAM that is available on your system. For 3D processing, you rarely benefit from having high in-plane resolution if distance between planes is large. For example, a volume of <code>2500 x 2500 x 500</code> (with spacing of <code>0.1x0.1x0.5</code>) will give you approximately same quality 3D reconstructions as a volume of <code>500 x 500 x 500</code> (with spacing of <code>0.5x0.5x0.5</code>). This means we rarely want to upsample and instead should use a larger Spacing scale setting to downsample the volume (even larger than shown here). See the discussion here: <a href="https://discourse.slicer.org/t/is-there-a-way-to-reduce-the-cpu-usage-and-reduce-the-amount-of-ram-used/3181/3">Is there a way to reduce the CPU usage and reduce the amount of RAM used? - #3 by goetzf - Support - 3D Slicer Community</a></p>
+</details>
+<h3 id="data-review">Data Review</h3>
+<p><img alt="img-name" src="../images/button-data-module.png" width="50" /></p>
+<p>Review the Data module, which displays a hierarchy of the loaded volumes and other relevant data</p>
+<p><img alt="img-name" src="../images/CTFemur-data-table.png" width="450" /></p>
+<p>You should see the new <code>BODY BONE crop</code> volume in this list.</p>
+<ol>
+<li><strong>Display Crop Volume:</strong> To display the new crop volume, click on the eye-cube icon in the <code>BODY BONE crop</code> row. This should display this volume in the slice viewers and hide the other volume. </li>
+<li><strong>Delete Original Volume:</strong> Right-Click on the original "6 BODY BONE" volume and select "delete".<ul>
+<li>We won't need this volume any more and deleting it will help save on computer memory (and avoid slicer crashes).</li>
+<li>Also, we can always reload the volume from the DICOM dataset if needed.</li>
+</ul>
+</li>
+<li><strong>Hide the PelvisFemurRoi</strong> by clicking on the corresponding eye-icon.</li>
+<li>In the <strong>Volumes</strong> module, turn on the CT-bone preset for the <code>BODY BONE crop</code> volume</li>
+</ol>
+<h3 id="save-your-data">Save Your Data</h3>
+<p>Now would be a good time to save your data. Remember, you need to create a new folder to save this project. You can call it something like "CTFemur"</p>
+<details class="tip">
+<summary>Saving Tips and Reminders</summary>
+<p><strong>How to create a New Folder</strong>. </p>
+<p>Notice in the directory column that each file has a default path. We want to change the folder paths for all of these files so that they are stored in the same new folder. To do so, do the following:</p>
+<ul>
+<li>Ensure that all of the files are checked. </li>
+<li>Click on the "Change directory for selected files" </li>
+<li>In the dialog the pops-up, navigate to the location where you want to create your folder. The Documents folder is a good place to start (Macs should avoid saving stuff on the desktop as it can slow down your computer.).</li>
+<li>Create a new folder in that location</li>
+<li>Call this folder "CTFemur" or something similar. And select OK. </li>
+</ul>
+<p><strong>Save everything</strong></p>
+<ul>
+<li>Every file should now have the same path in the directory column </li>
+<li>Every file should be checked in the check column.</li>
+<li>Click on the Save Button. </li>
+</ul>
+</details>
+<h2 id="segment-editor">Segment Editor</h2>
+<p>We are now ready to segment the femurs and pelvis.</p>
+<p><img alt="img-name" src="../images/mod-menu-segment-editor.png" width="250" /></p>
+<ol>
+<li>Switch to <strong>Segment editor module</strong></li>
+<li>Rename the Segmentation as "Femur Segmentation"<blockquote>
+<p><img alt="img-name" src="../images/seg-editor-rename-segment.png" width="350" /></p>
+</blockquote>
+</li>
+<li>Set the Master volume to "BODY BONE crop"<blockquote>
+<p><img alt="img-name" src="../images/CTFemur-seg-editor-settings.png" width="450" /></p>
+</blockquote>
+</li>
+<li>In the Data Module, there is now new Segmentation node called Femur Segmenation<blockquote>
+<p><img alt="img-name" src="../images/CTFemur-data-segment.png" width="450" /></p>
+<p>When you click on Femur Segmentation, BODY BONE crop becomes highlighted in yellow, indicating that the volume is linked to the segmentation</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="add-segmentations-to-the-segmentation-table">Add Segmentations to the Segmentation table</h3>
+<ol>
+<li>In the Segment Editor, add a new segmentation by clicking on the add button <img alt="img-name" src="../images/seg-editor-add-button.png" width="25" /></li>
+<li>Rename segmentation to "Skeleton" (double-click on the name to rename)</li>
+<li>Add two more segmentations called "Femur_Left" and "Femur_Right"</li>
+<li>Color to taste by double-clicking on the color swatches<blockquote>
+<p><img alt="img-name" src="../images/CTFemur-seg-edit-table1.png" width="450" /></p>
+<p>With this set-up, we create three labels in our segmentation volume: One for skeleton, one for Femur-Right, one for Femur_left.</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="segmentation-strategy">Segmentation Strategy</h3>
+<p>To segment the femurs and pelvis, we will start by thresholding out the skeleton. Since bone has such a high contrast compared to the rest of the tissue, this should be relatively easy to accomplish using the local thresholding tool. Then, we will separate out the bones of interest from the skeleton.</p>
+<p><img alt="img-name" src="../images/CTFemur-segmentations-skel-selected.png" width="450" /></p>
+<p><img alt="img-name" src="../images/seg-editor-local-threshold-button2.png" width="150" /></p>
+<ol>
+<li>Select the Skeleton Label in the Segmentation table.</li>
+<li>Bring up the Threshold Tool</li>
+<li>Set the <strong>Threshold Range</strong> to:  <code>137 - 1500</code></li>
+<li>Command- or Control- click on the skeleton in one of the 2D viewers.<blockquote>
+<p><img alt="img-name" src="../images/CTFemur-local-thresh-control-click.png" width="250" /></p>
+</blockquote>
+</li>
+<li>To see the skeleton in 3D, click on the <strong>Show 3D</strong> button.<blockquote>
+<p><img alt="img-name" src="../images/seg-editor-show-3D-button.png" width="100" /></p>
+</blockquote>
+</li>
+<li>Enjoy a segmentation of the Skeleton.<blockquote>
+<p><img alt="img-name" src="../images/CTFemur-4up-local-thresh-segment-skeleton.png" width="450" /></p>
+<p>Notice that our threshold settings exclude the knee implant.</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="segment-right-femur">Segment Right Femur</h3>
+<p>Now that we have a segmentation for the skeleton, we need to separate out the femurs. To do this, we will use a neat trick that involves painting the femur head in 3D and then changing the segmentation label of the femur using the <strong>Island tools</strong>. Review this video for an overview: <a href="https://www.youtube.com/watch?v=0at15gjk-Ns">PERKlab - Create Femur Model</a></p>
+<h4 id="set-up-editable-intensity-range-and-turn-on-3d-brush">Set-up editable intensity range and turn on 3D brush</h4>
+<p>Before painting, we want to restrict where we can paint.</p>
+<ol>
+<li>Bring up the <strong>Threshold tool</strong> <img alt="img-name" src="../images/seg-editor-threshold-button.png" width="25" /></li>
+<li>Set the <strong>Threshold Range</strong> to:  <code>137 - 1500</code></li>
+<li>Click on the "Use for masking" button.</li>
+<li>This changes the Masking settings.</li>
+<li>Notice that the "editable intensity range" is now checked, which forces all segmenting tools to only label voxels that fall within that intensity range</li>
+<li>Bring up the <strong>Paint Tool</strong> (if not active, already). <img alt="img-name" src="../images/seg-editor-paint-button.png" width="25" /><ul>
+<li><strong>Editable Area</strong> should be set to <code>Everywhere</code>. Sometimes this gets switched to another setting and can cause confusion when you are unable to paint where you think you should be able to pain.</li>
+<li><strong>Modify other segments</strong> should be set to <code>Overwrite All</code>. This will allow you to overwrite one label with another, which you may need to do.</li>
+<li>Ensure the <strong>Editable intensity range</strong> remains <code>checked</code>. This will force the Paint tool to only paint voxels that fall within that intensity range, which we set to capture bone intensities.</li>
+</ul>
+</li>
+<li>Activate <strong>Sphere Brush</strong> and <strong>Edit in 3D Views</strong><blockquote>
+<p><img alt="img-name" src="../images/seg-editor-paint-settings.png" width="450" /></p>
+</blockquote>
+</li>
+</ol>
+<h4 id="segment-right-femur-head">Segment right femur head</h4>
+<p><img alt="img-name" src="../images/CTFemur-segmentations-FemurRight-selected.png" width="450" /></p>
+<ol>
+<li>Select "Femur_Right" in the segmentation table.</li>
+<li>In the 3D viewer, hold-shift and then hover the mouse pointer over the right femur head to align all viewers to this location</li>
+<li>In the transverse viewer (Red viewer), scrub to a section that shows the femur head inserted into the pelvis</li>
+<li>Move the mouse to the center of the femur head</li>
+<li>Maximize the red slice and zoom in on the femur head</li>
+<li>Adjust the size of the paintbrush by holding shift while scrolling the mouse</li>
+<li>The size of the paintbrush should match the largest cross-section of the femur head.<ul>
+<li>You may need to scrub through several slices to find the largest cross-section.</li>
+<li>Remember, you are using a sphere brush, so you are editing in 3D.</li>
+<li>That is, you will be painting voxels that are both above and below the current slice. Keep an eye on the 3D view for reference<blockquote>
+<p><img alt="img-name" src="../images/CTFemur-segment-FemurR-redViewer-paintBrush.png" width="450" /></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>Once you have your paintbrush in position on the largest cross-section, <strong>click the left mouse button</strong> once.</li>
+<li>The femur head should now be a different color from the skeleton—as long as you have selected the "Femur_Right" row in the segmentation table</li>
+</ol>
+<div class="admonition abstract">
+<p class="admonition-title">Right Femur Head separated from Shaft</p>
+<p><img alt="img-name" src="../images/CTFemur-segment-FemurRHead-3Diewer.png" width="450" /></p>
+<p>Inspect your work. Make sure that the femur head is cleanly separated from the pelvis.</p>
+</div>
+<h5 id="time-to-save-your-work">TIME TO SAVE YOUR WORK</h5>
+<ul>
+<li>When you click on the Save button, you will get the "Save Scene and Unsaved Data" pop-up dialog</li>
+<li>Only the files that have changed will be checked. <ul>
+<li>Usually it's the MRML Scence file and the Segmentation.seg.nrrd file. Don't check anything else—they don't need to be updated</li>
+</ul>
+</li>
+<li>Click on "Save"</li>
+<li>Click on "Yes to ALL"</li>
+</ul>
+<h4 id="segment-the-rest-of-the-right-femur">Segment the rest of the Right Femur</h4>
+<p>Once we have separated the femur head from the pelvis, the rest of the femur segmentation is as simple as a mouse click.</p>
+<ol>
+<li>Switch to the Island Tool <img alt="" src="../images/seg-editor-islands-button.png" width="24" /></li>
+<li>Select <code>Add Selected Island</code></li>
+<li>In the Coronal View (Green Slice Viewer), click on the femur, somewhere in the middle of the shaft</li>
+<li>The Right Femur should now be labeled as such.</li>
+</ol>
+<p><img alt="right femur 4up" src="../images/CTFemur-segment-add-selected-island-4up.png" width="450" /></p>
+<blockquote>
+<p>Right Femur labeled in blue. Note, your femur head may have holes in it. This is because the intensity of the femur head has decreased (due to degeneration) so its intensity matches tissue intensity.</p>
+</blockquote>
+<h3 id="remove-the-tibia-and-miscellaneous-bone">Remove the Tibia and miscellaneous bone</h3>
+<p>Time to clean up the Right Femur segmentation. In this step, you remove any bone that is labeled Right Femur (blue) but that is not right femur.</p>
+<h4 id="scissors-tool">Scissors Tool</h4>
+<p><img alt="scissors tool" src="../images/seg-editor-scissors-button.png" width="50" /></p>
+<p>The scissors tool can quickly edit your segmentation in the 3D Viewer</p>
+<ul>
+<li>Bring up the Scissors Tool</li>
+<li>Select the Right Femur label in the Segmentation table</li>
+<li>Use the Scissors to capture the Tibia by drawing in the 3D view</li>
+<li>The selected portion of bone should disappear</li>
+</ul>
+<h4 id="erase-tool">Erase tool</h4>
+<p><img alt="erase button" src="../images/seg-editor-erase-button.png" width="50" /></p>
+<p>Use the Erase tool for more detailed erasures in the slice viewers</p>
+<h4 id="island-tool">Island Tool</h4>
+<p><img alt="island tool button" src="../images/seg-editor-islands-button.png" width="50" /></p>
+<p>Use the "Keep Largest Island" option to remove any small noise.</p>
+<h4 id="smoothing">Smoothing</h4>
+<p>You can use the Closing Operation in the smoothing tool to close any holes in the femur head. You may need to use a large kernel, like 8 or 12mm. Be sure you don't alter the shape of the femur (remember, undo is your friend here).</p>
+<p>REMEMBER TO SAVE YOUR WORK</p>
+<h3 id="capture-the-left-femur">Capture the Left Femur</h3>
+<ul>
+<li>Select the Femur_Left segmentation in the segmentation table</li>
+<li>Repeat the above processes to capture the left Femur</li>
+<li>Remember to save your work</li>
+</ul>
+<h3 id="bonus-capture-the-implant">Bonus: Capture the Implant</h3>
+<p>Since the implant is so bright, it is easy to capture using the Threshold Tool.</p>
+<ol>
+<li>Add a new segmentation to the segmentation table called "Implant". Be sure this segmentation is selected before proceeding. </li>
+<li>Hide the other segmentations by clicking on their respective eye icons</li>
+<li>Scrub to the implant in the Yellow Viewer. Make sure that the implant is visible in all three planes, along with the left femur shaft</li>
+<li>Bring up the Threshold tool <img alt="img-name" src="../images/seg-editor-threshold-button.png" width="25" /></li>
+<li>Under the masking tab, uncheck <code>Editable Intensity Range</code>. Make sure that the <code>Editable Area</code> is set to "Everywhere" and <code>Modify other segments</code> is set to "Overwrite All".<blockquote>
+<p><strong>Warning</strong>. These settings will allow you to overwrite the Left Femur segmentation if you are not careful.</p>
+</blockquote>
+</li>
+<li>Change the Threshold range to ~1700-3961. You want just the implant to light up (and not the left femur shaft)</li>
+<li>Click <strong>Apply</strong>.</li>
+<li>Enjoy the segmentation of the implant.</li>
+<li>Reveal the other segmentations by clicking on their respective eye icons</li>
+<li>Make sure your Left Femur segmentation has not been ruined. There is always undo if you did mess it up.</li>
+</ol>
+<h2 id="final-result">Final Result</h2>
+<p><img alt="img-name" src="../images/CTFemur-all-segmentations-4up.png" width="450" /></p>
+<blockquote>
+<p>Your segmentations will likely be full of holes. This is likely due to the level of degeneration found in this skeleton.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2025 <a href="https://github.com/salcedoe"  target="_blank" rel="noopener">Ernesto Salcedo</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.instant", "navigation.top", "navigation.path", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.50899def.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
