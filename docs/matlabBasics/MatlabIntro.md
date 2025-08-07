@@ -50,7 +50,7 @@ Now, you may hear some people malign the choice of MATLAB. *Why aren't you learn
 
 As we move forward, we will assume that you are already familiar with the [MATLAB Desktop](https://www.mathworks.com/help/matlab/learn_matlab/desktop.html), especially the Command Window (and command line), the Workspace, and the Current folder. A lot of this information and more can be found in the freely available [MATLAB Onramp tutorial](https://matlabacademy.mathworks.com/details/matlab-onramp/gettingstarted), which you should definitely complete before going forward with this resource. You should also know what a live script is and [how to create one](https://www.mathworks.com/help/matlab/matlab_prog/create-live-scripts.html).
 
-That's right. You're going to have to learn some stuff of this stuff on your own.
+That's right. You're going to have to learn some of this stuff on your own.
 
 But you can handle it.
 
@@ -71,18 +71,18 @@ Throughout the modules, the following conventions are used:
 version
 ```
 
-…The comman **`version`** just reports the current version of  MATLAB. Since there is just one line of code, there is just one line number: `1`.
+…The command **`version`** just reports the current version of MATLAB. Since there is just one line of code, there is just one line number: `1`.
 
-Many of these examples are designed to be copied directly into MATLAB, so you can try programming on your own. Notice if you hover over the lightly shaded area, a copy icon will appear. If you click on the icon, the code will be copied to your clipboard and you can then just paste into  MATLAB
+Many of these examples are designed to be copied directly into MATLAB, so you can try programming on your own. Notice if you hover over the lightly shaded area, a copy icon will appear. If you click on the icon, the code will be copied to your clipboard and you can then just paste into MATLAB
 
-For clarity, I  will often include the output that is spit out after you enter a command in MATLAB. This code **should not be copied or pasted**—you'll probably get an error if you do. So, I will differentiate the output text in two ways:
+For clarity, I will often include the output that is spit out after you enter a command in MATLAB. This code **should not be copied or pasted**—you'll probably get an error if you do. So, I will differentiate the output text in two ways:
 
 1. The title of the code block will often be "result".
 2. There will be no line numbers on the left-hand side of the code block.
 
-For example, the following code block contains the output found in the command line after you execute the `version` command above
+For example, the following code block contains the output found in the command line after you execute the `version` command above.
 
-!!! warning "Don't copy or paste code that don't have line numbers."
+!!! warning "Don't copy or paste code that doesn't have line numbers."
     ```matlab title="result"
     ans =
 
