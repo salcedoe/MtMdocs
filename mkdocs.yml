@@ -47,17 +47,24 @@ nav:
     - Group Statistics: dataProcessing/groupStats.md
     - Sampling and Distributions: dataProcessing/SamplesDistributions.md
     - Hypothesis Testing: dataProcessing/HypTesting.md
-  - Images: 
-    - Image Processing:
+  - Imaging:
+    - imaging/index.md 
+    - Imaging Concepts:
+      - Light: imaging/electromagneticRadiation.md
+      - Human Vision: imaging/humanVision.md
+    #  - Image Formation: imaging/ImageFormation.md
+    - 2D Medical Imaging:
+      - Introduction: imaging/medicalImagingIntro.md
+      - X-ray Imaging: imaging/XrayImaging.md
+  - Image Processing:
+    - 2D Image Processing:
       - Grayscale Images: imageProcessing/ImageIntro.md
       - Image Enhancement: imageProcessing/ImageEnhancement.md
       - Image Segmentation: imageProcessing/ImageSegmentation.md
       - Segmentation Cleanup: imageProcessing/ImageSegmentationCleanup.md
       - Region Processing: imageProcessing/ImageRegionProcessing.md
       - RGB Images: imageProcessing/ImageRGB.md
-    - 2D Imaging:
-      - Introduction: imageProcessing/medicalImagingIntro.md
-      - X-ray Imaging: imageProcessing/XrayImaging.md
+    
   - Volumes: 
     - Overview: volumeProcessing/volumeOverview.md
     - Volume Processing:

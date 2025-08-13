@@ -59,9 +59,10 @@ The first line in a function sets the name, the inputs, and the outputs of the f
 ![first line in a function](images/functions-anatomy.png){ width="450"}
 
 1. **Keyword:** the first word in the first line must be **function** - this keyword indicates that you are creating a function
-2. **Outputs:** Following the keyword **function** are the names of the outputs. In this case, there is just one output, *`y`*. If there were more outputs, they would be packaged in square brackets. e.g. `[y,z]`
 3. **Name of Function:** Following the names of the outputs, is the equal sign, and then the name of the function. In this case, the name is **`mean`**.
-4. **Inputs:** Following the name of the function is a set of parentheses. Inside the parentheses are a list of inputs, separated by commas. In this case, there are two inputs, `(x,dim)`
+4. **Arguments** The collective inputs and outputs of a function
+   1. **Input names** are found inside the parentheses, following the name of the function. Each input should be separated by a comma. In this case, there are two inputs, `(x,dim)`
+   2. **Output names** follow the keyword **function**. In this case, there is just one output, *`y`*. If there were more outputs, they would be packaged in square brackets. e.g. `[y,z]`
 5. **CODE:** After the first line, you have the all the code of the function including comments
 6. **Last Line** The final line of the function should be the keyword **end**.
 

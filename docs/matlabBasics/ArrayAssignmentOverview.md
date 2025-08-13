@@ -210,7 +210,7 @@ Notice that we have two different variable names on either side of the assignmen
 
 Sometimes we want to add new elements to a variable that already exists. To do this, we use **Recursive assignment**, which simply means that we include the same variable name on both sides of the assignment operator.
 
-!!! note
+!!! tip
     Remember the convention: Data is always extracted from the variable name to the right of the `equal sign` and added to the variable name that is to the left of the `equal sign`.
 
 For example, the variable *`h`* currently contains the following characters: `$?_%` — a well known expletive in the comic book world. But, we forgot to include the most important part: the exclamation point at the end. No worries, we can add a character to *`h`* as follows:
@@ -288,7 +288,7 @@ As you can see, we generated a lot of data in a very little amount of time. The 
 
 !!! info "Function: **size**"
 
-    The function **[size][mlb-ref-size]** returns the array dimension size of a variable (so you can get the values programmatically instead of having to refer to the workspace)
+    The function **[size](https://www.mathworks.com/help/matlab/ref/double.size.html){target="_blank"}** returns the array dimension size of a variable (so you can get the values programmatically instead of having to refer to the workspace)
 
     ```matlab linenums="1"
     size(b)
