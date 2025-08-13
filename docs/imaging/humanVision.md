@@ -26,13 +26,13 @@ The retina is composed of several layers and contains specialized cells for the 
 
 Note that the photoreceptors in the retina (rods and cones) are located behind the axons, RGCs, bipolar cells, and retinal blood vessels. A significant amount of light is absorbed by these structures before the light reaches the photoreceptor cells. However, at the exact center of the retina is a small area known as the **fovea**. At the fovea, the retina lacks the supporting cells and blood vessels, and only contains photoreceptors. Therefore, **visual acuity**, or the sharpness of vision, is greatest at the fovea. This is because the fovea is where the least amount of incoming light is absorbed by other retinal structures (see [Figure 14.15](https://openstax.org/books/anatomy-and-physiology/pages/14-1-sensory-perception#fig-ch14_01_14)). As one moves in either direction from this central point of the retina, visual acuity drops significantly. In addition, each photoreceptor cell of the fovea is connected to a single RGC. Therefore, this RGC does not have to integrate inputs from multiple photoreceptors, which reduces the accuracy of visual transduction. Toward the edges of the retina, several photoreceptors converge on RGCs (through the bipolar cells) up to a ratio of 50 to 1. The difference in visual acuity between the fovea and peripheral retina is easily evidenced by looking directly at a word in the middle of this paragraph. The visual stimulus in the middle of the field of view falls on the fovea and is in the sharpest focus. Without moving your eyes off that word, notice that words at the beginning or end of the paragraph are not in focus. The images in your peripheral vision are focused by the peripheral retina, and have vague, blurry edges and words that are not as clearly identified. As a result, a large part of the neural function of the eyes is concerned with moving the eyes and head so that important visual stimuli are centered on the fovea.
 
-### Transduction
-
-Light falling on the retina causes chemical changes to pigment molecules in the photoreceptors, ultimately leading to a change in the activity of the RGCs. Photoreceptor cells have two parts, the **inner segment** and the **outer segment** ([Figure 14.16](https://openstax.org/books/anatomy-and-physiology/pages/14-1-sensory-perception#fig-ch14_01_15)). The inner segment contains the nucleus and other common organelles of a cell, whereas the outer segment is a specialized region in which photoreception takes place. There are two types of photoreceptors—rods and cones—which differ in the shape of their outer segment. The rod-shaped outer segments of the **rod photoreceptor** contain a stack of membrane-bound discs that contain the photosensitive pigment **rhodopsin**. The cone-shaped outer segments of the **cone photoreceptor** contain their photosensitive pigments in infoldings of the cell membrane. There are three cone photopigments, called **opsins**, which are each sensitive to a particular wavelength of light. The wavelength of visible light determines its color. The pigments in human eyes are specialized in perceiving three different primary colors: red, green, and blue.
-
 ![structure of the retina](images/eye-retina-structure.webp){ width="550"}
 
 >**Figure** **14.16. Organization of the Retina.** (a) All photoreceptors have inner segments containing the nucleus and other important organelles and outer segments with membrane arrays containing the photosensitive opsin molecules. Rod outer segments are long columnar shapes with stacks of membrane-bound discs that contain the rhodopsin pigment. Cone outer segments are short, tapered shapes with folds of membrane in place of the discs in the rods. (b) Tissue of the retina shows a dense layer of nuclei of the rods and cones. LM × 800. (Micrograph provided by the Regents of University of Michigan Medical School © 2012)
+
+### Transduction
+
+Light falling on the retina causes chemical changes to pigment molecules in the photoreceptors, ultimately leading to a change in the activity of the RGCs. Photoreceptor cells have two parts, the **inner segment** and the **outer segment** ([Figure 14.16](https://openstax.org/books/anatomy-and-physiology/pages/14-1-sensory-perception#fig-ch14_01_15)). The inner segment contains the nucleus and other common organelles of a cell, whereas the outer segment is a specialized region in which photoreception takes place. There are two types of photoreceptors—rods and cones—which differ in the shape of their outer segment. The rod-shaped outer segments of the **rod photoreceptor** contain a stack of membrane-bound discs that contain the photosensitive pigment **rhodopsin**. The cone-shaped outer segments of the **cone photoreceptor** contain their photosensitive pigments in infoldings of the cell membrane. There are three cone photopigments, called **opsins**, which are each sensitive to a particular wavelength of light. The wavelength of visible light determines its color. The pigments in human eyes are specialized in perceiving three different primary colors: red, green, and blue.
 
 At the molecular level, visual stimuli cause changes in the photopigment molecule that lead to changes in membrane potential of the photoreceptor cell. A single unit of light is called a **photon**, which is described in physics as a packet of energy with properties of both a particle and a wave. The energy of a photon is represented by its wavelength, with each wavelength of visible light corresponding to a particular color. Visible light is electromagnetic radiation with a wavelength between 380 and 720 nm. Wavelengths of electromagnetic radiation longer than 720 nm fall into the infrared range, whereas wavelengths shorter than 380 nm fall into the ultraviolet range. Light with a wavelength of 380 nm is blue whereas light with a wavelength of 720 nm is dark red. All other colors fall between red and blue at various points along the wavelength scale.
 
@@ -87,15 +87,15 @@ As noted, the image must fall precisely on the retina to produce clear vision—
 
 The nearest point an object can be placed so that the eye can form a clear image on the retina is called the **near point of the eye**. Similarly, the **far point** is the farthest distance at which an object is clearly visible. A person with normal vision can see objects clearly at distances ranging from 25 cm to essentially infinity. The near point increases with age, becoming several meters for some older people. In this text, we consider the near point to be 25 cm.
 
-### Lens Equations
+### Lens in the Eye
 
-Imaging with concave lenses
+The human eye images using an equivalent concave lens (cornea + lens)
 
-![lens diagram](images/wikiLens3.png){ width="650"}
+![lens diagram](images/wikiLens3.png){ width="450"}
 
 >**Formation of a real image with a concave lens**. $d_o$ - distance of object from lens. $d_i$ - distance of the image from the lens. $f$ - focal length of the lens.
 
-The Thin Lens equation relates the distance of the object and the image from the lens to the focal length of the lens, as follows:
+Recall that the thin Lens equation relates the distance of the object and the image from the lens to the focal length of the lens, as follows:
 
 $$\frac{1}{f}=\frac{1}{d_o} + \frac{1}{d_i}$$
 
