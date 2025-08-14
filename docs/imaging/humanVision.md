@@ -1,8 +1,11 @@
 # Human Vision
 
-Adapted from [Openstax Anatomy and Physiology](https://openstax.org/books/anatomy-and-physiology/pages/14-1-sensory-perception)
-
 **Vision** is the special sense of sight that is based on the transduction of light stimuli received through the eyes.
+
+!!! note ":material-web: Adapted from"
+    - [Openstax Anatomy and Physiology](https://openstax.org/books/anatomy-and-physiology/pages/14-1-sensory-perception)
+    - [Openstax Bioology 2](https://openstax.org/books/biology-2e/pages/36-5-vision)
+
 
 ## Structure of the Eye
 
@@ -32,7 +35,13 @@ Note that the photoreceptors in the retina (rods and cones) are located behind t
 
 ### Transduction
 
-Light falling on the retina causes chemical changes to pigment molecules in the photoreceptors, ultimately leading to a change in the activity of the RGCs. Photoreceptor cells have two parts, the **inner segment** and the **outer segment** ([Figure 14.16](https://openstax.org/books/anatomy-and-physiology/pages/14-1-sensory-perception#fig-ch14_01_15)). The inner segment contains the nucleus and other common organelles of a cell, whereas the outer segment is a specialized region in which photoreception takes place. There are two types of photoreceptors—rods and cones—which differ in the shape of their outer segment. The rod-shaped outer segments of the **rod photoreceptor** contain a stack of membrane-bound discs that contain the photosensitive pigment **rhodopsin**. The cone-shaped outer segments of the **cone photoreceptor** contain their photosensitive pigments in infoldings of the cell membrane. There are three cone photopigments, called **opsins**, which are each sensitive to a particular wavelength of light. The wavelength of visible light determines its color. The pigments in human eyes are specialized in perceiving three different primary colors: red, green, and blue.
+Light falling on the retina causes chemical changes to pigment molecules in the photoreceptors, ultimately leading to a change in the activity of the RGCs. Photoreceptor cells have two parts, the **inner segment** and the **outer segment** ([Figure 14.16](https://openstax.org/books/anatomy-and-physiology/pages/14-1-sensory-perception#fig-ch14_01_15)). The inner segment contains the nucleus and other common organelles of a cell, whereas the outer segment is a specialized region in which photoreception takes place. There are two types of photoreceptors—rods and cones—which differ in the shape of their outer segment. The rod-shaped outer segments of the **rod photoreceptor** contain a stack of membrane-bound discs that contain the photosensitive pigment **rhodopsin**. The cone-shaped outer segments of the **cone photoreceptor** contain their photosensitive pigments in infoldings of the cell membrane.
+
+![rods and cones](images/eye-rods-cones.webp){ width="450"}
+
+>**Rods and cones are photoreceptors in the retina**. Rods respond in low light and can detect only shades of gray. Cones respond in intense light and are responsible for color vision. (credit: modification of work by Piotr Sliwa)
+
+There are three cone photopigments, called **opsins**, which are each sensitive to a particular wavelength of light. The wavelength of visible light determines its color. The pigments in human eyes are specialized in perceiving three different primary colors: red, green, and blue.
 
 At the molecular level, visual stimuli cause changes in the photopigment molecule that lead to changes in membrane potential of the photoreceptor cell. A single unit of light is called a **photon**, which is described in physics as a packet of energy with properties of both a particle and a wave. The energy of a photon is represented by its wavelength, with each wavelength of visible light corresponding to a particular color. Visible light is electromagnetic radiation with a wavelength between 380 and 720 nm. Wavelengths of electromagnetic radiation longer than 720 nm fall into the infrared range, whereas wavelengths shorter than 380 nm fall into the ultraviolet range. Light with a wavelength of 380 nm is blue whereas light with a wavelength of 720 nm is dark red. All other colors fall between red and blue at various points along the wavelength scale.
 
@@ -46,13 +55,38 @@ The shape change of retinal in the photoreceptors initiates visual transduction 
 
 The opsins are sensitive to limited wavelengths of light. Rhodopsin, the photopigment in rods, is most sensitive to light at a wavelength of 498 nm. The three color opsins have peak sensitivities of 564 nm, 534 nm, and 420 nm corresponding roughly to the primary colors of red, green, and blue ([Figure 14.18](https://openstax.org/books/anatomy-and-physiology/pages/14-1-sensory-perception#fig-ch14_01_17)). The absorbance of rhodopsin in the rods is much more sensitive than in the cone opsins; specifically, rods are sensitive to vision in low light conditions, and cones are sensitive to brighter conditions. In normal sunlight, rhodopsin will be constantly bleached while the cones are active. In a darkened room, there is not enough light to activate cone opsins, and vision is entirely dependent on rods. Rods are so sensitive to light that a single photon can result in an action potential from a rod’s corresponding RGC.
 
-The three types of cone opsins, being sensitive to different wavelengths of light, provide us with color vision. By comparing the activity of the three different cones, the brain can extract color information from visual stimuli. For example, a bright blue light that has a wavelength of approximately 450 nm would activate the “red” cones minimally, the “green” cones marginally, and the “blue” cones predominantly. The relative activation of the three different cones is calculated by the brain, which perceives the color as blue. However, cones cannot react to low-intensity light, and rods do not sense the color of light. Therefore, our low-light vision is—in essence—in grayscale. In other words, in a dark room, everything appears as a shade of gray. If you think that you can see colors in the dark, it is most likely because your brain knows what color something is and is relying on that memory.
+### Trichromatic Color Vision
+
+There are three types of cones (with different photopsins), and they differ in the wavelength to which they are most responsive, as shown in Figure 14.18. Some cones are maximally responsive to short light waves of 420 nm, so they are called S cones (“S” for “short”); others respond maximally to waves of 530 nm (M cones, for “medium”); a third group responds maximally to light of longer wavelengths, at 560 nm (L, or “long” cones). With only one type of cone, color vision would not be possible, and a two-cone (dichromatic) system has limitations. Primates use a three-cone (trichromatic) system, resulting in full color vision.
+
+The color we perceive is a result of the ratio of activity of our three types of cones. The colors of the visual spectrum, running from long-wavelength light to short, are red (700 nm), orange (600 nm), yellow (565 nm), green (497 nm), blue (470 nm), indigo (450 nm), and violet (425 nm). Humans have very sensitive perception of color and can distinguish about 500 levels of brightness, 200 different hues, and 20 steps of saturation, or about 2 million distinct colors.
+
+Cones cannot react to low-intensity light, and rods are not used for color vision. Therefore, our low-light vision is essentially grayscale. In other words, in a dark room, everything appears as a shade of gray. If you think that you can see colors in the dark, it is most likely because your brain knows what color something is and is relying on that memory.
 
 ![cone sensitivity](images/eye-opsins-absorbance.webp){ width="650"}
 
 >**Figure 14.18. Comparison of Color Sensitivity of Photopigments.** Comparing the peak sensitivity and absorbance spectra of the four photopigments suggests that they are most sensitive to particular wavelengths.
 
-## Physics of the Eye
+### Colorblindness
+
+Color blindness occurs when one or more types of cone cells either malfunction or are missing. The degree of malfunction can vary widely. If the cone is simply defective, that’s known as anomaly (e.g., trichromatic anomaly), which is more common. If the cone is missing entirely, it’s known as dichromacy (less common)(1).
+
+{ .annotate}
+
+1. Adapted from [ColorBlind Smart](https://colorblindsmart.com/which-structure-is-malfunctioning/)
+
+![Spectral sensitive curves](images/eye-cone-sensitivities-colorblind.png){ width="450"}
+
+>Normalized spectral sensitivity curves for the L (red), M (green), and S (blue) cones for a normal and five color vision deficiency cases (Adapted from: [Shrestha, "Simulating Colour Vision Deficiency from a Spectral Image."](https://www.researchgate.net/publication/320962643_Simulating_Colour_Vision_Deficiency_from_a_Spectral_Image) )
+
+In an anomalous trichromat, the sensitivity of one the cones has shifted to that of another. This occurs primarily with the red and green. For example, deuteronomy is a green cone anomaly. Because the green sensitivity now close matches the red sensitivity, these anomalous trichromat are no longer able to tell the difference between green and red colors
+
+![diagram of a deutan](images/eye-deuteranomaly.png){ width="450"}
+
+>Deuteranomaly - red-green color deficiency in which the green cone sensitivity closely matches the red cone sensitivity. Adapted from [ColorBlind Smart](https://colorblindsmart.com/which-structure-is-malfunctioning/)
+
+
+## Imaging in the Eye
 
 Adapted from [Libretexts Physics III - Optics](https://phys.libretexts.org/Bookshelves/University_Physics/University_Physics_(OpenStax)/University_Physics_III_-_Optics_and_Modern_Physics_(OpenStax)/02%3A_Geometric_Optics_and_Image_Formation/2.06%3A_The_Eye)
 
