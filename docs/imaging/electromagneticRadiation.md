@@ -49,21 +49,21 @@ Light ranges from 400 nanometers to 700 nanometers in wavelength. So, the only d
 
 ### The Ray Model of Light
 
-When light interacts with an object several times larger than its wavelength (like a human eye), it travels in straight lines and acts like a ray. Its wave characteristics are not pronounced in such situations, so you can totally think of light traveling like a laser beam. There are three ways in which light can travel from a source to another location (Figure  1.2.1 ). It can come directly from the source through empty space, such as from the Sun to Earth. Or light can travel through various media, such as air and glass, to the observer. Light can also arrive after being reflected, such as by a mirror. In all of these cases, we can model the path of light as a straight line called a ray.
+When light interacts with an object several times larger than its wavelength (like a human eye), it travels in straight lines and acts like a ray. Its wave characteristics are not pronounced in such situations, so you can totally think of light traveling like a laser beam. There are three ways in which light can travel from a source to another location. It can come directly from the source through empty space, such as from the Sun to Earth. Or light can travel through various media, such as air and glass, to the observer. Light can also arrive after being reflected, such as by a mirror. In all of these cases, we can model the path of light as a straight line called a ray.
 
 ![ray models of light](images/light-ray-model.jpg){ width="550"}
 
->**Figure  1.2.3**. Three methods for light to travel from a source to another location. (a) Light reaches the upper atmosphere of Earth, traveling through empty space directly from the source. (b) Light can reach a person by traveling through media like air and glass. (c) Light can also reflect from an object like a mirror. In the situations shown here, light interacts with objects large enough that it travels in straight lines, like a ray.
+>**Three methods for light to travel from a source to another location.** (a) Light reaches the upper atmosphere of Earth, traveling through empty space directly from the source. (b) Light can reach a person by traveling through media like air and glass. (c) Light can also reflect from an object like a mirror. In the situations shown here, light interacts with objects large enough that it travels in straight lines, like a ray.
 
 When light encounters and interacts with materials, it changes direction. Since light moves in a straight line, like a laser, it's path can be described by simple trigonometry (geometric optics). Two laws govern how light changes direction when it interacts with matter. These are the [law of reflection](https://phys.libretexts.org/Bookshelves/University_Physics/University_Physics_(OpenStax)/University_Physics_III_-_Optics_and_Modern_Physics_(OpenStax)/01%3A_The_Nature_of_Light/1.03%3A_The_Law_of_Reflection){target="_blank"}, for situations in which light bounces off matter, and **the law of refraction**, for situations in which light passes through matter.
 
 ### Refraction
 
-When light encounters a new medium (e.g. from air to glass), it bends. This bend is known as **refraction**, and its the same angle going backwards and forwards (see Figure 1.4.2)
+When light encounters a new medium (e.g. from air to glass), it bends. This bend is known as **refraction**, and its the same angle going backwards and forwards.
 
 ![diagram of refraction for different mediums](images/light-refraction.jpg){ width="450"}
 
-> **Figure  1.4.2**. The change in direction of a light ray depends on how the index of refraction changes when it crosses from one medium to another. In the situations shown here, the index of refraction is greater in medium 2 than in medium 1. (a) A ray of light moves closer to the perpendicular when entering a medium with a higher index of refraction. (b) A ray of light moves away from the perpendicular when entering a medium with a lower index of refraction.
+> **The change in direction of a light ray depends on how the index of refraction changes when it crosses from one medium to another.** In the situations shown here, the index of refraction is greater in medium 2 than in medium 1. (a) A ray of light moves closer to the perpendicular when entering a medium with a higher index of refraction. (b) A ray of light moves away from the perpendicular when entering a medium with a lower index of refraction.
 
 Refraction depends on how fast light travels. We all know that the speed of light in a vacuum $c$ is $3.00×108m/s$. This is the fastest known speed in the universe. What we may not remember is that light travels slower when it passes through matter. This is because light interacts with atoms in a material. The speed of light depends strongly on the type of material, since its interaction varies with different atoms, crystal lattices, and other substructures. 
 
@@ -85,7 +85,7 @@ Lenses use refraction and a spherical shape to bend light. There are lots of dif
 
 ![converging vs diverging lenses](images/lens-converging-diverging.jpg){ width="650"}
 
->**Figure  2.5.2**. Rays of light entering (a) a converging lens and (b) a diverging lens, parallel to its axis, converge at its focal point F. The distance from the center of the lens to the focal point is the lens’s focal length $f$. Note that the light rays are bent upon entering and exiting the lens, with the overall effect being to bend the rays toward the optical axis.
+>**Rays of light entering (a) a converging lens and (b) a diverging lens, parallel to its axis, converge at its focal point F.** The distance from the center of the lens to the focal point is the lens’s focal length $f$. Note that the light rays are bent upon entering and exiting the lens, with the overall effect being to bend the rays toward the optical axis.
 
 Notice the relationship between the focal point and the lens. In a converging lens, parallel rays of light converge onto the focal length.
 
@@ -95,17 +95,13 @@ Ray tracing is the technique of determining (tracing) the paths taken by light r
 
 ![tracing rays through a converging lens](images/lens-ray-tracing.jpg){ width="650"}
 
->**Figure  2.5.5**. Thin lenses have the same focal lengths on either side. Parallel light rays entering a converging lens from the right cross at its focal point on the left.
+>**Example Ray Tracing Diagram.** Thin lenses have the same focal lengths on either side. Parallel light rays entering a converging lens from the right cross at its focal point on the left. **Ray 1 (red):** A ray entering a converging lens parallel to the optical axis passes through the focal point on the other side of the lens. **Ray 2 (green):** A ray passing through the center of a converging lens is not deviated. **Ray 3 (purple):** A ray that passes through the focal point exits the lens parallel to the optical axis .
 
-1. A ray entering a converging lens parallel to the optical axis passes through the focal point on the other side of the lens (ray 1).
-2. A ray passing through the center of a converging lens is not deviated (ray 2).
-3. A ray that passes through the focal point exits the lens parallel to the optical axis (ray 3).
-
-Ray Tracing can determine the location of the image based on the focal length of the lens the position of the object in relation to the lens.
+Ray Tracing can determine the location of the image based on the focal length of the lens and the position of the object in relation to the lens.
 
 ![ray tracing and image position](images/lens-ray-tracing-position-image.jpg){ width="450"}
 
->**Figure  2.5.6**. Ray tracing is used to locate the image formed by a lens. Rays originating from the same point on the object are traced—the three chosen rays each follow one of the rules for ray tracing, so that their paths are easy to determine. The image is located at the point where the rays cross. In this case, a real image—one that can be projected on a screen—is formed.
+>**Ray tracing can be used to locate the image formed by a lens.** Rays originating from the same point on the object are traced—the three chosen rays each follow one of the rules for ray tracing, so that their paths are easy to determine. The image is located at the point where the rays cross. In this case, a real image—one that can be projected on a screen—is formed.
 
 The **thin lens equation** describes this relationship:
 
