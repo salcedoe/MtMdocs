@@ -52,7 +52,8 @@ nav:
     - Imaging Concepts:
       - Light: imaging/electromagneticRadiation.md
       - Human Vision: imaging/humanVision.md
-    #  - Image Formation: imaging/ImageFormation.md
+    - Imaging with Light:
+      - Digital Photography: imaging/digitalPhotography.md
     - 2D Medical Imaging:
       - Introduction: imaging/medicalImagingIntro.md
       - X-ray Imaging: imaging/XrayImaging.md
