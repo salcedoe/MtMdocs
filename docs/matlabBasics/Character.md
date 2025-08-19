@@ -146,7 +146,6 @@ Character Arrays can be indexed using parentheses, just like numeric arrays.
           'o'
     ```
 
-    and this syntax returns the last element in the array, which contains the letter `o`:
 
 ## Concatenation
 
@@ -246,7 +245,7 @@ p =
 
 !!! note
 
-    Here, the function **`char`** automatically creates a `3X7` character array, padding both 'hello' and 'goodbye' with spaces at the end to match the length of 'farewell'.
+    Here, the function **`char`** automatically creates a `3x8` character array, padding both 'hello' and 'goodbye' with spaces at the end to match the length of 'farewell'.
 
 <!--Everything Is Not Always What It seems...
 
@@ -506,7 +505,7 @@ The product of 2 times 3 equals 6
 
 !!! note
 
-    Notice that the last input into **`sprintf`** is actually the product of the two variables, `x` and `y`.
+    > Note: The last input into **`sprintf`** in this example is the product of `x` and `y`, which matches the final `%d` placeholder.
 
 ### fprintf
 
@@ -532,10 +531,6 @@ ___
     y = 3
     result = sprintf(input_array, x, 'plus', y, x+y)
     ```
-
-    and this syntax returns the last element in the array, which contains the letter `o`:
-
-___
 
 ## Regular Expressions
 
