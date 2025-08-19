@@ -4,9 +4,15 @@
 
 🧶 String arrays are designed to manage collections of character arrays. They have only recently been added to MATLAB, but they have quickly become a powerful tool for managing collections of characters and words.
 
-## Overview
+## Syntax Overview
 
-This module is broken down into the following sections:
+The special character for strings is the double quote: `"`
+
+| Syntax | Meaning |
+| ----- | --- |
+| `x="a"` | assign the character `'a'` to the first element in *`x`* |
+| `x="cat"` | assign the word `'cat'` to the first element in *`x`* |
+| `x=["cat" "dog"]` | assign the word `'cat'` to the first element and `"dog"` to the second element in *`x`* |
 
 ---
 
