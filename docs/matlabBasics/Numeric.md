@@ -52,7 +52,7 @@ Notice that when you type the number `5` in the command window, MATLAB automatic
 
     A variable with just a single value (numeric or otherwise) is commonly referred to as a **SCALAR**. (1)
 
-1. **Technical Annoyance**. Technically, all MATLAB variables are matrices. So, even though our new variable with the value 5 in it can be called a scalar, it is stored in MATLAB as 2D matrix.
+1. **Technical Annoyance**. Technically, all MATLAB variables are matrices. So, even though our new variable can be called a scalar, it is stored in MATLAB as a 2D matrix.
 
 If you double-click on *`ans`* in the workspace, you will open up a new window called the **Variable Editor**.
 
@@ -104,7 +104,7 @@ The value `1` is stored in the top left corner position, or index `(1,1)`, The v
 
 To add a second row to an array, you use the semicolon `;`. The semicolon indicates a line break in a matrix. For example, type the following in the command window:
 
-!!! example "Use the Semicolon to create a new row in an matrix"
+!!! example "Use the Semicolon to create a new row in a matrix"
     
     ```matlab linenums="1"
     bears = [30 40; 50 60]
@@ -120,7 +120,7 @@ Inspecting the *`bears`* variable reveals the following matrix with two rows of 
 
 ![Image of a Matrix](images/numeric-bears-var.png){ width="150"}
 
-…with numbers in the standard index positions of `(1,1)`, `(1,2)`, `(2,1)`, and `(2,3)`.
+…with numbers in the standard index positions of `(1,1)`, `(1,2)`, `(2,1)`, and `(2,2)`.
 
 !!! tip "Fun Fact: special characters can mean more than one thing"
     The semi-colon is also used to indicate the end of a programming line and suppresses output to the command window. This is called overloading a function, kind of like we are overloading you with all these fun little arcane factoids. We'll get to using semi-colons at the end of a line in a later module.
@@ -141,7 +141,7 @@ After executing the above lines in the command window, you should see the follow
 
 ![image of workspace](images/workspace-numeric-array-abc.png)
 
->The variable *`a`* is filled with numbers 1 through 10. The variable *`b`* has only odd numbers up to 10. The command `1:2:10` indicates to skip every other number. Also note that *`c`*  has two rows (Size: 2 X 10). To create *`c`*, we had to use the concatenating square brackets and a semi-colon. The semi-colon indicates "new row" in the array.
+>The variable *`a`* is filled with numbers 1 through 10. The variable *`b`* has only odd numbers from 1 to 9. The command `1:2:10` indicates to skip every other number. Also note that *`c`*  has two rows (Size: 2 X 10). To create *`c`*, we had to use the concatenating square brackets and a semi-colon. The semi-colon indicates "new row" in the array.
 
 ---
 
