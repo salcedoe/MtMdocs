@@ -67,7 +67,7 @@ The key to a good sample is that it is representative of the entire population. 
 
 ![bell curve with a You are here arrow pointing at the mean](images/bell-curve-you-are-here.png){ width="250"}
 
-When you measure things, like humans, you will find that their parts vary: height, weight, foot size, the spacing between the eyes (I'm looking at you, Anna Taylor Joy). But each of these measurements won't vary *too* greatly between humans—they tend to fall with a certain range. If you take a large enough sample (>30) and plot the measurements as a histogram, you should get a histogram that looks something like this:
+When you measure things, like humans, you will find that their parts vary: height, weight, foot size, the spacing between the eyes (I'm looking at you, Anya Taylor Joy). But each of these measurements won't vary *too* greatly between humans—they tend to fall with a certain range. If you take a large enough sample (>30) and plot the measurements as a histogram, you should get a histogram that looks something like this:
 
 ![img-name](images/histogram-female-heights.png){ width="450"}
 

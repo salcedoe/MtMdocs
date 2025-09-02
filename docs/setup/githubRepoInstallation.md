@@ -39,6 +39,22 @@ Do this step for the matGeom repo.
 
 ![New Git Clone Menu](images/menu-new-git-clone.png){ width="250"} ![git clone dialog window](images/dialog-add-git-clone.png){ width="450"}
 
+### Updating GitHub Repositories
+
+Overtime, Repositories such as the scripts folder and the course functions folder (MtMTools) will get updates (as your instructor completes the scripts or updates the functions). If you have been making changes to files on your computer (e.g. filling out the scripts in class) and you want to ensure that you still have access to changes you made, you can use git stash, as described on the [MATLAB "Review and Commit Modified Files to Git" page](https://www.mathworks.com/help/matlab/matlab_prog/review-and-commit-modified-files-to-git.html)
+
+Basically, to stash all local changes, in the Source Control panel:
+
+1. Click the More source control options button
+2. Select "Stash Changes".
+3. In the Stash Files dialog box, provide the stash name and click Stash.
+
+Once you have stashed your changes, you can downloaded the updates from the git repositories by performing a git pull:
+
+1. Click on the More source control options button
+2. Select "Pull"
+
+
 ## Add Toolboxes to MATLAB Search Path
 
 For MATLAB to actually use these toolboxes, we need to tell MATLAB about them, which means add the folder paths to the MATLAB search path.

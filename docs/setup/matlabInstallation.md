@@ -27,7 +27,7 @@ If you have already run the installer and did not install one of these toolboxes
 
 ## Installing the MATLAB Drive Connector
 
-MATLAB Drive is a free cloud drive similar to Dropbox or Google Drive, but optimized to share MATLAB scripts and functions. Follow the instructions [here](https://www.mathworks.com/products/matlab-drive.html) to install MATLAB Connector app on your computer. Once installed, there will be a local folder on your computer called MATLAB Drive, which will sync with the Mathworks Cloud servers. 
+MATLAB Drive is a free cloud drive similar to Dropbox or Google Drive, but optimized to share MATLAB scripts and functions. Follow the instructions [here](https://www.mathworks.com/products/matlab-drive.html) to install MATLAB Connector app on your computer. Once installed, there will be a local folder on your computer called MATLAB Drive, which will sync with the Mathworks Cloud servers.
 
 The MATLAB Connector is an additional application that you install on your computer. The main job of this application is to sync an online folder to a folder on your computer. Syncing can sometimes take time, especially if there are a lot of files that need to be copied. You can keep track of the sync status by bringing up the MATLAB Connector window. Depending on whether you have a Mac or a PC, there should be a little icon (with the MATLAB logo on it) that you can click on in the menubar (or Windows task bar) that shows you the current sync status. 
 
