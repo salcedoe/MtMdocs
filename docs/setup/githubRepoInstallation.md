@@ -2,6 +2,8 @@
 
 Github is an online sharing and collaboration tool for software and other files. We'll use it primarily as a site where you can download additional toolboxes for MATLAB. A GitHub **repository**, or repo, is an online folder, typically with many subfolders and files. Different software is stored in different repos. These repos are synced with the developers' computers, so they always contain the latest version of the software. It's not just software files; for example, the files that make up this MTM documentation site are all stored in this [GitHub repository](https://github.com/salcedoe/MtMdocs).
 
+For more information, consult the [MATLAB GITHUB documentation](https://www.mathworks.com/help/matlab/matlab_prog/collaborate-using-git-in-matlab.html) and this site on ["How github works."](https://biostats-r.github.io/biostats/github/){target="_blank"}
+
 ## Github repositories we'll be using
 
 The following are all add-on toolboxes for MATLAB:
