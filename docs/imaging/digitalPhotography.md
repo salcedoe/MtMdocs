@@ -36,13 +36,19 @@ The Main things to consider are
 
 In cameras, the angle of view of the lens can create distortions (such as the relative heights of objects in an image) that we don't have in our vision because we reconstruct visual information into a mental 3D image. Have you have taken a picture of a mountains off in the distance and they look much smaller than your mental image of the same mountain range? Or taken a picture of a monstrous moon at the horizon and it looks tiny? Angle of View.  
 
+![Distorted image of Cambridge University](https://cdn.cambridgeincolour.com/images/tutorials/camera-eye_distortion1b.png){ width="450"}
+
 #### Resolution and Detail
 
 Only our central vision has high resolution at 20/20. Away from the center, our resolution drops off dramatically. At just 20˚ off center, resolution drops off by one-tenth. Our minds don't record single glances as images pixel by pixel. Instead, to develop a detailed mental picture of a scene, we rapidly focus on multiple regions in the scene in rapid succession, building what seems us to be a detailed mental image of the scene, but in fact represents our biases, prioritized by interest.
 
+![View of a canyon](https://cdn.cambridgeincolour.com/images/tutorials/camera-eye_detail1c.jpg){ width="450"}
+
 #### Sensitivity and Dynamic Range
 
-Human vision has huge dynamic range (due to the dual Rod and Cone system in our retinas) Our eyes are especially sensitive in low-light conditions (Rods are very sensitive to photons)
+Human vision has huge dynamic range (due to the dual Rod and Cone system in our retinas) and the fact that our visions is jumping around (fixations and sacades) all time. Our eyes are especially sensitive in low-light conditions (Rods are very sensitive to photons). We have [the equivalent of 30 stops](https://jameslorentson.com/blog/2018/9/5/we-see-more-than-our-cameras-do) in our vision (cameras can have up to 14 stops).
+
+![img-name](https://static1.squarespace.com/static/57b3bef6440243c274bbe19f/57b3f9596b8f5b356fe665af/5b90b8a2562fa7cd99115508/1713372337609/humanperception+and+Desert.png?format=1500w){ width="450"}
 
 ## Image Sensors
 
@@ -79,6 +85,8 @@ Dynamic range (DR) is the ratio between the largest and smallest measurable valu
 
 An image sensor with a wide dynamic range is able to capture images with better contrast, especially in the darker or brighter regions. More expensive cameras typically have image sensors with a wider DR.
 
+![Images captured at a series of exposures to illustrate dynamic range](https://pbblogassets.s3.amazonaws.com/uploads/2016/06/Dynamic-Range-Chart.jpg){ width="450"}
+
 ### Bit Depth
 
 :material-web: [CiC - Bit Depth](https://www.cambridgeincolour.com/tutorials/bit-depth.htm){target="_blank"}
@@ -86,6 +94,8 @@ An image sensor with a wide dynamic range is able to capture images with better 
 Bit depth is the other side of the coin to Dynamic Range. Whereas DR is the ratio between the largest and smallest measurable value, bit depth is the number of steps that the DR is chopped up into.
 
 One useful analogy is that DR is the height of the staircase, while bit depth is the number of steps.
+
+![image sensor and bit depth](https://d1hjkbq40fs2x4.cloudfront.net/2022-09-27/files/videography-faq-bit-depth-colour-depth_2049-02.jpg){ width="450"} 
 
 ## Camera Lenses
 
@@ -99,7 +109,7 @@ Camera Lenses are very complex, but the critical property of a lens are its **fo
 
 ### Focal length
 
-Focal length determines the magnification power and field of view.
+Focal length determines the magnification power and angle of view.
 
 - **Shorter focal lengths** provide a wider angle of view, but subjects appear smaller (less magnification).
 - **Longer focal lengths** offer a narrower field of view, and make subjects look larger (increased magnification). They also have a narrower depth of field.
