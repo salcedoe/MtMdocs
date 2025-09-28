@@ -109,8 +109,9 @@ $$\frac{1}{d_o}+\frac{1}{d_i}=\frac{1}{f}$$
 
 where $d_o$ is the distance of the object from the lens, $d_i$ is the distance of the image from the lens, and $f$ is the focal length of the lens. Notice that the image is inverted in relation to the optical axis.
 
-
 ### Magnification
+
+<!-- ![ray tracing diagram showing image height](images/lens-ray-tracing-magnification.png){ width="550"} -->
 
 Similarly, we can determine the height of the image (magnification) using ray tracing. Magnification is defined as:
 

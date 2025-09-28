@@ -2,10 +2,13 @@
 
 **Vision** is the special sense of sight that is based on the transduction of light stimuli received through the eyes.
 
-!!! note ":material-web: Adapted from"
+!!! note ":material-web: Much of the content presented here is adapted from"
     - [Openstax Anatomy and Physiology](https://openstax.org/books/anatomy-and-physiology/pages/14-1-sensory-perception)
     - [Openstax Bioology 2](https://openstax.org/books/biology-2e/pages/36-5-vision)
 
+### Interesting Links and Videos
+
+- :simple-youtube: [Neuroscientist Answers Illusion Questions From Twitter](https://www.youtube.com/watch?v=CNeaQlA45cY)
 
 ## Structure of the Eye
 

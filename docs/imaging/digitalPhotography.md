@@ -8,6 +8,8 @@
 
 [:material-web:  Expert Photography (EP)](https://expertphotography.com/a-beginners-guide-to-photography/){target="_blank" .md-button}
 
+[:camera: Camera Simulator](https://www.camerasim.com)
+
 ## Human Vision is not Digital Photography
 
 :material-web: [CIC: Cameras vs. the Human Eye](https://www.cambridgeincolour.com/tutorials/cameras-vs-human-eye.htm){target="_blank"}
@@ -36,13 +38,20 @@ The Main things to consider are
 
 In cameras, the angle of view of the lens can create distortions (such as the relative heights of objects in an image) that we don't have in our vision because we reconstruct visual information into a mental 3D image. Have you have taken a picture of a mountains off in the distance and they look much smaller than your mental image of the same mountain range? Or taken a picture of a monstrous moon at the horizon and it looks tiny? Angle of View.  
 
-![Distorted image of Cambridge University](https://cdn.cambridgeincolour.com/images/tutorials/camera-eye_distortion1b.png){ width="450"}
+![img-name](images/lens-focal-length.jpg){ width="550"}
+
+![img-name](images/human-field-of-view.jpeg){ width="450"}
+
 
 #### Resolution and Detail
 
 Only our central vision has high resolution at 20/20. Away from the center, our resolution drops off dramatically. At just 20˚ off center, resolution drops off by one-tenth. Our minds don't record single glances as images pixel by pixel. Instead, to develop a detailed mental picture of a scene, we rapidly focus on multiple regions in the scene in rapid succession, building what seems us to be a detailed mental image of the scene, but in fact represents our biases, prioritized by interest.
 
-![View of a canyon](https://cdn.cambridgeincolour.com/images/tutorials/camera-eye_detail1c.jpg){ width="450"}
+<!-- ![View of a canyon](https://cdn.cambridgeincolour.com/images/tutorials/camera-eye_detail1c.jpg){ width="450"} -->
+
+![img-name](images/Human-field-of-view-FOV-for-both-eyes-showing-different-levels-of-peripheral-vision_W640.jpg){ width="450"}
+
+>Adapted From [Younis et al, 2019](https://www.researchgate.net/publication/331409336_A_Hazard_Detection_and_Tracking_System_for_People_with_Peripheral_Vision_Loss_using_Smart_Glasses_and_Augmented_Reality)
 
 #### Sensitivity and Dynamic Range
 
