@@ -1,6 +1,16 @@
 # Digital Microscopy
 
-Adapted from [Nikon's MicroscopeU Source for Microscopy Education](https://www.microscopyu.com)
+Primarily adapted from [Nikon's MicroscopeU Source for Microscopy Education](https://www.microscopyu.com)
+
+**Additional Useful Resources: Molecular Expressions**
+
+- [Light and Color](https://micro.magnet.fsu.edu/primer/lightandcolor/index.html)
+  - [Electromagnetic Radiation](https://micro.magnet.fsu.edu/primer/java/electromagnetic/index.html)
+  - [Jablonski Diagram](https://micro.magnet.fsu.edu/primer/java/jablonski/lightandcolor/index.html)
+- [Lenses and Geometrical Optics](https://micro.magnet.fsu.edu/primer/lightandcolor/lenseshome.html)
+  - [The Concept of Magnification](https://micro.magnet.fsu.edu/primer/anatomy/magnification.html)
+  - [Ray Diagrams](https://micro.magnet.fsu.edu/primer/java/components/characteristicrays/index.html)
+  - [Radius and Refractive Index Effects on Lens Action](https://evidentscientific.com/en/microscope-resource/tutorials/lenses/lensvariations)
 
 ## Modern Microscope Configurations
 
@@ -22,6 +32,7 @@ The main innovation in these modern microscopes are a trio of lenses:
 >As shown above, the lens configuration has an Infinity "afocal" space between the objective and the tube lens. This creates Infinity-Corrected Microscope Conjugate Field Planes, which basically means that there is a parallel light beam running through the middle of the system. This set-up allows additional components, such as beam splitter or a prism, to be added to the light path.  Light focused by the objective produces an image at I(3) (the intermediate image) that is further magnified by the eyepiece to produce an image on the retina at I(4). Adapted from [Infinity Microscopes](https://www.microscopyu.com/tutorials/infinitymicroscope).
 
 Because of this modular setup, a modern microscope has the ability to magnify up to 1000X.
+
 
 ## Objective Lens
 
@@ -94,6 +105,7 @@ Fluorescence is light created by light. That is, the release of light (emission)
 
 - [Fluorescence Techniques](https://www.microscopyu.com/techniques/fluorescence)
 - [Intro to Fluorescence Microscopy](https://www.microscopyu.com/techniques/fluorescence/introduction-to-fluorescence-microscopy)
+- [Fluorescent Proteins](https://www.microscopyu.com/techniques/fluorescence/introduction-to-fluorescent-proteins)
 
 In fluorescence microscopy, you irradiate the specimen with a specific band of wavelength and then image the much weaker emitted fluorescence. As shown below, the transmitted and emitted light pass through the objective lens.
 
