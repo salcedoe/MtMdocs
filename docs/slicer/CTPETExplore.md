@@ -1,12 +1,10 @@
 # CT PET Multimodal Datasets
 
-![img-name](images/CTPET-overlay.jpg){ width="250"}
+![CTPET Overlay](images/CTPET-overlay.jpg){ width="250"}
 
 This exercise was derived from a section of the Quantitative Imaging Example from the Slicer website.
 
-[PET/CT Visualization and Analysis]
-
-[PET/CT Visualization and Analysis]: https://www.dropbox.com/s/8wswnxidudinets/PETCT_overview.pdf?dl=1
+[PET/CT Visualization and Analysis](PETCT_overview.pdf){target="_blank"}
 
 ## FDG
 
@@ -193,4 +191,4 @@ Review the results
 - Can you find the same region where the tumor was?
 - Is the tumor still there?
 
-Review and try to match the views shown the the physicians' findings [here](PETCT-Follow-up-findings.pdf).
+Review and try to match the views shown in the [Physician's Follow-up findings](PETCT-Follow-up-findings.pdf){target="_blank"}.

@@ -68,12 +68,13 @@ nav:
       - Region Processing: imageProcessing/ImageRegionProcessing.md
       - RGB Images: imageProcessing/ImageRGB.md
     
-  - Volumes: 
+  - Volume Processing: 
     - Overview: volumeProcessing/volumeOverview.md
-    - Volume Processing:
-      - Loading and Indexing: volumeProcessing/volumeLoading.md
-      - Inspecting Volumes: volumeProcessing/volumeVisualization.md
-      - 3D Visualization: volumeProcessing/volumeRendering.md
+    - Loading Volumes:
+      - Medical File Formats: volumeProcessing/volumeMedicalFileFormats.md
+      - Loading Confocal Datasets: volumeProcessing/volumeLoadingMicroscopy.md
+    - Inspecting Volumes: volumeProcessing/volumeVisualization.md
+    - 3D Visualization: volumeProcessing/volumeRendering.md
       # - Color Stacks: volumeProcessing/ImageStacksColor.md
       # - Volume Visualization: volumeProcessing/VolumeVisualization.md
       # - Volume Segmentation: volumeProcessing/VolumeSegmentation.md

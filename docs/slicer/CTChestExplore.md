@@ -4,32 +4,28 @@ In this module, we explore one of the sample CT (computed tomographic) datasets 
 
 ## Overview
 
-### Resources
+!!! abstract "Module Learning Objectives"
 
-The Slicer website has extensive documentation: [Slicer Documentation - GUI](https://slicer.readthedocs.io/en/latest/user_guide/getting_started.html)
+    After completing this module, you should be able to
 
-### Learning Objectives
-
-After completing this module, you should be able to
-
-1. Use Slicer
-2. Load sample datasets
-3. Scrub through image slices in a volumetric dataset
-4. Display orthogonal planes in the 3D Viewer
-5. Inspect the voxel information of the dataset and change the display properties of the volume
-6. Generate Volume Renders of the Dataset
-7. Change the Layout of the Viewers
-8. Take Screenshots
+    1. Use Slicer
+    2. Load sample datasets
+    3. Scrub through image slices in a volumetric dataset
+    4. Display orthogonal planes in the 3D Viewer
+    5. Inspect the voxel information of the dataset and change the display properties of the volume
+    6. Generate Volume Renders of the Dataset
+    7. Change the Layout of the Viewers
+    8. Take Screenshots
 
 ## Display a CT dataset
 
-Slicer includes many sample datasets, which you can find the Sample Data Module:
+Slicer includes many sample datasets, which you can find in the Sample Data Module:
 
 1. Switch to the Welcome to Slicer Module
 
 2. Click on "Download Sample Data" (OR  go to **File:Download Sample Data**)
 
-    ![img-name](images/Welcome-Module.png){ width="400"}
+    ![Welcome Module](images/Welcome-Module.png){ width="400"}
 
 3. Select "CTChest"
 
@@ -37,7 +33,7 @@ Slicer includes many sample datasets, which you can find the Sample Data Module:
 
 5. After some time, you should see CT cross-sections in the 2D Viewers.
 
-![img-name](images/CTChest-Load.png){ width="450"}
+![Screen shot of 3D Slicer showing loaded CTChest dataset](images/CTChest-Load.png){ width="450"}
 
 ??? question "Which panel shows the original data as it was capture and which panels show the Multiplanar reconstructions"
 
@@ -47,7 +43,7 @@ Slicer includes many sample datasets, which you can find the Sample Data Module:
 
 The organization of the viewers can be set in the Layout menu, found in the toolbar:
 
-![layout view][four_up]
+![four up layout view menu][four_up]
 
 Select the "Four-Up" view from the toolbar if you currently don't have that layout.
 
@@ -55,15 +51,15 @@ Select the "Four-Up" view from the toolbar if you currently don't have that layo
 
 ### Data Module
 
-The `Data` module keeps track of the volumes that you have loaded into Slicer. To open the `Data` module, click on this icon:
+The `Data` module keeps track of the volumes that you have loaded into Slicer. To open the `Data` module, click on the data icon:
 
-![img-name](images/button-data-module.png){ width="50"}
+![data module button](images/button-data-module.png){ width="50"}
 
 In the Data Module, you should now see CTChest listed in the Node Table, under the Subject hierarchy tab.
 
-![img-name](images/CTChest-data-module.png){ width="350"}
+![data table - CTChest](images/CTChest-data-module.png){ width="350"}
 
-You can hide the volume by clicking on the little cube with the eye icon on it. Make sure to un-hide the volume before continuining.
+You can hide the volume by clicking on the little cube with the eye icon on it. Make sure to un-hide the volume before continuing.
 
 To remove the volume from Slicer, right-click on the "CTChest" and select "Delete". Don't do this, but if you did, simply re-download the volume.
 
@@ -71,7 +67,7 @@ To remove the volume from Slicer, right-click on the "CTChest" and select "Delet
 
 To track the orientation of the volume in the viewers, you can add a little human orientation marker, like this guy:
 
-![img-name](images/human_orientation_marker.png){ width="50"}
+![Human orientation](images/human_orientation_marker.png){ width="50"}
 
 To do so:
 
@@ -82,7 +78,7 @@ To do so:
     - Notice that CTChest is shown in the Background (B) Layer.
 
     - Notice that there are no other volumes currently being shown, since we have only loaded one volume
-3. Click on the "Orientation Marker Options" (isaxes icon)
+3. Click on the "Orientation Marker Options" (axes icon)
 4. Select "Small" "Human"
 5. You should now see the following **little guy** in the corner of the slice viewers
 6. Hide the "more controls" by clicking on the "<<" button
@@ -91,7 +87,7 @@ To do so:
 
 If you want these orientation markers to be added on launch of Slicer, you can set the default in the Edit:Settings Menu option, under the Views tab (See [Interface Introduction](InterfaceIntro.md))
 
-## Navigation and control
+## Navigation and Control
 
 To explore the dataset, you will want to scroll through the slices, zoom in, or drag th image around.
 
@@ -413,15 +409,23 @@ You will then be presented with a save dialog:
 
 ![img-name](images/CTChest-save-dialog.png){ width="450"}
 
-Notice there are several different file types:
+Notice there are several different file types to save:
 
-- MRML: a Scene file, which preserves the current view in slicer
-- NRRD: a volume format specific to Slicer
-- VP: a special format to store the display properties of the Volume render
-- JSON: a structure format to store the ROIs
-- PNG: the snapshot we took.
+| Type     | Description                                                  |
+| -------- | ------------------------------------------------------------ |
+| **MRML** | a Scene file, which preserves the current view in slicer     |
+| **NRRD** | a volume format specific to Slicer                           |
+| **VP**   | a special format to store the display properties of the Volume render |
+| **JSON** | a structure format to store the ROIs                         |
+| **PNG**  | the snapshot we took        |
 
-So, each time you work with a volume in Slicer, you generate a lot of files, and these files should be packaged together. Notice tht the default location is to dump these files into the Documents folder. DO NOT DO THIS!!. It will make a mess of your Slicer projects. Instead, you should create a new folder for each slicer project that you work on. In this case, we are working on the CTChest project, so let's create a new folder called CTChest. To do this:
+So, each time you work with a volume in Slicer, you generate a lot of files, and these files should be packaged together.
+
+!!! warning "Create a new folder for each new Slicer Project"
+
+    Notice the default location to save your files is at the top level of the Documents folder. **Do not save your files here!** It will make a mess of your Slicer projects by dumping all your files into one big disorganized pile. Since Slicer generates the same default file names for new projects, you also run the risk of overwriting old projects. Instead, you should create a new folder for each slicer project that you work on.
+
+We are working on the CTChest volume, so let's create a new folder called CTChest.
 
 1. Make sure that all of the files are checked on the left-hand side.
 2. Click on the on the "Change directory for selected files" button.  

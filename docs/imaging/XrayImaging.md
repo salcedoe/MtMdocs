@@ -81,3 +81,43 @@ This is also known as x-ray tissue densities, and there are [5 main densities](h
 Low density material such as air is represented as black on the final radiograph. Very dense material such as metal or contrast material is represented as white. Bodily tissues are varying degrees of grey, depending on density, and thickness. So, in a radiograph, bone and metal tends to be brighter than.
 
 These tissue density standards are based on the historic properties of x-ray film, which used silver halide ions to detect x-rays. X-ray Film is naturally transparent, but exposure to X-ray energy makes film more opaque. When these films were placed on light table, the transparent areas (the areas where the x-rays were mostly blocked, like bone) appeared brighter.
+
+## Intensity Conventions
+
+Bone blocks the most X-rays but is given a high intensity (appears bright) on the radiograph, which may seem counterintuitive if you are unfamiliar with radiology conventions. These conventions are based on the properties of film development: bone appears white and air appears black on radiographs because bone blocks X-rays (preserving film transparency) while air allows X-rays to expose the film (making it darker).
+
+!!! abstract "Film Development of yore"
+
+    ![silver halide exposure](images/silver_halide_exposure.png){ width="450"}
+
+    - Radiology Film before exposure is transparent
+
+    - Exposure to X-ray energy breaks bonds between silver and halides
+
+    - Silver-ions are then free to be removed (via chemical washes), leaving behind large silver particles
+
+### Radiology Grayscale Conventions based on properties of film on a light table
+
+- Optical Density is logarithmically proportional to Silver particles (more silver, more dense to light)
+
+- Bone blocks radiation, so fewer silver ions are released and less silver is deposited; this results in bone-shadows being more transparent on the film.
+
+On a light table:
+
+- Bone appears white because light can shine through the clear areas where the bone preserved the transparent nature of the film.
+
+- Air is black because x-ray easily passes through air and exposes more of the film, creating more silver grains in that area, and increasing the opacity.
+
+### Proper Windowing of an X-ray image
+
+The windowing (or gray-level mapping) greatly affects the contrast of an x-ray.
+
+![lung xray histograms](images/lung_xray_histogram.png){ width="450"}
+
+>**X-rays and their corresponding histograms**. A is overexposed, B is just right, and C is underexposed. Notice how the histograms below the images shift with the exposure. Also notice that the exposure is the opposite from what we are used to seeing. Underexposed is "brighter" than overexposed. Adapted from [The standardized exposure index for digital radiography.](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3076558/)
+
+We can adjust the exposure of the images through proper windowing:
+
+![Adjusted images](images/247_2010_1954_Fig2_HTML.jpg){ width="450"}
+
+>Here the windowing (or gray-level mapping) of the images, as indicated by the position of the red lines, improves the image contrast.

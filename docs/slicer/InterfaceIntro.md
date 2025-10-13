@@ -1,21 +1,22 @@
 # 3D Slicer
 
-![img-name](images/3D-Slicer-Logo.png){ width="150"}
+![3D slicer logo](images/3D-Slicer-Logo.png){ width="150"}
 
-3D Slicer is an application used to visualize and analyze medical image datasets like CT scans or MRI dataset. In this course, we will use also use Slicer to segment and render anatomical objects in these datasets.
-
-3D Slicer has a documentation site [here](https://slicer.readthedocs.io/en/latest/index.html).
+3D Slicer is an application used to visualize and analyze medical image datasets like CT scans or MRI dataset. In this course, we will also use Slicer to segment and render anatomical objects in these datasets.
 
 ## Useful Slicer Documentation
 
-- [Getting Started](https://slicer.readthedocs.io/en/latest/user_guide/getting_started.html#using-slicer)
-- [User Interface](https://slicer.readthedocs.io/en/latest/user_guide/user_interface.html)
-- [Coordinate Systems](https://slicer.readthedocs.io/en/latest/user_guide/coordinate_systems.html)
-- [Data Loading and Saving](https://slicer.readthedocs.io/en/latest/user_guide/data_loading_and_saving.html)
+3D Slicer has a [documentation site](https://slicer.readthedocs.io/en/latest/index.html){target="_blank"} you can review.
+
+- [Getting Started](https://slicer.readthedocs.io/en/latest/user_guide/getting_started.html#using-slicer){target="_blank"}
+- [User Interface](https://slicer.readthedocs.io/en/latest/user_guide/user_interface.html){target="_blank"}
+- [Coordinate Systems](https://slicer.readthedocs.io/en/latest/user_guide/coordinate_systems.html){target="_blank"}
+- [Data Loading and Saving](https://slicer.readthedocs.io/en/latest/user_guide/data_loading_and_saving.html){target="_blank"}
+- [:fontawesome-brands-square-youtube: Slicer Youtube Tutorials](https://www.youtube.com/channel/UCmRJl56s8fxabE61unD8icw){target="_blank"}
 
 ## Interface
 
-![img-name](https://github.com/Slicer/Slicer/releases/download/docs-resources/user_interface_main_window_rev02.png){ width="750"}
+![Annotated slicer interface](https://github.com/Slicer/Slicer/releases/download/docs-resources/user_interface_main_window_rev02.png){ width="750"}
 
 ### Application Menu
 
@@ -23,9 +24,9 @@ Slicer has four fairly simple menus
 
 ### Toolbar
 
-The Toolbar provides quick access to commonly used functions. 
+The Toolbar provides quick access to commonly used functions.
 
-![img-name](images/toobar_annotated.png){ width="800"}
+![annotated slicer toolbar](images/toobar_annotated.png){ width="800"}
 
 ### Viewers
 
@@ -34,7 +35,7 @@ There are two types of viewers in 3D Slicer
 - **2D Viewers**: Display orthogonal cross-sections of the volume data
 - **3D Viewers**: Displays 3D Renderings and/or orthogonal slices in 3D space.
 
-In the default view, there are three 2D slice viewers: Red, Yellow, and Green, which typically correspond to, axial, sagittal, and coronal anatomical plane (see The Red, Yellow, and Green Slice viewers shown above) and one 3D viewer which shows anything being rendered in 3D.
+In the default view, there are three 2D slice viewers: Red, Yellow, and Green. These typically correspond to the axial, sagittal, and coronal anatomical planes (see the Red, Yellow, and Green Slice viewers shown above). There is also one 3D viewer, which shows anything being rendered in 3D.
 
 #### Changing the Viewer Layout
 
@@ -45,6 +46,7 @@ You can change the layout of the Slice Viewers using the layout menu in the tool
 [layout menu]: images/layout-menu-4up.png
 
 #### Viewer Controls
+
 You can change what's displayed in the viewers by clicking on the **pushpin** icon in the top left corner of each 2D viewer to display the following controls:
 
 ![img-name](https://github.com/Slicer/Slicer/releases/download/docs-resources/getting_started_view_controllers.png){ width="650"}
@@ -54,6 +56,7 @@ You can change what's displayed in the viewers by clicking on the **pushpin** ic
 [img_slice_viewer_controls]: http://wiki.slicer.org/slicerWiki/images/f/fc/SliceViewerController-4.1.png-->
 
 ### 2D Slice View Controller Top row
+
 Clicking on the push-pin only reveals the top row of controls:
 
 - **Link** - change the settings across all viewers
@@ -62,29 +65,27 @@ Clicking on the push-pin only reveals the top row of controls:
 - **Background layer** - choose the main volume to display in the viewer
 
 ### The rest of the 2D controllers
+
 To reveal the additional settings, you need to click on the `>>` icon
 
 For the 2D viewers, you should now see more controls with some pop-up labels
+
 - **Label** - show the segmentation data in the label layer
-- **Foreground** - You can overlay to volumes on top of each other. One is set to the foreground layer and one to the background layer
+- **Foreground** - You can overlay two volumes on top of each other. One is set to the foreground layer and one to the background layer
 - **Background** - The background layer for the volumes
 - **Opacity** - sets the amount of mixed opacity for the foreground and background layers
 
 ## Modules
 
-The modules contain all of the fine-toothed controls for Slicer.
-
-You set the current module by selecting its name from the Modules menu in the Toolbar:
-
-![img-name](images/modules_menu.png){ width="250"}
+The modules contain all of the fine-toothed controls for Slicer. You set the current module by selecting its name from the Modules menu in the Toolbar.
 
 ### Welcome Module
 
+![welcome module menu](images/modules_menu.png){ width="250"}
+
 The default module is the welcome module which contains key controls for loading data, customizing slicer, and downloading sample data. It also contains several panels of information about using Slicer.
 
-![][img_welcome]
-
-[img_welcome]: https://c1.staticflickr.com/5/4466/38062009576_89397fa510_o.png
+![welcome module controls](images/welcome-module-full.png){ width="450"}
 
 #### Welcome Module Main Buttons
 
@@ -102,17 +103,14 @@ The default module is the welcome module which contains key controls for loading
 
 Each panel (indicated by a black triangle) contains basic information on how to interact with the software
 
-- **The Main Window** - information about the interface
+- **Feedback** - a link to the Slicer forum
 
-- **Loading and Saving** - how to load and save stuff
+- **About** - A description of Slicer
 
-- **Display** - Display different types of data (like Volumes versus rendered volumes)
+- **Documentation & Tutorials** - links to the Slicer Documentation
+- **Updates** - Check for Slicer updates
 
-- **Mouse and Keyboard** - info about using the mouse
-
-- **Documentation & Tutorials**
-
-- **Data Probe**: This panel is available in most module interfaces. It contains pixel information  when the mouse is hovering over a pixel in one of the 2D viewers
+- **Data Probe**: This panel is available in most module interfaces. It displays pixel information when the mouse hovers over a pixel in a 2D viewer.
 
 <!--
 ### Cache
