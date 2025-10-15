@@ -56,9 +56,10 @@ nav:
     - Imaging with Light:
       - Digital Photography: imaging/digitalPhotography.md
       - Digital Microscopy: imaging/digitalMicroscopy.md
-    - 2D Medical Imaging:
+    - Medical Imaging:
       - Introduction: imaging/medicalImagingIntro.md
       - X-ray Imaging: imaging/XrayImaging.md
+      - CT Imaging: imaging/CTImaging.md
   - Image Processing:
     - 2D Image Processing:
       - Grayscale Images: imageProcessing/ImageIntro.md
