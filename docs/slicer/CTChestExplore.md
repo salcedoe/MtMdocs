@@ -63,30 +63,6 @@ You can hide the volume by clicking on the little cube with the eye icon on it. 
 
 To remove the volume from Slicer, right-click on the "CTChest" and select "Delete". Don't do this, but if you did, simply re-download the volume.
 
-### Add Orientation Markers
-
-To track the orientation of the volume in the viewers, you can add a little human orientation marker, like this guy:
-
-![Human orientation](images/human_orientation_marker.png){ width="50"}
-
-To do so:
-
-1. Click on the **Push Pin** icon to bring up the **view controls**  
-
-2. Click on the `>>` button to show more options
-
-    - Notice that CTChest is shown in the Background (B) Layer.
-
-    - Notice that there are no other volumes currently being shown, since we have only loaded one volume
-3. Click on the "Orientation Marker Options" (axes icon)
-4. Select "Small" "Human"
-5. You should now see the following **little guy** in the corner of the slice viewers
-6. Hide the "more controls" by clicking on the "<<" button
-
-![slicer controls](https://github.com/Slicer/Slicer/releases/download/docs-resources/getting_started_view_controllers.png){ width="550"}
-
-If you want these orientation markers to be added on launch of Slicer, you can set the default in the Edit:Settings Menu option, under the Views tab (See [Interface Introduction](InterfaceIntro.md))
-
 ## Navigation and Control
 
 To explore the dataset, you will want to scroll through the slices, zoom in, or drag th image around.
@@ -252,6 +228,8 @@ To exit the Window/leveling mode, click on the white arrow button next the adjus
 
 ## Display Slices in 3D
 
+![slicer controls](https://github.com/Slicer/Slicer/releases/download/docs-resources/getting_started_view_controllers.png){ width="550"}
+
 You can display the 2D slices in the 3D viewer as follows:
 
 1. Click on the pushpin icon located on the far left of the red viewer controller to bring up the red viewer menu:
@@ -283,11 +261,37 @@ You can display the 2D slices in the 3D viewer as follows:
     - Scrub around 2D slice viewers to reposition the slices in 3D space.
     - Or drag the Slice Viewer sliders. That's fun too.
     - Click on the "Fit to window" icon to reposition slice back to center
-
+  
 ### Make Global changes to the Slice views
 
    1. In the Red Viewer menu, click on the chain link icon to link the chain.
    2. Click on the Eye Icon to close the eye and hide all three slices from the 3D viewer (the chain link icon links the views across the 3 viewers)
+  
+### Add Orientation Markers
+
+To track the orientation of the volume in the viewers, you can add a little human orientation marker, like this guy:
+
+![Human orientation](images/human_orientation_marker.png){ width="50"}
+
+To do so:
+
+1. Click on the **Push Pin** icon to bring up the **view controls**  
+
+2. Click on the `>>` button to show more options
+
+    - Notice that CTChest is shown in the Background (B) Layer.
+
+    - Notice that there are no other volumes currently being shown, since we have only loaded one volume
+3. Click on the "Orientation Marker Options" (axes icon)
+4. Select "Small" "Human"
+5. You should now see the following **little guy** in the corner of the slice viewers
+6. Hide the "more controls" by clicking on the "<<" button
+
+!!! tip "Adjust Settings to add little human and remove slice edges"
+
+    If you want these orientation markers to be added on launch of Slicer, you can set the default the Slicer Settings. You can also remove those annoying Slice Edge views
+    
+    Review the [Customize Slicer Page](CustomizeSlicer.md) for more detailed information on hwo to do this
 
 ### Adjust 3D Slice display
 

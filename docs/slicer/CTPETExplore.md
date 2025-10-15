@@ -182,7 +182,7 @@ Use these settings:
 
 ![img-name](images/CTPET-comparison-controls.png){ width="450"}
 
-You should get something that looks like this: 
+You should get something that looks like this:
 
 ![img-name](images/CTPET-three-over-three.png){ width="550"}
 

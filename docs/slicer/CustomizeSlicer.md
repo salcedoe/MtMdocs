@@ -9,7 +9,23 @@ The two main ways to customize Slicer:
 
 The Application settings contain settings that control Slicer Appearance and performance
 
-### Add Orientation Marker
+### Modules
+
+The modules tab contains settings for loading extensions (modules), setting the default startup module, and customizing the toolbar
+
+#### Modify the Toolbar
+
+The toolbar is broken down into panels, which can be shown/hidden by right-clicking on a blank area of the toolbar to bring up a contextual menu:
+
+![toolbar display menu](images/toolbar-display-menu.png){ width="150"}
+
+The favorites panel, to the right of the arrows, can be modified in the Application settings: Modules tab
+
+![settings module](images/settings-modules.png){ width="450"}
+
+### Views
+
+#### Add Orientation Marker
 
 It is convenient to display the human orientation marker in the viewers at startup.
 
@@ -27,17 +43,15 @@ To set the Slice View defaults:
 
 >When you make changes to the default settings, Slicer requires that you restart the app. Click OK to restart when prompted
 
-### Modify the Toolbar
+#### Remove Slice Edge
 
-The toolbar is broken down into panels, which can be shown/hidden by right-clicking on a blank area of the toolbar to bring up a contextual menu:
+Slice edges are colored rectangles in the 3D view that indicate the orthogonal planes. To remove these from the display uncheck "Show slice edge in 3D."
 
-![toolbar display menu](images/toolbar-display-menu.png){ width="150"}
+### Volume Rendering
 
-The favorites panel, to the right of the arrows, can be modified in the Application settings: Modules tab
+If you have issues rendering volumes, try changing the default rendering to "VTK CPU Ray Casting"
 
-![settings module](images/settings-modules.png){ width="450"}
-
-## Install Extensions
+## Installing Extensions
 
 Extensions are customized modules to handle specialized tasks. For the Slicer exercises, we will use the following extensions
 
