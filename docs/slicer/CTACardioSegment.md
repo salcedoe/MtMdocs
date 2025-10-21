@@ -1,7 +1,12 @@
 
 # Segmenting a Contrast-Enhanced CT Volume
 
-Medical image segmentation is the process of dividing a medical image into regions or segments that represent different tissue types or categories. The goal is to identify areas of interest, such as tumors, lesions, or other abnormalities. In this module, we use 3D Slicer to segment one of its sample datasets: the CTACardio Sample dataset.
+Medical image segmentation is the process of dividing a medical image into regions or segments that represent different tissue types or categories. The goal is to identify areas of interest, such as tumors, lesions, or other abnormalities. In this module, will we use 3D Slicer to segment the Kidneys,  Aorta, and Lungs in the CTACardio Sample dataset.
+
+## Extensions Required
+
+1. Lung CT Analyzer & Segmenter
+2. SegmentEditorExtraEffects
 
 ## Background information
 
@@ -45,7 +50,7 @@ For this segmentation project, we will take advantage of the added contrast to s
 
     -1024 to 3532
 
-#### Adjust Volume Display
+### Adjust Volume Display
 
 In the Volumes module, under the Display Tab, select the CT-Abdomen preset:
 
@@ -100,7 +105,7 @@ Volume rendering is a great way to determine which parts of the volume have high
 
 ### Inspect Voxel Intensities
 
-The most basic segmentation techniques involve thresholding, in which an intensity cut-off value is used to create a mask. For this exercise, we want to first segment the cortex of the kidneys, so let's inspect the intensity inside the kidney and in the tissue surrounding the kidneys. 
+The most basic segmentation techniques involve thresholding, in which an intensity cut-off value is used to create a mask. For this exercise, we want to first segment the cortex of the kidneys, so let's inspect the intensity inside the kidney and in the tissue surrounding the kidneys.
 
 Let's start with Right kidney. Remember, we should look at the right kidney in all three views. To help align the views, we will turn on the `Crosshair` tool ( ![img-name](images/button-crosshair.png){ width="25"} ), which adds crosshairs to each view to show the center of the alignment.
 
@@ -120,9 +125,7 @@ Let's start with Right kidney. Remember, we should look at the right kidney in a
     - **Surrounding Tissue**, `~80`
     - **Vertebrae:** `~300-1000`.
 
-## Segmentation
-
-For this exercise, we will segment the Kidneys, the Aorta, and the Lungs. When you segment, you actually create a new volume that is the same size as the original volume (same number of voxels). This segmentation volume is said to mask the original volume. Segmentation volumes can be either binary volumes (true or false) or label maps, which use whole numbers to indicate connected regions. For this exercise, for example, we will create a segmentation of the Right Kidney. In this segmentation volume, all voxels pertaining to the right kidney will be labeled with a value, like 1. This is not an intensity value, but a label — that's why they are called label maps.  We will also segment the Left Kidneys — all those voxels will be labeled with a different value, like 2. And so on. Everywhere that is not segmented will have a label of 0.
+## Preprocess Volume
 
 ### Crop Volume
 
@@ -145,184 +148,175 @@ Switch to the `Crop` module by searching for the module using the magnifying gla
 
 In the crop module, use the following settings:
 
-   - **Input volume**: "CTACardio"
-   - **Input ROI:** "Volume rendering ROI" - this is the ROI that we created in the `Volume Rendering` module
-   - **Output Volume:** Create a new volume as "CTACardioCrop"
+![img-name](images/CTACardio-crop-settings.png){ width="450"}
+
+- **Input volume**: "CTACardio"
+- **Input ROI:** "Volume rendering ROI" - this is the ROI that we created in the `Volume Rendering` module
+- **Output Volume:** Create a new volume as "CTACardioCrop"
 >![img-name](images/CTACardio-crop-create-new-vol.png){ width="250"}
-   - Check on "Interpolated cropping"
-   - Reveal the Volume Information tab
+- Check on "Interpolated cropping"
+- Reveal the Volume Information tab
 
-!!! abstract "CTACardio Crop settings"
+Notice that the new, cropped volume will have isotropic voxels.
 
-    ![img-name](images/CTACardio-crop-settings.png){ width="450"}
+Click **Apply** to crop (scroll down from Volume Information if you don't see the Apply button). The new cropped volume (CTACardioCrop) should appear in the viewers.
 
-    Notice that the new, cropped volume will have isotropic voxels
+If the Cropped volume is not displayed, select it in all the slice viewers:
 
-To crop:
+![img-name](images/CTACardio-pushpin-select-crop-volume.png){ width="550"}
 
-1. Click Apply ( you have to scroll down from Volume Information)
-2. The new cropped volume (CTACardioCrop) should appear in the viewers
+!!! abstracts "Steps before continuing"
 
-Before continuing:
+    Return to the `Volume Rendering` module
 
-1. Return to the `Volume Rendering` module
-2. Turn off Volume Rendering (click eye icon closed)
-3. Hide the ROI (click Display ROI off)
+    1. Turn off Volume Rendering (click eye icon closed)
+    2. Hide the ROI (click Display ROI off)
+
+    Return to the `Volume` module
+
+    3. Set the `Volume` to 'CTACardio Crop`
+    4. Select the 'CT-Abdomen' preset under the `Display` tab
+
+You should now see the following in the Slice Viewers:
+
+![img-name](images/CTACardio-4up-PreSegmentation.png){ width="450"}
+>4UP View of CTACardio Crop. No 3D Render, no Crop ROI.
 
 ### Filter Volume
 
-You should also filter a volume before you segment.
+*Optional*.
 
-1. Open the `Median Image Filter` module
-2. Use the default settings (Neighborhood Size `1,1,1`)
-3. Input Volume: CTACardioCrop
-4. Output Volume: CTACardioCrop
-5. Click `APPLY`
+You can also filter a volume before you segment.
 
 !!! abstract "Median Filter Settings"
 
+    1. Open the `Median Image Filter` module
+    2. Use the default settings (Neighborhood Size `1,1,1`)
+    3. Input Volume: CTACardioCrop
+    4. Output Volume: CTACardioCrop
+    5. Click `APPLY`
+
     ![img-name](images/CTACardio-median-filter.png){ width="400"}
 
-This will overwrite the cropped volume with a filtered version of the volume
+These settings will overwrite the cropped volume with a filtered version of the volume.
 
-### Segment Editor
+## Segment Editor
 
-The [Segment Editor](http://slicer.readthedocs.io/en/latest/user_guide/module_segmenteditor.html) module organizes a set of tools to create and manage segmentations.
+When you segment in Slicer, you create a new Segmentation Volume (or label map) that has the same number of voxels as the original volume. This segmentation volume contains whole numbers to indicate the segmentations. For example, after the following steps, all voxels pertaining to the right kidney will be labeled with a value, like 1. This is not an intensity value, but a label — that's why they can also be called label maps. We will also segment the left kidney — all those voxels will be labeled with a different value, like 2. Voxels not segmented will have a label of 0.
 
-First, be sure to reset the volume look-up table by clicking on the CT-Abdomen present under the display tab in the **Volumes** module.
+The [Segment Editor](http://slicer.readthedocs.io/en/latest/user_guide/module_segmenteditor.html) module creates and manages segmentations.
 
-### Segment the Right Kidney Using Grow from Seeds
+Bring up the **Segment Editor Module**: ![img-name](images/button-segment-editor.png){ width="20"}
 
-We start by creating a segmentation of the Right Kidney. Here is a video overview of the Grow from Seeds method: [PERKlab - Grow from seeds](https://www.youtube.com/watch?v=8Nbi1Co2rhY)
+The Editor has three main parts:
 
-#### Add a Segmentation volume to Segmentation table
+1. The Segmentation Settings region at the top, where you create the Segmentation Volume and select the Source Volume
+2. The Segmentation Table, where you create the Segment Labels
+3. The Toolbar, which has the icons for all the Segment Editor Tools
 
-1. Bring up the Segment Editor Module: ![img-name](images/button-segment-editor.png){ width="20"}
-2. **Master volume:** Make sure the master volume is the "CTACardioCrop" volume
-3. Click on the add button ![segment editor add button][segment editor add button]
-4. A Segmentation row should appear in the Segmentations table. The name should be "Segment_1" (or something similar)
-5. Rename this row "Right Kidney" by clicking on "Segment_1" name
+### Segmentation Settings
 
-![img-name](images/CTACArdio-SegEditor-row1.png){ width="450"}
-> This table dictates what we add to our segmentation volume. Right now, we just have one segmentation, 'Right Kidney'. As we progress through this exercise, we will add the left kidney and the aorta. Each item in the table will have a different label in the segmentation volume (like a 1, a 2, or a 3). As we segment, we will add the segmentation color to the image cross-sections. When we do this, we are actually adding the label (1,2, or 3) to the corresponding location in the segmentation volume.
+At the top of the Segment editor, create the following settings:
 
-#### Center Viewers on right kidney
+1. Set the `Segmentation` by selecting 'Rename the Current Segmentation' and adding your last name to the segmentation, as follow: 'LastName Segmentation'
+2. Set the `Source Volume` to 'CTACardio Crop'
 
-1. In the green viewer, scrub to the center of kidneys. 
-    - Notice that the kidneys have a lighter outer area (the cortex) and a darker interior area (the medulla). We will capture the cortex in this exercise.
-2. Make sure the coronal section (green viewer) is showing a slice near the **center** of the kidney.
-3. Align all three views to the center of the right kidney (hold shift while moving and point the mouse at the right kidney in the green viewer)
-   - All three views should now be showing the right kidney
+### Add Segmentations to the Segmentation table
 
-#### Set Threshold
+1. Click the Add button ![img-name](images/seg-editor-add-button.png){ width="45"}
+2. A Segmentation row should appear in the Segmentations table. The name should be "Segment_1" (or something similar)
 
-We can use the threshold tool to segment the kidney, but that would also segment some of the vasculature and parts of the skeletal system. Instead, we will use the threshold tool to set the Masking, which are the editable intensities in the volume (the voxels that we  can mask).
+![screenshot from slicer of segment editor](images/CTACardio-seg-edit-table-Segment_1.png){ width="450"}
 
-1. Click on the **Threshold** tool ![img-name](images/seg-editor-threshold-button.png){ width="25"}
-    - You should see a gray flashing color overlaid on the grayscale images in the 2D viewer
->![thresh preview](images/CTACardio-2D-thresh-tool-preview.png){ width="250"}
-2. Adjust the **Threshold range**: `150` to `300`. Kidney, some vasculature, and bone cortex should light up.
-3. Click on "Use for Masking"
-    - This turns on the "Editable intensity range" and switches over to the Paint Tool
+>This table organizes the Segmentation Labels. Currently, we just have one Named Label: "Segment_1". And its selected. So, any segmentation you add using the Segment Editor tools will have the label of "Segment_1". We are going to use this label as a placeholder label, so let's move onto the next step.
 
-!!! abstract "Threshold Masking Settings"
+### Segment the Kidneys using the Threshold Tool
 
-    ![img-name](images/CTACardio-threshold-mask-settings.png){ width="350"}
-  
-#### Hand Paint The Green Slice
+The threshold tool segments the volume based on a Threshold Range (or Intensity Range). You set the low and high end of the range, and the tool will segment all voxels that fall in that intensity range with the selected label (i.e. "Segment_1"). Here,  we take advantage of the fact that contrast has been added to the patient, which makes the Kidneys very bright in comparison to the surrounding tissue.
 
-The previous step should have switched you to the Paint Tool
+![threshold button](images/seg-editor-threshold-button.png){ width="45"}
 
-!!! abstract "Paint Tool Settings"
+Bring up the threshold tool by clicking on its icon in the toolbar (top row of toolbar). This will bring up the Threshold Tool. There should now be a flashing green color in Slice Viewers
 
-    ![paint settings](images/CTACardio-paint-kidneys.png){ width="350"}
+![thresh preview](images/CTACardio-2D-thresh-tool-preview.png){ width="250"}
+>The flashing color indicates which voxels would be segmented if you applied the threshold.
 
-    Notice Under the Masking Tab that the "Editable Intensity Range" has been checked on and the range is the threshold values that we set in the threshold tool (150 - 300)
+Next, adjust the `Threshold Range` to range from `190` to `300`
 
-1. Move the mouse over the kidney and click-drag to paint
-   - Notice that we can only paint inside of the cortex of the kidney.
-   - This is because of the "Editable Intensity Range" setting. 
-   - If you uncheck that setting, then the paint tool will paint everywhere you click-drag (so, don't do that)
-2. Paint the Right kidney in all three views. Only paint the current slice in each viewer (don't scrub through the slices)
-3. You should now have three orthogonal segmentations of the kidney cortex.
-4. To visualize these slices in 3D, click on the Show 3D button
-    ![show 3D](images/seg-editor-show-3D-button.png){ width="100"}
+![threshold settings](images/CTACardio-threshold-mask-settings.png){ width="350"}
 
-!!! example "Manual Segmentation of Right Kidney"
+Click **Apply**.
 
-    ![kidney segmentation](images/CTACardio-4up-kidney-manual-seg.png){ width="450"}
+1. The editor will jump back to the Segmentation Table View
+2. Click on the 'Show 3D' button: ![img-name](images/seg-editor-show-3D-button.png){ width="60"}
 
-We could repeat this process and painstakingly trace every single slice of the kidney, slice by slice, until we have the entire kidney cortex segmented. But this dataset has enough contrast between the kidney and the surrounding tissue to automate instead. For example, we can use the grow from seeds method...
+You should now see the following in the 3D view:
 
-### Grow from Seeds
+![threshold initial result](images/CTACardio-3D-Threshold-Initial-result.png){ width="450"}
 
-The Grow from Seeds tool segments by searching for voxels sharing a similar intensity range that are adjacent. First, though, you have to establish which voxels are kidney (the 'seeds') and which voxels are definitely not kidney (background).
+>The initial threshold result is a bit messy, but we can easily clean it up. The important thing is that we have clearly and fully segmented both kidneys.
 
-We start the process starts by creating a new segmentation layer for the background
+#### Clean up Segmentation using the Islands Tool
 
-1. Click on the "Add" button in the segment editor module ![add button](images/seg-editor-add-button.png){ width="45"}
-2. In the segmentations table, a new row should appear under the Left Kidney row. **Rename** that row "background".
+First we will remove a lot of the segmentation noise using the "Remove Small Islands" command, which removes any connected components smaller that the indicated value.
 
-    ![segmentation table](images/CTACArdio-SegEditor-row2.png){ width="450"}
+!!! abstract "Remove Small Islands"
 
-3. **Paint Tool** Click on the "Paint tool". ![paint button](images/seg-editor-paint-button.png){ width="25"}
-   1. Select the background segmentation row in the segmentations table.
-   2. Uncheck "Editable intensity range" so you can paint everywhere
-   3. Set the **Editable Area** to "Outside all segments"
-   4. Paint around the kidney in all three Slice Views.
-      - You shouldn't be able to overwrite the green (due to the Editable area setting)
-      - Be sure that you painting the background color (mustard in this case) and not the kidney color (green)
-      - Be sure to sample as many different regions of the volume that are NOT kidney, but that immediately surround the kidney.
-      - Be sure to also paint inside the kidney in the medulla areas
-  
-!!! example "Manual Segmentation of Background surrounding Right Kidney"
+    Bring up the Island Tool by clicking on its icon: ![img-name](images/seg-editor-islands-button.png){ width="24"}
 
-    ![background segmentation](images/CTACardio-4up-background-paint.png){ width="450"}
+    1. Select "Remove small islands"
+    2. Set `Minimum size` to `2000 voxels`
+    3. Click **Apply**
 
-4. **Grow From Seeds.** Click on the "Grow from Seeds" icon ![grow from seeds button](images/seg-editor-grow-from-seeds-button.png){ width="25"}
-    1. **Critical!** Reselect "Right Kidney" in the Segmentations table
-    2. Use the following settings:
->![grow from seeds settings](images/CTACardio-grow-from-seeds-settings.png){ width="350"}
-    3. Click "Initialize"
-    4. Scrub through the slices to make sure that the segmentation worked. Use to the paint tool to clean up any errors. After patching up, click on the "Update" button.
-    - Click on "Apply" - it may seem like Slicer crashed. Just wait
-    - After a while, you should get something like this
+Now both Kidneys are clearly separate segmentations.
 
-!!! example "Output after apply from Grow from Seeds"
+#### Change the Label Values for both Kidneys
 
-    ![img-name](images/CTACardio-4up-grow-from-seeds.png){ width="450"}
+For this step, we add new labels to the Segmentation Labels table and then switch the labels of each kidney.
 
-1. Notice that the Background is now a large Cube. Grow from seeds extends the background from your background paintings into a 3D cube. Inside this cube, is the kidney.
-2. Delete the "Background" segmentation (mustard box).
-    - Select the "background" row in the segmentation table
-    - Click on the "Remove" button ![remove button](images/seg-editor-remove-button.png){ width="50"}
-    - You should now see a fully segmented kidney, in all its glory, in the 3D viewer
->![r kidney segmentation](images/ctacardio-3D-kidney-segmentation.png){ width="250"}
+!!! abstract "Add Kidney Labels to table"
+
+    ![img-name](images/seg-editor-add-button.png){ width="45"}
+
+    1. Click the Add button and add a new Label for the **Left Kidney**
+    3. Click the Add button and add a new Label for the **Right Kidney**
+
+    The segmentation colors should be different from "Segment_1" — so, not green.
+
+    ![seg edit table](images/CTACardio-segEditTable-Kidneys.png){ width="450"}
+
+!!! abstract "Change the Label for the Left Kidney"
+
+    1. Select the Left Kidney label so that it is highlighted in the Segmentation Table, as shown above
+    2. In the Islands Tool, select "Add selected island"
+    3. In one of the Slice viewers, click on the Left Kidney
+        1. Make sure you click on the correct one!
+        2. Hint, review the Data Probe before you click.
+        3. This will not work in the 3D viewer
+    4. The Label for the Left Kidney should change
+
+**Repeat the Process for the Right Kidney.**
+
+Verify that you have successfully changed the labels by hovering over the kidney segmentations in the viewer and review the information the Data probe.
+
+If everything works, select Segment_1 label in the Table and click on **Remove**. You should now have two segmented kidneys and nothing else.
+
+![4up view of segmented kidneys](images/CTACardio-4up-Kidneys-Threshold-Segmentation.png){ width="450"}
 
 #### Segmentation Cleanup
 
-After segmentation, you typically use some morphological operations to clean  up the segmentation. The `Segment Editor` contains many useful tools, such as the Islands Tool, which can remove small noise.
+We can perform morphological operations on our segmentations using the Islands and Smoothing Tools.
 
-**Islands Tool**
+!!! abstract "Smoothing"
 
-![islands tool](images/seg-editor-islands-button.png){ width="50"}
+    ![img-name](images/seg-editor-smoothing-button.png){ width="48"}
 
-1. Click on the **Islands** icon.
-2. Select "Remove small islands"
-3. Set "Editable area" to "Everywhere"
-4. Use the default setting of 1000
-5. Click Apply
-6. Small noise should be removed
+    You can remove extrusions or close holes using the smoothing tool
 
-**Smoothing**
-
-![img-name](images/seg-editor-smoothing-button.png){ width="50"}
-
-You can remove extrusions or close holes using the smoothing tool
-
-1. Click on the **Smoothing** icon
-2. Try the default settings for Closing (fill holes) and Opening (remove extrusions)
-3. Click "Apply" to apply the smoothing effect
+    1. Click on the **Smoothing** icon
+    2. `Smoothing Method`: "Gaussian"
+    3. `Standard Deviation`: "1.00mm"
+    4. **Apply**
 
 ### Save Data
 
@@ -334,17 +328,6 @@ Time to save your hard work!
 >![save dialog](images/CTACardio-save-dialog.png){ width="450"}
 4. Back in the Save Dialog, Choose "Save"
 5. Everything in the table that is checked will be saved.
-
-#### Segment the Left kidney
-
-Repeat the segmentation steps for the Left Kidney
-
-- Create a new Segmentation Called Left Kidney. Set the color to Blue
-- Settings for  **Grow From Seeds**
-        - Masking: Editable area: Outside all visible segments
-        - Overwrite other segments: "none"
-
-SAVE YOUR WORK!
 
 ### Segment the Aorta
 
@@ -364,19 +347,30 @@ For the Aorta, we will use a different segmentation method. First, though, we ne
 
 The local threshold tool is an add-on tool included with the "SegmentEditorExtraEffects" extension. Make sure you have that [extension installed](CustomizeSlicer.md) before continuing. Local threshold works by setting an intensity range and then clicking on the image to add a starting point for the segmentation. The algorithm will segment any connected voxels with the same intensity range.
 
-1. Switch to the Local Threshold tool
-2. Set the threshold Range to: `300-600`
-3. Under the Masking tab, set the **Editable area** to "Outside all segments"
-4. For **Modifying other segments**, choose "Overwrite visible"
-   >![img-name](images/CTACardio-local-threshold-preview.png){ width="250"}
-   >
-   >You should see a flashing color indicating what will be segmented. Notice that kidney is outside of the threshold range
-5. Once you have these settings, Ctrl- or Command- click on the descending aorta and watch the magic happen
-   >![img-name](images/CTACardio-4up-kidney-aorta-heart.png){ width="450"}
-   >
-   >So, we also got the ventricles of the heart, but no matter, we can clean that up
+!!! abstract "Local Threshold tool settings"
 
-#### Clean up Aorta
+    1. Switch to the Local Threshold tool
+    2. Set the threshold Range to: `300-600`
+    3. Under the Masking tab, set the **Editable area** to "Outside all segments"
+    4. For **Modifying other segments**, choose "Overwrite visible"
+
+There should be a color flashing in the 2D viewers. This color indicates what will be segmented
+
+![img-name](images/CTACardio-local-threshold-preview.png){ width="250"}
+
+!!! abstract "Applying Local Threshhold"
+
+    Once you have these settings, **Ctrl- or Command-click** on the descending aorta and watch the magic happen.
+
+You should now have an Aorta in your 3D view:
+
+![img-name](images/CTACardio-4up-kidney-aorta-heart.png){ width="450"}
+
+>We also got the ventricles of the heart, but no matter, we can clean that up
+
+#### Clean up Aorta using the Scissors tool
+
+The Scissors tool allows you to cut out segmentation you don't want. 
 
 1. Maximize the 3D viewer
 2. Switch to the Scissors tool ![img-name](images/seg-editor-scissors-button.png){ width="25"}
@@ -396,9 +390,9 @@ The local threshold tool is an add-on tool included with the "SegmentEditorExtra
 11. Click apply and enjoy your segmented aorta
 12. Save your work!
 
-!!! example "Segmented Aorta (and Right Kidney)"
+Final Segmented Aorta (and Right Kidney):
 
-    ![img-name](images/CTACardio-3D-segmentations-kidney-aorta.png){ width="250"}
+![img-name](images/CTACardio-3D-segmentations-kidney-aorta.png){ width="250"}
 
 ### Segment the Lungs
 

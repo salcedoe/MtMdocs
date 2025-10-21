@@ -287,7 +287,7 @@ To do so:
 5. You should now see the following **little guy** in the corner of the slice viewers
 6. Hide the "more controls" by clicking on the "<<" button
 
-!!! tip "Adjust Settings to add little human and remove slice edges"
+!!! tip "Adjust Settings to add Orientation Marker and remove slice edges on Launch"
 
     If you want these orientation markers to be added on launch of Slicer, you can set the default the Slicer Settings. You can also remove those annoying Slice Edge views
     
