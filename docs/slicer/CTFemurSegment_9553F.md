@@ -1,13 +1,26 @@
 # Femur Segmentation 9553F
 
-In this module, we will segment the Pelvis and Femurs from the 9553F DICOM dataset.
+In this module, we will segment the Pelvis, Femurs, and Knee implants from the 9553F DICOM dataset.
+
+1. Load
+2. Crop
+3. Delete original volume
+4. TotalSegmenter
+5. Create New Segmentation
+6. Clone Femur Segmentations
+7. Smooth Femur Segmentations
+8. Segment Implants
+9. Fix femur inside implant
+10. Fix Femur Head
+   1.  Fill between slices with a different segment?
+11. Segment Tibia/Fibula?
 
 ## LOAD DICOM Volume
 
 Load the `9553F Body Bone` dataset into Slicer, as discussed in the [Import DICOM datasets documentation](ImportDICOMDataset.md). Alternatively, you can load the 6 Body Bone NRRD volume from the MATLAB drive.
 
 ![img-name](images/dicom-4up-9553F-body-bone-fixed.png){ width="450"}
-> Note: you won't see the 3D render until you follow [Volume Rendering](#volume-rendering) steps below
+> Note: you won't see the 3D render until you follow [Volume Rendering](#volume-rendering) steps below. If the volume looks messed up in the 2D viewers (a weirdly shaped head), review the [Import DICOM datasets documentation](ImportDICOMDataset.md) to fix the problem.
 
 ## Volumes Module
 
@@ -42,19 +55,22 @@ When segmenting, it helps to adjust the contrast so that the target anatomy (e.g
 
 Volume Rendering is useful for exploring a volume and quickly rendering anatomical structures. This is NOT a substitute for segmentation. This is mostly for display purposes only. For example, there is nothing to export from a volume rendering. That being said, it is often useful to quickly render anatomical structures before segmenting.
 
-![select body bone](images/CTFemur-vol-render-select-volume-menu.png){ width="450"}
+Switch to the Volume Rendering Module and select the 'Body Bone' volume from the pop up menu of the `Volume` setting
 
-1. Bring up the Volume Rendering Module
-2. Select the Body Bone volume from the pop up menu
-3. Adjust the **Shift** slider to reveal a render of the cadaver
-4. Select the CT-AAA to reveal a render of the cadaver's skeletal system
-5. The goal is to reveal the following:
+![select body bone](images/CTFemur-vol-render-select-volume-menu.png){ width="450"}
 
 !!! example "Revealing internal structures using Volume Rendering"
 
+    In the Display tab
+    
+    1. Adjust the **Shift** slider to reveal a render of the cadaver
+    2. `Preset`: Select the 'CT-AAA' to reveal a render of the cadaver's skeletal system
+   
+    The goal is to reveal the following:
+
     ![volume rendering of Body Bone](images/CTFemur-volume-rendering-3D.png){ width="450"}
 
-    Notice how the femur heads and lower flanges are darker than the rest of the femur. This indicates a level of bone degeneration that would be expected in an older female with a knee replacement.
+    >Notice how the femur heads and lower flanges are darker than the rest of the femur. This indicates a level of bone degeneration that would be expected in an older female with a knee replacement.
 
 !!! tip "Bonus Render: Reveal implant"
 
@@ -64,7 +80,7 @@ Volume Rendering is useful for exploring a volume and quickly rendering anatomic
 
 Before continuing, select the`CT-AAA` to again render the skeletal system. Notice how the implants create a spiky distortion in the CT scan around the knee
 
-### Create precise ROI for cropping
+### Create a precise ROI for cropping
 
 Cropping the volume is a critical step in Slicer as it helps reduce the memory load (and avoid crashes) by eliminating parts of the volume that are not relevant to your project. We can create an ROI in the **Volume Rendering** module, but then the ROI has to be manually drawn.
 
@@ -84,7 +100,7 @@ For this exercise, we instead want to create an ROI with precise coordinates. Th
     1. Switch to the **Markups** module
     2. Click on the ROI icon to create a new ROI ![img-name](images/markups-roi-button.png){ width="45"}
     3. Rename the ROI "PelvisFemurROI"
-    4. Enter the following settings
+    4. Enter the following settings:
 
     ![img-name](images/CTFemur-PelvisFemur-ROI.png){ width="450"}
 
@@ -95,7 +111,6 @@ For this exercise, we instead want to create an ROI with precise coordinates. Th
    2. Enable Crop - the skeleton should be cropped down to the femur and pelvis
    3. Turn off Volume Rendering
    4. Turn off **Display ROI**
-
 
 ![img-name](images/CTFemur-4up-vol-render-crop-PelvisFemurROI.png){ width="450"}
 
@@ -134,7 +149,7 @@ Review the Data module, which displays a hierarchy of the loaded volumes and oth
 
 You should see the new `BODY BONE crop` volume in this list.
 
-1. **Display Crop Volume:** To display the new crop volume, click on the eye-cube icon in the `BODY BONE crop` row. This should display this volume in the slice viewers and hide the other volume. 
+1. **Display Crop Volume:** To display the new crop volume, click on the eye-cube icon in the `BODY BONE crop` row. This should display this volume in the slice viewers and hide the other volume.
 2. **Delete Original Volume:** Right-Click on the original "6 BODY BONE" volume and select "delete".
     - We won't need this volume any more and deleting it will help save on computer memory (and avoid slicer crashes).
     - Also, we can always reload the volume from the DICOM dataset if needed.
@@ -163,176 +178,134 @@ Now would be a good time to save your data. Remember, you need to create a new f
     - Every file should be checked in the check column.
     - Click on the Save Button. 
 
-## Segment Editor
+## Segmentation
 
-We are now ready to segment the femurs and pelvis.
+To segment, we are going to use the Total Segmentator Extension. Make sure that you have [the extension installed](CustomizeSlicer.md) before proceeding.
 
-![img-name](images/mod-menu-segment-editor.png){ width="250"}
+### Total Segmentator
 
-1. Switch to **Segment editor module**
-2. Rename the Segmentation as "Femur Segmentation"
-   >![img-name](images/seg-editor-rename-segment.png){ width="350"}
-3. Set the Master volume to "BODY BONE crop"
-   >![img-name](images/CTFemur-seg-editor-settings.png){ width="450"}
-4. In the Data Module, there is now new Segmentation node called Femur Segmenation
->![img-name](images/CTFemur-data-segment.png){ width="450"}
->
->When you click on Femur Segmentation, BODY BONE crop becomes highlighted in yellow, indicating that the volume is linked to the segmentation
+Open the **Total Segmentator Module** (Segmentation:Total Segmentator) and use the following settings:
 
-### Add Segmentations to the Segmentation table
+#### Inputs
 
-1. In the Segment Editor, add a new segmentation by clicking on the add button ![img-name](images/seg-editor-add-button.png){ width="25"}
-2. Rename segmentation to "Skeleton" (double-click on the name to rename)
-3. Add two more segmentations called "Femur_Left" and "Femur_Right"
-4. Color to taste by double-clicking on the color swatches
-   >![img-name](images/CTFemur-seg-edit-table1.png){width="450"}
-   >
-   >With this set-up, we create three labels in our segmentation volume: One for skeleton, one for Femur-Right, one for Femur_left.
+- `Input Volume`: BODY BONE crop (**Important**: make sure you select the cropped volume)
+- `Segmentation task`: total
+- `Fast`: checked on
 
-### Segmentation Strategy
+#### Outputs
 
-To segment the femurs and pelvis, we will start by thresholding out the skeleton. Since bone has such a high contrast compared to the rest of the tissue, this should be relatively easy to accomplish using the local thresholding tool. Then, we will separate out the bones of interest from the skeleton.
+- `Segmentation`: Create New Segmentation
 
-![img-name](images/CTFemur-segmentations-skel-selected.png){width="450"}
+Click **APPLY** and wait.
 
-![img-name](images/seg-editor-local-threshold-button2.png){width="150"}
+Eventually, you will see a series of colorful segmentations added to the 2D slice viewers.
 
-1. Select the Skeleton Label in the Segmentation table.
-2. Bring up the Threshold Tool
-3. Set the **Threshold Range** to:  `137 - 1500`
-4. Command- or Control- click on the skeleton in one of the 2D viewers.
-   >![img-name](images/CTFemur-local-thresh-control-click.png){ width="250"}
-5. To see the skeleton in 3D, click on the **Show 3D** button.
-  >![img-name](images/seg-editor-show-3D-button.png){ width="100"}
-6. Enjoy a segmentation of the Skeleton.
-   >![img-name](images/CTFemur-4up-local-thresh-segment-skeleton.png){ width="450"}
-   >
-   >Notice that our threshold settings exclude the knee implant.
+### Create New Segmentation Volume and clone segmentations
 
-### Segment Right Femur
+The segmentations created by Total Segmentator will serve as our base segmentations. But as we'll soon see, these segmentations are not entirely accurate. So, we in this next step, we clone the segmentations generated by Total Segmentator, which we will then modify in the upcoming steps.
 
-Now that we have a segmentation for the skeleton, we need to separate out the femurs. To do this, we will use a neat trick that involves painting the femur head in 3D and then changing the segmentation label of the femur using the **Island tools**. Review this video for an overview: [PERKlab - Create Femur Model](https://www.youtube.com/watch?v=0at15gjk-Ns)
+#### Segment Editor
 
-#### Set-up editable intensity range and turn on 3D brush
+![seg edit button](images/button-segment-editor.png){ width="24"}
 
-Before painting, we want to restrict where we can paint.
+Switch to the Segment Editor module.  You should see the total segmentator segmentation. Likely called "Body Bone Crop Segmentation"
 
-1. Bring up the **Threshold tool** ![img-name][threshold-tool-button]{ width="25"}
-2. Set the **Threshold Range** to:  `137 - 1500`
-3. Click on the "Use for masking" button.
-   - This changes the Masking settings.
-   - Notice that the "editable intensity range" is now checked, which forces all segmenting tools to only label voxels that fall within that intensity range
-4. Bring up the **Paint Tool** (if not active, already). ![img-name](images/seg-editor-paint-button.png){ width="25"}
-    - **Editable Area** should be set to `Everywhere`. Sometimes this gets switched to another setting and can cause confusion when you are unable to paint where you think you should be able to pain.
-    - **Modify other segments** should be set to `Overwrite All`. This will allow you to overwrite one label with another, which you may need to do.
-    - Ensure the **Editable intensity range** remains `checked`. This will force the Paint tool to only paint voxels that fall within that intensity range, which we set to capture bone intensities.
-5. Activate **Sphere Brush** and **Edit in 3D Views**
-   >![img-name](images/seg-editor-paint-settings.png){ width="450"}
+1. From the `Segmentation` pop-up menu, select "Create New Segmentation as…"
+2. Save your new Segmentation as  "YourLastName Segmentation" (e.g. Salcedo Segmentation)
 
-[threshold-tool-button]: images/seg-editor-threshold-button.png
+#### Data Module
 
-#### Segment right femur head
+![data module button](images/button-data-module.png){ width="24"}
 
-![img-name](images/CTFemur-segmentations-FemurRight-selected.png){ width="450"}
+Switch to the Data Module. You should now see two Segmentations: one created by the Total Segmentator (and filled with Segmentations), and one that you just created (and empty).
 
-1. Select "Femur_Right" in the segmentation table.
-2. In the 3D viewer, hold-shift and then hover the mouse pointer over the right femur head to align all viewers to this location
-3. In the transverse viewer (Red viewer), scrub to a section that shows the femur head inserted into the pelvis
-4. Move the mouse to the center of the femur head
-5. Maximize the red slice and zoom in on the femur head
-6. Adjust the size of the paintbrush by holding shift while scrolling the mouse
-7. The size of the paintbrush should match the largest cross-section of the femur head.
-    - You may need to scrub through several slices to find the largest cross-section.
-    - Remember, you are using a sphere brush, so you are editing in 3D.
-    - That is, you will be painting voxels that are both above and below the current slice. Keep an eye on the 3D view for reference
-    >![img-name](images/CTFemur-segment-FemurR-redViewer-paintBrush.png){ width="450"}
-8. Once you have your paintbrush in position on the largest cross-section, **click the left mouse button** once.
-9. The femur head should now be a different color from the skeleton—as long as you have selected the "Femur_Right" row in the segmentation table
+1. In the Total Segmentator Segmentation Volume, Right Click on the Right Femur and select "Clone"
+2. Drag the Clone to the Segmentation Volume
+3. Repeat for the Left Femur
+4. Hide the Total segmentation volume from view by toggling closed the eye icon
 
-!!! abstract "Right Femur Head separated from Shaft"
-    
-    ![img-name](images/CTFemur-segment-FemurRHead-3Diewer.png){ width="450"}
-    
-    Inspect your work. Make sure that the femur head is cleanly separated from the pelvis.
+Your new segmentation should contain the following:
 
-##### TIME TO SAVE YOUR WORK
+![data module screenshot](images/Femur-Data-Module-TotalSegmentor-Clone.png){ width="450"}
+> Screen shot of the Data module. Notice that the Total Segmentation has been hidden from view (eye icon closed)
 
-- When you click on the Save button, you will get the "Save Scene and Unsaved Data" pop-up dialog
-- Only the files that have changed will be checked. 
-    - Usually it's the MRML Scence file and the Segmentation.seg.nrrd file. Don't check anything else—they don't need to be updated
-- Click on "Save"
-- Click on "Yes to ALL"
+### Review Cloned Segmentations
 
-#### Segment the rest of the Right Femur
+Switch to the Segmenter the Segment Editor, Select your Segmentation (YourLastName Segmentation) and review the two femur segmentations. Notice that they look fairly reasonable but that there are some clear errors. For example the left femur at the knee implant is completely wrong.
 
-Once we have separated the femur head from the pelvis, the rest of the femur segmentation is as simple as a mouse click.
+### Smooth Cloned Segmentations
 
-1. Switch to the Island Tool ![][island-tool-button]{ width="24"}
-2. Select `Add Selected Island`
-3. In the Coronal View (Green Slice Viewer), click on the femur, somewhere in the middle of the shaft
-4. The Right Femur should now be labeled as such.
+Switch to the **Smooth Tool** and smooth the Femurs using the following settings:
 
-![right femur 4up](images/CTFemur-segment-add-selected-island-4up.png){ width="450"}
->Right Femur labeled in blue. Note, your femur head may have holes in it. This is because the intensity of the femur head has decreased (due to degeneration) so its intensity matches tissue intensity.
+![smoothing](images/seg-editor-smoothing-button.png){ width="45"}
 
-[island-tool-button]:images/seg-editor-islands-button.png
+1. `Smoothing Method`: Gaussian
+2. `Standard Deviation`: 2.0mm
+3. Check `Apply to visible segments` (Make sure both Femurs are visible)
 
-### Remove the Tibia and miscellaneous bone
+### Segment Implant
 
-Time to clean up the Right Femur segmentation. In this step, you remove any bone that is labeled Right Femur (blue) but that is not right femur.
+Switch to "Local Threshold" (included with the [SegmentEditorExtraEffects extension](CustomizeSlicer.md/#installing-extensions))
 
-#### Scissors Tool
+![img-name](images/seg-editor-local-threshold-button.png){ width="45"}
 
-![scissors tool](images/seg-editor-scissors-button.png){ width="50"}
+1. Hide the Femurs from display
+2. `Threshold Range`: 1300-3000
+3. Command- or control- click on the implant in the left knee (both femur and tibia implants)
 
-The scissors tool can quickly edit your segmentation in the 3D Viewer
+Your implants should look like the following:
 
-- Bring up the Scissors Tool
-- Select the Right Femur label in the Segmentation table
-- Use the Scissors to capture the Tibia by drawing in the 3D view
-- The selected portion of bone should disappear
+![knee implant](images/Femur-3D-implant.png){ width="250"}
 
-#### Erase tool
+### Clean up Left Femur
 
-![erase button](images/seg-editor-erase-button.png){width="50"}
+The Left Femur segmentation is incorrect at the knee. It looks as if the implant is completely embedded inside the bone, but that is not how implants work. The femur shaft is inserted into the implant, and the metal implant should be exposed at the knee. So, let's cut away at the extraneous segmentation.
 
-Use the Erase tool for more detailed erasures in the slice viewers
+If you review the left femur segmentation axially through the implant, you can see how the segmentation does not accurately represent the bone at the level of the implant. It just seems to have guessed where bone should have been. But in reality, that bone was cut away to make room for the implant. As you scrub axially through the implant, there should be a point where the actual femur disappears, as shown below:
 
-#### Island Tool
+![femur screenshot](images/Femur-implant-interface.png){ width="450"}
 
-![island tool button][island-tool-button]{ width="50"}
+>Left femur segmentation showing the implant in cyan and femur segmentation in green. The femur segmentation does not accurately represent the bone.
 
-Use the "Keep Largest Island" option to remove any small noise.
+To remove this inaccurate segmentation, we are going to cut the segmentation at the level where the actual femur ends. Then we'll remove any femur segmentation inferior to that position.
 
-#### Smoothing
+It's easiest to find the bottom of femur in the Coronal (green) viewer. Hover the mouse at the base of the femur (just above the implant) while holding shift. The axial view should now show the corresponding view, as shown above.
 
-You can use the Closing Operation in the smoothing tool to close any holes in the femur head. You may need to use a large kernel, like 8 or 12mm. Be sure you don't alter the shape of the femur (remember, undo is your friend here).
+!!! abstract "Slice Cut Femur Segmentation at base of actual femur"
 
-REMEMBER TO SAVE YOUR WORK
+    ![img-name](images/seg-editor-erase-button.png){ width="48"} 
 
-### Capture the Left Femur
+    Switch to the **Erase tool** and Erase this segmentation slice using the following steps:
 
-- Select the Femur_Left segmentation in the segmentation table
-- Repeat the above processes to capture the left Femur
-- Remember to save your work
+    1. Scrub axially to the position shown in the above image
+    2. Select the Left Femur segmentation in the segmentation table
+    3. Do not check anything in the Erase details settings
+    4. Position the Erase tool over the femur segmentation
+    5. Increase the diameter of the tool by holding shift and rolling the mouse wheel
+    6. When the diameter is larger than the Femur Segmentation, click on the slice
+    7. The Femur segmentation (green) should disappear
 
-### Bonus: Capture the Implant
+There should now be a very evident break in the segmentation in the Coronal Slice viewer (as shown below):
 
-Since the implant is so bright, it is easy to capture using the Threshold Tool.
+![femur slice cut](images/Femur-Coronal-Segmentation-Slice-Cut.png){ width="450"}
+>**Coronal view of Left Knee with Femur and Implant Segmentations. Left.** Femur Slice cut, as detailed above. **Right.** Segmentation removal inferior to slice cut, as detailed below.
 
-1. Add a new segmentation to the segmentation table called "Implant". Be sure this segmentation is selected before proceeding. 
-2. Hide the other segmentations by clicking on their respective eye icons
-3. Scrub to the implant in the Yellow Viewer. Make sure that the implant is visible in all three planes, along with the left femur shaft
-4. Bring up the Threshold tool ![img-name][threshold-tool-button]{ width="25"}
-5. Under the masking tab, uncheck `Editable Intensity Range`. Make sure that the `Editable Area` is set to "Everywhere" and `Modify other segments` is set to "Overwrite All".
-   >**Warning**. These settings will allow you to overwrite the Left Femur segmentation if you are not careful.
-6. Change the Threshold range to ~1700-3961. You want just the implant to light up (and not the left femur shaft)
-7. Click **Apply**.
-8. Enjoy the segmentation of the implant.
-9. Reveal the other segmentations by clicking on their respective eye icons
-10. Make sure your Left Femur segmentation has not been ruined. There is always undo if you did mess it up.
+!!! abstract "Remove Femur Segmentation inferior to Slice Cut"
 
+    ![img-name](images/seg-editor-islands-button.png){ width="48"}
+
+    Switch to the Islands Tool and remove segmentation inferior to the slice cut as follows:
+
+    1. Select "Remove Selected Island"
+    2. In the Coronal Slicer viewer, click on the Femur Segmentation below the slice cut
+
+There are still some remaining femur segmentation that artifically hangs outside the implant
+
+!!! abstract "Final Segmentation Clean up"
+
+    1. Switch to the Scissor tool
+    2. Select a "Negative Slice Cut" — so you don't mess up the Femur Head
+      trace any femur overhangs to remove. The easiest overhangs to remove are in the axial views (red viewer)
 ## Final Result
 
-![img-name](images/CTFemur-all-segmentations-4up.png){ width="450"}
->Your segmentations will likely be full of holes. This is likely due to the level of degeneration found in this skeleton.
+![img-name](images/Femur-4up-Final-Result.png){ width="650"}
