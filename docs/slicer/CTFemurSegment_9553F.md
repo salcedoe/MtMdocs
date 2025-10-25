@@ -249,9 +249,10 @@ Switch to "Local Threshold" (included with the [SegmentEditorExtraEffects extens
 
 ![img-name](images/seg-editor-local-threshold-button.png){ width="45"}
 
-1. Hide the Femurs from display
-2. `Threshold Range`: 1300-3000
-3. Command- or control- click on the implant in the left knee (both femur and tibia implants)
+1. Create Two New Labels in the Segmentation Table: `femoral implant` and `tibial implant`
+2. Hide the Femurs from display
+4. `Threshold Range`: 1300-3000
+5. Command- or control- click on the implant in the left knee (both the femoral and tibial implants)
 
 Your implants should look like the following:
 
@@ -299,13 +300,19 @@ There should now be a very evident break in the segmentation in the Coronal Slic
     1. Select "Remove Selected Island"
     2. In the Coronal Slicer viewer, click on the Femur Segmentation below the slice cut
 
-There are still some remaining femur segmentation that artifically hangs outside the implant
+There are still some remaining femur segmentation that artificially hangs outside the implant
 
 !!! abstract "Final Segmentation Clean up"
 
     1. Switch to the Scissor tool
-    2. Select a "Negative Slice Cut" — so you don't mess up the Femur Head
-      trace any femur overhangs to remove. The easiest overhangs to remove are in the axial views (red viewer)
+    2. Use the following settings: 
+    ![seg edit scissor screenshot](images/Femur-SegEdit-Scissor-Settings.png){ width="450"}
+    3. Switch to the Red Viewer
+    4. Trim any femur segmentations that all outside the implant, as shown below.
+    5. You may have to scrub through several slices along the implant to completely trim away the bone. 
+
+    ![img-name](images/Femur-RedViewer-ScissorTrim.png){ width="450"}
+
 ## Final Result
 
-![img-name](images/Femur-4up-Final-Result.png){ width="650"}
+![femur final result](images/Femur-Dual3D-Final-Result.png){ width="650"}
