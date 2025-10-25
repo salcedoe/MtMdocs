@@ -260,9 +260,11 @@ Your implants should look like the following:
 
 ### Clean up Left Femur
 
-The Left Femur segmentation is incorrect at the knee. It looks as if the implant is completely embedded inside the bone, but that is not how implants work. The femur shaft is inserted into the implant, and the metal implant should be exposed at the knee. So, let's cut away at the extraneous segmentation.
+The Left Femur segmentation is incorrect at the knee. It looks as if the implant is completely embedded inside the bone, but that is not how total knee implants work. Surgeons replace (saw off) the inferior distal end of the femur and the superior end of the tibia with metal components. The femur shaft is inserted into the implant, and the metal implant is exposed at the knee, separated by a plastic spacer.
 
-If you review the left femur segmentation axially through the implant, you can see how the segmentation does not accurately represent the bone at the level of the implant. It just seems to have guessed where bone should have been. But in reality, that bone was cut away to make room for the implant. As you scrub axially through the implant, there should be a point where the actual femur disappears, as shown below:
+To clean up the segmentation, remove any extraneous femoral segmentation at the level of the knee. If you review the left femur segmentation axially through the implant, you can see how the segmentation does not accurately represent the bone at the level of the implant. The segmentation algorithm appears to have interpolated bone where it does not exist. But in reality, that bone was cut away to make room for the implant. As you scrub axially through the implant, there should be a point where the actual femur disappears, as shown below.
+
+To clean up the segmentation, remove any extraneous femoral segmentation at the level of the knee. If you review the left femur segmentation axially through the implant, you can see how the segmentation does not accurately represent the bone at the level of the implant. It just seems to have guessed where bone should have been. But in reality, that bone was cut away to make room for the implant. As you scrub axially through the implant, there should be a point where the actual femur disappears, as shown below:
 
 ![femur screenshot](images/Femur-implant-interface.png){ width="450"}
 
