@@ -54,7 +54,7 @@ For this segmentation project, we will take advantage of the added contrast to s
 
 In the Volumes module, under the Display Tab, select the CT-Abdomen preset:
 
-![][CT-Abdoment Preset]
+![button for preset][CT-Abdoment Preset]
 
 [CT-Abdoment Preset]: images/volumes-display-CT-Abdoment.png
 
