@@ -11,9 +11,9 @@ So, you're being forced to learn computer programming. Don't worry. It's not tha
     - Can you point and click on things?
     - Do you know how to make a list of instructions?
 
-Alright, that's more than one question, but if you can do most of the above then you too can barely learn to program.
+Alright, that's more than one question, but if you can do most of the above then you too can barely learn to program. In fact, your brain is already [pre-wired to code](https://neurosciencenews.com/coding-logic-brain-neuroscience-29860/){target="_blank"} —— the same parts of your brain that you use for logic reasoning are used for coding.
 
-Learning to program is a lot like learning a foreign language. You start completely lost. Then, slowly you start to understand a word here and there. And then suddenly, it clicks, and you're smoking and chatting away with your new friends in Italy.
+But learning to code takes some work. It is a lot like learning a foreign language. You start completely lost. Then, slowly you start to understand a word here and there. And then suddenly, it clicks, and you're smoking and chatting away with your new friends in Italy.
 
 ## So, what is programming, anyway?
 

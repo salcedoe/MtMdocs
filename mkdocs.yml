@@ -91,6 +91,7 @@ nav:
       - PET CT (Multi-modal Dataset): slicer/CTPETExplore.md
       - CT MRI: slicer/CTMRExplore.md
       - MRHead: slicer/MRHeadExplore.md
+      - Ultrasound: slicer/UltrasoundExplore.md
       - Import DICOM datasets: slicer/ImportDICOMDataset.md
     - Volume Segmentation:
       - CTACardio: slicer/CTACardioSegment.md

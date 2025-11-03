@@ -1,4 +1,4 @@
-# 3D Visualization
+# Volume Rendering and Surface Meshes
 
 When dealing with Image Volumes, it is often useful to see "inside" the volume — that is, to construct 3D representations of internal structures inside that volume. 3D Rendering is the computer graphics process of converting 3D models into 2D images for display on a 2D computer screen. The process considers the positioning of the objects in this 3D scene and renders a 2D image based on this perspective. Any change in the view, such as rotating the scene, generates a new render to reflect the new perspective of the 3D scene, as shown below.
 
@@ -10,7 +10,7 @@ There are two main types of rendering that we deal with in this course:
 
 - **Volume Rendering:** visualizes 3D structures by  adjusting the transparencies of the voxels of a 3D volume. Usually, you make completely transparent the outer edge and background voxels, while keeping opaque internal voxels that comprise the structures of interest. Typically, this involves creating a lookup table of transparencies, called an alphamap, that determines the transparencies values for all the voxels in the volume. Only voxels that are not completely transparent are rendered.
 
-- **Surface rendering:** visualizes a surface model of an internal structure. For surface rendering, you first need to create a surface model, typically by connecting voxels with same intensity values and then wrapping a 3D surface (aka mesh) around those voxels. Other pre-processing steps may be required, often making surface rendering more time consuming. In this method, only the surface is rendered, the rest of the volume is ignored. This technique is commonly used in medical imaging to visualize segmented structures like bones or organs.
+- **Surface rendering:** visualizes a surface model of an internal structure. For surface rendering, you first need to create a surface model, made up of vertices and triangular faces. In this method, only the surface is rendered, the rest of the volume is ignored. This technique is commonly used in medical imaging to visualize segmented structures like bones or organs.
 
 ## The Volume Viewer App
 
@@ -72,7 +72,17 @@ The function **volshow** renders the inputed volume using the default alphamap s
 
 ### Isosurface
 
-An isosurface is a 3D surface created by connecting voxels with the same intensities. **volumeViewer** can create such a surface by Switching the Rendering Engine to "Isosurface".
+A 3D surface model is also known as a Mesh or a Manifold. Surfaces are made up of Vertices and Faces.
+
+One way to generate a Surface Mesh is to use an `isosurface`. An isosurface is  created by connecting voxels with the same intensities in a volume.  Other pre-processing steps may be required, often making surface rendering more time consuming than volume rendering, but the final product can appear more realistic and detailed.
+
+Surface analysis is useful when you:
+
+- Need to rotate the surface in 3D space for you analysis
+- Want to measure the extent of your 3D object (e.g. the length of a Femur)
+- Want to compare two surfaces in 3D space
+
+**volumeViewer** can create such a surface on the fly by Switching the Rendering Engine to "Isosurface".
 
 ![volume viewer with isosurface turned on](images/volViewer-flybrain-greenCh-isosurface.png){ width="450"}
 
