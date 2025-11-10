@@ -2,9 +2,9 @@
 
 An exercise using 3D Slicer
 
-## Prostate Gland ##
+## Prostate Gland
 
-![][img_prostate]{width=350px}
+![diagram of the prostate gland][img_prostate]{width=350px}
 
 [img_prostate]: http://res.cloudinary.com/cudenes/image/upload/v1493957481/medical_imaging/Prostate-Anatomy.jpg
 
@@ -146,16 +146,19 @@ Slicer should now look something like this:
 
 *optional*
 
-NOTE: the resolution is very low in these volumes. You will not get the prettiest segmentations.
+!!! note "Data Resolution"
 
-NOTE: The prostate itself is too small and does not have enough contrast to segment using the "grow from seeds" tool. Instead, you would have to manually segment each slice of the prostate. We are not going to do that.
+    The  resolution is very low in these volumes. You will not get the prettiest segmentations.
 
-NOTE: The Prostate appears to be  smaller in the MR than in the US
+    The prostate itself is too small and does not have enough contrast to segment using the "grow from seeds" tool. Instead, you would have to manually segment each slice of the prostate. We are not going to do that.
+
+    The Prostate appears to be  smaller in the MR than in the US.
+
+
+### Bladder
 
 * Bring up the "Segment Editor" module
 * For "Master Volume" - choose "MRProstate"
-
-### Bladder
 
 1. Add a segmentation for the bladder and call this segmentation "Bladder"
 2. Use Paint to paint inside bladder

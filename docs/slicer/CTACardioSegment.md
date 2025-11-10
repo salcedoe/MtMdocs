@@ -1,7 +1,7 @@
 
 # Segmenting a Contrast-Enhanced CT Volume
 
-Medical image segmentation is the process of dividing a medical image into regions or segments that represent different tissue types or categories. The goal is to identify areas of interest, such as tumors, lesions, or other abnormalities. In this module, will we use 3D Slicer to segment the Kidneys,  Aorta, and Lungs in the CTACardio Sample dataset.
+Medical image segmentation is the process of dividing a medical image into regions or segments that represent different tissue types or categories. The goal is to identify areas of interest, such as tumors, lesions, or other abnormalities. In this module, will we use 3D Slicer to segment the Kidneys,  Aorta, Lungs, and everything else from the CTACardio Sample dataset.
 
 ## Extensions Required
 
@@ -210,9 +210,11 @@ Bring up the **Segment Editor Module**: ![img-name](images/button-segment-editor
 
 The Editor has three main parts:
 
-1. The Segmentation Settings region at the top, where you create the Segmentation Volume and select the Source Volume
-2. The Segmentation Table, where you create the Segment Labels
-3. The Toolbar, which has the icons for all the Segment Editor Tools
+![img-name](images/seg-editor-module.png){ width="450"}
+
+1. **Segmentation Settings**: Region at the top, where you create the Segmentation Volume and select the Source Volume
+2. **Segmentation Table**: Organizing segmentations (e.g. color and label name) 
+3. **Toolbar**: Segmentation Tools
 
 ### Segmentation Settings
 
@@ -232,7 +234,10 @@ At the top of the Segment editor, create the following settings:
 
 ### Segment the Kidneys using the Threshold Tool
 
-The threshold tool segments the volume based on a Threshold Range (or Intensity Range). You set the low and high end of the range, and the tool will segment all voxels that fall in that intensity range with the selected label (i.e. "Segment_1"). Here,  we take advantage of the fact that contrast has been added to the patient, which makes the Kidneys very bright in comparison to the surrounding tissue.
+![diagram of kidney](https://upload.wikimedia.org/wikipedia/commons/d/d6/Blausen_0592_KidneyAnatomy_01.png){ width="450"}
+>Bruce Blaus Kidney - Medical gallery of Blausen Medical 2014
+
+We can segment the kidneys using the Threshold tool. The threshold tool segments the volume based on a Threshold Range (or Intensity Range). You set the low and high end of the range, and the tool will segment all voxels that fall in that intensity range with the selected label (i.e. "Segment_1"). Here,  we take advantage of the fact that contrast has been added to the patient, which makes the Kidneys very bright in comparison to the surrounding tissue.
 
 ![threshold button](images/seg-editor-threshold-button.png){ width="45"}
 
@@ -270,6 +275,19 @@ First we will remove a lot of the segmentation noise using the "Remove Small Isl
 
 Now both Kidneys are clearly separate segmentations.
 
+!!! abstract "Use the Scissors tool remove the Ureter and vasculature from the kidneys"
+
+    ![scissors icon](images/seg-editor-scissors-button2.png){ width="45"}
+
+    1. Select the Scissor tool
+    2. Select the Segment you want to cut in the Segmentations table
+    3. In the 3D viewer, use the scissor tool to draw around the ureter and vasculature that you want to remove
+    4. Make sure there is nothing behind the ureter or vasculature when you remove them
+    5. You may need several cuts to remove everything
+    6. You can combine scissor cuts with removing small islands
+    
+    ![img-name](images/ctacardio-seg-edit-scissors-ureter.png){ width="250"}
+
 #### Change the Label Values for both Kidneys
 
 For this step, we add new labels to the Segmentation Labels table and then switch the labels of each kidney.
@@ -299,17 +317,16 @@ For this step, we add new labels to the Segmentation Labels table and then switc
 
 Verify that you have successfully changed the labels by hovering over the kidney segmentations in the viewer and review the information the Data probe.
 
-If everything works, select Segment_1 label in the Table and click on **Remove**. You should now have two segmented kidneys and nothing else.
+If everything works, select Segment_1 label in the table and click on **Remove**. You should now have two segmented kidneys and nothing else.
 
-![4up view of segmented kidneys](images/CTACardio-4up-Kidneys-Threshold-Segmentation.png){ width="450"}
 
 #### Segmentation Cleanup
 
-We can perform morphological operations on our segmentations using the Islands and Smoothing Tools.
+We can clean-up our segmentations using the Scissors tool to cut away extraneous regions and Morphological operations, such as the  Islands and Smoothing Tools.
 
 !!! abstract "Smoothing"
 
-    ![img-name](images/seg-editor-smoothing-button.png){ width="48"}
+    ![smoothing icon](images/seg-editor-smoothing-button.png){ width="48"}
 
     You can remove extrusions or close holes using the smoothing tool
 
@@ -317,6 +334,8 @@ We can perform morphological operations on our segmentations using the Islands a
     2. `Smoothing Method`: "Gaussian"
     3. `Standard Deviation`: "1.00mm"
     4. **Apply**
+
+![4up view of segmented kidneys](images/CTACardio-4up-Kidneys-Threshold-Segmentation.png){ width="450"}
 
 ### Save Data
 
@@ -330,6 +349,9 @@ Time to save your hard work!
 5. Everything in the table that is checked will be saved.
 
 ### Segment the Aorta
+
+![aorta](https://my.clevelandclinic.org/-/scassets/images/org/health/articles/17058-aorta-anatomy){ width="450"}
+> Adapted from [Aorta, Clevand Clinic](https://my.clevelandclinic.org/health/body/17058-aorta-anatomy).
 
 For the Aorta, we will use a different segmentation method. First, though, we need to create the segmentation volume.
 
@@ -398,10 +420,13 @@ Final Segmented Aorta (and Right Kidney):
 
 This requires the Lung CT Analyzer & Segmenter extension to be installed.
 
+![img-name](https://s3-us-west-2.amazonaws.com/courses-images-archive-read-only/wp-content/uploads/sites/403/2015/04/21031646/2312_Gross_Anatomy_of_the_Lungs.jpg){ width="450"}
+>Gross anatomy of the lungs. Adapted from [SUNY Anatomy and Physiology OER](https://courses.lumenlearning.com/suny-ap2/chapter/the-lungs/).
+
 #### Change Window/Level of CTACardio
 
 1. Switch to the `Volumes` module
-2. Set the **Active Volume** to "CTACardioCrop"
+2. Set the **Active Volume** to "CTACardio"
 3. Select the CTLung Preset
 
 ![img-name](images/volumes-ct-lung-preset.png){ width="50"}
@@ -419,7 +444,7 @@ Open the Lung CT Segmenter:
 
     ![img-name](images/LungCTSegmenter-module-panel.png){ width="450"}
 
-1. Make sure that your **Input volume** is "CTACardioCrop"
+1. Make sure that your **Input volume** is "CTACardio"
 2. Otherwise, don't change any of the settings
 3. Click Start
 4. You will be present with an axial slice and Prompted to add three points to the right lung
@@ -432,7 +457,7 @@ Open the Lung CT Segmenter:
 >![img-name](images/LungCTSegmenter-coronal-plane.png){ width="350"}
 10. Once you have added the points, you be prompted to add a point to the trachea. If you don't see the trachea, scrub through the coronal planes until you do.
 11. Add a point to the trachea
-12. If everything looks good, click Apply
+12. If everything looks good, click **Apply**
 13. Enjoy segmentations of the lung and trachea
 
 !!! example "Final Lung Segmentations"
@@ -441,9 +466,75 @@ Open the Lung CT Segmenter:
 
 #### Review Data module
 
-Notice that a new Segmentation Node has been added: "Lung Segmentation". There are also some segmentations in there not being displayed
+Notice that a new Segmentation Node has been added: "Lung Segmentation". There are also some segmentations in the node that are not being displayed.
 
 ![img-name](images/CTACardio-data-lung-segmentation.png){ width="450"}
->Notes: models will be added in a future step
 
 Save your work!
+
+#### Review Segmentation Module
+
+You can also review the segmentations in the Segmentations Module.
+
+![img-name](images/mod-menu-segmentations_2025.png){ width="150"}
+
+In the segmentations module, you find a segmentations table similar to the one in the Segment Editor.
+
+But, here you can modify the display properties of the segmentation. Switch the Lung Segmentations by selecting it in the `Segmentation` Pop-up menu
+
+![slicer segmentations module](images/ctacardio-segmentations-mod-lungs.png){ width="450"}
+
+Notice the lungs are already set to a lower opacity setting of 0.3. That's why they are semi-transparent.
+
+There are several other segmentations included with the Lungs. Notice if you turn them on, several of the segmentations overlap, such as the Thoracic cavity and the Lungs. 
+
+Slicer manages overlapping segmentations by creating layers. You can see the number of layers created by scrolling down to the bottom of the Segmentations Module and Opening up the "Binary labelmap layers" tab:
+
+![slicer screengrab](images/ctacardio-segmentations-binary-labelmap-layers.png){ width="450"}
+>Here we can see that the segmentation volume contains 4 layers and 6 segments. This would be a 4D array in MATLAB.
+
+Compare to the Segmentation Node with the Kidneys, by selecting the Segmentation node with your last name in it at the top of the module. There are no layers (or there should be no layers) in that node. If there are layers, no worries. We will fix that in the next step
+
+!!! abstract "Copy segmentations from one node to another node"
+
+    For processing, sometimes it is easier to collect all segmentations into one node. In this step, we copy the lungs and trachea over to the segmentation node that already contains our kidneys and aorta.
+
+    In the Segmentations Module, open the "Copy/Move segments" tab
+
+    ![slicer screen grab](images/ctacardio-segmentations-copy-move.png){ width="450"}
+
+    1. Select the Segmentations node with the kidneys on the right-hand side
+    2. Select "right lung, left lung, and other" on the left side
+    3. Click on the `+>` icon
+    4. The segmentations should be now be copied over to the right (and are now part of that segmentation node).
+    
+    ![slicer screengrab](images/ctacardio-segmentations-copy-MOVED.png){ width="450"}
+
+Ok, great. Now we have a single segmentation node that contains all the segments we want to proces. But, since Lung segmentation had layers, those layers have been transferred to the new segmentation node. Having layers makes things kind of hard to process, so let's get rid of those layers
+
+!!! abstract "Collapse Layers in a Segmentation Node"
+
+    To collapse the layers, follow these steps:
+
+    1. First, save your work (in case something goes horribly wrong)
+    2. Select to the segmentation with the kidneys using the pop-up menu at the to of the Segmentations Module (the `Segmentation` pop-up menu)
+    3. The segmentations listed in the table should now include both the kidneys and the lungs
+    4. Open the "Binary labelmap layers" tab 
+    5. Check on: "Force collapse to a single layer"
+    6. Click on the `Collapse labelmap layers` button.
+    7. Review your segmentations to ensure you haven't inadvertently lost a segmentation
+    8. Save your work
+
+### Total Segmentator
+
+TotalSegmentator is a 3D Slicer extension for fully automatic whole body CT segmentation using the "TotalSegmentator" AI model. You can find Total Tegmentator in the Modules Menu, under the Segmentations Submenu.
+
+![module menu](images/mod-menu-TotalSegmentator.png){ width="450"}
+
+Use the following settings to Segment all the organs found in CTACardio Crop. Be sure to used the Cropped volume (to best compare with your Kidney segmentations)
+
+![total segmentator settings](images/CTAcardio-totalSegmentator-settings.png){ width="450"}
+
+Note, the first time you run Total Segmentator, you may need to install some extra stuff (python related) and it will take time.
+
+When the segmentation is complete, you should find a new segmentation node in the Data module called "CTACardio Crop Segmentation"
