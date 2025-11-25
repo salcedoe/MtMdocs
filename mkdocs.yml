@@ -86,6 +86,7 @@ nav:
   - 3D Slicer:
     - Introduction: slicer/InterfaceIntro.md
     - Customize Slicer: slicer/CustomizeSlicer.md
+    - Troubleshooting Slicer: slicer/troubleshootingSlicer.md
     - Data Exploration:
       - CTChest: slicer/CTChestExplore.md
       - PET CT (Multi-modal Dataset): slicer/CTPETExplore.md
