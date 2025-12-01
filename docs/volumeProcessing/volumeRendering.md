@@ -1,6 +1,6 @@
 # Volume Rendering and Surface Meshes
 
-When dealing with Image Volumes, it is often useful to see "inside" the volume — that is, to construct 3D representations of internal structures inside that volume. 3D Rendering is the computer graphics process of converting 3D models into 2D images for display on a 2D computer screen. The process considers the positioning of the objects in this 3D scene and renders a 2D image based on this perspective. Any change in the view, such as rotating the scene, generates a new render to reflect the new perspective of the 3D scene, as shown below.
+When dealing with image volumes, it is often useful to see "inside" the volume — that is, to construct 3D representations of internal structures inside that volume. 3D Rendering is the computer graphics process of converting 3D models into 2D images for display on a 2D computer screen. The process considers the positioning of the objects in a 3D scene and renders a 2D image based on this perspective. Any change in the view, such as rotating the scene, generates a new render to reflect the new perspective of the 3D scene, as shown below.
 
 ![viewing frustrum](images/viewing-frustrum.GIF){ width="250"}
 
@@ -16,7 +16,7 @@ There are two main types of rendering that we deal with in this course:
 
 The MATLAB app **`volumeViewer`** accepts 3D volumes and can render them in 3D, allowing users to visualize and interact with the volumes in a graphical interface.
 
-For this example, we will load a confocal stack of a fruit fly brain.
+For this example, we will load a confocal stack of a fruit fly brain, which can be find in the MtMdata/unit3 folder:
 
 ```matlab linenums="1" title="Load Fly Brain"
 [FB,meta] = mmReadImgND("flybrain.tif");
@@ -33,22 +33,22 @@ For this example, we will load a confocal stack of a fruit fly brain.
 
 ### Volume Rendering
 
-**`volumeViewer`** can only handle 3D volumes. So, we'll extract the green channel and display using the app.
+**`volumeViewer`** can only handle 3D volumes. So, we'll extract the green channel for display.
 
 ```matlab linenums="1" title="Load Ch2 into Volume Viewer"
 FBg = squeeze(FB(:,:,2,:)); % extract ch2
-volumeViewer(FBg) % display channel 2 in the Volume Viewer app
+volumeViewer(FBg) % display in the Volume Viewer app
 ```
 
 ![Screengrab of VolumeViewer App showing the green channel from the fly brain](images/volViewer-flybrain-greenCh.png){ width="750"}
 
 >**Screen grab of the Volume Viewer app showing a volume render of the green channel from the fly brain.** The layout has been changed to "Stack 2D slices".
 
-In the **Left Panel,** of the Volume viewer, we see orthogonal slice views from the middle of the volume. The top orthogonal view shows an aerial view of the volume, where the direction of the Z-axis is "out of the screen", towards the viewer. The other two views show views from the sides of the volume, where either the X or Y axis "comes out of the screen." You drag the scroll bar to scrub through slices in the volume along the axis that is coming out of the screen.
+The **Left Panel** of the Volume viewer has stacked orthogonal slice views. Here we show slices from the middle of the volume. The top orthogonal view shows an aerial view of the volume, where the direction of the Z-axis is "out of the screen", towards the viewer. The other two views show views from the sides of the volume, where either the X or Y axis "comes out of the screen." You drag the scroll bar to scrub through slices in the volume along the axis that is coming out of the screen.
 
-The **Large Middle Panel,** shows A 3D render of the volume. In this render, the background voxels surrounding the fly brain have been set to completely transparent, while the voxels that make up the brain tissue are semi-opaque.
+The **Large Middle Panel** shows A 3D render of the volume. In this render, the background voxels surrounding the fly brain have been set to completely transparent, while the voxels that make up the brain tissue are semi-opaque.
 
-In the **Right Panel,** we find the Volume Rendering settings. At the top, the pop-up menu is set to "Volume Rendering." The "Alpha" panel shows the alphamap: a lookup table of voxel transparencies. The alphamap is currently set to "linear." In simple terms, this means that voxels with low intensity values (like 0) are completely transparent, while brighter voxels are more opaque. This allows the background to disappear while highlighting the structures of interest. The "Color" panel shows the colormap (LUT) settings, which in this case is set to the default gray colormap.
+The **Right Panel** contains the Volume Rendering settings. At the top, the pop-up menu is set to "Volume Rendering." The "Alpha" panel shows the alphamap: a lookup table of voxel transparencies. The alphamap is currently set to "linear." In simple terms, this means that voxels with low intensity values (like 0) are completely transparent, while brighter voxels are more opaque. This allows the background to disappear while highlighting the structures of interest. The "Color" panel shows the colormap (LUT) settings, which in this case is set to the default gray colormap.
 
 We can adjust the Volume Rendering displays using the settings in the right panel.
 
@@ -62,6 +62,26 @@ There are of course many ways to change the volume render. The "Alphamap" pop-up
 
 >**Comparison of transparency map presets**. Notice how the changes in the transparency map line plot change which voxels in the volume are rendered. **Left Image.** `ct-bone` preset. **Right Image** `mri` preset.
 
+### Surface Models
+
+A 3D surface model is also known as a Mesh or a Manifold. Surfaces are made up of Vertices and Faces.
+
+One way to generate a Surface Mesh is to use the `isosurface` function. An isosurface is  created by connecting voxels with the same intensities in a volume.  Other pre-processing steps may be required, often making surface rendering more time consuming than volume rendering, but the final product can appear more realistic and detailed.
+
+Surface analysis is useful when you:
+
+- Need to rotate or translate the surface in 3D space for analysis
+- Want to measure the extent of your 3D object (e.g. the length of a Femur)
+- Want to compare two surfaces
+
+**volumeViewer** can render volumes as surfaces by switching the Rendering Engine to "Isosurface".
+
+![volume viewer with isosurface turned on](images/volViewer-flybrain-greenCh-isosurface.png){ width="450"}
+
+>**Isosurface render of the fly brain.** Notice the controls have changed dramatically in the right panel — you get one control: a slider.
+
+For the isosurface display, **volumeViewer** does a lot of the processing legwork in the background. First, it constructs a segmented mask of the volume, capturing voxels that fall within the range of the isovalue set by the slider. Then, it creates a 3D surface based on this mask. Finally, it renders the surface as the beautiful red "isosurface" we see displayed here. Adjusting the Isovalue restarts the process, modifying the generated surface and render displayed.
+
 ### volshow
 
 The function **volshow** renders the inputed volume using the default alphamap settings.
@@ -69,23 +89,3 @@ The function **volshow** renders the inputed volume using the default alphamap s
 ![volshow render of the fly brain](images/volshow-flybrain-greenCh.png){ width="350"}
 
 >Similar to **imshow**, **volshow** renders the image in its own figure or directly into a Live Script. To adjust the alphamap, you need to add inputs into the function call. Review the [MATLAB help documentation](https://www.mathworks.com/help/images/ref/volshow.html) for more information.
-
-### Isosurface
-
-A 3D surface model is also known as a Mesh or a Manifold. Surfaces are made up of Vertices and Faces.
-
-One way to generate a Surface Mesh is to use an `isosurface`. An isosurface is  created by connecting voxels with the same intensities in a volume.  Other pre-processing steps may be required, often making surface rendering more time consuming than volume rendering, but the final product can appear more realistic and detailed.
-
-Surface analysis is useful when you:
-
-- Need to rotate the surface in 3D space for you analysis
-- Want to measure the extent of your 3D object (e.g. the length of a Femur)
-- Want to compare two surfaces in 3D space
-
-**volumeViewer** can create such a surface on the fly by Switching the Rendering Engine to "Isosurface".
-
-![volume viewer with isosurface turned on](images/volViewer-flybrain-greenCh-isosurface.png){ width="450"}
-
->**Isosurface render of the fly brain.** Notice the controls have changed dramatically in the right panel — you get one control: a slider.
-
-For the isosurface display, **volumeViewer** does a lot of the processing legwork in the background. First, it constructs a segmented mask of the volume, capturing voxels that fall within the range of the Isovalue set by the slider. Then, it creates a 3D surface based on this mask. Finally, it renders the surface as the beautiful red "isosurface" we see displayed here. Adjusting the Isovalue restarts the process, modifying the generated surface and render displayed.
