@@ -57,6 +57,24 @@ p = mmGetTextureFilters(p,true(7)) % get filtered images with a neighborhood of 
 mmShowStruct(p) % display filtered images
 ```
 
+### mmReadImgND
+
+This function uses the [MATLAB Bio-formats toolbox](https://www.openmicroscopy.org/bio-formats/downloads/) to read in multidimensional image stacks.
+
+ **INPUTS** (optional)
+
+- file_path is a path to an image file. If you don't input a file path, you will be prompted for a path.
+
+ **OUTPUTS**
+
+- **IMGND**: an XYZCT multidimensional array
+- [IMGND, metadata] = mmReadImgND(file_path): the metadata from the array in XML format
+
+```matlab linenums="1" title="Example" 
+[IMGND, metadata] = mmReadImgND(file_path)
+```
+
+
 ## Plotting Functions
 
 ### mmShowHist
@@ -70,14 +88,17 @@ If you input an RGB image, this function will automatically index out the channe
 ![example color image](images/mmShowHist_color.png){ width="250"}
 
 **INPUTS**
+
 Required:
-    - **img**: an image matrix
+
+- **img**: an image matrix
 
 Optional:
-    - **col** (default = 1): current column position 
-    - **num_cols** (default = 1): total number of columns in the figure.
-    - **title_str** (default = empty): a string to title the image
-    - **add_color** (logical = false): if true add color
+
+- **col** (default = 1): current column position 
+- **num_cols** (default = 1): total number of columns in the figure.
+- **title_str** (default = empty): a string to title the image
+- **add_color** (logical = false): if true add color
 
 ```matlab linenums="1" title="Examples" 
 mmShowHist(img) — displays image above its histogram
@@ -224,12 +245,13 @@ selected from the inputted segT table
 **OUTPUTS**
 
 **S**: The function retunrs a structure with the following fields
-    - **segName**: Name of selected segment
-    - **mask**: binary mask of the selected segment
-    - **color**: color of the segmentation as set in Slicer
-    - **tform**: transformation matrix to properly orient segmentation
-    - **spacing**: Voxel spacing
-    - **volume**: calculated using `regionprops3`.
+
+- **segName**: Name of selected segment
+- **mask**: binary mask of the selected segment
+- **color**: color of the segmentation as set in Slicer
+- **tform**: transformation matrix to properly orient segmentation
+- **spacing**: Voxel spacing
+- **volume**: calculated using `regionprops3`.
 
 ### mmPlotAllSeg
 
@@ -241,10 +263,11 @@ Wrapper function that plots all segmentations from a 3D Slicer segmentation volu
 - **segT**: Table containing the following slicer info — Name, Layer, LabelValue, Color
 
  **OPTIONAL INPUTS**. Enter empty brackets if skipping.
+
 - **new_figure**: logical (default = true). Create new figure if true
 - **falpha**: scalar (0-1, default = 0.5) - transparency of the faces
 - **smooth**: boolean (default=false). True means Smooth volume
-- **affTrfm**: 4X4 3D affinity transformation matrix (default = [], no transformation). Used to transform the vertices to match the orientation and size of the original volume. 
+- **affTrfm**: 4X4 3D affinity transformation matrix (default = [], no transformation). Used to transform the vertices to match the orientation and size of the original volume.
 
 **OUTPUT**
 
@@ -301,6 +324,30 @@ tform = createScaling3d(Sseg.xyz)
 hp = mmPlotMask2Surface(BW,'magenta',transform_mat=tform); 
 ```
 
+### mmGetSurface
+
+Generate a surface mesh of the inputted 3D volume.  Returns a face-vertices structure. 
+
+**INPUTS**
+
+- **Vol**: a 3D volume
+- **iv** (numeric): isovalue from which to generate the surface
+- **decimator** (0-1): amount by which to decimate the generated surface. 
+- **use_fast_march** (logical): Use the function `extractIsosurface` to more quickly generate an isosurface. Default = true
+
+**OUTPUT**
+
+- **fv**: a faces-vertices structure
+- **s**: string reporting the decimation
+
+```matlab linenums="1" title="Examples" 
+fv = mmGetSurface(Vol);
+fv = mmGetSurface(Vol,0.5,0.1) 
+```
+
+REQUIREMENTS:
+Medical toolbox required for fast marching isosurface
+
 ### mmPlotSurface
 
 Wrapper function to `patch`. plots the input fv structure as a patch. Lights not added. Use
@@ -314,24 +361,25 @@ Wrapper function to `patch`. plots the input fv structure as a patch. Lights not
 
 **OUTPUT**
 
--  **hp**: handle to the patch
+- **hp**: handle to the patch
 
 ```matlab linenums="1" title="Example" 
 hp = plot_surface(fv,'cyan',0.5)
 mmSetSurfacePlotProps % add lighting to plot
 ```
+
 ### mmAlignSurface2Axes
 
 Transforms the vertices so that the direction of most variance is aligned to the x-axis. Based on this [discussion](https://www.mathworks.com/matlabcentral/answers/66051-how-do-i-move-a-cloud-of-points-in-3d-so-that-they-are-centered-along-the-x-axis).
 
 **INPUT**:
 
-- Vert:  NX3 array of Vertices to be transformed
+- **Vert**:  NX3 array of Vertices to be transformed
 
 **OUTPUTs**
 
-- Vert: Transformed vertices
-- Vd: Variance
+- **Vert**: Transformed vertices
+- **Vd**: Variance
   
 ```matlab linenums="1" title="Example"
 hp.vertices = mmAlignSurface2Axes(hp.vertices)
