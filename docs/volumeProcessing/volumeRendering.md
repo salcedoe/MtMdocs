@@ -1,4 +1,4 @@
-# Volume Rendering and Surface Meshes
+# Volume and Surface Rendering using the Medical Volume Viewer
 
 When dealing with image volumes, it is often useful to see "inside" the volume — that is, to construct 3D representations of internal structures inside that volume. 3D Rendering is the computer graphics process of converting 3D models into 2D images for display on a 2D computer screen. The process considers the positioning of the objects in a 3D scene and renders a 2D image based on this perspective. Any change in the view, such as rotating the scene, generates a new render to reflect the new perspective of the 3D scene, as shown below.
 
@@ -8,84 +8,84 @@ When dealing with image volumes, it is often useful to see "inside" the volume �
 
 There are two main types of rendering that we deal with in this course:
 
-- **Volume Rendering:** visualizes 3D structures by  adjusting the transparencies of the voxels of a 3D volume. Usually, you make completely transparent the outer edge and background voxels, while keeping opaque internal voxels that comprise the structures of interest. Typically, this involves creating a lookup table of transparencies, called an alphamap, that determines the transparencies values for all the voxels in the volume. Only voxels that are not completely transparent are rendered.
+- **Volume Rendering:** visualizes 3D structures by  adjusting the transparencies of the voxels of a 3D volume. Usually, the outer edge and background voxels are made completely transparent — to allow viewing inside the volume. Voxels contained within structures of interest are set to varying levels of opacity to reveal (or render) these structures.  In effect, each voxel in volume has a opacity setting based on its intensity value. These opacities are set using a lookup table called an alphamap, which maps opacity to intensity.
 
 - **Surface rendering:** visualizes a surface model of an internal structure. For surface rendering, you first need to create a surface model, made up of vertices and triangular faces. In this method, only the surface is rendered, the rest of the volume is ignored. This technique is commonly used in medical imaging to visualize segmented structures like bones or organs.
 
-## The Volume Viewer App
+## Volume Rendering
 
-The MATLAB app **`volumeViewer`** accepts 3D volumes and can render them in 3D, allowing users to visualize and interact with the volumes in a graphical interface.
+Volume Rendering is useful for exploring a large volumetric dataset, like a medical volume. For this example, we load a CT Chest DICOM volume from the unit3 data folder (1) into the Medical Volume Viewer app (2).
+{ .annotate }
 
-For this example, we will load a confocal stack of a fruit fly brain, which can be find in the MtMdata/unit3 folder:
+1. This data is copied from data included with the MATLAB Medical Toolbox and discussed in this [example](https://www.mathworks.com/help/releases/R2026a/medical-imaging/ug/display-3-d-medical-image-data-in-patient-coordinate-system.html){target="_blank"}.
+2. The Medical Volume Viewer app is only available with the 2026a Medical Toolbox or greater.
 
-```matlab linenums="1" title="Load Fly Brain"
-[FB,meta] = mmReadImgND("flybrain.tif");
+```matlab linenums="1" title="Load and display medical volume"
+mmSetUnitDataFolder(3) % set current folder to unit3 data folder
+mV = medicalVolume("MedicalVolumeDICOMData/LungCT02") % load DICOM as a medicalVolume
+medicalVolumeViewer(mV.Voxels,ScaleFactors=mV.VoxelSpacing) % display volume 
 ```
 
-```matlab title="Review volume using whos"
-  Name        Size                     Bytes  Class     Attributes
+![medVolumeViewer lungCT02](images/medVolViewer-LungCT02.png){ width="550"}
+>**Default Volume Render.** Lung CT loaded into the Medical Volume Viewer app. Here, we maximize the 3-D volume panel containing the volume render (left panel) and open the Render Editor (right panel) to visualize the alphamap. As you can see in the alphamap, the default volume render is a linear gradient of transparencies where low intensity values are transparent and high intensity values are opaque. The effect is a translucent volume render of the dataset.
 
-  FB        256x256x3x57            11206656  uint8               
-  meta        1x1                       3725  struct       
-```
+!!! note "Hounsfield Units (HU)"
+    
+    For this CT dataset, which has its intensities in Hounsfield Units, it is useful to recall the Hounsfield scale.
 
-- FB is a 4D array with 3 channels and 57 slices. Note that the blue channel is blank (all zeros), which means it does not contribute to the rendering process and can be ignored or excluded when visualizing or processing the data.
+    ![hounsfield scale](https://prod-images-static.radiopaedia.org/images/52608436/ffb5a7e3ebb12255dec689e924ddbd_gallery.jpeg){ width="350"}
+    > Hounsfield units (HU) are a quantitative measurement of the radiodensity of a substance as seen on a Computed Tomography (CT) scan, ranging from -1000 for air to +1000. [Radiopaedia](https://radiopaedia.org/cases/hounsfield-scale-diagram)
 
-### Volume Rendering
+The Medical Volume Viewer app includes several useful alphamap presets for medical datasets, like CT-Lung and CT-Bone, or you can manually adjust the alphamap for even more renders.
 
-**`volumeViewer`** can only handle 3D volumes. So, we'll extract the green channel for display.
+<div class="grid cards" markdown>
 
-```matlab linenums="1" title="Load Ch2 into Volume Viewer"
-FBg = squeeze(FB(:,:,2,:)); % extract ch2
-volumeViewer(FBg) % display in the Volume Viewer app
-```
+-   **All Voxels Opaque**
 
-![Screengrab of VolumeViewer App showing the green channel from the fly brain](images/volViewer-flybrain-greenCh.png){ width="750"}
+    ---
 
->**Screen grab of the Volume Viewer app showing a volume render of the green channel from the fly brain.** The layout has been changed to "Stack 2D slices".
+    ![img-medVolumeViewer all opaque](images/medVolViewer-LungCT02-all-opaque.png){ width="450"}
+    
+    If we drag the left vertex in the linear alphamap all the way up, we set all voxel opacities to 100%. With all voxels opaque, we can now see that our data is cylindrical (matching the shape of the CT bore). In reality, the data is stored as 3D rectangular prism, with intensity values outside the cylinder all set to an arbitrary minimum value (like -3024). The Medical Volume Viewer excludes these voxels from display as they are not part of the captured dataset.
 
-The **Left Panel** of the Volume viewer has stacked orthogonal slice views. Here we show slices from the middle of the volume. The top orthogonal view shows an aerial view of the volume, where the direction of the Z-axis is "out of the screen", towards the viewer. The other two views show views from the sides of the volume, where either the X or Y axis "comes out of the screen." You drag the scroll bar to scrub through slices in the volume along the axis that is coming out of the screen.
+- **CT Lung Preset**
 
-The **Large Middle Panel** shows A 3D render of the volume. In this render, the background voxels surrounding the fly brain have been set to completely transparent, while the voxels that make up the brain tissue are semi-opaque.
+    ---
+    ![medVolViewer CT Lung preset](images/medVolViewer-LungCT02-ct-lung.png){ width="450"}
+    
+    Notice the alphamap here is semi-opaque (15%) for only a small subset of voxel intensities (ranging from -600 to -400). Remember, air intensities fall range around -1000 HUs.
 
-The **Right Panel** contains the Volume Rendering settings. At the top, the pop-up menu is set to "Volume Rendering." The "Alpha" panel shows the alphamap: a lookup table of voxel transparencies. The alphamap is currently set to "linear." In simple terms, this means that voxels with low intensity values (like 0) are completely transparent, while brighter voxels are more opaque. This allows the background to disappear while highlighting the structures of interest. The "Color" panel shows the colormap (LUT) settings, which in this case is set to the default gray colormap.
+- **CT Bone Preset**
 
-We can adjust the Volume Rendering displays using the settings in the right panel.
+    ---
+    ![medVolViewer CT Bone preset](images/medVolViewer-LungCT02-ct-bone.png){ width="450"}
+    
+    The alphamap here ramps up from an opacity of 0 at a voxel intensity of -16 to an opacity of 72% at voxel intensities of 641 and greater.
 
-![Volume Viewer with adjusted Alphamap settings](images/volViewer-flybrain-greenCh-alphamapAdust.png){ width="450"}
+- **Manual Render focusing on Bone**
 
->**Adjusting volume rendering settings.** Here we changed the volume render by  adjusting the alphamap to make the background voxels more opaque. We do this by dragging the left point on the line plot *slightly* upward (red arrow). We also changed the colormap to **`parula`** in the "Color" panel.
+    ---
 
-There are of course many ways to change the volume render. The "Alphamap" pop-up menu contains a variety of alphamap presets. These are primarily for medical image datasets and are name accordingly: e.g. MRI or CT-BONE. You can also roll your own alphamap by adding points to the alphamap line plot and adjusting their positions manually.
+    ![medVolViewer CT Bone focus](images/medVolViewer-LungCT02-ct-bone-focus.png){ width="450"}
+    
+    If you want focus on the bones of the dataset, which have a higher HU intensities, you can manually  shift the ramp further to the right, as shown above. Here the alphamap ramps up from a voxel intensity of 350 to a voxel intensity of 1000.  If you review the HU scale, you can see that trabecular Bone intensities start at ~ 300 HUs.
 
-![Vol Viewer side by side views of 2 different presets](images/volViewer-flybrain-greenCh-alphamapPresets.png){ width="750"}
+</div>
 
->**Comparison of transparency map presets**. Notice how the changes in the transparency map line plot change which voxels in the volume are rendered. **Left Image.** `ct-bone` preset. **Right Image** `mri` preset.
+So, as you can see, we can reveal different internal structures from the exact same volumetric dataset by adjusting the alphamap.
 
-### Surface Models
+## Surface Rendering
 
-A 3D surface model is also known as a Mesh or a Manifold. Surfaces are made up of Vertices and Faces.
+A 3D surface model is also known as a Mesh or a Manifold. Surfaces are made up of Vertices and Faces (usually in the shape of triangles). One way to generate a Surface Mesh is to use the `isosurface` function. An isosurface is  created by connecting voxels with the same intensities in a volume.  Other pre-processing steps may be required, often making surface rendering more time consuming than volume rendering, but the final product can appear more realistic and detailed.
 
-One way to generate a Surface Mesh is to use the `isosurface` function. An isosurface is  created by connecting voxels with the same intensities in a volume.  Other pre-processing steps may be required, often making surface rendering more time consuming than volume rendering, but the final product can appear more realistic and detailed.
-
-Surface analysis is useful when you:
+Surface Rendering is useful when you:
 
 - Need to rotate or translate the surface in 3D space for analysis
 - Want to measure the extent of your 3D object (e.g. the length of a Femur)
 - Want to compare two surfaces
 
-**volumeViewer** can render volumes as surfaces by switching the Rendering Engine to "Isosurface".
+The **medicalVolumeViewer** app can render volumes as surfaces by switching the Rendering Engine to "Isosurface".
 
-![volume viewer with isosurface turned on](images/volViewer-flybrain-greenCh-isosurface.png){ width="450"}
+![CT lung surface rendering](images/medVolViewer-LungCT02-isosurface.png){ width="550"}
 
->**Isosurface render of the fly brain.** Notice the controls have changed dramatically in the right panel — you get one control: a slider.
-
-For the isosurface display, **volumeViewer** does a lot of the processing legwork in the background. First, it constructs a segmented mask of the volume, capturing voxels that fall within the range of the isovalue set by the slider. Then, it creates a 3D surface based on this mask. Finally, it renders the surface as the beautiful red "isosurface" we see displayed here. Adjusting the Isovalue restarts the process, modifying the generated surface and render displayed.
-
-### volshow
-
-The function **volshow** renders the inputed volume using the default alphamap settings.
-
-![volshow render of the fly brain](images/volshow-flybrain-greenCh.png){ width="350"}
-
->Similar to **imshow**, **volshow** renders the image in its own figure or directly into a Live Script. To adjust the alphamap, you need to add inputs into the function call. Review the [MATLAB help documentation](https://www.mathworks.com/help/images/ref/volshow.html) for more information.
+>Here we have created two different Surface Renders by adjusting the position of the "Isosurface Value" slider. With this setting, the renderer connects voxels with similar intensities.

@@ -17,7 +17,6 @@ After you hit enter, you get a response from MATLAB, as follows
 
 ```matlab title="result"
 a =
-
      1
 ```
 
@@ -60,7 +59,7 @@ At launch, MATLAB opens a folder on your hard drive. You can see a reference to 
 ![image_4.png](images/X1_MATLAB_Intro_media_image_4.png)
 
 - Here, this  indicates the MATLAB drive.
-- You may see something along the lines of ~/Documents/Folder which points to a location on your hard drive
+- You may see something along the lines of `~/Documents/Folder` which points to a location on your hard drive
 
 ### MATLAB Drive
 
@@ -80,7 +79,7 @@ You can bring up the MATLAB documentation in several ways.
 1. You can enter a search term in the search bar (top right corner)
 ![image_8.png](images/X1_MATLAB_Intro_media_image_8.png)
 
-2. Or You can click on the ? icon (which you can find next to the search bar or in the Home tab in the ribbon strip)
+2. Or You can click on the **`?`** icon (which you can find next to the search bar or in the Home tab in the ribbon strip)
 
 3. Or, you can type doc in the command window
 
@@ -108,7 +107,7 @@ web(fullfile(docroot, '3ptoolbox/masteringmatlabtoolbox/doc/CourseOverview.html'
 
 ## Important Preferences
 
-The following settings that can improve the performance of MATLAB for certain tasks, especially later in the semester. Let's set them now, before we forget.
+The following settings can improve the performance of MATLAB for certain tasks, especially later in the semester. Let's set them now, before we forget.
 
 ### Java Heap Memory
 

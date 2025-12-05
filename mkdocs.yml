@@ -9,8 +9,8 @@ nav:
     - Github Repositories: setup/githubRepoInstallation.md
     - Computer Settings: setup/computerSetup.md
   - Reference:
-    - MATLAB stuff: reference/MATLABReferencePages.md
-    - MtM Course Functions: reference/courseFunctions.md
+    - MtM Toolbox: reference/courseFunctions.md
+    - MATLAB resources: reference/MATLABReferencePages.md
   - MATLAB Basics:
     - Introduction:
          - Muddling Through MATLAB: matlabBasics/MatlabIntro.md
@@ -48,7 +48,6 @@ nav:
     - Sampling and Distributions: dataProcessing/SamplesDistributions.md
     - Hypothesis Testing: dataProcessing/HypTesting.md
   - Imaging:
-    - imaging/index.md 
     - Imaging Concepts:
       - Light: imaging/electromagneticRadiation.md
       - Human Vision: imaging/humanVision.md

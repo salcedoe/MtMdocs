@@ -1,79 +1,8 @@
-# Course Functions
+# MtM Toolbox
 
-!!! note "Preface"
-    
-    All MtM course functions are prefaced with `mm`.
+The MtM toolbox is a collection of functions designed to simplify Plotting, Image Processing, Processing 3D Slicer segmentation volumes, working with Surface Meshes, and several other utility actions.  
 
-## Image Processing
-
-### mmGetWatershed
-
-Performs the necessary steps for a watershed transformation of a mask. Based on this [MATLAB blog](http://blogs.mathworks.com/steve/2013/11/19/watershed-transform-question-from-tech-support/)
-
-![watershed example](images/mmGetWatershed_example.png){ width="450"}
-
-**INPUTS**
-
-- **BW**:  logical array (2D or 3D)
-- **PixSz**: Pixel Size of the extended regional minima inside the blobs being separated. The smaller the value, the smaller the extended regional minima - see imextendedmin
-**Optional**
-
-- **conn**: connectivity  - see imextendedmin
-- **ShowSteps**: boolean - display watershed steps
-
-**Output**
-
-- **BW**: Watershed transformed Mask
-
-```matlab linenums="1" title="Examples" 
-BW = mmGetWatershed(BW,5);
-BW = mmGetWatershed(BW,5,ShowSteps=true); % displays transformation steps
-BW = mmGetWatershed(BW,5,8); % pixel size 5, connectivity 8
-BW = mmGetWatershed(BW,[5 3 1]);  % runs the watershed 3 times with 3 different pixel sizes
-```
-
-### mmGetTextureFilters
-
-Apply texture filters to input image. Texture filters include standard deviation, range, and entropy.
-
-![texture filters of ferret image](images/mmGetTextureFilters_ferret.png){ width="450"}
-> Text Filters applied to an image of a Ferret and displayed using mmShowStruct
-
- **INPUTS**
-
-- **p**: a structure that must contain a field called either 'rgb' or 'img'. `rgb` should be an rgb image. `img` should be a grayscale image.
-  
-- **nhood**: (optional) a neighborhood matrix (typically logical or array of ones).
-
- **OUTPUT**
-
-- **p**: updated structure containing four new fields: gray, std, rng, and ent
-
-```matlab linenums="1" title="Examples" 
-p = mmGetTextureFilters(p) % get filtered images with default neighborhood
-
-% Apply a 7x7 neighborhood and display all filtered images
-p = mmGetTextureFilters(p,true(7)) % get filtered images with a neighborhood of 7x7
-mmShowStruct(p) % display filtered images
-```
-
-### mmReadImgND
-
-This function uses the [MATLAB Bio-formats toolbox](https://www.openmicroscopy.org/bio-formats/downloads/) to read in multidimensional image stacks.
-
- **INPUTS** (optional)
-
-- file_path is a path to an image file. If you don't input a file path, you will be prompted for a path.
-
- **OUTPUTS**
-
-- **IMGND**: an XYZCT multidimensional array
-- [IMGND, metadata] = mmReadImgND(file_path): the metadata from the array in XML format
-
-```matlab linenums="1" title="Example" 
-[IMGND, metadata] = mmReadImgND(file_path)
-```
-
+!!! note "All MtM toolbox functions are prefaced with `mm`"
 
 ## Plotting Functions
 
@@ -100,7 +29,7 @@ Optional:
 - **title_str** (default = empty): a string to title the image
 - **add_color** (logical = false): if true add color
 
-```matlab linenums="1" title="Examples" 
+```matlab linenums="1" title="Examples"
 mmShowHist(img) — displays image above its histogram
 mmShowHist(img, 2, 6) - displays the image and the histogram in the 2nd
 column of a six-column figure
@@ -108,9 +37,9 @@ column of a six-column figure
 
 ### mmShowBurnImage
 
-Wrapper for `imoverlay` but with syntax similar to `imshowpair`. Simplifies creating a burned image, where a masked is burned into an image
+Burns a mask onto an image. Wrapper for `imoverlay` but with syntax similar to `imshowpair`.
 
-![img-name](images/mmShowBurnImage_strawberries.png){ width="250"}
+![strawberry mask burned on strawberry image](images/mmShowBurnImage_strawberries.png){ width="250"}
 
 **INPUTS**
 
@@ -118,24 +47,25 @@ Wrapper for `imoverlay` but with syntax similar to `imshowpair`. Simplifies crea
 - **mask**: a binary mask
 
 **OPTIONS**
+
 - **color**: the color of the burned image (default = yellow)
 
-```matlab linenums="1" title="Examples" 
+```matlab linenums="1" title="Examples"
 mmShowBurn(rgb,mask)
 mmShowBurn(rgb,mask,color='white')
 ```
 
 ### mmShowStruct
 
-Displays in a single figure images that are packaged in a structure
+Displays any images packaged in a structure as a tiled figure. Useful for reviewing image processing steps.
 
 INPUTS
+
 - **S**: a structure contain fields with image variables
-- **fn2display**: cell array or string contain the names of the fields you
-want to display
+- **fn2display**: cell array or string array specifying the structure field names to display
 - **titles** (optional): string array of titles for plots
 
-```matlab linenums="1" title="Examples" 
+```matlab linenums="1" title="Examples"
 mmShowStruct(p)
 mmShowStruct(p,fn2display={'rgb','gray'})
 mmShowStruct(p,fn2display={'rgb','gray'},titles={'Original','Grayscale'})
@@ -147,7 +77,7 @@ A wrapper for `swarmchart` and `boxchart` that overlays a swarm chart on a box c
 
 ![img-name](images/swarm-box-Y.png){ width="150"} ![img-name](images/swarm-box-XY.png){ width="350"}
 
-**Inputs**
+**INPUTS**
 
 - **x**: (*Optional*) Enter empty brackets to generate a series of ones
 - **y**: Vector of Numeric ata
@@ -164,7 +94,7 @@ A wrapper for `swarmchart` and `boxchart` that overlays a swarm chart on a box c
 - **Notch**: Turn on box plot notch (default =  'off')
 - **XJitterWidth** set jitter width of swarm chart (default = 1)
 
-```matlab linenums="1" title="Examples" 
+```matlab linenums="1" title="Examples"
 mmBoxSwarm([],nD.data); % y-data only
 mmBoxSwarm(x,y,'BoxFaceColor','k','Notch','on','MarkerFaceAlpha',0.15) % grouping data and y-data
 ```
@@ -179,7 +109,7 @@ Adds a scalebar to current image
 - **width**: the length of the scalebar 
 - **widthPERpixel**: the dimensions of a pixel side (e.g. um per pixel)
 
-**OPTIONAL INPUTS**
+**Optional inputs**
 
 - **Color**: the color of the scale bar
 - **Line Thickness**: thickness of the scale bar (in points)
@@ -196,19 +126,95 @@ add_scale_bar(gca,50,0.23,'white', 4, [],'µm');
 NOTE: the measurements don't have to be in microns. They just have
 be consistent between `width` and `widthPERpixel`
 
+## Image Processing
+
+### mmGetWatershed
+
+Performs the necessary steps for the watershed transformation of a mask. Based on this [MATLAB blog](http://blogs.mathworks.com/steve/2013/11/19/watershed-transform-question-from-tech-support/)
+
+![watershed example](images/mmGetWatershed_example.png){ width="450"}
+
+**INPUTS**
+
+- **BW**:  logical array (2D or 3D)
+- **PixSz**: Pixel Size of the extended regional minima inside the blobs being separated. The smaller the value, the smaller the extended regional minima - see imextendedmin
+**Optional**
+
+- **conn**: connectivity  - see imextendedmin
+- **ShowSteps**: boolean - display watershed steps
+
+**Output**
+
+- **BW**: Watershed transformed Mask
+
+```matlab linenums="1" title="Examples" 
+BW = mmGetWatershed(BW,5);
+BW = mmGetWatershed(BW,5,ShowSteps=true); % displays transformation steps
+BW = mmGetWatershed(BW,5,8); % pixel size 5, connectivity 8
+BW = mmGetWatershed(BW,[5 3 1]);  % runs the watershed 3 times with 3 different pixel sizes
+```
+
+### mmGetTextureFilters
+
+Applies multiple texture filters to input image. Texture filters include standard deviation, range, and entropy.
+
+![texture filters of ferret image](images/mmGetTextureFilters_ferret.png){ width="450"}
+> Text Filters applied to an image of a Ferret and displayed using mmShowStruct
+
+ **INPUTS**
+
+- **p**: a structure that must contain a field called either 'rgb' or 'img'. `rgb` should be an rgb image. `img` should be a grayscale image.
+  
+- **nhood**: (optional) a neighborhood matrix (typically logical or array of ones).
+
+ **OUTPUT**
+
+- **p**: updated structure containing four new fields: gray, std, rng, and ent
+
+```matlab linenums="1" title="Examples"
+p = mmGetTextureFilters(p) % get filtered images with default neighborhood
+
+% Apply a 7x7 neighborhood and display all filtered images
+p = mmGetTextureFilters(p,true(7)) % get filtered images with a neighborhood of 7x7
+mmShowStruct(p) % display filtered images
+```
+
+### mmReadImgND
+
+This function uses the [MATLAB Bio-formats toolbox](https://www.openmicroscopy.org/bio-formats/downloads/) to read in multidimensional image stacks.
+
+**REQUIREMENTS**
+
+The Bio-formats toolbox, `bfmatlab`, must be downloaded and added to the search path.
+
+ **INPUTS** (optional)
+
+- **file_path** is a path to an image file. If you don't input a file path, you will be prompted for a path.
+
+ **OUTPUTS**
+
+- **IMGND**: an XYZCT multidimensional array
+- **metadata**: the metadata from the array in XML format
+
+```matlab linenums="1" title="Example"
+[IMGND, metadata] = mmReadImgND(file_path)
+```
+
 ## 3D Slicer Functions
 
-Functions to import medical volumes created in 3D Slicer
+Functions to process segmentation volumes created in 3D Slicer. Requires the [Mathworks Medical Toolbox](../setup/matlabInstallation.md).
+
+All Slicer volumes should be loaded as `medicalVolumes`.
 
 ### mmGetSlicerSegTable
 
-Returns a table containing the properties (e.g. name, color, etc.) of the segmentations found in a seg.nrrd file
+Returns a table containing the properties (e.g. name, color, etc.) of the segmentations found in a `seg.nrrd` file
 
 - **Input**: file path to a segmentation file
   
 - **Output**: a table with segmentation names, layer, label, and color values
 
-```matlab linenums="1" title="Example" 
+```matlab linenums="1" title="Example"
 segT = mmGetSlicerSegTable(seg_file_path)
 ```
 
@@ -223,15 +229,15 @@ Loads the metadata and Segmentation Properties from all Slicer segmentation file
 **Output**
 
 - **T**: Slicer Segmentation table. Contains information (name, color) about segmentations created in Slicer Segment Editor module
-- **contentT**: Table containingg information about the segmentation files
+- **contentT**: Table containing information about the segmentation files
 
-```matlab linenums="1" title="Example" 
+```matlab linenums="1" title="Example"
 [segT,contentT] = mmGetAllSlicerSegTables(fullfile(paths.folder, paths.fileWC))
 ```
 
 ### mmGetMedicalVolumeSegment
 
-Simplifies indexing out a segment from a Slicer Segmentation volume. The function returns a structure that contains the mask of the indicated segment, color, and transformation matrix of the selected segmentation. First load a Slicer Segmentation file using `medicalVolume` and the Slicer segmentation table using `mmGetSegTable`.
+Indexes out a segment from a Slicer Segmentation volume loaded as a `medicalVolume`. The function returns a structure that contains the mask of the indicated segment, color, and transformation matrix of the selected segmentation. First load a Slicer Segmentation file using `medicalVolume` and the Slicer segmentation table using `mmGetSegTable`.
 
 **INPUTS**
 
@@ -239,12 +245,11 @@ Simplifies indexing out a segment from a Slicer Segmentation volume. The functio
 - **segT** (required):    table - table created by mmGetSlicerSegTable
 - **segName** (optional): string - Name of Segment to return.
 
-If segName not provided, the function prompts for a segmentation to be
-selected from the inputted segT table
+If segName not provided, you will be prompted to select one segmentation from the inputted segT table.
 
 **OUTPUTS**
 
-**S**: The function retunrs a structure with the following fields
+**S**: The function returns a structure with the following fields
 
 - **segName**: Name of selected segment
 - **mask**: binary mask of the selected segment
@@ -252,6 +257,10 @@ selected from the inputted segT table
 - **tform**: transformation matrix to properly orient segmentation
 - **spacing**: Voxel spacing
 - **volume**: calculated using `regionprops3`.
+
+```matlab linenums="1" title="Example"
+S = mmGetMedicalVolumeSegment(mv,segT,segName="right kidney")
+```
 
 ### mmPlotAllSeg
 
@@ -273,7 +282,7 @@ Wrapper function that plots all segmentations from a 3D Slicer segmentation volu
 
 - **hp**: array of patch handles to surface plots
 
-```matlab linenums="1" title="Examples" 
+```matlab linenums="1" title="Examples"
 hp = mmPlotAllSeg(Vol,segT);
 hp = mmPlotAllSeg(Vol,segT, falpha=0.25, affTrfm=tform);
 
@@ -288,7 +297,7 @@ Functions to process and manipulate surface meshes. Many of these functions work
 
 ### mmPlotMask2Surface
 
-Wrapper function that creates an isosurface from an input volume. Options include Smoothing of Volume and decimation, and lighting.  Default plots surface as a patch in one simple function call.
+Wrapper function that creates an isosurface from an input volume. Options include smoothing of the volume, decimation, and lighting.  Default plots surface as a patch in one simple function call.
   
 **INPUTS**
 
@@ -298,18 +307,12 @@ Wrapper function that creates an isosurface from an input volume. Options includ
 
 - **fcolor**: character array (default = 'cyan') - facecolor of the
           isosurface.
-- **falpha**: scalar (0-1, default = 0.5) - transparency of the faces 
-- **lightEMup**: boolean (default = true) - add lights to plot. Set to
-          false for multiple function calls (and then set to true 
-          on the final call). Otherwise you'll add too many lights
-          to scene
+- **falpha**: scalar (0-1, default = 0.5) - transparency of the faces
+- **lightEMup**: boolean (default = true) - add lights to the scene. For multiple function calls, set to false for all calls, except the last one.  Then set to true on the final call. Otherwise you'll add too many lights to the scene.
 - **report**: boolean (default=false) - print a report of settings to command window
-- **smooth**:    boolean (default=false). True means Smooth volume
-- **decimator**: decimation factor (0-1, default=0.15) of the generated surface 
-- **affTrfm**:   4X4 3D affinity transformation matrix (default = [], no transformation)
-          Used to transform the vertices to match the orientation and size of the  
-          original volume. Requires matGEOM - plugged into
-          transformPoint3d
+- **smooth**: boolean (default=false). True means Smooth volume
+- **decimator**: decimation factor (0-1, default=0.15) of the generated surface
+- **affTrfm**: 4X4 3D affinity transformation matrix (default = [], no transformation). Used to transform the vertices to match the orientation and size of the original volume.
 
 **OUTPUT**
 
@@ -332,15 +335,16 @@ Generate a surface mesh of the inputted 3D volume.  Returns a face-vertices stru
 
 - **Vol**: a 3D volume
 - **iv** (numeric): isovalue from which to generate the surface
-- **decimator** (0-1): amount by which to decimate the generated surface. 
-- **use_fast_march** (logical): Use the function `extractIsosurface` to more quickly generate an isosurface. Default = true
+- **decimator** (0-1): amount by which to decimate the generated surface.
+- **use_fast_march** (logical): Use the function `extractIsosurface` to more quickly generate an isosurface. Default = true.
+- **centerSurface** (logical): Center the vertices to 0,0,0. Default = false
 
 **OUTPUT**
 
 - **fv**: a faces-vertices structure
 - **s**: string reporting the decimation
 
-```matlab linenums="1" title="Examples" 
+```matlab linenums="1" title="Examples"
 fv = mmGetSurface(Vol);
 fv = mmGetSurface(Vol,0.5,0.1) 
 ```
@@ -363,8 +367,7 @@ Wrapper function to `patch`. plots the input fv structure as a patch. Lights not
 
 - **hp**: handle to the patch
 
-```matlab linenums="1" title="Example" 
-hp = plot_surface(fv,'cyan',0.5)
+```matlab linenums="1" title="Example"
 mmSetSurfacePlotProps % add lighting to plot
 ```
 
@@ -396,7 +399,7 @@ Rotate the vertices of a surface around the specified axis by the specified angl
 - **angl** (scalar): angle (in degrees) to rotate
 - **centerVerts** (logical): optional. Center Vertices around 0,0,0 prior to rotation
 
-```matlab linenums="1" title="Example" 
+```matlab linenums="1" title="Example"
 vertices = mmRotateSurfaceVertices(vertices, 'x',45)
 ```
 
@@ -413,7 +416,7 @@ Registers two point clouds using an iterative closest point algorithm. This func
 
 - **Surf2Move**: NX3 vertices matrix of registered surface
 
-```matlab linenums="1" title="Example" 
+```matlab linenums="1" title="Example"
  [vertMoving,rmse] = mmAlignSurfaces(vertFixed, vertMoving,options)
 ```
 
@@ -458,7 +461,7 @@ mmSliceView(STACK)
 
 Sets the default axes font to 16 and figure color to white
 
-```matlab linenums="1" title="Example" 
+```matlab linenums="1" title="Example"
 mmSetFigPublication(14) % Set Font size to 14
 ```
 
@@ -477,7 +480,7 @@ This function returns a color map (with 256 shades) of the indicated color
 **Input**: a channel name, letter, or index
 **Output**: a colormap of the shade indicated by the input
 
-```matlab linenums="1" title="Example" 
+```matlab linenums="1" title="Example"
 red_cm = mmGetChannelMap('red')
 green_cm = mmGetChannelMap('g')
 ```
