@@ -99,4 +99,14 @@ After you click OK, you should see the following in the Viewer:
 ![Screen grab of Medical Volume Viewer](images/medVolView-CTACardio-LungSeg.png){ width="650"}
 >Notice that the Lung segmentation is added to the CTACardio hierarchy in the Data Tree panel. To view the Labels, click the eye icon to "open the eye". If you select the Lung segmentation node in the Data tree, you can see a list of the Labels in the Labels panel. Each label can be shown/hidden using the eye icons in that panel
 
-To create the 3D Volume render shown in the above example, with the ribs clearly visible, select the CT Bone preset in the Render tab, and then adjust the alphamap as shown in the above example ("Manual Render focusing on Bone"). Also be sure to set the background to white and uncheck "Use Background gradient"
+To create the 3D Volume render shown in the above example, with the ribs clearly visible, select the CT Bone preset in the Render tab, and then adjust the alphamap as shown in the above example ("Manual Render focusing on Bone"). Also be sure to set the background to white and uncheck "Use Background gradient."
+
+## Surface Rendering
+
+The **medicalVolumeViewer** app can render volumes as surfaces by switching the Rendering Engine to "Isosurface".
+
+![CT lung surface rendering](images/medVolViewer-LungCT02-isosurface.png){ width="550"}
+
+>Here we have created two different Surface Renders by adjusting the position of the "Isosurface Value" slider. With this setting, the renderer connects voxels with similar intensities.
+
+Read more about surface rendering and `isosurface` in this [section of the documentation](volumeSurfaceModels.md).

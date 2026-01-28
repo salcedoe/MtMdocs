@@ -93,6 +93,7 @@ Consider the following volume:
 
     ```matlab linenums="1" title="Create logical volume with sphere inside" 
     center1 = -10;
+    center2 = -center1;
     dist = sqrt(3*(2*center1)^2);
     radius = dist/2 * 1.4;
     lims = [floor(center1-1.2*radius) ceil(center2+1.2*radius)];
@@ -146,16 +147,3 @@ reducepatch(hp,0.1) % input the patch handle
 ![surface of sphere with fewer faces](images/isosurface-sphere-reducepatch.png){ width="250"}
 
 Here we have the same surface but with fewer triangles. This is called `decimating` the surface. Reducing the number of triangles reduces the computational power required to render the surface, but don't over-decimate, or you may affect the shape of the surface.
-
-
-## Simple Surface
-
-The basic components of a surface
-
-## Medical Volume Viewer
-
-The **medicalVolumeViewer** app can render volumes as surfaces by switching the Rendering Engine to "Isosurface".
-
-![CT lung surface rendering](images/medVolViewer-LungCT02-isosurface.png){ width="550"}
-
->Here we have created two different Surface Renders by adjusting the position of the "Isosurface Value" slider. With this setting, the renderer connects voxels with similar intensities.
