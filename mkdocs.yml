@@ -73,12 +73,16 @@ nav:
     - Loading Volumes:
       - Medical File Formats: volumeProcessing/volumeMedicalFileFormats.md
       - Loading Confocal Datasets: volumeProcessing/volumeLoadingMicroscopy.md
+      - Loading Medical Datasets: volumeProcessing/volumeLoadingMedicalDatasets.md
     - Image Slices: volumeProcessing/volumeVisualization.md
     - 3D Visualization: 
-      - Volume Rendering: volumeProcessing/volumeRendering.md
-      - Volume Viewer: volumeProcessing/volumeViewer.md
-      - volShow: volumeProcessing/volshow.md
-      - Isosurfaces: volumeProcessing/Isosurfaces.md
+      - Rendering: volumeProcessing/renderingOverview.md
+      - Volume Rendering:
+        - Medical Volume Viewer: volumeProcessing/medVolumeViewer.md
+        - volshow: volumeProcessing/volshow.md
+      - Surface Rendering:
+        - Creating Surface Models: volumeProcessing/volumeSurfaceModels.md
+      #- Isosurfaces: volumeProcessing/Isosurfaces.md
       # - Color Stacks: volumeProcessing/ImageStacksColor.md
       # - Volume Visualization: volumeProcessing/VolumeVisualization.md
       # - Volume Segmentation: volumeProcessing/VolumeSegmentation.md
@@ -156,7 +160,7 @@ markdown_extensions:
       alternate_style: true
       slugify: !!python/object/apply:pymdownx.slugs.slugify
         kwds:
-          case: lower      
+          case: lower     
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -179,3 +183,4 @@ extra_css:
   - stylesheets/extra.css
 copyright: |
   &copy; 2025 <a href="https://github.com/salcedoe"  target="_blank" rel="noopener">Ernesto Salcedo</a>
+#mkdocs serve --livereload

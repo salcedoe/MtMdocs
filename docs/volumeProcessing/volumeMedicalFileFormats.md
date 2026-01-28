@@ -9,6 +9,19 @@ There are two main types of file formats for Medical Volumes
 
 A raster format is a file format used to store the voxel intensity data (like a 3D image file). We will use several different common formats, as detailed below.
 
+!!! abstract "A selection of Raster Formats"
+
+    | Format    | File Extension    | Read    | Write    |
+    | :-------------    | :--------------------    | :----  | :----  |
+    | DICOM    | .dcm    | yes    | no    |
+    | NRRD    | .nrrd, .nhdr    | yes    | yes     |
+    | VTK    |.vtk    |yes    |yes     |
+    | NifTI    |.nia, .nii, .nii.gz    |yes    |yes     |
+    | PNG    |.png    |yes    |yes     |
+    | TIFF    |.tif, .tiff    |yes    |yes     |
+
+    You can find a complete list of the 3D slicer supported files on the [Supported Formats Page](https://slicer.readthedocs.io/en/latest/user_guide/data_loading_and_saving.html)
+
 ### DICOM
 
 **Digital Imaging and Communications in Medicine.** DICOM is one of the main standards for handling, storing, printing, and transmitting information in medical imaging. It includes a file format definition and a network communications protocol.
@@ -23,7 +36,9 @@ The [DICOM standard](http://dicom.nema.org/standard.html) is maintained by the M
 
 [img_nrrd]: http://teem.sourceforge.net/img/nrrd256.jpg 
 
-[nrrd](http://teem.sourceforge.net/nrrd/) ("nearly raw raster data") is a library and file format for the representation and processing of n-dimensional raster data. It is intended to support scientific visualization and image processing applications.
+[nrrd](http://teem.sourceforge.net/nrrd/) ("nearly raw raster data") is a library and file format for the representation and processing of n-dimensional raster data used by 3D Slicer.
+
+It is intended to support scientific visualization and image processing applications.
 
 NRRD datasets are typically stored as a single file.
 
@@ -37,7 +52,7 @@ The [Visualization Toolkit](http://www.vtk.org) (VTK) is an open-source, freely 
 
 Open source software that uses VTK is usually pretty powerful. For example, 3D Slicer uses VTK for visualization.
 
-VTK has their own file format
+VTK has its own file format. 
 
 ### NIfTI
 
@@ -47,20 +62,18 @@ VTK has their own file format
 
 [Neuroimaging Informatics Technology Initiative](http://nifti.nimh.nih.gov/). An NIH funded initiative to support and enhance the use of informatics tools related to neuroimaging.
 
-The following is a table of the Raster formats we will be using in this course.
-
-| Format    | File Extension    | Read    | Write    |
-| :-------------    | :--------------------    | :----  | :----  |
-| DICOM    | .dcm    | yes    | no    |
-| NRRD    | .nrrd, .nhdr    | yes    | yes     |
-| VTK    |.vtk    |yes    |yes     |
-| NifTI    |.nia, .nii, .nii.gz    |yes    |yes     |
-| PNG    |.png    |yes    |yes     |
-| TIFF    |.tif, .tiff    |yes    |yes     |
-
-You can find a complete list of the 3D slicer supported files on the [Supported Formats Page](https://slicer.readthedocs.io/en/latest/user_guide/data_loading_and_saving.html)
-
 ## 3D Geometry Model Formats
+
+!!! abstract "3D Slicer Supported Geometry file formats"
+
+    | Format | Extension | Read | Write|
+    | :--- | :----: | :----:| :---:|  
+    |VTK Polygonal Data    |.vtk    |yes    |yes    |
+    |VTK XML Polygonal Data    |.vtp    |yes    |yes    |
+    |STL    |.stl    |yes    |yes    |
+    |OBJ    |.obj    |yes    |depends    |  
+
+    *Note: Write support for OBJ files may depend on the software used. Some tools can export OBJ files, while others may not.*
 
 ### STL
 
@@ -85,17 +98,6 @@ A very simple file format that represents 3D geometry and can store the followin
 - The faces that make each polygon defined as a list of vertices
 
 - The texture vertices, which define how textures are mapped onto the surface of the model.
-
-### 3D Slicer Supported Geometry file formats
-
-| Format | Extension | Read | Write|
-| :--- | :----: | :----:| :---:|  
-|VTK Polygonal Data    |.vtk    |yes    |yes    |
-|VTK XML Polygonal Data    |.vtp    |yes    |yes    |
-|STL    |.stl    |yes    |yes    |
-|OBJ    |.obj    |yes    |depends    |  
-
-*Note: Write support for OBJ files may depend on the software used. Some tools can export OBJ files, while others may not.*
 
 ## Additional Slicer Specific Formats
 

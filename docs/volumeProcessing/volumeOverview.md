@@ -28,15 +28,30 @@ In addition to depth, image stacks can also contain color or time information. T
 
 >**Color Image Stack**. As you can see in the above volume, a color component was also captured with each slice.
 
-## Volume and Voxels
+## Volume as a Cuboid
 
 ![cube made up of smaller colorful cubes](images/volume-cubes.png){ width="250"}
 
-Another way to think of an image volume is as a cube made up of smaller cubes, almost like a Rubik's cube. In this visualization, each of the smaller cubes is called a **voxel**, the 3D version of a pixel. Like pixels, voxels are point samples and have dimensionality (meaning they have a length, width, and height).
+Another way to think of an image volume is as a [cuboid](https://en.wikipedia.org/wiki/Cuboid) made up of smaller cuboids, almost like a Rubik's cube. In this visualization, each of the smaller cuboids is called a **voxel**, the 3D version of a pixel. Like pixels, voxels are point samples and have dimensionality (meaning they have a length, width, and height).
 
-### Isotropic vs Anisotropic
+!!! note "Voxel"
+    A voxel is a representation of a value on a three-dimensional regular grid, akin to the two-dimensional pixel (1).
+    { .annotate }
 
-When the dimensions of a voxel are identical, the voxel is **isotropic**; when they are not, the voxel is **anisotropic**. In the taste bud image stack, the voxel dimensions are 0.3 µm (x-axis) x 0.3 µm (y-axis) x 0.75 µm (z-axis). So, the voxels in this image stack are not perfect little cubes (aka isotropic), but are instead *cuboidal* (aka anisotropic).
+    1. Adapted from [Wikipedia](https://en.wikipedia.org/wiki/Voxel)
+
+    Think Minecraft
+
+    ![voxel](https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Voxels.svg/500px-Voxels.svg.png){ width="150"}
+
+### Voxel Shapes
+
+Voxels can be either perfect little cubes, where the dimensions are identical, or cuboidal, where they are not. 
+
+- **Isotropic:** all dimensions of a voxel are identical (i.e. a cube)
+- **Anisotropic:** One or more dimensions are not the same (i.e. cuboidal)
+
+In the taste bud image stack, the voxel dimensions are 0.3 µm (x-axis) x 0.3 µm (y-axis) x 0.75 µm (z-axis). So, the voxels in this image stack are not perfect little cubes, but are instead *cuboidal* (aka anisotropic).
 
 ![isotropic v anisotropic cuboids](images/iso-v-anisotropic.png){ width="200"}
 

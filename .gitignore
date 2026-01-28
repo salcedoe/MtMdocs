@@ -153,6 +153,6 @@ cython_debug/
 
 # Mac OS X Finder
 .DS_Store
-.pxd
+*.pxd
 docs/.DS_Store
 docs/volumeProcessing/volumeRendering.md

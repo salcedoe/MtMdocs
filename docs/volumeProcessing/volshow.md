@@ -1,0 +1,81 @@
+# Displaying volumes with volshow
+
+The function **volshow** can display Medical Volumes directly in live scripts. It's a simpler and faster way to display volumes without launching a separate app like the Medical Volume Viewer.
+
+```matlab linenums="1" title="Display Medical Volume using volshow"
+mmSetUnitDataFolder(3) % cd to unit3 folder
+intMV = medicalVolume("CTACardio/CTACardio Crop.nrrd") % load intensity volume as a medicalVolume
+volshow(intMV)
+```
+
+![volshow ctacardio](images/volshow-ctacardio-crop.png){ width="450"}
+>medicalVolumes displayed with volshow are transformed into Anatomical Space (LPS). Notice that by default, **`volshow`** creates a 3D viewer with a blue background and a black gradient.
+
+You can right-click on the `volshow` window to bring up a contextual menu with additional options, such as displaying a scale bar or voxel info.
+
+![volshow contextual menu](images/volshow-contextual-menu.png){ width="250"}
+>If you uncheck "Always embed Viewer in Live Editor", volshow will display the volume in a separate figure.
+
+## Manually adjusting the figure background and render style
+
+If you want to modify the background, you first need to create an empty scene using **`viewer3D`**. Here we create a viewer with a white background and no gradient.
+
+```matlab linenums="1" title="White Background"
+hvr = viewer3d(parent=uifigure,BackgroundColor="white",BackgroundGradient="off",CameraZoom=1); % set background color to white and turn off gradient
+hvs = volshow(intMV,parent=hvr);
+```
+
+![volshow ctacardio crop white background](images/volshow-ctacardio-crop-whitebackground.png){ width="450"}
+
+You can adjust the rendering style by modifying the `RenderingStyle` field in the `volshow` handle:
+
+```matlab linenums="1" title="Change Rendering Style to GradientOpacity"
+hvs.RenderingStyle = "GradientOpacity"; % volshow handle
+hvs.GradientOpacityValue = .1; % additional setting for Gradient Opacity
+```
+
+![comparison of volshow rendering styles](images/volshow-rendering-comparisons.png){ width="450"}
+>Comparison of Rendering Styles using `volshow`
+
+We can also modify the Colormap and add a title by modifying the respective fields in the volshow and viewer3d handles, respectively:
+
+```matlab linenums="1" title="Change colormap and add title"
+hvs.Colormap = parula; % volshow handle
+hvr.Title = "CTACardio" % viewer3D handle
+```
+
+![volshow with parula colormap and title](images/volshow-ctacardio-crop-parula-title.png){ width="450"}
+
+## Customizing the Render using `mmSetVolShowColors`
+
+`mmSetVolShowColors` is a utility function for **`volshow`** that simplifies the customization of the display. It automatically changes the background color of the `volshow` background to white and the applies a Medical alphamap and colormap to the volume render. The alpha- and colormaps are the same options available in the [Medical Volume Viewer](medVolumeViewer.md)
+
+To use, first display a volume using `volshow` and then simply input the handle from `volshow` into `mmSetVolShowColors`.
+
+```matlab linenums="1" title="Apply CT Bone "
+hvs = volshow(intMV);
+mapName = mmSetVolShowColors(hvs)
+```
+
+The function displays a list dialog with a choice of alphamap presets.
+
+![mmSetVolShowColors list dialog](images/mmSetVolShowColors-dialog.png){ width="150"}
+
+Select an alphamap to apply.
+
+![lung alpha map](images/mmSetVolShowColors-lung.png){ width="450"}
+>Here we apply the lung alphamap and colormap.
+
+## Overlaying label volumes
+
+Label Maps (or segmentation volumes) can be added as additional elements to the volume rendering using the following syntax:
+
+```matlab
+segMV = medicalVolume("CTACardio/Salcedo Segmentation.seg.nrrd"); % load label map
+hvs = volshow(intMV,...
+    OverlayData=segMV.Voxels, ... % add label volume
+    RenderingStyle="GradientOpacity", ... % change rendering style
+    OverlayAlpha=0.4); % adjust overlay transparency
+hvs.Parent.BackgroundGradient = 'off'; % modify parent properties (viewer3d)
+hvs.Parent.BackgroundColor = 'white'; % modify parent properties (viewer3d)
+```

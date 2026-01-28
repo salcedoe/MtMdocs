@@ -10,7 +10,7 @@ The University of Colorado has a [site license][Site_license] for MATLAB. Follow
 
 ## Important Caveats before installing
 
-You **do not** need to install **all** of the MATLAB toolboxes included with the site license. Installing them all will gobble up a lot of storage on your computer. If you are interested in saving space on your computer, only install the following:
+You **do not** need to install **all** of the MATLAB toolboxes included with the site license. Installing them all will consume a lot of storage on your computer. If you are interested in saving space on your computer, only install the following:
 
 - MATLAB (LATEST VERSION - should have the current year's date in the name)
 - Computer Vision System Toolbox
@@ -35,15 +35,17 @@ If you encounter issues with syncing, ensure that your internet connection is st
 
  ![MATLAB Drive Connector window showing sync status and options](https://www.mathworks.com/help/matlab/matlab_env/matlab_drive_connector.png){ width="450"}
 
- ![img-name](https://www.mathworks.com/help/matlab/matlab_env/matlab_drive_connector.png){ width="450"}
-
 - The Globe icon will open your web browser and take you to the online site
 - The Folder icon will take you to the local location on your computer where the files are synced
 - The gear icon brings up some preferences
 
 ## Add Shared MATLAB Folders
 
-Now that you have installed MATLAB drive, you will want to add the shared course folder to your drive. This folder, called the **MTMdata** folder, contains example data files and images. Click on this [shared folder link](https://drive.mathworks.com/sharing/36f2e302-384d-4c4e-aa98-8e853c1051c0){target="_blank"} to add the MTMdata folder to your MATLAB drive.
+Now that you have installed MATLAB drive, you will want to add the shared course folder to your drive. This folder, called  **MTMresources**, contains example data files and images. Click on this [shared folder link](https://drive.mathworks.com/sharing/36f2e302-384d-4c4e-aa98-8e853c1051c0){target="_blank"} to add the folder to your MATLAB drive.
+
+!!! note "Unit Folders"
+
+    Any reference to "unit" folders in the documentation is referencing this shared folder. For example the "unit1" data folder is found in `matlabdrive/MtMresources/MtMdata/unit3`. The course function `mmSetUnitDataFolder` sets the current folder to indicated unit number. For example `mmSetUnitDataFolder(3)` set the current folder to the unit3 data folder
 
 <!-- You should have received an invitation to the shared MATLAB Drive folders. In the email, there should be a link that brings you to your MATLAB drive. If you have not received an email, please check your junk folder or contact the course director. -->
 

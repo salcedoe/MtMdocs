@@ -4,12 +4,13 @@ Github is an online sharing and collaboration tool for software and other files.
 
 For more information, consult the [MATLAB GITHUB documentation](https://www.mathworks.com/help/matlab/matlab_prog/collaborate-using-git-in-matlab.html) and this site on ["How github works."](https://biostats-r.github.io/biostats/github/){target="_blank"}
 
+[:material-youtube: Git & GitHub Crash Course for Beginners](https://www.youtube.com/watch?v=mAFoROnOfHs&t=2906s){target="_blank" .md-button }
+
 ## Github repositories we'll be using
 
-The following are all add-on toolboxes for MATLAB:
+The following are add-on toolboxes for MATLAB:
 
 - [MtMtoolbox](https://github.com/salcedoe/MtMtools/tree/main/toolbox) - A companion set of functions and scripts for use with the MtM documentation
-- [matGeom](https://github.com/mattools/matGeom) - a library for geometry processing / geometric computing with MATLAB in 2D and 3D
 - bfmatlab - [Bio-formats](https://www.openmicroscopy.org/bio-formats/) toolbox to open Proprietary Microscope Image Formats and metadata. This toolbox is included in the MtMtools repository.
 
 ## Installation (cloning)
