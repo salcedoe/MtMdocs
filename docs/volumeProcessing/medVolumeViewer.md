@@ -70,7 +70,7 @@ So, as you can see, we can reveal different internal structures from the exact s
 
 ## Overlaying Label and Intensity Volumes
 
-Label Maps (or segmentation volumes) can be added as additional elements to the volume rendering. To overlay the label map on the intensity volumes, you need to load both the intensity volume and the label map into the Viewer App.
+Label Maps (aka segmentation volumes) can be added as additional elements to the volume rendering. To overlay the label map on the intensity volumes, you need to load both the intensity volume and the label map into the Viewer App.
 
 ### Add volumes
 
@@ -109,4 +109,4 @@ The **medicalVolumeViewer** app can render volumes as surfaces by switching the 
 
 >Here we have created two different Surface Renders by adjusting the position of the "Isosurface Value" slider. With this setting, the renderer connects voxels with similar intensities.
 
-Read more about surface rendering and `isosurface` in this [section of the documentation](volumeSurfaceModels.md).
+Read more about surface rendering and `isosurface` in the [Surface Rendering section of the documentation](volumeSurfaceModels.md).

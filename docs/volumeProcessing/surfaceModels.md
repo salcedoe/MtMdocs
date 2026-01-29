@@ -14,7 +14,7 @@ A 3D Surface (or manifold or mesh) is a digital representation of a 3D object (l
 
 Consider the following vertices, organized in a matrix, `V`:
 
-```matlab
+```matlab linenums="1" 
 V = [0.5 0.5 1.0;... % vertex 1
     0 0 0;... % vertex 2
     1 0 0;... % vertex 3
@@ -57,11 +57,11 @@ As you can see, the function `boundary` returns a matrix, `F`. In this matrix, e
 ## Surface Rendering
 
 To render the faces and vertices as a surface, you use the function `patch` (1)
-{ .annotate }.
+{ .annotate }
 
-1.  Patch is just another name for face.
+1. Patch is just another name for face.
 
-```matlab
+```matlab linenums="1" title="Surface Render" 
 hp = patch("Faces",F,"Vertices",V); % render surface
 
 % stylize render

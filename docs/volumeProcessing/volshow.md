@@ -1,4 +1,4 @@
-# Displaying volumes with volshow
+# volshow
 
 The function **volshow** can display Medical Volumes directly in live scripts. It's a simpler and faster way to display volumes without launching a separate app like the Medical Volume Viewer.
 
@@ -9,16 +9,18 @@ volshow(intMV)
 ```
 
 ![volshow ctacardio](images/volshow-ctacardio-crop.png){ width="450"}
->medicalVolumes displayed with volshow are transformed into Anatomical Space (LPS). Notice that by default, **`volshow`** creates a 3D viewer with a blue background and a black gradient.
+>Volume render of the CTACardio CT volume
+
+By default, **`volshow`** creates a 3D viewer with a blue background and a black gradient. Also notice that medicalVolumes are transformed into Anatomical Space (LPS). 
 
 You can right-click on the `volshow` window to bring up a contextual menu with additional options, such as displaying a scale bar or voxel info.
 
 ![volshow contextual menu](images/volshow-contextual-menu.png){ width="250"}
 >If you uncheck "Always embed Viewer in Live Editor", volshow will display the volume in a separate figure.
 
-## Manually adjusting the figure background and render style
+## Adjusting display
 
-If you want to modify the background, you first need to create an empty scene using **`viewer3D`**. Here we create a viewer with a white background and no gradient.
+If you want to modify the background of the figure, you first need to create an empty scene using **`viewer3D`**. Here we create a viewer with a white background and no gradient.
 
 ```matlab linenums="1" title="White Background"
 hvr = viewer3d(parent=uifigure,BackgroundColor="white",BackgroundGradient="off",CameraZoom=1); % set background color to white and turn off gradient
@@ -46,9 +48,9 @@ hvr.Title = "CTACardio" % viewer3D handle
 
 ![volshow with parula colormap and title](images/volshow-ctacardio-crop-parula-title.png){ width="450"}
 
-## Customizing the Render using `mmSetVolShowColors`
+## `mmSetVolShowColors`
 
-`mmSetVolShowColors` is a utility function for **`volshow`** that simplifies the customization of the display. It automatically changes the background color of the `volshow` background to white and the applies a Medical alphamap and colormap to the volume render. The alpha- and colormaps are the same options available in the [Medical Volume Viewer](medVolumeViewer.md)
+`mmSetVolShowColors` is a utility function for **`volshow`** that simplifies the customization of the display. It automatically changes the background color of the `volshow` background to white and then applies a Medical alphamap and colormap to the volume render. The alpha- and colormaps are the same options available in the [Medical Volume Viewer](medVolumeViewer.md)
 
 To use, first display a volume using `volshow` and then simply input the handle from `volshow` into `mmSetVolShowColors`.
 
@@ -68,14 +70,18 @@ Select an alphamap to apply.
 
 ## Overlaying label volumes
 
-Label Maps (or segmentation volumes) can be added as additional elements to the volume rendering using the following syntax:
+Label Maps (or segmentation volumes) can be added as an overlay to the volume rendering using the following syntax. Notice that OverlayData must be inputted as an array (not a medical volume), which is why we input the 'Voxels' field at the second input.
 
 ```matlab
-segMV = medicalVolume("CTACardio/Salcedo Segmentation.seg.nrrd"); % load label map
-hvs = volshow(intMV,...
-    OverlayData=segMV.Voxels, ... % add label volume
+segMV = medicalVolume("CTACardio/Salcedo Segmentation.seg.nrrd"); % load volume
+
+hvs = volshow(intMV,... % intensity volume is the first input
+    OverlayData=segMV.Voxels, ... % add label map as Overlay data
     RenderingStyle="GradientOpacity", ... % change rendering style
-    OverlayAlpha=0.4); % adjust overlay transparency
-hvs.Parent.BackgroundGradient = 'off'; % modify parent properties (viewer3d)
-hvs.Parent.BackgroundColor = 'white'; % modify parent properties (viewer3d)
+    OverlayAlpha=0.4); % adjust overlay transparency 
+hvs.Parent.BackgroundGradient = 'off';
+hvs.Parent.BackgroundColor = 'white';
 ```
+
+![ctacardio with kidneys](images/volshow-ctacardio-kidney-overlay.png){ width="250"}
+>Kidney (orange and yellow) and Aorta (purple) segmentations overlaid on a volume render of the CTA Cardio CT volume

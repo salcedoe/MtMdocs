@@ -71,9 +71,9 @@ nav:
   - Volume Processing: 
     - Overview: volumeProcessing/volumeOverview.md
     - Loading Volumes:
-      - Medical File Formats: volumeProcessing/volumeMedicalFileFormats.md
-      - Loading Confocal Datasets: volumeProcessing/volumeLoadingMicroscopy.md
-      - Loading Medical Datasets: volumeProcessing/volumeLoadingMedicalDatasets.md
+      - Medical File Formats: volumeProcessing/medicalFileFormats.md
+      - Loading Confocal Datasets: volumeProcessing/loadingConfocalDatasets.md
+      - Loading Medical Datasets: volumeProcessing/loadingMedicalDatasets.md
     - Image Slices: volumeProcessing/volumeVisualization.md
     - 3D Visualization: 
       - Rendering: volumeProcessing/renderingOverview.md
@@ -81,7 +81,8 @@ nav:
         - Medical Volume Viewer: volumeProcessing/medVolumeViewer.md
         - volshow: volumeProcessing/volshow.md
       - Surface Rendering:
-        - Creating Surface Models: volumeProcessing/volumeSurfaceModels.md
+        - Creating Surface Models: volumeProcessing/surfaceModels.md
+        - Rendering Medical Datasets: volumeProcessing/medicalSurfaceRendering.md
       #- Isosurfaces: volumeProcessing/Isosurfaces.md
       # - Color Stacks: volumeProcessing/ImageStacksColor.md
       # - Volume Visualization: volumeProcessing/VolumeVisualization.md
