@@ -47,9 +47,9 @@ meta = struct with fields:
 
 ## Using imread
 
-The **imread** function can be used to image stacks saved in the .TIF file format.
+If you haven't installed the bfmatlab tools and you have a basic TIFF dataset, you can use **`imread`** to load the volume.
 
-To load an image stack, you first need information about that stack. In this example, we will use this .TIF file
+You will first need information about that stack. In this example, we will use the 'TasteBud3D.tif' file
 
 The function **imfinfo** returns the metadata for an image stack.
 

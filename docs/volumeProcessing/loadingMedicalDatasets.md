@@ -1,10 +1,13 @@
-# Loading Medical Datasets into MATLAB
+# Loading Medical Datasets
 
-To load medical datasets into MATLAB, we will use functions from the [Medical Imaging Toolbox](https://www.mathworks.com/products/medical-imaging.html). Primarily, we will load datasets as [medicalVolume](https://www.mathworks.com/help/medical-imaging/ref/medicalvolume.html) objects.
+To load medical datasets into MATLAB, we will load them as [medicalVolume](https://www.mathworks.com/help/medical-imaging/ref/medicalvolume.html){target="_blank"} objects(1).
+{ .annotate}
 
-!!! note "A word on medicalVolume objects"
+1. Requires the [Medical Imaging Toolbox](https://www.mathworks.com/products/medical-imaging.html). 
 
-    A medicalVolume is a variable class that packages together the Voxel information, metadata, and Volume Geometry. The Volume Geometry can be used to transform the volume into [Anatomical Coordinate Space](https://slicer.readthedocs.io/en/latest/user_guide/coordinate_systems.html) (e.g. LPS). Although it presents as a structure, a medicalVolume is an object, which is a variable class that combines data (properties) with functions and methods.  As such, there defined ways to modify any of its fields, and you can't, for example, simply add a new field to an mV object using dot notation. But not to worry—we will be using medicalVolume objects primarily as read-only variables and we won't really mess with modifying any of its fields. 
+!!! note "A brief (and boring) word on medicalVolume objects"
+
+    A medicalVolume is a variable class that packages together the Voxel information (i.e the volume), the metadata, and the Volume Geometry, which can transform the volume into [Anatomical Coordinate Space](https://slicer.readthedocs.io/en/latest/user_guide/coordinate_systems.html) (e.g. LPS). Although it presents as a structure, a medicalVolume is an object, which is a variable class that combines data (properties) with functions and methods.  As such, there are defined ways to modify any of its fields, and you can't, for example, simply add a new field to an mV object using dot notation. But not to worry—we will be using medicalVolume objects primarily as read-only variables and we won't really mess with modifying any of its fields. 
 
 ## Loading DICOM Datasets
 
@@ -102,19 +105,18 @@ A DICOM dataset can be loaded into the MATLAB workspace as a `medicalVolume`. He
 
 ## Loading 3D Slicer Datasets
 
-The 3D Slicer default is to save volumetric data as NRRD files (1). These files end either with a `.nrrd` extension for volumetric data or `.seg.nrrd` extension for Segmentation data.
+3D Slicer files usually end with the `.nrrd` extension (1). You can load these files into MATLAB as a `medicalVolume`. In this example, we load the [CT Angiogram dataset](../slicer/CTACardioSegment.md) found in the `unit3/CTACardio` folder.
 { .annotate }
 
-1. Refer to the [3D Slicer documentation](https://slicer.readthedocs.io/en/latest/user_guide/data_loading_and_saving.html#supported-data-formats) for more information on supported data files.
+1. That's right. Its a "NERD" file. Read all about it in the [3D Slicer documentation](https://slicer.readthedocs.io/en/latest/user_guide/data_loading_and_saving.html#supported-data-formats).
 
-You can load NRRD files into MATLAB as a `medicalVolume`. In this example, we load the [CT Angiogram dataset](../slicer/CTACardioSegment.md) found in the `unit3/CTACardio` folder.
-
-```matlab linenums="1" title="Load a NRRD File"
+```matlab linenums="1" title="Load Slicer Intensity Volume"
 mmSetUnitDataFolder(3); % change folder to the Unit 3 Data Folder
-mV = medicalVolume("CTACardio/CTACardio Crop.nrrd")
+mV = medicalVolume("CTACardio/CTACardio Crop.nrrd") % note the .nrrd extension
 ```
 
-```matlab
+In addition to loading the volume itself (Voxels field), you also get metadata (all the other fields).
+```matlab  
 mV = 
 
   medicalVolume with properties:
@@ -135,16 +137,27 @@ mV =
             WindowWidths: []
 ```
 
->As you can see, the dimensions of the intensity volume 465×276×390. The volume is a signed integer 16-bit to accommodate the intensity Hounsfield units.
+As you can see, the dimensions of the intensity volume is `465×276×390` and is a signed integer 16-bit. This means there can be negative values in the volume to accommodate the Hounsfield units found in CT datasets.
 
-We can similarly load a Slicer Segmentation Volume:
+Slicer segmentation files end with the `.seg.nrrd` extension. We can also load Slicer Segmentation Volumes as medicalVolumes:
 
-```matlab
- mV = medicalVolume("CTACardio/CTACardio Crop segmentation.seg.nrrd")
+```matlab linenums="1" title="Load Segmentation Volume"
+mmSetUnitDataFolder(3);
+segFile = fullfile('CTACardio', 'Salcedo segmentation.seg.nrrd') % .seg.nrrd extension
+segMV = medicalVolume(segFile) % load as medical volume
 ```
 
-```matlab
- mV = 
+!!! warning "Missing Endian Values"
+    
+    You may get a warning of a 'Missing 'endian' value in the file metadata'. Don't worry, this warning is safe to ignore. If you want to force MATLAB to ignore the warning, you can use the following syntax prior to loading the Segmentation Volume:
+
+    ```matlab
+    warning('off', 'medical:medicalVolume:noEndian')
+    ```
+    
+
+```matlab title="Segmentation Volume loaded as a medicalVolume" 
+ segMV = 
 
   medicalVolume with properties:
 
@@ -160,17 +173,19 @@ We can similarly load a Slicer Segmentation Volume:
             PlaneMapping: ["sagittal"    "coronal"    "transverse"]
     DataDimensionMeaning: ["right"    "anterior"    "superior"]
                 Modality: "unknown"
+           WindowCenters: []
+            WindowWidths: []
 ```
 
->The Segmentation volume has the same dimensions as the Intensity volume, but its bit class is unsigned 8-bit to accommodate the small number of labels found in the segmentation volume.
+Notice that the Segmentation volume has the same dimensions as the intensity volume, but is unsigned 8-bit.  And, instead of intensity values, these volumes contain labels (unsigned whole numbers) that signify the segmented internal structures.
 
-While a medicalVolume object of a Slicer Segmentation volume contains information critical to processing and visualizing the volume, it lacks the Segment properties such as label values, names, and colors. The course function **`mmGetSlicerSegmentInfo`** loads these segment properties and formats the information into a table.
+While a `medicalVolume` object contains information critical to processing and visualizing the volume, it lacks  properties set in Slicer, like label values, names, and colors. To load these properties, you can use the course function **`mmGetSlicerSegmentInfo`**.
 
-```matlab linenums="1" title="Load Segment Properties"
-segT = mmGetSlicerMetadata("CTACardio/Salcedo Segmentation.seg.nrrd") % input path to a .seg.nrrd file
+```matlab linenums="1" title="Load Segmentation Metadata"
+segT = mmGetSlicerMetadata(segFile) % input path to a .seg.nrrd file
 ```
 
-```matlab
+```matlab title="Segmentation Metadata" 
 segT =
 
   3×4 table
@@ -183,4 +198,9 @@ segT =
     "aorta"             1          3         0.84706    0.39608     0.3098
 ```
 
->The `segT` table contains the properties set in the Slicer Segment editor, such as Segmentation Name and Color. It also list the LabelValue and Layer of each segment. Segment Layer is equivalent to a 4D index. Overlaying segments, such as the Kidney Medulla inside a Kidney segmentation, are stored in different layers of the volume (So, you need to index the 4th dimension to access these different layers).
+`mmGetSlicerMetadata` returns a table containing the Slicer properties, with columns for segmentation name, layer, label value, and color.  As you can see, this segmentation volume has three segmentations: 'right kidney','left kidney',and 'aorta' labeled by the values `1`, `2`, and `3`. So in the entire volume, there are only four different values: `0-4`, where `0` means no segmentation. The Color column contains the color of each segmentation, as it was set in 3D slicer
+
+!!! note "What is a Layer?"
+
+    In the Slicer metadata, there is a column for layer. In this example, the value is the same for all segmentations (1) and the segmentation volume is 3D. In other volumes, the layer values can differ, if "overlaying segments" was enabled in Slicer. Overlaying segments allows you to have more then one segment in the same physical space, like Total Lung and Right Lung, where the right side of Total Lung and Right Lung are virtually identical.  So, if there is more than one layer value, then the segmentation volume is 4D, not 3D, and "Layer" indicates the index value in the 4th dimension.  You would index in the 4th dimension to access these separate segmentations. 
+    
