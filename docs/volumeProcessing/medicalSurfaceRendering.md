@@ -2,20 +2,21 @@
 
 ## Slicer Segmentation Files
 
-To render a segmentation from a 3D Slicer segmentation volume, we need to first load the volume as a `medicalVolume`
+To render a segmentation from a 3D Slicer segmentation volume, we need to first [load the volume as a medicalVolume](loadingMedicalDatasets.md).
 
 ```matlab linenums="1" title="Load Segmentation Volume"
 mmSetUnitDataFolder(3);
 segFile = fullfile('CTACardio', 'CTACardio Crop segmentation.seg.nrrd')
 segMV = medicalVolume(segFile)
 ```
+
 We also need to load the metadata
 
 ```matlab linenums="1" title="Load Segmentation Metadata"
 segT = mmGetSlicerSegmentInfo(segFile)
 ```
 
-```matlab title="Segmentation Metadata" 
+```matlab title="Segmentation Metadata"
 segT =
 
   3×4 table

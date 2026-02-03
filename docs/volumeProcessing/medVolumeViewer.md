@@ -109,4 +109,4 @@ The **medicalVolumeViewer** app can render volumes as surfaces by switching the 
 
 >Here we have created two different Surface Renders by adjusting the position of the "Isosurface Value" slider. With this setting, the renderer connects voxels with similar intensities.
 
-Read more about surface rendering and `isosurface` in the [Surface Rendering section of the documentation](volumeSurfaceModels.md).
+Read more about surface rendering and `isosurface` in the [Surface Rendering section of the documentation](surfaceModels.md).

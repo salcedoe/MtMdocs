@@ -83,14 +83,10 @@ nav:
       - Surface Rendering:
         - Creating Surface Models: volumeProcessing/surfaceModels.md
         - Rendering Medical Datasets: volumeProcessing/medicalSurfaceRendering.md
-      #- Isosurfaces: volumeProcessing/Isosurfaces.md
-      # - Color Stacks: volumeProcessing/ImageStacksColor.md
-      # - Volume Visualization: volumeProcessing/VolumeVisualization.md
+        - Transforming Surface Models: volumeProcessing/surfaceModelTransformation.md
       # - Volume Segmentation: volumeProcessing/VolumeSegmentation.md
       # - Volume Registration: volumeProcessing/VolumeRegistration.md
       # - Volume Analysis: volumeProcessing/VolumeAnalysis.md    
-    #- Volume Imaging:
-      #- Introduction: volumeProcessing/medicalImagingIntro.md
   - 3D Slicer:
     - Introduction: slicer/InterfaceIntro.md
     - Customize Slicer: slicer/CustomizeSlicer.md

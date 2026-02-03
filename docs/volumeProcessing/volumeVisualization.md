@@ -1,6 +1,6 @@
 # Viewing Image Stacks
 
-Viewing image stacks often starts by viewing the individual slices of the stack.  Consider the [taste bud image stack](volumeLoadingMicroscopy.md).
+Viewing image stacks often starts by viewing the individual slices of the stack.  Consider the [taste bud image stack](loadingConfocalDatasets.md).
 
 ![A color confocal image stack showing taste bud structures](images/image-stack-tastebud-color.png){ width="350"}
 
