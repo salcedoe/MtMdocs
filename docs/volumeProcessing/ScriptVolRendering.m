@@ -43,16 +43,23 @@ hvs = volshow(intMV);
 mapName = mmSetVolShowColors(hvs) %[output:51ce2ce1] %[output:1b2f7e3d]
 %%
 %[text] ### Overlay label maps
-hvs = volshow(intMV,OverlayData=segMV.Voxels, ... % first input is the intensity Volume
-    RenderingStyle="GradientOpacity", ...
-    OverlayAlpha=0.4); % reduce label opacity
+hvs = volshow(intMV,OverlayData=segMV.Voxels, ... % first input is the intensity Volume %[output:group:46e18782] %[output:17e553d5]
+    RenderingStyle="GradientOpacity", ... %[output:17e553d5]
+    OverlayAlpha=0.4); % reduce label opacity %[output:group:46e18782] %[output:17e553d5]
 hvs.Parent.BackgroundGradient = 'off'; % set figure gradient off
-hvs.Parent.BackgroundColor = 'white'; % set figure background to white %[output:17e553d5]
+hvs.Parent.BackgroundColor = 'white'; % set figure background to white
 %%
 hvs.Parent.CameraPosition(1:2) = -hvs.Parent.CameraPosition(1:2); % Anterior forward by moving camera
 %%
 mmSetVolShowColors(hvs,MapName="CTBoneShift") %[output:2bee9a63]
 %%
+%[text] ### Slice planes
+hvr = viewer3d(parent=uifigure,BackgroundColor="white",BackgroundGradient="off",CameraZoom=1); % set background color to white and turn off gradient
+volshow(segMV,parent= hvr,RenderingStyle="Isosurface",Colormap=hot) % display total segmentation as slice planes
+volshow(intMV,parent= hvr,RenderingStyle="SlicePlanes",OverlayData=segMV.Voxels) % display total segmentation as slice planes
+
+%%
+%[text] ### Display seg vol directly
 hvs = volshow(segMV,RenderingStyle="Isosurface",Colormap=parula(3));
 hvs.Parent.BackgroundColor='white'; %[output:851ba0d4]
 hvs.Parent.BackgroundGradient="off";

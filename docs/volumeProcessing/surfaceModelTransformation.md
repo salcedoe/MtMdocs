@@ -100,8 +100,10 @@ The surface model is now doubled along all dimensions.
 
 ## Rotation
 
-To rotate a surface, you need a [transformation matrix](https://www.mathworks.com/help/images/matrix-representation-of-geometric-transformations.html) and some linear algebra. For those who prefer not to perform linear algebra on their own, the required steps are encapsulated in the course function **`mmRotateSurfaceVertices`**:
+To rotate a surface, you need a [transformation matrix](https://www.mathworks.com/help/images/matrix-representation-of-geometric-transformations.html), our old friends `sine` and `cosine`, and some linear algebra. For those who prefer not to perform linear algebra on the fly, the required steps are encapsulated in the course function **`mmRotateSurfaceVertices`**:
 
-```matlab linenums="1" title="Rotate surface 90˚ around the y-axis" 
+```matlab linenums="1" title="Rotate surface 90˚ around the y-axis"
 hp2.Vertices = mmRotateSurfaceVertices(hp2.Vertices,'y',90)
 ```
+
+![rotated surface](images/surface-transform-diamond-rotate-90y.png){ width="350"}

@@ -105,7 +105,7 @@ Consider the following volume:
 
     Adapted from this [Mathworks example](https://www.mathworks.com/help/images/ref/watershed.html).
 
-In the above example, we use the `falses` to represent empty signal, like air inside a CT bore, and the `trues` to represent a structure, like a bone inside a tissue. So, we don't really need to render the outer cube, we just want to render the sphere. And we really don't need to render the `trues` inside the sphere, just the outer boundary of the sphere.
+In the above example, we use the `falses` to represent empty signal surrounding the sphere, like air in a CT scan. The sphere itself is composed of the `trues` and represents a segmented structure, like a bone inside a tissue. So, we don't really need to render the outer cube, we just want to render the sphere. And we actually don't need to render the `trues` inside the sphere to visualize the sphere. They would just be hidden inside the surface. So, we really need to create a surface model of the the outer boundary of the sphere.
 
 To capture that outer spherical boundary between the `trues` and the `falses`, we use the function `isosurface`, which creates a 3D surface (replete with vertices and faces), at the boundary:
 
@@ -138,7 +138,7 @@ If you zoom in on the sphere, you can see the surface of the sphere is made up o
 
 ![surface of sphere](images/isosurface-sphere-dollyzoom.png){ width="250"}
 
-In fact, the surface is probably made up of too many triangles. Often `isosurface` will go a little too wild with the triangles. If the surface is very large, too many triangles might make the surface too unwieldly to display (render becomes very slow). Luckily, we can easily reduce the number of triangles using the function `reducepatch`.
+In fact, the surface is probably made up of too many triangles. Often `isosurface` will go a little too wild with the triangles. If the surface is very large, too many triangles might make the surface too unwieldly to display (rendering becomes excruciatingly slow). Luckily, we can easily reduce the number of triangles using the function `reducepatch`.
 
 ```matlab linenums="1" title="Decimate 3D surface" 
 reducepatch(hp,0.1) % input the patch handle

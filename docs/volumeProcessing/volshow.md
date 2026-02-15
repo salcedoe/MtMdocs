@@ -68,11 +68,11 @@ Select an alphamap to apply.
 ![lung alpha map](images/mmSetVolShowColors-lung.png){ width="450"}
 >Here we apply the lung alphamap and colormap.
 
-## Overlaying label volumes
+## Overlaying label maps
 
-Label Maps (or segmentation volumes) can be added as an overlay to the volume rendering using the following syntax. Notice that OverlayData must be inputted as an array (not a medical volume), which is why we input the 'Voxels' field at the second input.
+Label Maps (or segmentation volumes) can be added as an overlay to the volume rendering using the following syntax.
 
-```matlab
+```matlab linenums="1" title="Overlay Render"
 segMV = medicalVolume("CTACardio/Salcedo Segmentation.seg.nrrd"); % load volume
 
 hvs = volshow(intMV,... % intensity volume is the first input
@@ -83,5 +83,20 @@ hvs.Parent.BackgroundGradient = 'off';
 hvs.Parent.BackgroundColor = 'white';
 ```
 
+ Notice that "OverlayData" must be inputted as an array (not a medical volume), which is why we input the 'Voxels' field at the second input.
+
 ![ctacardio with kidneys](images/volshow-ctacardio-kidney-overlay.png){ width="250"}
->Kidney (orange and yellow) and Aorta (purple) segmentations overlaid on a volume render of the CTA Cardio CT volume
+>**Overlay Render**. Kidney (orange and yellow) and Aorta (purple) segmentations overlaid on a volume render of the CTA Cardio CT volume
+
+```matlab linenums="1" title="SlicePlane Render"
+hvr = viewer3d(parent=uifigure,BackgroundColor="white",BackgroundGradient="off",CameraZoom=1); % set background color to white and turn off gradient
+volshow(segMV,parent= hvr,RenderingStyle="Isosurface",Colormap=hot) % display total segmentation as slice planes
+volshow(intMV,parent= hvr,RenderingStyle="SlicePlanes",OverlayData=segMV.Voxels) % display total segmentation as slice planes
+```
+
+Here we first create a viewer window (`viewer3d`), then we have two calls to `volshow`, with both calls using the same viewer window as the parent. In the first call, we render the label volume as an "Isosurface". This gives the render that blocky label map appearance. We use a Colormap setting of "hot" to make the segments appear red. In the second call to `volshow`, we render the intensity volume as orthogonal slice planes. We also add the label map as overlay data. This adds color to the orthogonal slices where the label overlaps with the intensity volume. The second `volshow` call must be the SlicePlanes render, so you can interactively manipulate the position of the orthogonal planes.
+
+![slice plane](images/volshow-ctacardio-kidney-overlay-sliceplanes.png){ width="450"}
+>**SlicePlane Render**. Segments rendered in red. Intensity volume rendered as orthogonal planes
+
+You can click and drag on the orthogonal planes to move their position.
