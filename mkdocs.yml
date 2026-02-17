@@ -76,16 +76,16 @@ nav:
       - Loading Medical Datasets: volumeProcessing/loadingMedicalDatasets.md
     - Volume Visualization: 
       - Viewing Image Slices: volumeProcessing/volumeVisualization.md
-      - Rendering: volumeProcessing/renderingOverview.md
-      - Volume Rendering:
-        - Medical Volume Viewer: volumeProcessing/medVolumeViewer.md
-        - volshow: volumeProcessing/volshow.md
+    - Rendering:
+      - volumeProcessing/index.md
+      - Medical Volume Viewer: volumeProcessing/medVolumeViewer.md
+      - Rendering with volshow: volumeProcessing/volshow.md
       - Surface Rendering:
         - Creating Surface Models: volumeProcessing/surfaceModels.md
         - Rendering Medical Datasets: volumeProcessing/medicalSurfaceRendering.md
         - Transforming Surface Models: volumeProcessing/surfaceModelTransformation.md
     - Volume Analysis:
-      - Volume Segmentation: volumeProcessing/VolumeSegmentation.md
+      - Volume Segmentation: volumeProcessing/volumeSegmentation.md
       # - Volume Registration: volumeProcessing/VolumeRegistration.md
       # - Volume Analysis: volumeProcessing/VolumeAnalysis.md    
   - 3D Slicer:

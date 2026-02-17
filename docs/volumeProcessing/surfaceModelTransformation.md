@@ -1,12 +1,16 @@
 # Transforming Surface Models
 
-Since surface models are just points in 3D space, it is very easy to manipulate the position and size of these models using some basic mathematical operations. These operations are collectively known as **transformations** and they can be broken down into separate categories like:
+Since surface models are just points in 3D space, it is very easy to manipulate the position and size of these models using some basic mathematical operations. These operations are collectively known as **transformations**.
 
-- **Translation**: movement along the x,y,z axes (addition or subtraction)
-- **Rotation:** Rotation around a given vertex (multiplication or division)
-- **Scale:** increasing or decreasing the size of the model (transformation matrix and linear algebra)
+!!! note "Transformation Categories"
 
-You can also warp and shear a model, but we won't get into that here.
+    Transformations can be broadly categorized as:
+
+    - **Translation**: movement along the x,y,z axes (addition or subtraction)    
+    - **Scale:** enlarging or shrinking the model(multiplication or division)
+    - **Rotation:** rotation around a given vertex (transformation matrix and linear algebra) 
+
+    Often, these transformations are combined.  You can also warp and shear a model, but we won't get into that here. 
 
 ## Translating Surface Models
 
@@ -48,24 +52,23 @@ set(hp,"FaceAlpha",0.5, "EdgeAlpha", 0.5); % increase transparency of original d
 axis equal % 2nd call helps zoom in on renders
 ```
 
-In the above following code, we created a new vertices matrix, `V2`, by adding 2 to all vertices in `V`. Notice we didn't need to change the Faces matrix, `F`. We just modified the vertices. By adding `2` to each vertex, we translated the surface `+2` in the x,y, and z directions.
+In the above code, we created a new vertices matrix, `V2`, by adding 2 to all vertices in `V`. Notice we didn't need to change the Faces matrix, `F`. We just modified the vertices. By adding `2` to each vertex, we translated the surface `+2` in the x,y, and z directions.
 
 ![translate new surface and render](images/surface-transform-diamond-translate2side.png){ width="250"}
->Side-view render of the original (more transparent) and translated diamond (here, the z is the vertical axis)
+>Side-view render of the original (transparent) and translated diamond (solid). Here, the z is the vertical axis.
 
 ![translate new surface and render](images/surface-transform-diamond-translate2aerial.png){ width="250"}
->Aerial view of the same render. Bottom left render is original diamond, while top left is the translated diamond.
+>Aerial view of the same render. Bottom left render is original diamond, while top right is the translated diamond.
 
 ```matlab linenums="1" title="Translate render using handle"
-hp2.Vertices = hp2.Vertices - [0 0 6]; % translate vertices
+hp2.Vertices = hp2.Vertices - [0 0 6]; % translate -6 in the z-direction
 axis equal
 ```
 
-Since the patch handle (`hp`) contains the faces and vertices, we can modify the vertices directly in the handle and instantly translate the render.
+The patch handle (`hp2`) contains the faces and vertices of the surface. When we modify the vertices in the handle, the render is instantly transformed:
 
 ![diamond render](images/surface-transform-diamond-translate-6side.png){ width="250"}
 >Diamond translated -6 along just the z-axis
-
 
 ```matlab linenums="1" title="Center surface to 0,0,0"
 hp2.Vertices = hp2.Vertices-mean(hp2.Vertices); % center surface
@@ -81,7 +84,7 @@ Sometimes, it is useful to center a 3D surface at 0,0,0. Here we center the surf
 While translation is addition and subtraction, scaling is multiplication and division.
 
 ```matlab linenums="1" title="Scale Diamond"
-hp2.Vertices = hp2.Vertices * 2 % double vertices
+hp2.Vertices = hp2.Vertices * 2 % double vertices;
 ```
 
 The surface model is now doubled along all dimensions.
@@ -100,7 +103,7 @@ The surface model is now doubled along all dimensions.
 
 ## Rotation
 
-To rotate a surface, you need a [transformation matrix](https://www.mathworks.com/help/images/matrix-representation-of-geometric-transformations.html), our old friends `sine` and `cosine`, and some linear algebra. For those who prefer not to perform linear algebra on the fly, the required steps are encapsulated in the course function **`mmRotateSurfaceVertices`**:
+To rotate a surface, you need a [transformation matrix](https://www.mathworks.com/help/images/matrix-representation-of-geometric-transformations.html), our old friends sine and cosine, and some linear algebra. For those who prefer not to perform linear algebra on the fly, the required steps are encapsulated in the course function **`mmRotateSurfaceVertices`**:
 
 ```matlab linenums="1" title="Rotate surface 90˚ around the y-axis"
 hp2.Vertices = mmRotateSurfaceVertices(hp2.Vertices,'y',90)

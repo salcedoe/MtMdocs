@@ -1,6 +1,6 @@
-# volshow
+# Rendering with `volshow`
 
-The function **volshow** can display Medical Volumes directly in live scripts. It's a simpler and faster way to display volumes without launching a separate app like the Medical Volume Viewer.
+The function **`volshow`** can display Medical Volumes directly in live scripts. It's a simpler and faster way to display volumes without launching a separate app like the Medical Volume Viewer.
 
 ```matlab linenums="1" title="Display Medical Volume using volshow"
 mmSetUnitDataFolder(3) % cd to unit3 folder
@@ -11,7 +11,7 @@ volshow(intMV)
 ![volshow ctacardio](images/volshow-ctacardio-crop.png){ width="450"}
 >Volume render of the CTACardio CT volume
 
-By default, **`volshow`** creates a 3D viewer with a blue background and a black gradient. Also notice that medicalVolumes are transformed into Anatomical Space (LPS). 
+By default, **`volshow`** creates a 3D viewer with a blue background and a black gradient. Also notice that medicalVolumes are transformed into Anatomical Space (Left-Posterior-Superior). 
 
 You can right-click on the `volshow` window to bring up a contextual menu with additional options, such as displaying a scale bar or voxel info.
 
@@ -94,9 +94,9 @@ volshow(segMV,parent= hvr,RenderingStyle="Isosurface",Colormap=hot) % display to
 volshow(intMV,parent= hvr,RenderingStyle="SlicePlanes",OverlayData=segMV.Voxels) % display total segmentation as slice planes
 ```
 
-Here we first create a viewer window (`viewer3d`), then we have two calls to `volshow`, with both calls using the same viewer window as the parent. In the first call, we render the label volume as an "Isosurface". This gives the render that blocky label map appearance. We use a Colormap setting of "hot" to make the segments appear red. In the second call to `volshow`, we render the intensity volume as orthogonal slice planes. We also add the label map as overlay data. This adds color to the orthogonal slices where the label overlaps with the intensity volume. The second `volshow` call must be the SlicePlanes render, so you can interactively manipulate the position of the orthogonal planes.
+Here we first create a viewer window (`viewer3d`), then we have two calls to `volshow`, with both calls using the same viewer window as the parent. This allows us to create a composite visualization. In the first call, we render the label volume as an "Isosurface". This gives the render that blocky label map appearance. For this call, we use a Colormap setting of "hot" to make the segments appear red. In the second call to `volshow`, we render the intensity volume as orthogonal slice planes. We also add the label map as overlay data. This adds color to the orthogonal slices where the label overlaps with the intensity volume.
 
 ![slice plane](images/volshow-ctacardio-kidney-overlay-sliceplanes.png){ width="450"}
 >**SlicePlane Render**. Segments rendered in red. Intensity volume rendered as orthogonal planes
 
-You can click and drag on the orthogonal planes to move their position.
+Note, you should be able to click and drag on the orthogonal planes to move their position. This is was enabled due to the order of the `volshow` calls. Having the second volshow call be the call that uses SlicePlanes rendering enabled interactive manipulation of the orthogonal planes. If the volshow calls were reversed, you wouldn't be able to manipulate the orthogonal planes. 

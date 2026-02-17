@@ -1,5 +1,7 @@
 # Surface Models
 
+To render a Surface, you first need to create a surface.
+
 A 3D Surface (or manifold or mesh) is a digital representation of a 3D object (like a sphere or prism). These digital surfaces are made up of Vertices and Faces (1). This differs from a digital volume which is essentially a [cuboid](https://en.wikipedia.org/wiki/Cuboid) made up of smaller cuboids (voxels).
 { .annotate }
 

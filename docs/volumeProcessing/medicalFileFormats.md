@@ -2,7 +2,7 @@
 
 There are two main types of file formats for Medical Volumes
 
-1. **Raster Files** - stores the data as a grid of voxels (just like 2D raster formats like tiff or png)
+1. **Raster Files** - stores the data as a grid of voxels (just like 2D raster formats tiff or png)
 2. **Geometry Definition Format files** - stores 3D model data as a list of vertices and faces (and other data)
 
 ## Volume (Raster) Formats
