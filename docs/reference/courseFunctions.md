@@ -206,7 +206,7 @@ Functions to process segmentation volumes created in 3D Slicer. Requires the [Ma
 
 All Slicer volumes should be loaded as `medicalVolumes`.
 
-### mmGetSlicerSegTable
+### mmGetSlicerSegmentInfo
 
 Returns a table containing the properties (e.g. name, color, etc.) of the segmentations found in a `seg.nrrd` file
 
@@ -215,10 +215,10 @@ Returns a table containing the properties (e.g. name, color, etc.) of the segmen
 - **Output**: a table with segmentation names, layer, label, and color values
 
 ```matlab linenums="1" title="Example"
-segT = mmGetSlicerSegTable(seg_file_path)
+segT = mmGetSlicerSegmentInfo(seg_file_path)
 ```
 
-### mmGetAllSlicerSegTables
+### mmGetSlicerSegmentInfoAll
 
 Loads the metadata and Segmentation Properties from all Slicer segmentation files found in the same folder
 
@@ -232,7 +232,7 @@ Loads the metadata and Segmentation Properties from all Slicer segmentation file
 - **contentT**: Table containing information about the segmentation files
 
 ```matlab linenums="1" title="Example"
-[segT,contentT] = mmGetAllSlicerSegTables(fullfile(paths.folder, paths.fileWC))
+[segT,contentT] = mmGetSlicerSegmentInfoAll(fullfile(paths.folder, paths.fileWC))
 ```
 
 ### mmGetMedicalVolumeSegment
@@ -293,7 +293,7 @@ hp = mmPlotAllSeg(Vol,segT,affTrfm=tform);
 
 ## Surface Functions
 
-Functions to process and manipulate surface meshes. Many of these functions work well with the vertices field in a patch handle, allowing for real-time update of the surface plot. 
+Functions to process and manipulate surface meshes. Many of these functions work well with the vertices field in a patch handle, allowing for real-time update of the surface plot.
 
 ### mmPlotMask2Surface
 

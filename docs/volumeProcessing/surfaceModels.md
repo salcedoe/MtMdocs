@@ -1,6 +1,6 @@
 # Surface Models
 
-To render a Surface, you first need to create a surface.
+*To render a surface, you first need to create a surface.*
 
 A 3D Surface (or manifold or mesh) is a digital representation of a 3D object (like a sphere or prism). These digital surfaces are made up of Vertices and Faces (1). This differs from a digital volume which is essentially a [cuboid](https://en.wikipedia.org/wiki/Cuboid) made up of smaller cuboids (voxels).
 { .annotate }
@@ -24,7 +24,7 @@ V = [0.5 0.5 1.0;... % vertex 1
     1 1 0]    % vertex 5
 ```
 
-In this matrix, `V`, each column contains the x,y, or z coordinate, respectively, and each row contains a single vertex (i.e. the x,y, and z coordinates for a given vertex). So, in this example, Vertex 1 has the x,y,z coordinates of `0.5, 0.5, 1.0`, had  Vertex 2 has the coordinates `0,0,0`.
+In this matrix, `V`, each column contains the x,y, or z coordinate, respectively, and each row contains a single vertex (i.e. the x,y, and z coordinates for a given vertex). So, in this example, Vertex 1 has the x,y,z coordinates of `0.5, 0.5, 1.0`, and Vertex 2 has the coordinates `0,0,0`.
 
 We can plot these vertices as a 3D scatter plot using `scatter3`.
 
@@ -36,9 +36,9 @@ axis equal
 
 ![vertices scatter plot](images/vertices-scatter-3D.png){ width="250"}
 
-This 3D plot is not a surface — its a scatter plot or a point cloud. To create a surface model, we need to create planar shapes from the vertices. The most common way to do this is to group vertices into triangles. These connected shapes are called "faces."
+This 3D plot is not a surface — it's a scatter plot or a point cloud. To create a surface model, we need to create planar shapes from the vertices. The most common way to do this is to group vertices into triangles. These connected shapes are called "faces."
 
-The boundary `function` creates a set of faces from a series of vertices that together makes a surface of the exterior boundary of the vertices.
+The `boundary` function creates a set of faces from a series of vertices that together makes a surface of the exterior boundary of the vertices.
 
 ```matlab linenums="1" title="Create faces from vertices"
 F = boundary(V)
@@ -77,7 +77,7 @@ grid on % turn grid on
 
 ![surface plot of a pyramid](images/pyramid-3D.png){ width="450"}
 
-In this example, you get pyramid. Notice that each side of the pyramid is a triangle, while the square bottom of the pyramid is made up of two triangular faces:
+In this example, you get a pyramid. Notice that each side of the pyramid is a triangle, while the square bottom of the pyramid is made up of two triangular faces:
 
 ![pyramid bottom](images/pyramid-3D-bottom.png){ width="300"}
 >View of the bottom of the pyramid. Notice the square surface is made up of two triangles (dark blue and yellow).
@@ -107,9 +107,9 @@ Consider the following volume:
 
     Adapted from this [Mathworks example](https://www.mathworks.com/help/images/ref/watershed.html).
 
-In the above example, we use the `falses` to represent empty signal surrounding the sphere, like air in a CT scan. The sphere itself is composed of the `trues` and represents a segmented structure, like a bone inside a tissue. So, we don't really need to render the outer cube, we just want to render the sphere. And we actually don't need to render the `trues` inside the sphere to visualize the sphere. They would just be hidden inside the surface. So, we really need to create a surface model of the the outer boundary of the sphere.
+In the above example, we use the `falses` to represent empty signal surrounding the sphere, like air in a CT scan. The sphere itself is composed of the `trues` and represents a segmented structure, like a bone inside a tissue. So, we don't really need to render the outer cube, we just want to render the sphere. And we actually don't need to render the `trues` inside the sphere to visualize the sphere. They would just be hidden inside the surface. So, we really need to create a surface model of the outer boundary of the sphere.
 
-To capture that outer spherical boundary between the `trues` and the `falses`, we use the function `isosurface`, which creates a 3D surface (replete with vertices and faces), at the boundary:
+To capture that outer spherical boundary between the `trues` and the `falses`, we use the function `isosurface`, which creates a 3D surface (with vertices and faces), at the boundary:
 
 ```matlab linenums="1" title="Create Surface from volume" 
 fv = isosurface(Vol, 0.5)
@@ -121,7 +121,7 @@ fv = struct with fields:
        faces: [22328×3 double]
 ```
 
-Notice `isosurface` returns a structure, `fv`, with both a "vertices" and a "faces" field. This is the generated surface. The second input into `isosurface` (0.5) indicates the intensity boundary between with the surface should be generated. Since we inputted a logical volume, the surface will be created at the boundary between the `0` and `1`'s in the volume, which in this case is the boundary of the sphere. So, we are not indexing out the voxels at the boundary, we are creating a 3D surface that contains the sphere.
+Notice `isosurface` returns a structure, `fv`, with both a "vertices" and a "faces" field. This is the generated surface. The second input into `isosurface` (0.5) indicates the intensity boundary at which the surface should be generated. Since we input a logical volume, the surface will be created at the boundary between the `0` and `1`'s in the volume, which in this case is the boundary of the sphere. So, we are not indexing out the voxels at the boundary, we are creating a 3D surface that contains the sphere.
 
 To visualize the 3D surface, we can use the function `patch`, with the `fv` struct as first input.
 
@@ -140,7 +140,7 @@ If you zoom in on the sphere, you can see the surface of the sphere is made up o
 
 ![surface of sphere](images/isosurface-sphere-dollyzoom.png){ width="250"}
 
-In fact, the surface is probably made up of too many triangles. Often `isosurface` will go a little too wild with the triangles. If the surface is very large, too many triangles might make the surface too unwieldly to display (rendering becomes excruciatingly slow). Luckily, we can easily reduce the number of triangles using the function `reducepatch`.
+In fact, the surface is probably made up of too many triangles. Often `isosurface` will go a little too wild with the triangles. If the surface is very large, too many triangles might make the surface unwieldy to display (rendering becomes excruciatingly slow). Luckily, we can easily reduce the number of triangles using the function `reducepatch`.
 
 ```matlab linenums="1" title="Decimate 3D surface" 
 reducepatch(hp,0.1) % input the patch handle
@@ -148,4 +148,4 @@ reducepatch(hp,0.1) % input the patch handle
 
 ![surface of sphere with fewer faces](images/isosurface-sphere-reducepatch.png){ width="250"}
 
-Here we have the same surface but with fewer triangles. This is called `decimating` the surface. Reducing the number of triangles reduces the computational power required to render the surface, but don't over-decimate, or you may affect the shape of the surface.
+Here we have the same surface but with fewer triangles. This is called *decimating* the surface. Reducing the number of triangles reduces the computational power required to render the surface. Careful: don't over-decimate your surface or you may affect its overall shape.

@@ -1,6 +1,6 @@
 # Volume Segmentation
 
-Volume segmentation is exactly like [Image Segmentation](../imageProcessing/ImageSegmentation.md), but in 3D: instead of just segmenting neighboring pixels, you also segment voxels from adjacent image slices.
+Volume segmentation is just like [Image Segmentation](../imageProcessing/ImageSegmentation.md), but in 3D: instead of just segmenting neighboring pixels, you also segment voxels from adjacent image slices.
 
 Segmentation allows you to isolate specific anatomical structures or features within medical images, such as organs, tumors, or blood vessels, by identifying and labeling voxels that belong to each region of interest. Once a structure is segmented, you can measure its volume, create 3D surface models for visualization, or use it as a mask for further analysis.
 
