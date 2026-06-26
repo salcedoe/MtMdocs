@@ -11,7 +11,7 @@ So, you're being forced to learn computer programming. Don't worry. It's not tha
     - Can you point and click on things?
     - Do you know how to make a list of instructions?
 
-Alright, that's more than one question, but if you can do most of the above then you too can barely learn to program. In fact, your brain is already [pre-wired to code](https://neurosciencenews.com/coding-logic-brain-neuroscience-29860/){target="_blank"} —— the same parts of your brain that you use for logic reasoning are used for coding.
+Alright, that's more than one question, but if you can do most of the above then you too can barely learn to program. In fact, your brain is already [pre-wired to code](https://neurosciencenews.com/coding-logic-brain-neuroscience-29860/){target="_blank"} — the same parts of your brain that you use for logic reasoning are used for coding.
 
 But learning to code takes some work. It is a lot like learning a foreign language. You start completely lost. Then, slowly you start to understand a word here and there. And then suddenly, it clicks, and you're smoking and chatting away with your new friends in Italy.
 
@@ -24,7 +24,7 @@ The biggest hurdle to learning computer programming is getting the syntax *just*
 !!! example "Violent Syntax"
     Consider the following fairly innocuous sentence:
 
-    > The Panda eats shoots & leaves.
+    > The panda eats shoots & leaves.
 
     ![img-name](images/panda-diet_feat.jpg){ width="250"}
 
@@ -32,15 +32,15 @@ The biggest hurdle to learning computer programming is getting the syntax *just*
 
     But the meaning of the sentence changes violently with the addition of a single comma:
 
-    > The Panda eats, shoots & leaves
+    > The panda eats, shoots & leaves
 
     ![Tactical Panda](images/tactical-panda.png){width="200"}
 
-    …Now the Panda is a wanted criminal and on the run. 
+    …Now the panda is a wanted criminal and on the run. 
     
     *See [Lynne Truss's](https://read.amazon.com/kp/embed?asin=B000OIZSVY&preview=newtab&linkCode=kpe&ref_=cm_sw_r_kb_dp_p4AtDbWSS3EKY) book "Eats, Shoots and Leaves" for more such delightful examples in the English language.*
 
-Bottom line: Computers are dumb and don't get nuance. If you say something just a little wrong, the programming language will fail until you state your command in the precise way that the computer was expecting. It's kind of like using OK Google, Siri, or Alexa, but instead of just shouting at an inanimate object, you are also pounding on the keyboard.
+Bottom line: computers are dumb and don't get nuance. If you say something just a little wrong, the programming language will fail until you state your command in the precise way that the computer was expecting. It's kind of like using Siri or Alexa, but instead of just shouting at an inanimate object, you are also pounding on the keyboard.
 
 ## The MATLAB Programming Language
 
@@ -48,9 +48,9 @@ In this guide, we will cover the fundamentals of MATLAB as we learn computer pro
 
 Now, you may hear some people malign the choice of MATLAB. *Why aren't you learning Python, Java, or some other flavor of the month?* Ignore these people. They likely don't have an academic license for MATLAB like we do. And MATLAB includes some nice tools to help soothe the pain of learning programming. Plus, it really doesn't matter what language you use to learn computer programming because, in the end, it is all just syntax. Just like it is easier to learn Italian after learning how to speak Spanish, learning MATLAB makes it easier to learn other programming languages. And, beyond MATLAB, learning programming will give you the foundation to understand the digital underpinnings of other data analysis software so that when you learn new software, even if there is no programming involved, you will be primed to more quickly understand how the software works and how to get the most out of that software.
 
-!!! abstract "What so bad about Excel?"
+!!! abstract "What's so bad about Excel?"
 
-    One of the reasons that we are learning a programming language like MATLAB is that spreadsheets, like those created by Excel, are infamously known to be riddled with errors, especially complex spreadsheets with lots of formulas. Such formulas are hard to track, especially when there are a lot of cells and it's easy to make mistakes. Even worse, just opening an excel file can create issues. Consider the example discussed in [this article](https://theconversation.com/excel-autocorrect-errors-still-plague-genetic-research-raising-concerns-over-scientific-rigour-166554), which discusses the perils of Autocorrect in Excel spreadsheets for gene research. Apparently, just opening an excel file can activate the autocorrect "feature", which will dutifully go through all of the cells and change perfectly good gene names, like MARCH1 to a date. The issue was so bad that they had to rename the gene name in order to avoid this problem.
+    One of the reasons that we are learning a programming language like MATLAB is that spreadsheets, like those created by Excel, are infamously known to be riddled with errors, especially complex spreadsheets with lots of formulas. Such formulas are hard to track, especially when there are a lot of cells and it's easy to make mistakes. Even worse, just opening an Excel file can create issues. Consider the example discussed in [this article](https://theconversation.com/excel-autocorrect-errors-still-plague-genetic-research-raising-concerns-over-scientific-rigour-166554), which discusses the perils of Autocorrect in Excel spreadsheets for gene research. Apparently, just opening an Excel file can activate the autocorrect "feature", which will dutifully go through all of the cells and change perfectly good gene names, like MARCH1, to a date. The issue was so bad that they had to rename the gene in order to avoid this problem.
 
 ## User Guide Conventions
 
@@ -77,7 +77,7 @@ version
 
 …The command **`version`** just reports the current version of MATLAB. Since there is just one line of code, there is just one line number: `1`.
 
-Many of these examples are designed to be copied directly into MATLAB, so you can try programming on your own. Notice if you hover over the lightly shaded area, a copy icon will appear. If you click on the icon, the code will be copied to your clipboard and you can then just paste into MATLAB
+Many of these examples are designed to be copied directly into MATLAB, so you can try programming on your own. Notice if you hover over the lightly shaded area, a copy icon will appear. If you click on the icon, the code will be copied to your clipboard and you can then just paste into MATLAB.
 
 For clarity, I will often include the output that is spit out after you enter a command in MATLAB. This code **should not be copied or pasted**—you'll probably get an error if you do. So, I will differentiate the output text in two ways:
 
@@ -94,4 +94,4 @@ For example, the following code block contains the output found in the command l
     ```
     Notice that the above code block is titled **result** and there are no line numbers on the left-hand side.
 
-Try it now. Copy the **`version`** command above and paste it into the Command Line in MATLAB. After you hit enter you should get an output similar to what I got (It may be different if you are using a different version of MATLAB).
+Try it now. Copy the **`version`** command above and paste it into the Command Line in MATLAB. After you hit enter, you should get an output similar to what I got (It may be different if you are using a different version of MATLAB).

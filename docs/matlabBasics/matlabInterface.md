@@ -5,7 +5,7 @@
 
 ## Command Window
 
-The command window is the area in MATLAB where you can type  MATLAB code and have it immediately execute. Try it now.
+The command window is the area in MATLAB where you can type MATLAB code and have it immediately execute. Try it now.
 
 Enter the following in the command window:
 
@@ -20,7 +20,7 @@ a =
      1
 ```
 
-…This tells you what MATLAB did. This assigns the value `1` to the variable *`a`*.  
+…This tells you what MATLAB did — it assigns the value `1` to the variable *`a`*.
 
 ## Workspace
 
@@ -33,19 +33,19 @@ Notice:
 - There is one row in the Workspace
 - There is information like the name of the variable (a), its value, the size, number of bytes, and class
 
-To modify what is shown in the workspace, you can add or remove columns in the table by clicking on the upside triangle in the Workspace header to bring up the  contextual menu. Under the "Choose Columns" submenu, select the following:
+To modify what is shown in the workspace, you can add or remove columns in the table by clicking on the inverted triangle in the Workspace header to bring up the contextual menu. Under the "Choose Columns" submenu, select the following:
 
 ![image_1.png](images/X1_MATLAB_Intro_media_image_1.png)
 
 ## Variable Editor
 
-Double-clicking on a variable in the workspace brings up the Variable Editor. Here, you can edit or copy variable content as if you were using a spreadsheet editor
+Double-clicking on a variable in the workspace brings up the Variable Editor. Here, you can edit or copy variable content as if you were using a spreadsheet editor.
 
 ![image_2.png](images/X1_MATLAB_Intro_media_image_2.png)
 
 ## Ribbon Interface
 
-MATLAB has a context-sensitive toolbar called the ribbon interface
+MATLAB has a context-sensitive toolbar called the ribbon interface.
 
 ![image_3.png](images/X1_MATLAB_Intro_media_image_3.png)
 
@@ -58,18 +58,14 @@ At launch, MATLAB opens a folder on your hard drive. You can see a reference to 
 
 ![image_4.png](images/X1_MATLAB_Intro_media_image_4.png)
 
-- Here, this  indicates the MATLAB drive.
+- Here, the address bar indicates that the current folder is the MATLAB drive (which is where we store our online files).
 - You may see something along the lines of `~/Documents/Folder` which points to a location on your hard drive
-
-### MATLAB Drive
-
-We will use the MATLAB Drive to store course files.
 
 The Current Folder Window displays the contents of the current folder
 
 ![image_5.png](images/X1_MATLAB_Intro_media_image_5.png)
 
-- You can change which columns are shown in this window by clicking on the upside down triangle to bring up the contextual menu
+- You can change which columns are shown in this window by clicking on the inverted triangle to bring up the contextual menu
 - Notice as you navigate to other folders, the contents displayed changes
 
 ## Documentation
@@ -79,9 +75,9 @@ You can bring up the MATLAB documentation in several ways.
 1. You can enter a search term in the search bar (top right corner)
 ![image_8.png](images/X1_MATLAB_Intro_media_image_8.png)
 
-2. Or You can click on the **`?`** icon (which you can find next to the search bar or in the Home tab in the ribbon strip)
+2. Or, you can click on the **`?`** icon (which you can find next to the search bar or in the Home tab in the ribbon strip)
 
-3. Or, you can type doc in the command window
+3. Or, you can type `doc` in the command window
 
 ```matlab linenums="1" title="Get Help"
 doc
@@ -107,9 +103,13 @@ web(fullfile(docroot, '3ptoolbox/masteringmatlabtoolbox/doc/CourseOverview.html'
 
 ## Important Preferences
 
-The following settings can improve the performance of MATLAB for certain tasks, especially later in the semester. Let's set them now, before we forget.
+The following settings can improve the performance of MATLAB for certain tasks, especially later in the course. Let's set them now, before we forget.
 
 ### Java Heap Memory
+
+MATLAB's desktop interface — the editor, workspace browser, figure windows, and documentation — runs on top of the Java Virtual Machine (JVM). Java Heap Memory is the block of RAM allocated to the JVM for these components. When it runs low, the desktop can slow down, freeze, or produce `java.lang.OutOfMemoryError` warnings. This becomes especially noticeable when working with large images or interactive visualization tools later in the course.
+
+Increasing the heap size gives the JVM more headroom. The change takes effect after restarting MATLAB.
 
 1. Click on the Home Tab ![image_10.png](images/X1_MATLAB_Intro_media_image_10.png)
 2. Select the preferences icon: ![image_11.png](images/X1_MATLAB_Intro_media_image_11.png)
@@ -119,13 +119,19 @@ The following settings can improve the performance of MATLAB for certain tasks, 
 
 ### Image Processing Toolbox settings
 
-Use these settings
+These settings control how `imshow` displays images in MATLAB. Configuring them now ensures images are displayed consistently throughout the course.
+
+**Adaptive Initial Magnification** — When enabled, MATLAB automatically adjusts the zoom level of a displayed image based on your screen size and the figure window size. Without this, a very large image (e.g., a high-resolution medical scan) may open at 100% zoom and extend far beyond the screen, making it hard to work with.
+
+**Border Style: Tight** — By default, MATLAB adds padding around the image inside the figure window. Setting the border style to *Tight* removes that whitespace so the axes fit snugly around the image. This is especially useful in image processing, where extra padding can be distracting and makes it harder to judge image boundaries.
+
+**Initial Magnification: Fit to Window** — This scales the image to fit within the current figure window when first displayed, regardless of the image's actual pixel dimensions. Combined with Adaptive Initial Magnification, this ensures images always open at a usable size.
 
 ![image_14.png](images/X1_MATLAB_Intro_media_image_14.png)
 
 ## Live Scripts
 
-MATLAB [live scripts](https://www.mathworks.com/help/matlab/matlab_prog/what-is-a-live-script-or-function.html) are interactive documents that combine MATLAB code with formatted text. These scripts are organized into sections called Code Sections. Each Section runs independently from the other Sections. You select a section by simply clicking inside that block. Once selected, the section is outlined by blue (as opposed to light gray).
+In this course, we will primarily use MATLAB [Live Scripts](https://www.mathworks.com/help/matlab/matlab_prog/what-is-a-live-script-or-function.html). Live Scripts are interactive documents that combine MATLAB code with formatted text. These scripts are organized into sections called Code Sections. Each section runs independently from the other sections. You select a section by simply clicking inside that block. Once selected, the section is outlined by blue (as opposed to light gray).
 
 ## Code blocks
 
@@ -151,13 +157,13 @@ Under the **View** tab, you can select to display Line Numbers and Datatips. Do 
 
 ![image_17.png](images/X1_MATLAB_Intro_media_image_17.png)
 
-## Code Pause
+## Breakpoints
 
-In your script,  each line of code in the code block will have a line number. If you click on the number, it will become highlighted in blue as shown here:
+In your script, each line of code in the code block will have a line number. If you click on the number, it will become highlighted in blue as shown here:
 
 ![image_20.png](images/X1_MATLAB_Intro_media_image_20.png)
 
-This will freeze code execution at that location and interfere with your coding.   If you have accidentally highlighted a number blue, simply click on the number again and the blue highlight will disappear, unfreezing execution of the code.
+This will add a breakpoint to the script, pausing code execution at that location, and probably messing with your coding. If you have accidentally highlighted a number blue, simply click on the number again and the blue highlight will disappear, resuming normal execution of the code. You can also accidentally add a breakpoint with the key-combination `command-\` on a Mac. So watch out for that.
 
 ## Debugging controls
 
@@ -167,22 +173,22 @@ In the Live Editor tool strip, there are three buttons you can press: Continue, 
 
 ![image_21.png](images/X1_MATLAB_Intro_media_image_21.png)
 
-- Continue or Step will execute the paused  line of code 
+- Continue or Step will execute the paused line of code
 - Clicking on the Stop Icon will stop the code without executing the paused line.  
 
 ## Comments
 
-Sometimes you want to add a comment along with your code. The special character % indicates the start of a comment. Comments appear as green text
+Sometimes you want to add a comment along with your code. The special character % indicates the start of a comment. Comments appear as green text.
 
 ```matlab
 a = 1 % This is a comment
 ```
 
-…notice that the comment is not executed.
+…Notice that the comment is not executed.
 
-## Clear all
+## Clearing Variables and the Command Window
 
-Clear your workspace and the command window by executing following commands:
+Clear your workspace and the command window by executing the following commands:
 
 ```matlab linenums="1"
 clearvars
@@ -221,4 +227,3 @@ knot
     why
     ```
     Be sure to run this command multiple times.
-    

@@ -2,7 +2,7 @@
 
 *To render a surface, you first need to create a surface.*
 
-A 3D Surface (or manifold or mesh) is a digital representation of a 3D object (like a sphere or prism). These digital surfaces are made up of Vertices and Faces (1). This differs from a digital volume which is essentially a [cuboid](https://en.wikipedia.org/wiki/Cuboid) made up of smaller cuboids (voxels).
+A 3D Surface (or manifold or mesh) is a digital representation of a 3D object (like a sphere or prism). These digital surfaces are made up of Vertices and Faces (1). This differs from a digital volume, which is essentially a [cuboid](https://en.wikipedia.org/wiki/Cuboid) made up of smaller cuboids (voxels).
 { .annotate }
 
 1. There are edges, too, but we won't worry about the edges right now.
@@ -38,7 +38,7 @@ axis equal
 
 This 3D plot is not a surface — it's a scatter plot or a point cloud. To create a surface model, we need to create planar shapes from the vertices. The most common way to do this is to group vertices into triangles. These connected shapes are called "faces."
 
-The `boundary` function creates a set of faces from a series of vertices that together makes a surface of the exterior boundary of the vertices.
+The `boundary` function creates a set of faces from a series of vertices that together make a surface of the exterior boundary of the vertices.
 
 ```matlab linenums="1" title="Create faces from vertices"
 F = boundary(V)
@@ -54,11 +54,11 @@ F = 6×3
      4     1     5
 ```
 
-As you can see, the function `boundary` returns a matrix, `F`. In this matrix, each row represents one face. And each *value* in `F` points to a row in the vertices matrix, `V`. So the value `1` in `F` means "row `1` in `V`", or the vertex coordinate `0.5, 0.5, 1.0`. Since there are 3 columns in the matrix, there are 3 vertices per face, meaning each face is a triangle. In this example, the first face in `F` (row 1) is made up of the vertices found in rows 2, 4, and 3 of `V` — or, vertices `0,0,0`, `0,1,0`, and `1,0,0`. If you had four columns in `F`, you would have four vertices per face, and each face would subsequently be a little square. This is less common.
+As you can see, the function `boundary` returns a matrix, `F`. In this matrix, each row represents one face. And each *value* in `F` points to a row in the vertices matrix, `V`. So the value `1` in `F` means "row `1` in `V`", or the vertex coordinate `0.5, 0.5, 1.0`. Since there are 3 columns in the matrix, there are 3 vertices per face, meaning each face is a triangle. In this example, the first face in `F` (row 1) is made up of the vertices found in rows 2, 4, and 3 of `V` — or, vertices `0, 0, 0`, `0, 1, 0`, and `1, 0, 0`. If you had four columns in `F`, you would have four vertices per face, making each face a quadrilateral. This is less common.
 
 ## Surface Rendering
 
-To render the faces and vertices as a surface, you use the function `patch` (1)
+To render the faces and vertices as a surface, you use the function `patch` (1).
 { .annotate }
 
 1. Patch is just another name for face.
@@ -67,7 +67,7 @@ To render the faces and vertices as a surface, you use the function `patch` (1)
 hp = patch("Faces",F,"Vertices",V); % render surface
 
 % stylize render
-hp.FaceColor = 'flat'; % make FaceColor dependant on the FaceVertexCData property
+hp.FaceColor = 'flat'; % make FaceColor dependent on the FaceVertexCData property
 hp.FaceVertexCData = parula(6); % set each face to a different color from the parula colormap 
 axis vis3d % make axis 3D
 xlabel('x'); ylabel('y'); zlabel('z') % add axis labels
@@ -84,12 +84,12 @@ In this example, you get a pyramid. Notice that each side of the pyramid is a tr
 
 ## Creating a 3D Surface from a Volume
 
-To create a surface render from a volume of data (and not from an array of vertices), you first need to identify a series of voxels inside the volume with a similar range of intensities, like bone in a CT scan. You can then create a 3D surface from the outer boundary of those voxels.
+To create a surface render from a volume of data (as opposed to an array of vertices), you first need to identify a series of voxels inside the volume with a similar range of intensities, like bone in a CT scan. You can then create a 3D surface from the outer boundary of those voxels.
 
 Consider the following volume:
 
 ![cube sphere](images/cube-sphere.png){ width="450"}
->Volume render and the corresponding orthogonal slices of a cube with an embedded sphere. The volume is a logical array where the sphere comprises `trues` while the rest of cube comprises `falses`.
+>Volume render and the corresponding orthogonal slices of a cube with an embedded sphere. The volume is a logical array where voxels making up the sphere are all logical `true` while the rest of the voxels in the volume are all logical `false`.
 
 ??? abstract "Code to generate above figure"
 
@@ -107,9 +107,9 @@ Consider the following volume:
 
     Adapted from this [Mathworks example](https://www.mathworks.com/help/images/ref/watershed.html).
 
-In the above example, we use the `falses` to represent empty signal surrounding the sphere, like air in a CT scan. The sphere itself is composed of the `trues` and represents a segmented structure, like a bone inside a tissue. So, we don't really need to render the outer cube, we just want to render the sphere. And we actually don't need to render the `trues` inside the sphere to visualize the sphere. They would just be hidden inside the surface. So, we really need to create a surface model of the outer boundary of the sphere.
+In the above example, we use voxels set to logical `false` to represent empty signal surrounding the sphere, analogous to air in a CT scan. We use voxels set to logical `true` to indicate positive signal representing the sphere, analogous to a segmented structure like a bone. Since we just want to render the sphere, we can exclude all voxels that are logical `false`. And we actually don't even need to render the voxels inside the sphere. They would just be hidden by the surface voxels. So, we really need to create a surface model of the outer boundary of the sphere.
 
-To capture that outer spherical boundary between the `trues` and the `falses`, we use the function `isosurface`, which creates a 3D surface (with vertices and faces), at the boundary:
+To capture that outer spherical boundary between the voxels `trues` and the `falses`, we use the function `isosurface`, which creates a 3D surface (with vertices and faces), at the boundary:
 
 ```matlab linenums="1" title="Create Surface from volume" 
 fv = isosurface(Vol, 0.5)
@@ -121,9 +121,9 @@ fv = struct with fields:
        faces: [22328×3 double]
 ```
 
-Notice `isosurface` returns a structure, `fv`, with both a "vertices" and a "faces" field. This is the generated surface. The second input into `isosurface` (0.5) indicates the intensity boundary at which the surface should be generated. Since we input a logical volume, the surface will be created at the boundary between the `0` and `1`'s in the volume, which in this case is the boundary of the sphere. So, we are not indexing out the voxels at the boundary, we are creating a 3D surface that contains the sphere.
+Notice `isosurface` returns a structure, `fv`, with both a "vertices" and a "faces" field. This is the generated surface. The second input of `0.5` indicates the intensity boundary at which the surface should be generated. Since we input a logical volume, the surface will be created at the boundary between the logical `0`s and `1`s in the volume, which in this case is the boundary of the sphere. So, we are not indexing out the voxels at the boundary — we are creating a 3D surface that encloses the sphere.
 
-To visualize the 3D surface, we can use the function `patch`, with the `fv` struct as first input.
+To visualize the 3D surface, we use the function `patch`, with the `fv` struct as first input.
 
 ```matlab
 figure
@@ -140,7 +140,7 @@ If you zoom in on the sphere, you can see the surface of the sphere is made up o
 
 ![surface of sphere](images/isosurface-sphere-dollyzoom.png){ width="250"}
 
-In fact, the surface is probably made up of too many triangles. Often `isosurface` will go a little too wild with the triangles. If the surface is very large, too many triangles might make the surface unwieldy to display (rendering becomes excruciatingly slow). Luckily, we can easily reduce the number of triangles using the function `reducepatch`.
+In fact, the surface is probably made up of too many triangles — `isosurface` tends to go a little crazy with the triangles. If the surface is very large, too many triangles might make the surface too excruciatingly slow to render. Luckily, we can easily reduce the number of triangles using the function `reducepatch`.
 
 ```matlab linenums="1" title="Decimate 3D surface" 
 reducepatch(hp,0.1) % input the patch handle
@@ -148,4 +148,4 @@ reducepatch(hp,0.1) % input the patch handle
 
 ![surface of sphere with fewer faces](images/isosurface-sphere-reducepatch.png){ width="250"}
 
-Here we have the same surface but with fewer triangles. This is called *decimating* the surface. Reducing the number of triangles reduces the computational power required to render the surface. Careful: don't over-decimate your surface or you may affect its overall shape.
+Here we have the same surface but with fewer triangles. This is called *decimating* the surface. Reducing the number of triangles reduces the computational power required to render the surface. Be careful: you don't want to over-decimate your surface or you may affect its overall shape.

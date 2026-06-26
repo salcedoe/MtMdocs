@@ -59,6 +59,7 @@ nav:
       - Introduction: imaging/medicalImagingIntro.md
       - X-ray Imaging: imaging/XrayImaging.md
       - CT Imaging: imaging/CTImaging.md
+      - MRI Atlas: imaging/Liesel_Brain_Atlas.html
   - Image Processing:
     - 2D Image Processing:
       - Grayscale Images: imageProcessing/ImageIntro.md

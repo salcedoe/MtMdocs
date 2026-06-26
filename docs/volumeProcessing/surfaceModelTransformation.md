@@ -6,9 +6,9 @@ Since surface models are just points in 3D space, it is very easy to manipulate 
 
     Transformations can be broadly categorized as:
 
-    - **Translation**: movement along the x,y,z axes (addition or subtraction)    
-    - **Scale:** enlarging or shrinking the model(multiplication or division)
-    - **Rotation:** rotation around a given vertex (transformation matrix and linear algebra) 
+    - **Translation:** movement along the x,y,z axes (addition or subtraction)
+    - **Scale:** enlarging or shrinking the model (multiplication or division)
+    - **Rotation:** rotation around a given axis (transformation matrix and linear algebra)
 
     Often, these transformations are combined.  You can also warp and shear a model, but we won't get into that here. 
 
@@ -81,15 +81,14 @@ Sometimes, it is useful to center a 3D surface at 0,0,0. Here we center the surf
 
 ## Scaling
 
-While translation is addition and subtraction, scaling is multiplication and division.
+Scaling changes the size of the surface model. As we just saw, to move a surface, you add or subtract values from the vertices. To scale a surface, you multiply or divide values from the vertices. Multiplying enlarges the model, while dividing shrinks the model.
 
-```matlab linenums="1" title="Scale Diamond"
-hp2.Vertices = hp2.Vertices * 2 % double vertices;
+```matlab linenums="1" title="Double the size of the Diamond"
+hp2.Vertices = hp2.Vertices * 2 % double the size
 ```
 
-The surface model is now doubled along all dimensions.
-
 ![scaled diamond](images/surface-transform-diamond-scale-4x.png){ width="150"}
+>The surface model is now doubled along all dimensions.
 
 **Challenge:** How would you make the diamond 10x smaller?
 
@@ -103,10 +102,37 @@ The surface model is now doubled along all dimensions.
 
 ## Rotation
 
-To rotate a surface, you need a [transformation matrix](https://www.mathworks.com/help/images/matrix-representation-of-geometric-transformations.html), our old friends sine and cosine, and some linear algebra. For those who prefer not to perform linear algebra on the fly, the required steps are encapsulated in the course function **`mmRotateSurfaceVertices`**:
+To rotate a surface, you need a [transformation matrix](https://www.mathworks.com/help/images/matrix-representation-of-geometric-transformations.html) and some linear algebra. For those who prefer not to perform linear algebra on the fly, the required steps are encapsulated in the course function **`mmRotateSurfaceVertices`**:
 
 ```matlab linenums="1" title="Rotate surface 90˚ around the y-axis"
 hp2.Vertices = mmRotateSurfaceVertices(hp2.Vertices,'y',90)
 ```
 
+The function takes three arguments:
+
+1. **Vertices** — the Nx3 matrix of vertices to rotate
+2. **Axis** — the axis of rotation: `'x'`, `'y'`, or `'z'`
+3. **Angle** — the angle of rotation in degrees
+
 ![rotated surface](images/surface-transform-diamond-rotate-90y.png){ width="350"}
+>Diamond rotated 90° around the y-axis
+
+You can chain multiple rotations together by passing the result of one rotation into the next:
+
+```matlab linenums="1" title="Rotate 45˚ around x, then 30˚ around z"
+V_rot = mmRotateSurfaceVertices(hp2.Vertices,'x',45);
+hp2.Vertices = mmRotateSurfaceVertices(V_rot,'z',30);
+axis equal
+```
+
+**Challenge:** How would you rotate the diamond 180° around the z-axis?
+
+??? question "Rotate 180° around z"
+
+    ```matlab linenums="1"
+    hp2.Vertices = mmRotateSurfaceVertices(hp2.Vertices,'z',180)
+    ```
+
+!!! note "Under the Hood"
+
+    Rotation is performed by multiplying the vertices by a **rotation matrix** — a 3×3 matrix built from sine and cosine values of the rotation angle. Unlike translation and scaling, rotation order matters when combining rotations around different axes.

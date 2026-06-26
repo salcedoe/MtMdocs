@@ -8,7 +8,7 @@ To render a segmentation as a 3D surface, we need to:
 
 ## Slicer Segmentation Files
 
-In this example,  we [load a Slicer segmentation volume as a medicalVolume](loadingMedicalDatasets.md).
+In this example, we [load a Slicer segmentation volume as a medicalVolume](loadingMedicalDatasets.md).
 
 ```matlab linenums="1" title="Load Segmentation Volume"
 mmSetUnitDataFolder(3);
@@ -67,7 +67,7 @@ hp = mmPlotMask2Surface(segS.mask,fcolor=segS.color,transform=segS.tform);
 title("Right Kidney")
 ```
 
->mmPlotMask2Surface returns a handle to the surface render (`hp`). Notice here we input the mask of the kidney (`segS.mask`) as the first input. We also input the transformation matrix, `tform`, as the third input. This  properly transforms the segmentation into anatomical space (millimeter space).
+>mmPlotMask2Surface returns a handle to the surface render (`hp`). Notice here we input the mask of the kidney (`segS.mask`) as the first input. We also input the transformation matrix, `tform`, as the third input. This transforms the segmentation into anatomical space (millimeter space).
 
 ![img-name](images/surface-render-right-kidney.png){ width="250"}
 
@@ -81,12 +81,12 @@ surf1 = images.ui.graphics.Surface(hvr,... % viewer handle
     Color=segS.color, ... % face color of render
     Data=segS.mask, ... % input mask
     Alpha = 0.75, ... % set transparency
-    Wireframe="off",... % turn off wirefram
+    Wireframe="off",... % turn off wireframe
     Transformation=segS.tform); % transform into real world space
 ```
 
 ![surface render of right kidney](images/medToolBox-surface-render-right-kidney.png){ width="350"}
->In this example, the function `images.ui.graphics.Surface` creates the surface and renders in one step. The resulting render is a little more blocky then the `mmPlotMask2Surface` render, but can be more easily combined with [`volshow` visualization methods.](volshow.md)
+>In this example, the function `images.ui.graphics.Surface` creates the surface and renders in one step. The resulting render is a little more blocky than the `mmPlotMask2Surface` render, but can be more easily combined with [`volshow` visualization methods.](volshow.md)
 
 ## Render all Segments
 

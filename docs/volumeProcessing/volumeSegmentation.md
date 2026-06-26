@@ -26,7 +26,7 @@ volshow(Mask,RenderingStyle="Isosurface") % render mask
 
 ![mask of bubbles](images/bubbles-threshold-volshow.png){ width="450"}
 
-We can then apply the same morphological operations to clean up the mask…
+We can then apply morphological operations to clean up the mask…
 
 ```matlab linenums="1" title="Clean up mask"
 Mask = imfill(Mask,"holes"); % fill interiors of bubbles
@@ -34,21 +34,21 @@ Mask = imclearborder(Mask); % remove bubbles touching edges of Volume
 volshow(Mask,RenderingStyle="Isosurface")
 ```
 
-![img-name](images/bubbles-morphOps-volshow.png){ width="450"}
+![render of bubbles after morphological operations](images/bubbles-morphOps-volshow.png){ width="450"}
 
-…and to separate touching bubbles.
+…and the watershed transformation to separate touching bubbles.
 
 ```matlab
 waterMask = mmGetWatershed(Mask,[3 1]); % apply watershed transformation
 ```
->The `mmGetWatershed` function applies the watershed transform to the inputted Mask. The second input of `[3 1]` means the transformation is run twice, first with a Regional Minima pixel size of 3, followed by a pixel size of 1. Often watershed transforms work best with sequential calls.
+>The `mmGetWatershed` function applies the watershed transform to the input Mask. The second input of `[3 1]` means the transformation is run twice, first with a Regional Minima pixel size of 3, followed by a pixel size of 1. Often watershed transforms work best with sequential calls.
 
 ![side by side volshow display of mask and watershed transform](images/bubbles-watershed-comparison.png){ width="750"}
->**Render of the mask before and after the Watershed Transform**. For these renders, we first convert the masks into label maps where each individual bubble has its own numeric label. **In the label map before** the watershed transform, there are 62 individual bubbles, including several fused bubbles. Fused bubbles here have the same color (see arrow and asterisk). **In the label map after** the transform, there are 71 bubbles and only one fused bubble remaining. Here the arrow points to an increased number of colors which indicates an increased number of separated bubbles. Whereas, the asterisk indicates a fused bubble which has the same color throughout. Note, this is the same fused bubble from the "Before" render, but its color has changed because its numeric label, which changed because there are an increase in the number unfused bubbles, shifting the labeling scheme for each bubble in the new label map.
+>**Render of the mask before and after the Watershed Transform**. For these renders, we first convert the masks into label maps where each individual bubble has its own numeric label. **In the label map before** the watershed transform, there are 62 individual bubbles, including several fused bubbles. Fused bubbles have the same color (see arrow and asterisk). **In the label map after** the transform, there are 71 individual bubbles (an increase of 9) and only one fused bubble remaining. Here the arrow points to the same cluster of bubbles shown in the before transform, but now with an increased number of colors indicating an increased number of separated bubbles. By comparison, the asterisk indicates a fused bubble which has the same color for the two fused bubbles. Note, this is the same fused bubble from the "Before" render, but its color has changed because its numeric label changed. Its label changed because there was an increase in the number of unfused bubbles, shifting the labeling scheme for each bubble in the new label map.
 
 ??? example "Code to create the above Watershed Comparison Plot"
 
-    To verify we separated touching bubbles using the watershed transform, we  transform the masks to label maps, where each bubble in the has a unique numeric label. In this label map, bubbles adjacent to each other tend to have adjacent numeric labels. Using `volshow`, we render the masks with the ColorMap set to `colorcube` — a randomized color map that assigns a different color to adjacent lookup values. This allows us to color nearby bubbles separate colors.
+    To verify we separated touching bubbles using the watershed transform, we  transform the masks to label maps, where each bubble in the mask has a unique numeric label. In this label map, bubbles adjacent to each other tend to have adjacent numeric labels. Using `volshow`, we render the masks with the ColorMap set to `colorcube` — a randomized color map that assigns a different color to adjacent lookup values. This allows us to color nearby bubbles separate colors.
 
     ```matlab linenums="1" title="Visualize Watershed result" 
     % Create Label Maps
@@ -84,7 +84,7 @@ waterMask = mmGetWatershed(Mask,[3 1]); % apply watershed transformation
 
 ### Region Properties
 
-Finally, we can calculate the properties of the segmented bubbles using the function `regionprops3`
+We can calculate the properties of the segmented bubbles using the function `regionprops3`
 
 ```matlab linenums="1" title="Calculate properties"
 rp = regionprops3(waterMask)
@@ -130,14 +130,14 @@ xlabel("Volume (vox^3)")
 set(gca,"FontSize",18)
 ```
 
-![img-name](images/bubbles-histogram-cut-off.png){ width="450"}
+![histogram of bubble volumes with fused bubble excluded](images/bubbles-histogram-cut-off.png){ width="450"}
 >Histogram of only non-fused bubble volumes
 
 ## Label Maps
 
 Often when segmenting, it is convenient to create label maps, instead of binary arrays. This is especially true when the segmentation occurs sequentially, or when it is important to maintain separate labels for a segment, such as for left and right kidneys.
 
-Consider the following label map, 'shapes3D.mat'(1), which loads as the variable `Vol`.
+Consider the following label map, `shapes3D.mat`(1), which loads as the variable `Vol`.
 { .annotate }
 
 1. The volume, 'shapes3D.mat' is stored as a MATLAB .mat file and can be found in the Unit 3 data folder.
@@ -233,9 +233,9 @@ Mask = Vol > 128;
 ```
 
 ![render of a cube and a cylinder](images/vol-seg-cube-cyl.png){ width="250"}
->Here, `Mask` is a logical array, both the cube and cylinder voxel values consist solely of logical `trues`.
+>Here, `Mask` is a logical array. Both the cube and cylinder voxel values consist solely of logical `trues`.
 
-Type-casting the volume to a logical array segments all the shapes to logical trues (since all intensity values greater than zero are contained within one of the four shapes).
+Type-casting the volume to a logical array converts all non-zero voxels to logical `true` (since all intensity values greater than zero are contained within one of the four shapes).
 
 ```matlab linenums="1" title="Segment all shapes"
 Mask = logical(Vol);
@@ -290,4 +290,4 @@ rp =
     "Cylinder"    6.2602e+05    195.17    195.17        80        250     
 ```
 
-Now, the region properties table, `rp`, has a column LabelName which can be used to match the Shape to the property. 
+Now, the region properties table, `rp`, has a column LabelName which can be used to match the shape to the property. 
