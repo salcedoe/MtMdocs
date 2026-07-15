@@ -94,7 +94,7 @@ In this module, we focus on the following plotting functions:
 - **Scatter Plots**: - Also known as an X-Y plot. Used to determine the relationship between two different things (think correlations).
 - **Bar Plots**: Used to graph categorical data or data sorted into groups.
 Keep the following in mind as you work through these examples.
-- **Hisgtograms**: Used to plot the distribution of a set of observations
+- **Histograms**: Used to plot the distribution of a set of observations
 - **Box charts**: Used to plot the summary statistics for a set of observations
 
 The following are some similarities that can be seen across these functions:
