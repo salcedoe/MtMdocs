@@ -6,7 +6,7 @@ nav:
   - Setup:
     - Software: setup/softwareOverview.md
     - Installing MATLAB: setup/matlabInstallation.md
-    - Github Repositories: setup/githubRepoInstallation.md
+    # - Github Repositories: setup/githubRepoInstallation.md
     - Computer Settings: setup/computerSetup.md
   - Reference:
     - MtM Toolbox: reference/courseFunctions.md
