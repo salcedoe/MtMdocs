@@ -12,14 +12,6 @@ As we muddle through Medical Imaging, we will be using the following software:
 
     :material-link: [**Instructions**](matlabInstallation.md) for installing MATLAB and the MATLAB Drive connector using your CU Anschutz credentials.
 
--   :simple-github: [**Github**](https://github.com){target="_blank"}
-  
-    ---
-    
-    An online tool for software development, code sharing, and open-source development.
-
-    :material-link: [**Instructions**](githubRepoInstallation.md) for adding **useful** MATLAB toolboxes from Github Repositories into your MATLAB Drive
-
 -   :simple-imagej: [**Fiji**](https://fiji.sc){target="_blank"}
   
     ---
@@ -40,8 +32,17 @@ As we muddle through Medical Imaging, we will be using the following software:
 
 ## Artificial Intelligence
 
-We'll also play around with that new, fandangled AI everyone's been talking about.
+We'll also be using several forms of AI, including these Large Language Models:
 
-- **Microsoft Copilot Chat**: Students at CU Anschutz can use the Microsoft Copilot version for maximum free usage (included with CU Anschutz credentials). The easiest way to use this AI is to open the Microsoft Teams desktop app and click on the Copilot Icon ([More info on OIT](https://www.cuanschutz.edu/offices/office-of-information-technology/tools-services/microsoft--copilot))
+- **MATLAB Copilot**: Built right into MATLAB, [Copilot](https://www.mathworks.com/products/matlab-copilot.html) offers quick access to MATLAB documentation. It explains code and error messages and helps generate code suggestions.
+- **ChatGPT EDU**: Students have access to [ChatGPT Edu](https://www.cuanschutz.edu/offices/iss/access-tools-and-services/access-tools-and-services-detail-page/chatgpt-edu), which offers more power than the free version.
 - [Perplexity AI](https://www.perplexity.ai){target="_blank"}
 - [Claude AI](https://claude.ai){target="_blank"}
+
+<!-- -   :simple-github: [**Github**](https://github.com){target="_blank"}
+  
+    ---
+    
+    An online tool for software development, code sharing, and open-source development.
+
+    :material-link: [**Instructions**](githubRepoInstallation.md) for adding **useful** MATLAB toolboxes from Github Repositories into your MATLAB Drive -->

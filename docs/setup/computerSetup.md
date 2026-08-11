@@ -39,4 +39,3 @@ If you select “Show all filename extensions,” all extensions are shown, even
 1. Open File Explorer; if you do not have an icon for this in the task bar; click Start, click Windows System, and then File Explorer.
 2. Click the View tab in File Explorer
 3. Click the box next to File name extensions to see file extensions
-

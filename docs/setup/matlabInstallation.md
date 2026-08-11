@@ -45,7 +45,7 @@ Now that you have installed MATLAB drive, you will want to add the shared course
 
 !!! note "Unit Folders"
 
-    Any reference to "unit" folders in the documentation is referencing this shared folder. For example the "unit1" data folder is found in `matlabdrive/MtMresources/MtMdata/unit3`. The course function `mmSetUnitDataFolder` sets the current folder to indicated unit number. For example `mmSetUnitDataFolder(3)` set the current folder to the unit3 data folder
+    Any reference to "unit" folders in the documentation is referencing this shared folder. For example the "unit1" data folder is found in `matlabdrive/MtMresources/data/unit3`. The course function `mmSetUnitDataFolder` sets the current folder to indicated unit number. For example `mmSetUnitDataFolder(3)` set the current folder to the unit3 data folder
 
 <!-- You should have received an invitation to the shared MATLAB Drive folders. In the email, there should be a link that brings you to your MATLAB drive. If you have not received an email, please check your junk folder or contact the course director. -->
 
@@ -54,7 +54,3 @@ You can find the shared  MATLAB folders in the online version of MATLAB Drive, p
 ![Screenshot showing the shared contents page in MATLAB Drive, highlighting the "Add Shortcut" option](https://www.mathworks.com/help/matlab/matlab_env/share_invite_mldo.png){ width="650"}
 
 Click on **"Add Shortcut"**. This will create a shortcut to the shared folder, and the contents will stay in sync with the contents in the original folder. The files found in these folders are read-only. If you would like to modify the files, you will have to make a copy of the files and store them somewhere else on your computer or in another folder on the MATLAB drive.
-
-## Additional Toolboxes from github
-
-We will also be using additional MATLAB toolboxes that you can download from github. You can find detailed Instructions for adding these toolboxes to your MATLAB drive [here](githubRepoInstallation.md).
