@@ -180,6 +180,16 @@ extra_javascript:
 
 extra_css:
   - stylesheets/extra.css
-copyright: |
-  &copy; 2025 <a href="https://github.com/salcedoe"  target="_blank" rel="noopener">Ernesto Salcedo</a>
+extra:
+  analytics:
+    provider: google
+    property: G-SPQ0E4H9P9
+  consent:
+    title: Cookie consent
+    description: >-
+      We use cookies to recognize repeated visits and measure site usage.
+      With your consent, you're helping us improve this documentation.
+copyright: >
+  &copy; 2025 <a href="https://github.com/salcedoe"  target="_blank" rel="noopener">Ernesto Salcedo</a> -
+  <a href="#__consent">Change cookie settings</a>
 #mkdocs serve --livereload
