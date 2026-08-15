@@ -29,7 +29,7 @@ If you have already run the installer and did not install one of these toolboxes
 
 MATLAB Drive is a free cloud drive similar to Dropbox or Google Drive, but optimized to share MATLAB scripts and functions. Follow the instructions [here](https://www.mathworks.com/products/matlab-drive.html) to install MATLAB Connector app on your computer. Once installed, there will be a local folder on your computer called MATLAB Drive, which will sync with the Mathworks Cloud servers.
 
-The MATLAB Connector is an additional application that you install on your computer. The main job of this application is to sync an online folder to a folder on your computer. Syncing can sometimes take time, especially if there are a lot of files that need to be copied. You can keep track of the sync status by bringing up the MATLAB Connector window. Depending on whether you have a Mac or a PC, there should be a little icon (with the MATLAB logo on it) that you can click on in the menubar (or Windows task bar) that shows you the current sync status. 
+The MATLAB Connector is an additional application that you install on your computer. The main job of this application is to sync an online folder to a folder on your computer. Syncing can sometimes take time, especially if there are a lot of files that need to be copied. You can keep track of the sync status by bringing up the MATLAB Connector window. Depending on whether you have a Mac or a PC, there should be a little icon (with the MATLAB logo on it) that you can click on in the menubar (or Windows task bar) that shows you the current sync status.
 
 If you encounter issues with syncing, ensure that your internet connection is stable, and try restarting the MATLAB Connector application. If the problem persists, consult the [MATLAB Drive troubleshooting guide](https://www.mathworks.com/help/matlabdrive/ug/troubleshooting.html).
 
@@ -54,3 +54,50 @@ You can find the shared  MATLAB folders in the online version of MATLAB Drive, p
 ![Screenshot showing the shared contents page in MATLAB Drive, highlighting the "Add Shortcut" option](https://www.mathworks.com/help/matlab/matlab_env/share_invite_mldo.png){ width="650"}
 
 Click on **"Add Shortcut"**. This will create a shortcut to the shared folder, and the contents will stay in sync with the contents in the original folder. The files found in these folders are read-only. If you would like to modify the files, you will have to make a copy of the files and store them somewhere else on your computer or in another folder on the MATLAB drive.
+
+!!! warning "Did you do it right?"
+    Click over to the files tab in MATLAB drive
+    
+    ![MATLAB drive file view](images/MATLAB-drive-files-tab.png){ width="450"}
+
+    You should see a list of folders in your drive. In the above example, there are four folders that have a simple yellow folder icon, and two folder icons that have a yellow icon with a small, square, blue-and-white badge. This badge indicates that the folder is being shared as a shortcut, and the contents will automatically update with any updates to the original folder.
+
+    Make sure that your MtMresources folder icon has the blue-and-white badge. Otherwise, try again. 
+
+### Review MATLAB drive
+
+Review the contents of `MtMresources` folder in your MATLAB drive.
+
+The folder should contain three sub-folders, as follows:
+
+```zsh
+├── MtMresources
+│   ├── data
+│   │   ├── unit1
+│   │   ├── unit2
+│   │   ├── unit3
+│   │   └── unit4
+│   ├── scripts
+│   └── toolbox
+```
+
+- **data**: contains all the data, like spreadsheets and images, that we will inspecting throughout the course. Notice there is a folder for each Unit in the course.
+- **scripts:** will contain the completed scripts that we work on in class
+- **toolbox:** contains the course functions used in the course
+
+## Add Toolboxes to the MATLAB Search Path
+
+!!! abstract "What's a Path?"
+    A path is like an address that tells the computer where to find a file or folder
+
+The MATLAB search path is a collection of paths that tells MATLAB where on your computer to look for files and functions.
+
+To use the MtMresources functions found in the toolbox folder, we need to tell MATLAB where these functions are located. That means adding the folder to the MATLAB search path. To do so, use the following steps:
+
+1. In the MATLAB Home tab, click on the 'Set Path' icon in the Home tab  ![icon set path](images/icon-set-path.png){ width="45"}
+2. In the "Set Path" Dialog, select the "Add Folder to Path" from the "Add Folder" menu
+   ![img-name](images/dialog-menu-add-folder-to-path.png){ width="200"}
+3. Select the toolbox folder:  `MtMresources/toolbox`
+4. At the bottom of the set path dialog, ensure the "Save path for future sessions" checkbox is selected
+   ![img-name](images/icon-save-path-future.png){ width="200"}
+5. Click "Ok"
