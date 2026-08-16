@@ -1,8 +1,13 @@
 # MtM Toolbox
 
-The MtM toolbox is a collection of functions designed to simplify Plotting, Image Processing, Processing 3D Slicer segmentation volumes, working with Surface Meshes, and several other utility actions.  
+The MtM toolbox is a collection of functions designed to simplify Plotting, Image Processing, Processing 3D Slicer segmentation volumes, working with Surface Meshes, and several other utility actions. These functions can be found in the `MtMresouces/toolbox` folder.
 
-!!! note "All MtM toolbox functions are prefaced with `mm`"
+!!! warning "The MtM toolbox folder must be added to search path for these functions to work"
+
+    Add the `MtMresouces/toolbox` folder to the MATLAB search path as described on the [setup page](../setup/matlabInstallation.md#add-toolboxes-to-the-matlab-search-path).
+
+!!! note "Most MtM toolbox functions are prefaced with `mm`"
+    You can get a quick summary of the available course functions in the MtMtoolbox by entering `help MtMtoolbox` in the command window.
 
 ## Plotting Functions
 
@@ -18,11 +23,11 @@ If you input an RGB image, this function will automatically index out the channe
 
 **INPUTS**
 
-Required:
+**Required:**
 
 - **img**: an image matrix
 
-Optional:
+**Optional:**
 
 - **col** (default = 1): current column position 
 - **num_cols** (default = 1): total number of columns in the figure.
@@ -46,20 +51,20 @@ Burns a mask onto an image. Wrapper for `imoverlay` but with syntax similar to `
 - **img**: a grayscale or rgb image
 - **mask**: a binary mask
 
-**OPTIONS**
+**OPTIONAL INPUTS**
 
 - **color**: the color of the burned image (default = yellow)
 
 ```matlab linenums="1" title="Examples"
-mmShowBurn(rgb,mask)
-mmShowBurn(rgb,mask,color='white')
+mmShowBurnImage(rgb,mask)
+mmShowBurnImage(rgb,mask,color='white')
 ```
 
 ### mmShowStruct
 
 Displays any images packaged in a structure as a tiled figure. Useful for reviewing image processing steps.
 
-INPUTS
+**INPUTS**
 
 - **S**: a structure contain fields with image variables
 - **fn2display**: cell array or string array specifying the structure field names to display
@@ -75,14 +80,14 @@ mmShowStruct(p,fn2display={'rgb','gray'},titles={'Original','Grayscale'})
 
 A wrapper for `swarmchart` and `boxchart` that overlays a swarm chart on a box chart.
 
-![img-name](images/swarm-box-Y.png){ width="150"} ![img-name](images/swarm-box-XY.png){ width="350"}
+![box chart with swarm overlay, y-data only](images/swarm-box-Y.png){ width="150"} ![box chart with swarm overlay, grouped x- and y-data](images/swarm-box-XY.png){ width="350"}
 
 **INPUTS**
 
 - **x**: (*Optional*) Enter empty brackets to generate a series of ones
-- **y**: Vector of Numeric ata
+- **y**: Vector of numeric data
 
-**Options**
+**OPTIONAL INPUTS**
 
 - **PlotType**: enter 'violin' for a violin plot (default is 'swarm')
 - **XAxVisible**: display x-axis (default = 'off')
@@ -92,7 +97,7 @@ A wrapper for `swarmchart` and `boxchart` that overlays a swarm chart on a box c
 - **BoxFaceColor**: set boxplot face color
 - **BoxFaceAlpha**: set boxplot face alpha (default = 0.1)
 - **Notch**: Turn on box plot notch (default =  'off')
-- **XJitterWidth** set jitter width of swarm chart (default = 1)
+- **XJitterWidth**: set jitter width of swarm chart (default = 1)
 
 ```matlab linenums="1" title="Examples"
 mmBoxSwarm([],nD.data); % y-data only
@@ -106,25 +111,54 @@ Adds a scalebar to current image
 **INPUTS**
 
 - **ax**: the handle to the axis where you want to add your scale bar
-- **width**: the length of the scalebar 
+- **width**: the length of the scalebar
 - **widthPERpixel**: the dimensions of a pixel side (e.g. um per pixel)
 
-**Optional inputs**
+**OPTIONAL INPUTS**
 
 - **Color**: the color of the scale bar
-- **Line Thickness**: thickness of the scale bar (in points)
+- **LineThickness**: thickness of the scale bar (in points)
 - **pos**: a row vector containing the X and Y coordinates where
         you want the scale bar. You can enter empty brackets to skip
 - **unit**: a character array indicating the unit of measure. If
         inputted, the width of the scalebar will be printed above the bar
 
 ```matlab linenums="1" title="Examples"
-add_scale_bar(gca,100, 2.3);
-add_scale_bar(gca,50,0.23,'white', 4, [],'µm');
+mmAddScaleBar(gca,100, 2.3);
+mmAddScaleBar(gca,50,0.23,'white', 4, [],'µm');
 ```
 
 NOTE: the measurements don't have to be in microns. They just have
 be consistent between `width` and `widthPERpixel`
+
+### mmHistColor
+
+Overlays the RGB channel histograms of a color image, as either an area plot or a stem plot.
+
+**INPUTS**
+
+- **RGB**: an RGB image
+
+**OPTIONAL INPUTS**
+
+- Pass `'stem'` as the second argument to plot the histograms as stem plots instead of the default area plot
+- Pass a numeric value below 1 as the second argument to set the fill transparency (alpha) of the area plot (default = 0.75)
+
+```matlab linenums="1" title="Examples"
+mmHistColor(RGB) % area plot of each channel's histogram (default)
+mmHistColor(RGB,'stem') % stem plot of each channel's histogram
+mmHistColor(RGB,0.4) % area plot with alpha set to 0.4
+```
+
+### mmTightTiledLayout
+
+Creates a new figure with a horizontal tiled layout that has no tile spacing or padding.
+
+```matlab linenums="1" title="Example"
+mmTightTiledLayout
+nexttile; imshow(img1)
+nexttile; imshow(img2)
+```
 
 ## Image Processing
 
@@ -138,12 +172,13 @@ Performs the necessary steps for the watershed transformation of a mask. Based o
 
 - **BW**:  logical array (2D or 3D)
 - **PixSz**: Pixel Size of the extended regional minima inside the blobs being separated. The smaller the value, the smaller the extended regional minima - see imextendedmin
-**Optional**
+
+**OPTIONAL INPUTS**
 
 - **conn**: connectivity  - see imextendedmin
 - **ShowSteps**: boolean - display watershed steps
 
-**Output**
+**OUTPUT**
 
 - **BW**: Watershed transformed Mask
 
@@ -161,13 +196,13 @@ Applies multiple texture filters to input image. Texture filters include standar
 ![texture filters of ferret image](images/mmGetTextureFilters_ferret.png){ width="450"}
 > Text Filters applied to an image of a Ferret and displayed using mmShowStruct
 
- **INPUTS**
+**INPUTS**
 
 - **p**: a structure that must contain a field called either 'rgb' or 'img'. `rgb` should be an rgb image. `img` should be a grayscale image.
   
 - **nhood**: (optional) a neighborhood matrix (typically logical or array of ones).
 
- **OUTPUT**
+**OUTPUT**
 
 - **p**: updated structure containing four new fields: gray, std, rng, and ent
 
@@ -187,17 +222,34 @@ This function uses the [MATLAB Bio-formats toolbox](https://www.openmicroscopy.o
 
 The Bio-formats toolbox, `bfmatlab`, must be downloaded and added to the search path.
 
- **INPUTS** (optional)
+**INPUTS** (optional)
 
 - **file_path** is a path to an image file. If you don't input a file path, you will be prompted for a path.
 
- **OUTPUTS**
+**OUTPUTS**
 
 - **IMGND**: an XYZCT multidimensional array
 - **metadata**: the metadata from the array in XML format
 
 ```matlab linenums="1" title="Example"
 [IMGND, metadata] = mmReadImgND(file_path)
+```
+
+### mmReadRAWimage
+
+Reads a RAW image (`.dng`) captured with a Sony DSLR camera.
+
+**INPUTS** (optional)
+
+- **im_file**: path to a `.dng` raw image file. If omitted, you will be prompted to select a file.
+
+**OUTPUTS**
+
+- **RAW**: the raw image
+- **metadata**: image metadata (from `imfinfo`)
+
+```matlab linenums="1" title="Example"
+[RAW, metadata] = mmReadRAWimage(im_file)
 ```
 
 ## 3D Slicer Functions
@@ -210,9 +262,17 @@ All Slicer volumes should be loaded as `medicalVolumes`.
 
 Returns a table containing the properties (e.g. name, color, etc.) of the segmentations found in a `seg.nrrd` file
 
-- **Input**: file path to a segmentation file
-  
-- **Output**: a table with segmentation names, layer, label, and color values
+**INPUTS**
+
+- file path to a segmentation file
+
+**OPTIONAL INPUTS**
+
+- **addVolInfo** (logical, default = false): include additional volume metadata in the output table
+
+**OUTPUT**
+
+- a table with segmentation names, layer, label, and color values
 
 ```matlab linenums="1" title="Example"
 segT = mmGetSlicerSegmentInfo(seg_file_path)
@@ -222,11 +282,11 @@ segT = mmGetSlicerSegmentInfo(seg_file_path)
 
 Loads the metadata and Segmentation Properties from all Slicer segmentation files found in the same folder
 
-**Input**
+**INPUTS**
 
 - **filePath:** file path to the folder containing segmentation files (`*.seg.nrrd`)
 
-**Output**
+**OUTPUT**
 
 - **T**: Slicer Segmentation table. Contains information (name, color) about segmentations created in Slicer Segment Editor module
 - **contentT**: Table containing information about the segmentation files
@@ -237,12 +297,12 @@ Loads the metadata and Segmentation Properties from all Slicer segmentation file
 
 ### mmGetMedicalVolumeSegment
 
-Indexes out a segment from a Slicer Segmentation volume loaded as a `medicalVolume`. The function returns a structure that contains the mask of the indicated segment, color, and transformation matrix of the selected segmentation. First load a Slicer Segmentation file using `medicalVolume` and the Slicer segmentation table using `mmGetSegTable`.
+Indexes out a segment from a Slicer Segmentation volume loaded as a `medicalVolume`. The function returns a structure that contains the mask of the indicated segment, color, and transformation matrix of the selected segmentation. First load a Slicer Segmentation file using `medicalVolume` and the Slicer segmentation table using `mmGetSlicerSegmentInfo`.
 
 **INPUTS**
 
 - **mV**   (required):    medicalVolume of a Slicer Segmentation dataset
-- **segT** (required):    table - table created by mmGetSlicerSegTable
+- **segT** (required):    table - table created by mmGetSlicerSegmentInfo
 - **segName** (optional): string - Name of Segment to return.
 
 If segName not provided, you will be prompted to select one segmentation from the inputted segT table.
@@ -266,29 +326,80 @@ S = mmGetMedicalVolumeSegment(mv,segT,segName="right kidney")
 
 Wrapper function that plots all segmentations from a 3D Slicer segmentation volume. Options include Smoothing and decimation, and lighting.
 
- **INPUTS**:
+**INPUTS**
 
-- **Vol**: 3D array
+- **mV**: `medicalVolume` of a Slicer Segmentation dataset
 - **segT**: Table containing the following slicer info — Name, Layer, LabelValue, Color
 
- **OPTIONAL INPUTS**. Enter empty brackets if skipping.
+**OPTIONAL INPUTS**. Enter empty brackets if skipping.
 
 - **new_figure**: logical (default = true). Create new figure if true
 - **falpha**: scalar (0-1, default = 0.5) - transparency of the faces
 - **smooth**: boolean (default=false). True means Smooth volume
-- **affTrfm**: 4X4 3D affinity transformation matrix (default = [], no transformation). Used to transform the vertices to match the orientation and size of the original volume.
 
 **OUTPUT**
 
 - **hp**: array of patch handles to surface plots
 
 ```matlab linenums="1" title="Examples"
-hp = mmPlotAllSeg(Vol,segT);
-hp = mmPlotAllSeg(Vol,segT, falpha=0.25, affTrfm=tform);
+segT = mmGetSlicerSegmentInfo(seg_file);
+hp = mmPlotAllSeg(mV,segT);
+hp = mmPlotAllSeg(mV,segT, falpha=0.25);
+```
 
-tform = createScaling3d(Sseg.xyz)
-segT = mmGetSlicerSegNames(seg_file)
-hp = mmPlotAllSeg(Vol,segT,affTrfm=tform);
+### mmVolShowPair
+
+Displays two `volshow` viewers side-by-side in a tiled layout, for comparing two segmentations. Designed to work with structures returned by `mmGetMedicalVolumeSegment`.
+
+**INPUTS**
+
+- **seg1**, **seg2**: structures (from `mmGetMedicalVolumeSegment`) each containing a `mask` and `tform` field
+
+**OPTIONAL INPUTS**
+
+- **segTitle**: title for the display window (default = `"My Seg Comparison"`)
+
+```matlab linenums="1" title="Example"
+S1 = mmGetMedicalVolumeSegment(mV,segT,segName="right kidney");
+S2 = mmGetMedicalVolumeSegment(mV,segT,segName="left kidney");
+mmVolShowPair(S1,S2,"Kidney Comparison")
+```
+
+### mmSetVolShowColors
+
+Applies a Medical Colormap and alphamap to a `volshow` render, and optionally sets the viewer's background color. If no `MapName` is provided, a selection dialog pops up.
+
+**INPUTS**
+
+- **hVolShow**: handle to a `volshow` object
+
+**OPTIONAL INPUTS**
+
+- **MapName**: name of the Medical Colormap to apply. Options: `CTBone`, `CTBoneShift`, `CTCoronary`, `CTLung`, `CTSoftTissue`, `MRI`, `PET`
+- **BackgroundColor**: background color of the viewer (default = `'white'`). Set to `'default'` to leave the background unchanged.
+- **BackgroundGradient**: turn on a background gradient (default = `'off'`)
+- **GradientColor**: color of the background gradient (only applies if `BackgroundGradient` is on)
+
+**OUTPUT**
+
+- **MapName**: name of the colormap that was applied
+
+```matlab linenums="1" title="Examples"
+MapName = mmSetVolShowColors(hVolShow)
+MapName = mmSetVolShowColors(hVolShow,MapName="CTLung")
+```
+
+### mmSaveViewer3D
+
+Saves a `viewer3d` figure (e.g. from `volshow`) to an image file.
+
+**INPUTS** (optional)
+
+- **FigHandle**: the `uifigure` that contains the `viewer3d` (e.g. `hVolShow.Parent`)
+- **Fullpath**: file path to save the image to. If omitted, you will be prompted to choose a location.
+
+```matlab linenums="1" title="Example"
+mmSaveViewer3D(hVolShow.Parent)
 ```
 
 ## Surface Functions
@@ -303,7 +414,7 @@ Wrapper function that creates an isosurface from an input volume. Options includ
 
 - **BW**: logical 3D array
 
-**Optional Inputs** (in this order). Enter empty brackets if skipping.
+**OPTIONAL INPUTS** (in this order). Enter empty brackets if skipping.
 
 - **fcolor**: character array (default = 'cyan') - facecolor of the
           isosurface.
@@ -312,11 +423,11 @@ Wrapper function that creates an isosurface from an input volume. Options includ
 - **report**: boolean (default=false) - print a report of settings to command window
 - **smooth**: boolean (default=false). True means Smooth volume
 - **decimator**: decimation factor (0-1, default=0.15) of the generated surface
-- **affTrfm**: 4X4 3D affinity transformation matrix (default = [], no transformation). Used to transform the vertices to match the orientation and size of the original volume.
+- **transform**: `affinetform3d` 3D affine transformation (default = no transformation). Used to transform the vertices to match the orientation and size of the original volume.
 
 **OUTPUT**
 
-- hp: handle to patch
+- **hp**: handle to patch
 
 ```matlab
 hp = mmPlotMask2Surface(BW);
@@ -324,7 +435,7 @@ hp = mmPlotMask2Surface(BW,fcolor='cyan');
 hp = mmPlotMask2Surface(BW,fcolor='magenta',falpha=0.25, lightEMup=true, decimator=0.2);
 
 tform = createScaling3d(Sseg.xyz)
-hp = mmPlotMask2Surface(BW,'magenta',transform_mat=tform); 
+hp = mmPlotMask2Surface(BW,'magenta',transform=tform); 
 ```
 
 ### mmGetSurface
@@ -338,6 +449,7 @@ Generate a surface mesh of the inputted 3D volume.  Returns a face-vertices stru
 - **decimator** (0-1): amount by which to decimate the generated surface.
 - **use_fast_march** (logical): Use the function `extractIsosurface` to more quickly generate an isosurface. Default = true.
 - **centerSurface** (logical): Center the vertices to 0,0,0. Default = false
+- **transform**: `affinetform3d` 3D affine transformation (default = no transformation)
 
 **OUTPUT**
 
@@ -349,7 +461,8 @@ fv = mmGetSurface(Vol);
 fv = mmGetSurface(Vol,0.5,0.1) 
 ```
 
-REQUIREMENTS:
+**REQUIREMENTS**
+
 Medical toolbox required for fast marching isosurface
 
 ### mmPlotSurface
@@ -368,18 +481,30 @@ Wrapper function to `patch`. plots the input fv structure as a patch. Lights not
 - **hp**: handle to the patch
 
 ```matlab linenums="1" title="Example"
+hp = mmPlotSurface(fv,'cyan',0.5);
 mmSetSurfacePlotProps % add lighting to plot
+```
+
+### mmSetSurfacePlotProps
+
+Sets the light position, aspect ratio, and axis labels for a surface plot. Call after `mmPlotSurface` — or, if plotting multiple surfaces in a loop, call once after the last plot.
+
+No inputs or outputs.
+
+```matlab linenums="1" title="Example"
+hp = mmPlotSurface(fv,'cyan',0.5);
+mmSetSurfacePlotProps
 ```
 
 ### mmAlignSurface2Axes
 
 Transforms the vertices so that the direction of most variance is aligned to the x-axis. Based on this [discussion](https://www.mathworks.com/matlabcentral/answers/66051-how-do-i-move-a-cloud-of-points-in-3d-so-that-they-are-centered-along-the-x-axis).
 
-**INPUT**:
+**INPUTS**
 
 - **Vert**:  NX3 array of Vertices to be transformed
 
-**OUTPUTs**
+**OUTPUT**
 
 - **Vert**: Transformed vertices
 - **Vd**: Variance
@@ -403,18 +528,40 @@ Rotate the vertices of a surface around the specified axis by the specified angl
 vertices = mmRotateSurfaceVertices(vertices, 'x',45)
 ```
 
+### mmCreateRotationMat
+
+Creates an affine rotation matrix (`affinetform3d`) for rotating about the x, y, or z axis. Useful for building a `transform` to pass into functions like `mmPlotMask2Surface` or `mmGetSurface`.
+
+**INPUTS**
+
+- **angl**: amount of rotation, in degrees
+- **ax**: axis to rotate around — `'x'`, `'y'`, or `'z'`
+
+**OPTIONAL INPUTS**
+
+- **origin**: 1x3 vector — origin to rotate around (default = `[0 0 0]`)
+
+**OUTPUT**
+
+- **tform**: `affinetform3d` affine rotation transformation
+
+```matlab linenums="1" title="Example"
+tform = mmCreateRotationMat(45,'x')
+```
+
 ### mmAlignSurfaces
 
 Registers two point clouds using an iterative closest point algorithm. This function requires the **Computer Vision Toolbox**. The inputs and outputs of this function are a matrix of 3D coordinate points (xyz)
 
-**Inputs**
+**INPUTS**
 
-- **SurfFixed**: NX3 vertices matrix of Fixed Surface
-- **Surf2Move**: NX3 vertices matrix of Surface to be moved (registered to fixed surface)
+- **vertFixed**: NX3 vertices matrix of Fixed Surface
+- **vertMoving**: NX3 vertices matrix of Surface to be moved (registered to fixed surface)
 
-**Output**
+**OUTPUT**
 
-- **Surf2Move**: NX3 vertices matrix of registered surface
+- **vertMoving**: NX3 vertices matrix of registered surface
+- **rmse**: root-mean-square error of the final registration
 
 ```matlab linenums="1" title="Example"
  [vertMoving,rmse] = mmAlignSurfaces(vertFixed, vertMoving,options)
@@ -467,7 +614,7 @@ mmSetFigPublication(14) % Set Font size to 14
 
 ### mmSetUnitDataFolder
 
-Sets the current folder to the indicated unit data folder from the [MtMdata Shared Folder] (https://drive.mathworks.com/sharing/36f2e302-384d-4c4e-aa98-8e853c1051c0)(Must be at root level of MATLAB drive)
+Sets the current folder to the indicated unit data folder from the [MtMdata Shared Folder](https://drive.mathworks.com/sharing/36f2e302-384d-4c4e-aa98-8e853c1051c0) (Must be at root level of MATLAB drive)
 
 ```matlab
 mmSetUnitDataFolder(3) % sets folder to unit 3 
@@ -477,8 +624,8 @@ mmSetUnitDataFolder(3) % sets folder to unit 3
 
 This function returns a color map (with 256 shades) of the indicated color 
 
-**Input**: a channel name, letter, or index
-**Output**: a colormap of the shade indicated by the input
+**INPUT**: a channel name, letter, or index
+**OUTPUT**: a colormap of the shade indicated by the input
 
 ```matlab linenums="1" title="Example"
 red_cm = mmGetChannelMap('red')
