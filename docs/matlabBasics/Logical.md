@@ -128,7 +128,7 @@ Used to combine logical functions based on logical operations such as
 
 ### Explicit Generation
 
-You can explicitly create a logical array using the functions **`true`** or **`false`**. And just like numeric arrays, you can concatenate these values using the square brackets
+You can explicitly create a logical array using the functions **`true`** or **`false`**. And just like numeric arrays, you can concatenate these values using the square brackets.
 
 ```matlab linenums="1"
 L = true
@@ -221,13 +221,13 @@ We can further inspect our new logical arrays by examining their properties in t
 You can also create logical arrays by converting perfectly good numeric arrays into logical ones using the function **`logical`**. This is known as **type casting**. (1)
 { .annotate }
 
-1. because your changing (or casting) the variable type from one type to another.
+1. because you're changing (or casting) the variable type from one type to another.
 
 !!! example "Convert a Numeric Array into a Logical array"
 
      ```matlab linenums="1"
      N = [0 1 2 3] % create a 1x4 numeric vector
-     L = logical(n) % convert to a 1x4 logical vector
+     L = logical(N) % convert to a 1x4 logical vector
      ```
      
      ```matlab title="result"
@@ -332,9 +332,9 @@ Whereas this statement uses the Relation Operation of 'is equal to' `==` to comp
 a == 12 
 ```
 
-If the contents of *`a`* equals `12`, then the relation operation will return a logical `1`, otherwise the operation returns a logical `0.
+If the contents of *`a`* equals `12`, then the relation operation will return a logical `1`, otherwise the operation returns a logical `0`.
 
-Since we already assigned the value `12` to *`a`*, we get a `1`:
+Since we already assigned the value `12` to *`a`*, we get a logical `1`:
 
 ```matlab title="result of a==12"
 ans =
@@ -353,7 +353,7 @@ And, since there is no explicit assignment in the second statement, the logical 
           ans       1x1                 1  logical              
      ```
 
-     Notice that the *logical* class requires only 1 byte per element of storage (see the Memory and Numeric Classes for more information on bits and bytes).
+     Notice that the *logical* class requires only 1 byte per element of storage (see [Binary Numbers and Computer Memory](BinaryNumbers.md) for more information on bits and bytes).
 
 1. Reminder - the function **`whos`** returns the content of the workspace
 
@@ -381,7 +381,7 @@ We can similarly compare an array of values.
 
 !!! example "Example: Relational operation on arrays"
 
-     Here we create a numeric array of 10 values(*`a`*). Then we create a logical array using the relational operation 'is greater than' (*`b`*).
+     Here we create a numeric array of 10 values (*`a`*). Then we create a logical array using the relational operation 'is greater than' (*`b`*).
 
      ```matlab linenums="1"
      a = 1:10
@@ -394,7 +394,7 @@ We can similarly compare an array of values.
          0   0   0   0   0   1   1   1   1   1
      ```
 
-     Notice that *`a`* is a numeric vector, while *`b`* is a logical array with the same dimensions as *`a`* but with `1`'s wherever *`a`* is greater than 5 and `0` 's everywhere else.
+     Notice that *`a`* is a numeric vector, while *`b`* is a logical array with the same dimensions as *`a`* but with `1`'s wherever *`a`* is greater than 5 and `0`'s everywhere else.
 
 Or consider this relational operation of a matrix:
 
@@ -415,10 +415,10 @@ Or consider this relational operation of a matrix:
           1  1  1
      ```
 
-     Here we create a numeric array *`c`* and a logical array, *`d`*, which has the same dimensions as *`c`,* but has `1`'s wherever *`c`* has a value greater than `3`. As you can see, using logical arrays allows us to quickly identify which values in *`c`* are greater than `3`.
+     Here we create a numeric array *`c`* and a logical array, *`d`*, which has the same dimensions as *`c`*, but has `1`'s wherever *`c`* has a value greater than `3`. As you can see, using logical arrays allows us to quickly identify which values in *`c`* are greater than `3`.
 
 !!! info "The term 'masking'"
-     In the above examples, we create logical arrays that are the same size as a reference numeric array. In the logical array, there are logical `1`s for elements that return true  when the relational operation was satisfied (e.g. when the values in *`c`* were greater than 5). These logical `1`s are said to **mask** the elements in the numeric array that satisfy the relational operation. So, I will often say something like "create a logical array that *masks* the values greater than 5 in the numeric array *`c`*." What I mean is "create a logical array which has logical `1`s where the elements in *`c`* are greater than `5`." It's just a little shorter to use the term mask.
+     In the above examples, we create logical arrays that are the same size as a reference numeric array. In the logical array, there are logical `1`s for elements that return true when the relational operation was satisfied (e.g. when the values in *`c`* were greater than 3). These logical `1`s are said to **mask** the elements in the numeric array that satisfy the relational operation. So, I will often say something like "create a logical array that *masks* the values greater than 3 in the numeric array *`c`*." What I mean is "create a logical array which has logical `1`s where the elements in *`c`* are greater than `3`." It's just a little shorter to use the term mask.
 
 ---
 
@@ -441,9 +441,11 @@ Or consider this relational operation of a matrix:
      You get a logical `0` because 13 does not equal 12. 
 
     ```matlab title="result"
-    
-    ans = 
-        '0'
+    ans =
+
+      logical
+
+       0
     ```
 
     *`a`* does not change, because you did not assign anything new to *`a`*.
@@ -716,14 +718,14 @@ One of the superpowers of a logical array is its ability to be used as an index.
           6
      ```
 
-As you can see, logical indexing returns the values in *`c`* that correspond to the locations in *`d`* where there are logical `1`'s. Importantly, the logical array  (*`d`*) has to have the same size as the array that you are trying to index  (*`c`*).
+As you can see, logical indexing returns the values in *`c`* that correspond to the locations in *`d`* where there are logical `1`'s. Importantly, the logical array (*`d`*) has to have the same size as the array that you are trying to index (*`c`*).
 
 !!! abstract "Logical Indexing Illustration"
 
      ![img_logical_index](images/logical-indexing-illustration.png#only-light){width="500"}
      ![img_logical_index](images/logical-indexing-illustration-dark.png#only-dark){width="500"}
 
-     With this syntax, we are essentially saying "return all values in c that share the same indices as the 1's in d." Notice that the result has the same class type (*double*) as the array is being indexed (*`c`*). MATLAB spits out a vertical vector because the resulting numeric array has fewer elements than the original array and MATLAB doesn't know how to organize the elements.
+     With this syntax, we are essentially saying "return all values in c that share the same indices as the 1's in d." Notice that the result has the same class type (*double*) as the array is being indexed (*`c`*). MATLAB returns a column vector because indexing a non-vector array with a logical array of the same size always returns the selected elements as a column vector.
 
 ### Examples using Logical Indexing
 
@@ -939,7 +941,7 @@ Sometimes you want to know whether any data has been added to a variable.
 
      The function *[strcmp]{target="_blank"}* determines whether two character arrays are identical.
 
-     The following example should illustrate why CANVAS can be so bad at grading open responses such as "Fill in the Blank "questions.
+     The following example should illustrate why CANVAS can be so bad at grading open responses such as "Fill in the Blank" questions.
 
      Consider these two character arrays:
 
@@ -965,7 +967,7 @@ How do we make **`strcmp`** work for the previous example? As we found out, unev
 
 !!! example "Example: strcmp without the spaces"
 
-    We can determine if the letters match in the two  previous character arrays using the following steps:
+    We can determine if the letters match in the two previous character arrays using the following steps:
 
     1. Identify all the spaces using *isspace* which returns a logical array with 1s where the spaces are
 
@@ -1000,7 +1002,7 @@ How do we make **`strcmp`** work for the previous example? As we found out, unev
     ans = 1
     ```
 
-    …We ge a 1, or true, indicating that the two character arrays are the same.
+    …We get a 1, or true, indicating that the two character arrays are the same.
 
     [strcmp]: http://www.mathworks.com/help/matlab/ref/strcmp.html
 
@@ -1038,7 +1040,7 @@ How do we make **`strcmp`** work for the previous example? As we found out, unev
            0
      ```
 
-     'Empty' is not empty -- it is character array with five characters.
+     'Empty' is not empty -- it is a character array with five characters.
 
      ```matlab linenums="1"
      ischar('1234')
@@ -1089,7 +1091,7 @@ space_la =
 …*`space_la`* is a logical array that masks(1) the spaces in *`sentence`*.
 { .annotate}
 
-1. the logical `1`s in *`space_la`* correspond to the elements in *`sentence`* that contains spaces.
+1. the logical `1`s in *`space_la`* correspond to the elements in *`sentence`* that contain spaces.
 
 So, now we can use *`space_la`* as a logical index to remove spaces. Remember, the empty brackets syntax can remove elements from a variable, as follows:
 
@@ -1188,7 +1190,7 @@ la_pangram =
              1
 ```
 
-…Since *`letter_count`* does equal 26, meaning there are 26 unique lowercase letters, the result, stored in *`la_pangram`*,  is true.
+…Since *`letter_count`* does equal 26, meaning there are 26 unique lowercase letters, the result, stored in *`la_pangram`*, is true.
 
 ### Packaging the Pangram Algorithm
 

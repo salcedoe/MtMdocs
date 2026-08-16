@@ -452,6 +452,14 @@ As we have seen, the colon can be used to mean "range", as in 1 to 10, or "all",
         What result will you get? Try it now in the command window. 
 
     === "Answer"
+        
+        So, what do you think the following syntax means?
+
+        ```matlab linenums="1"
+        c(:)
+        ```
+        
+        
         You get a column vector of all the elements.
 
         ```matlab linenums="1"
@@ -500,6 +508,13 @@ As we have seen, the colon can be used to mean "range", as in 1 to 10, or "all",
          Try it now. Can you think of a simpler syntax to use instead?
 
     === "Answer"
+        What do you think this syntax returns?
+
+        ```matlab linenums="1"
+        c(:,:)
+        ```
+
+        You simply get the contents of the variable, in matrix form.
 
         ```matlab title="c(:,:)"
         ans =
@@ -507,7 +522,7 @@ As we have seen, the colon can be used to mean "range", as in 1 to 10, or "all",
              1     2     3     4     5     6     7     8     9    10
             11    12    13    14    15    16    17    18    19    20
         ```
-        You simply get the contents of the variable, in matrix form. You could get a similar result by just entering `c` in the command window.
+         You could get a similar result by just entering `c` in the command window.
 
 ---
 
