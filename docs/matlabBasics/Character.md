@@ -23,8 +23,8 @@ In this module, we will learn about character arrays, which are useful for stori
 
 - Define a Character Array.
 - Be able to assign values to character arrays using paired single quotes
-- Be able to use the function [sprintf]{target="_blank"} to format character arrays
-- Be able to use functions discussed in this module like [sort] and [unique] to parse characters in a character array
+- Be able to use the function [sprintf][doc-sprintf]{target="_blank"} to format character arrays
+- Be able to use functions discussed in this module like [sort][doc-sort] and [unique][doc-unique] to parse characters in a character array
 - Be able to use regular expressions to find and replace characters in character arrays
 
 ### Special MATLAB Characters
@@ -83,13 +83,13 @@ Anything you can type on a computer keyboard can be stored as a character array.
 n = '1'
 ```
 
-``` title="result"
+```matlab title="result"
 n =
 
     '1'
 ```
 
-This can cause problems if you are not careful and accidentally try to do math with character arrays. MATLAB will display character array outputs in single quotes, as shown above `'1'` and color the character purple.  However, it is always a good idea to check the class using **`whos`** or check the **workspace**. Make sure you know the class of your array or you may get an unexpected result.
+This can cause problems if you are not careful and accidentally try to do math with character arrays. MATLAB will display character array outputs in single quotes, as shown above `'1'` and color the character purple. However, it is always a good idea to check the class using **`whos`** or check the **workspace**. Make sure you know the class of your array or you may get an unexpected result.
 
 ```matlab linenums="1"
 whos n
@@ -114,7 +114,7 @@ The **[`whos`](http://www.mathworks.com/help/matlab/ref/whos.html)** function, w
   whos('ch')
 ```
 
-``` title="whos output"
+```matlab title="whos output"
    Name      Size            Bytes  Class    Attributes
      ch         1x5                10  char               
 ```
@@ -192,7 +192,7 @@ What happens if you try to place two different words in separate rows of a chara
 !!! failure "Error"
     Dimensions of arrays being concatenated are not consistent
 
-The syntax fails because 'hello' has 5 characters, while 'goodbye' has 7. And as we remember from the Numeric Array section, we have to have an equal number of filled columns for each row in a column. You can't have any empty elements 
+The syntax fails because 'hello' has 5 characters, while 'goodbye' has 7. And as we remember from the [Numeric Arrays](Numeric.md) section, we have to have an equal number of columns in each row. You can't have any empty elements.
 
 So, how do you create character arrays with more than one row of characters? Just like in a numeric matrix, you need an equal number of columns for every character in a character array. If there are not enough characters in a given word, you can **pad** that word with spaces.  
 
@@ -276,7 +276,7 @@ p(2,2)
 
 ```matlab title="result"
 ans =
-      'o' % you get the second 'o' in 'goodbye'
+      'o' % you get the first 'o' in 'goodbye'
 ```
 
 ```matlab title="Index 1st row, 3rd column in p" linenums="1"
@@ -385,7 +385,7 @@ is* functions return logical arrays that mask specific types of characters in an
 Consider the following character array
 
 ```matlab linenums="1"
-ch = ['a':'c' ' ' '1':'c' ' !@#']
+ch = ['a':'c' ' ' '1':'3' ' !@#']
 ```
 
 ```matlab
@@ -393,7 +393,7 @@ ch =
      'abc 123 !@#'
 ```
 
-The function **isletter** returns a logical array masks the letters
+The function **isletter** returns a logical array that masks the letters
 
 ```matlab linenums="1" title="Mask Letters"
 laL = isletter(ch)
@@ -500,7 +500,8 @@ result = sprintf(input_array, x, 'times', y, x*y) % (1)
 
 ```matlab title="result"
 result =
-The product of 2 times 3 equals 6
+
+    'The product of 2 times 3 equals 6'
 ```
 
 !!! note
@@ -509,10 +510,9 @@ The product of 2 times 3 equals 6
 
 ### fprintf
 
-Similar to the [sprintf] function, [fprintf] can format data into strings.  In addition, [fprintf] can then output those strings to the command window (or even to files).
+Similar to the [sprintf][doc-sprintf] function, [fprintf] can format data into strings.  In addition, [fprintf] can then output those strings to the command window (or even to files).
 
 [fprintf]: http://www.mathworks.com/help/matlab/ref/fprintf.html
-[sprintf]: http://www.mathworks.com/help/matlab/ref/sprintf.html
 ___
 
 === "Challenge"
@@ -521,7 +521,7 @@ ___
 
     ```matlab title="result"
         result =
-          The sum of 2 plus 3 equals 5
+          'The sum of 2 plus 3 equals 5'
     ```
 === "Answer"
 
@@ -597,7 +597,7 @@ t = regexprep(s,' ','_')
 ```
 
 ```matlab title="result"
-T = 
+t = 
     'Together_At_Last'
 ```
 
@@ -606,7 +606,7 @@ Notice that **`regexprep`** accepts three inputs. The second input (`' '`) is th
 We can eliminate the underscores entirely using an empty pair of single quotes as the third input, as follows:
 
 ```matlab linenums="1" title="replace underscores with nothing"
-u = regexprep(s,'_', '')
+u = regexprep(t,'_', '')
 ```
 
 ```matlab title="result"
