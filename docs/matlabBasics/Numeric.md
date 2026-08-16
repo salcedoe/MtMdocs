@@ -14,7 +14,7 @@ Numeric arrays contain numbers (as opposed to characters or booleans).
 | ----- | :---: | --- |
 |n = 5 | = | assign the value 5 to the variable *n*|
 |n = [1 3 4 5] | [ ] | Concatenates numeric values into the row vector *n* |
-|n = [1; 3; 4 5] | ; | Semicolon means the new line. Concatenate into column vector |
+|n = [1; 3; 4; 5] | ; | Semicolon means the new line. Concatenate into column vector |
 |n = 1:10 | : | Create a row vector with the values 1 through 10 |
 |n = 2:2:8 | : | Create a row vector of even numbers from 2 to 8 |
 |n(2) | ( ) | Index the second element from the variable *n* |
@@ -42,8 +42,9 @@ When you want to store a number in a variable, you need to create a numeric arra
     ```
 
     ```matlab title="result"
-    ans = 
-	    5
+    ans =
+
+         5
     ```
 
 Notice that when you type the number `5` in the command window, MATLAB automatically creates a variable called *`ans`* and places that variable in the workspace.
@@ -69,7 +70,8 @@ In the Variable Editor, you can explore the contents of any variable in the work
 
     ```matlab title="result"
     ans =
-	     10
+
+        10
     ```
 
     Notice how the value for *`ans`* has been replaced with the number `10`, simply by typing `10` in the command window. The `5` is gone.
@@ -84,11 +86,11 @@ Since the basic MATLAB data structure is a matrix, it is quite easy to assign an
 
 `name_of_variable = [array of numbers]`
 
-In this syntax, the square brackets ( `[ ]` \) are used to concatenate a collection of numbers into an array.
+In this syntax, the square brackets ( `[ ]` ) are used to concatenate a collection of numbers into an array.
 
  For example, type the following in the command window:
 
-```matlab linenums="1" title="Concatentating numeric values"
+```matlab linenums="1" title="Concatenating numeric values"
 b = [1 2]
 ```
 
@@ -96,7 +98,7 @@ You should now see a variable called *`b`* in the workspace. Double-click on thi
 
 ![var-b](images/var_editor_numeric_array.png){ width="250"}
 
-The value `1` is stored in the top left corner position, or index `(1,1)`, The value `2` is stored one element over in index `(1,2)`.
+The value `1` is stored in the top left corner position, or index `(1,1)`. The value `2` is stored one element over in index `(1,2)`.
 
 ---
 
@@ -112,6 +114,7 @@ To add a second row to an array, you use the semicolon `;`. The semicolon indica
 
     ```matlab title="result"
     bears =
+
         30    40
         50    60
     ```
@@ -141,7 +144,7 @@ After executing the above lines in the command window, you should see the follow
 
 ![image of workspace](images/workspace-numeric-array-abc.png)
 
->The variable *`a`* is filled with numbers 1 through 10. The variable *`b`* has only odd numbers from 1 to 9. The command `1:2:10` indicates to skip every other number. Also note that *`c`*  has two rows (Size: 2 X 10). To create *`c`*, we had to use the concatenating square brackets and a semi-colon. The semi-colon indicates "new row" in the array.
+>The variable *`a`* is filled with numbers 1 through 10. The variable *`b`* has only odd numbers from 1 to 9. The command `1:2:10` indicates to skip every other number. Also note that *`c`* has two rows (Size: 2 X 10). To create *`c`*, we had to use the concatenating square brackets and a semi-colon. The semi-colon indicates "new row" in the array.
 
 ---
 
@@ -173,8 +176,8 @@ After executing the above lines in the command window, you should see the follow
         The result is the assignment of values to *two* different variables. The values 1 through 10 are assigned to the variable *`c`* while the values 11 through 20 are assigned to the variable *`ans`*. *Why `ans`*? Because no explicit variable was indicated in the second line of code. Without the square brackets, the semi-colon means  "new line of code", which is the same as if you typed two separate lines of code in the command window, like this:
         
         ```matlab linenums="1"
-        c = 1:10
-        11:20 
+        c = 1:10;
+        11:20
         ```
         
         This is why programming is hard. Notice that we didn't get an error, we just got something unexpected. You always have to be very careful with your syntax or you might get an unexpected result...
@@ -189,7 +192,7 @@ For example, the function **`ones`** accepts inputs to indicate how many ones it
 c = ones(1,10)
 ```
 
-The inputs into **`ones`** indicates the following: 1) The first input is the number of rows. 2) the second input is the number of columns.
+The inputs into **`ones`** indicate the following: 1) The first input is the number of rows. 2) The second input is the number of columns.
 
 ```matlab title="result"
 c =
@@ -203,7 +206,7 @@ Similarly, the function **`zeros`** creates a series of zeros.
 d = zeros(10,1)
 ```
 
-…Notice how the inputs into **`zeros`** are similar to the inputs into **`ones`**: The first input is the number of rows and the second input is the number of columns
+…Notice how the inputs into **`zeros`** are similar to the inputs into **`ones`**: The first input is the number of rows and the second input is the number of columns.
 
 ```matlab title="result"
 d =
@@ -220,7 +223,7 @@ d =
    0
 ```
 
-The function **repmat** creates an array that repeats the inputted data. Here we take the array `1 2` and repeat it 10 times across the rows. The third input, `1`, indicates no repeating across columns (Just one column of data).
+The function **repmat** creates an array that repeats the inputted data. Here we take the array `1 2` and repeat it 10 times down the rows. The third input, `1`, indicates the array should not be repeated horizontally — just stacked vertically.
 
 ```matlab linenums="1" title="Repeat Array"
 e = repmat(1:2,10, 1)
@@ -243,7 +246,7 @@ e =
 
 #### Challenge: Series Functions
 
-??? question "What do you the think would happen if we changed the 3rd input in **repmat** to 2?"
+??? question "What do you think would happen if we changed the 3rd input in **repmat** to 2?"
 
     ```matlab linenums="1" title="Repeat Array"
     e = repmat(1:2,10, 2)
@@ -264,7 +267,7 @@ e =
         1     2     1     2
     ```
 
-    You would get an extra set of columns containing the repeated array `1 2`
+    You would get an extra set of columns containing the repeated array `1 2`.
 
 ---
 
@@ -276,7 +279,7 @@ To [index](https://www.mathworks.com/help/matlab/math/array-indexing.html){targe
 
 ### Linear indexing
 
-Linear indexing in MATLAB uses the **[COLUMN MAJOR](http://www.wikiwand.com/en/Row-major_order){target="_blank"}** indexing scheme, in which elements are numbered first by row, then by column.
+Linear indexing in MATLAB uses the **[COLUMN MAJOR](http://www.wikiwand.com/en/Row-_and_column-major_order){target="_blank"}** indexing scheme, in which elements are numbered first by row, then by column.
 
 `name_of_variable(linear_index)`
 
@@ -288,7 +291,7 @@ Standard indexing requires an index for each dimension. For matrices, the first 
 
 !!! note "Indices in MATLAB always start at 1"
 
-    You cannot have an index of zero. That is, zero cannot be used as an index for either method. There is no Zeroth element, zeroth row, or zeroth column. This differs from other computer programming languages, such as java or python, which start at zero.
+    You cannot have an index of zero. That is, zero cannot be used as an index for either method. There is no Zeroth element, zeroth row, or zeroth column. This differs from other computer programming languages, such as Java or Python, which start at zero.
 
 ### Comparing Linear to Standard indexing
 
@@ -297,7 +300,8 @@ Standard indexing requires an index for each dimension. For matrices, the first 
 To compare the two indexing methods, let's use the variable *`b`*, which we previously assigned the following values:
 
 ```matlab title="b"
-ans =
+b =
+
      1     3     5     7     9
 ```
 
@@ -375,8 +379,9 @@ Consider the variable *`c`*:
     ```
 
     ```matlab title="result"
-    ans = 
-        12    13   14
+    ans =
+
+        12    13    14
     ```
 
     Remember, for standard indexing the first number in the number pair always indicates row, while the second number (or numbers) indicates columns.
@@ -418,15 +423,15 @@ Notice that when we use linear indexing on a matrix, we get a strange collection
 | 5	| 1	| 3	|  
 | 6	| 2	| 3	|  
 | 7	| 1	| 4	|  
-| 8	| 2	| 1	|  
+| 8	| 2	| 4	|  
 
- As we can see, we are pulling numbers from different rows, which is why they are returned out of numerical order. Also, even though values 3 and 4 were found in row 1, while values 12, 13, and 14 were  found in row 2, we still got a `1x5` vector, instead of a matrix. This is because MATLAB doesn't know how to organize the elements, since we accessed an odd number of elements—matrices can only be formed with an even number of elements. So MATLAB just spits out the numbers in a vector, in the sequence that it accessed them.
+ As we can see, we are pulling numbers from different rows, which is why they are returned out of numerical order. Also, even though values 3 and 4 were found in row 1, while values 12, 13, and 14 were found in row 2, we still got a `1x5` vector, instead of a matrix. This is because when you index a non-vector array with a single vector of linear indices, MATLAB returns a result shaped like your index vector — since `4:8` is a 1×5 row vector, the result is also a 1×5 row vector. So MATLAB just spits out the numbers in a vector, in the sequence that it accessed them.
 
 !!! tip "TIP: Only use Linear Indexing for Vectors"
     For the most part, only use linear indices when you have a vector (a single row or column of data). That way, you can avoid any unexpected results.
 
 !!! note
-    There is another major type of indexing, called **logical indexing.** Please refer to the content page on Logical Arrays for more information.
+    There is another major type of indexing, called **logical indexing.** Please refer to the content page on [Logical Arrays](Logical.md) for more information.
 
 ---
 
@@ -454,7 +459,6 @@ As we have seen, the colon can be used to mean "range", as in 1 to 10, or "all",
         ```
         
         ```matlab title="result"
-        c(:)
         ans =
 
             1
@@ -500,8 +504,8 @@ As we have seen, the colon can be used to mean "range", as in 1 to 10, or "all",
         ```matlab title="c(:,:)"
         ans =
 
-         1     2     3     4     5     6     7     8     9    10
-         11    12    13    14    15    16    17    18    19    20
+             1     2     3     4     5     6     7     8     9    10
+            11    12    13    14    15    16    17    18    19    20
         ```
         You simply get the contents of the variable, in matrix form. You could get a similar result by just entering `c` in the command window.
 
@@ -523,6 +527,7 @@ You can empty an array by assigning to the array an empty pair of square bracket
 
     ```matlab title="result"
     a =
+
         1     2     3     4     5     6     7     8     9    10
     ```
     …*`a`* is a perfectly nice numeric array containing the values 1 through 10.
@@ -534,7 +539,8 @@ You can empty an array by assigning to the array an empty pair of square bracket
     ```
     ```matlab title="result"
     a =
-        []
+
+         []
     ```
 
     *`a`* is left an empty husk of its former self (with no elements or value). 
@@ -575,8 +581,9 @@ To delete one element, just index one element, as follows:
     Recall that the variable *`b`* is a `1x5` vector containing the odd numbers from 1 to 9:
 
     ```matlab title="b"
-    ans =
-        1     3     5     7     9
+    b =
+
+         1     3     5     7     9
     ```
 
     If we assign the empty brackets to the third element…
@@ -586,8 +593,9 @@ To delete one element, just index one element, as follows:
     ```
 
     ```matlab title="result"
-        b =
-        1     3     7     9
+    b =
+
+         1     3     7     9
     ```
 
     …The third element, containing the value 5, is \*poof\* *gone*. *`b`* is now a `1x4` vector
@@ -647,7 +655,7 @@ If we want to delete an entire column from a matrix, we use a combination of the
         11    12    13    15    16    17    18    19    20
     ```
 
-    …The 4th column containing the values `4; 14` has been removed from *`c`* so that it is now a `2x9` matrix 
+    …The 4th column containing the values `4; 14` has been removed from *`c`* so that it is now a `2x9` matrix.
 
 ---
 
@@ -695,17 +703,18 @@ Transposing interchanges the row and column index for each element. You transpos
     If we add a single quote after the variable name, we get…
     
     ```matlab title="a transposed"
-    >>a'
+    a'
     ans =
-        1
-        2
-        3
-        4
-        5
-        6
-        7
-        8
-        9
+
+         1
+         2
+         3
+         4
+         5
+         6
+         7
+         8
+         9
         10
     ```
     … a column vector
