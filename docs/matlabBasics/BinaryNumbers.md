@@ -10,7 +10,7 @@ We've learned that variables have different classes. And that you need different
 
 [img-bin-digits]:images/binary-digital-random-zeroes-1-ones-numbers-0-1254484.png
 
-So, in this module, we will learn how variables are stored in Computer Memory, what binary numbers are, and what does this all have to do with data types.
+So, in this module, we will learn what binary numbers are, how variables are stored in Computer Memory, and what this all has to do with data types.
 
 ### After this module, you should be able to
 
@@ -18,7 +18,7 @@ So, in this module, we will learn how variables are stored in Computer Memory, w
 
 * Describe how computers store information (hint: it's in binary)
 
-* Discuss the advantages and disadvantages of using these following MATLAB numeric classes: double, single, uint8, uint16.
+* Discuss the advantages and disadvantages of using the following MATLAB numeric classes: double, single, uint8, uint16.
 
 * Define the term **integer saturation** and explain why care must be taken when performing integer math
 
@@ -61,11 +61,10 @@ So, in this module, we will learn how variables are stored in Computer Memory, w
 * [bit][wiki_bit]{target="_blank"} - an elemental unit of information in computing
 * [byte][wiki_byte]{target="_blank"} - 8 bits. The smallest addressable memory element in most computers.
 * [ASCII][wiki_ascii]{target="_blank"} - a character encoding standard
-* **Variable Class** - a class  identifies the properties of the variable such as the number of bytes required to store that variable and the possible range of values.
-* **Dynamic Range** - the ratio between the largest and smallest values possible
+* **Variable Class** - a class identifies the properties of the variable such as the number of bytes required to store that variable and the possible range of values.
+* **[Dynamic Range][wiki_dynamic_range]{target="_blank"}** - the ratio between the largest and smallest values possible
 * **Bit depth** - the number of bits reserved for each element of a variable
 * **Type casting** - the process of converting the contents of a variable from one class to another class
-* **[Dynamic Range][wiki_dynamic_range]{target="_blank"}**
 
 [wiki_base_2]: https://en.wikipedia.org/wiki/Binary_number
 [wiki_base_10]: https://en.wikipedia.org/wiki/Decimal
@@ -78,7 +77,7 @@ So, in this module, we will learn how variables are stored in Computer Memory, w
 
 In the beginning, there was darkness. Then there was light. This can be described as a change in a binary state: First no light. Then Light. First off, then on.
 
-Binary numbers describe such changes in binary state using just two values: all or nothing. Or, more simply, one or zero. This is known as the [base-2 numeral][wiki_base_2] system. In base-2, numeric values are represented using 2 different symbols (typically 0 and 1). By comparison, in a base-10 system—the one we all learned in kindergarten—there are 10 symbols (that we call digits): 0, 1, 2,...9.
+Binary numbers describe such changes in binary state using just two values: all or nothing. Or, more simply, one or zero. This is known as the [base-2 numeral][wiki_base_2] system. In base-2, numeric values are represented using 2 different symbols (typically 0 and 1). By comparison, in a base-10 system—the one we all learned in kindergarten—there are 10 symbols (that we call digits): 0, 1, 2, ... 9.
 
 In a binary system (like a computer), you use only two digits, 0 and 1, to represent all numeric values (and, by extension, letters, words and all other information). For example, `01101001` is binary for the numeric value of 105.
 
@@ -95,7 +94,7 @@ The bit on the farthest right corresponds to $2^0$, while the bit on the farthes
 3 = 2^1 +  2^0
 ```
 
-In this equation we have a `2` to the power of `1` and a `2` to the power of `0`, which correspond to the first two bit positions. In binary, this would be written as `11`. Although, often binary is written in chunks of eight digits, so:  `0000 0011`.
+In this equation we have a `2` to the power of `1` and a `2` to the power of `0`, which correspond to the first two bit positions. In binary, this would be written as `11`. However, binary is often written in chunks of eight digits, so: `0000 0011`.
 
 The following table shows the binary representation of a series of decimal numbers, in 8-digit chunks:
 
@@ -115,9 +114,9 @@ The following table shows the binary representation of a series of decimal numbe
 
     Display 4 in binary
 
-    `0000 0100'
+    `0000 0100`
 
-    …binary is often prefaced with zeros 
+    …binary is often prefaced with zeros
 
 ??? question "What does the MATLAB function *dec2bin* do?"
 
@@ -129,6 +128,7 @@ The following table shows the binary representation of a series of decimal numbe
         dec2bin(4,8)
 
         ans =
+
             '00000100'
 
         ```
@@ -147,13 +147,13 @@ The following table shows the binary representation of a series of decimal numbe
 
 ## Computer Memory
 
-Most computer memory, at their core, store their information as a state of energy: either on or off. So, for all intents and purposes, ALL information in a computer is stored as a sequence of ones and zeros, or binary.
+Most computer memory, at its core, stores its information as a state of energy: either on or off. So, for all intents and purposes, ALL information in a computer is stored as a sequence of ones and zeros, or binary.
 
 ![The matrix - the language of computers][digital_rain]{width=500px}
 
 [digital_rain]:images/matrix_digital_rain.png
 
-* A [**bit**][wiki_bit]{target="_blank"} is an elemental unit of information in computing (typically treated as a 1/0 or true/false). It is a single 0 or 1 that can represent basic information such as on/off, plus/minus, or as component in the base-2 numeral system.
+* A [**bit**][wiki_bit]{target="_blank"} is an elemental unit of information in computing (typically treated as a 1/0 or true/false). It is a single 0 or 1 that can represent basic information such as on/off, plus/minus, or as a component in the base-2 numeral system.
 
 * A [**byte**][wiki_byte]{target="_blank"} contains 8 bits and is the smallest addressable memory element in most computers. This means that a computer cannot store anything smaller than a byte (even if all you need to store is just 1 bit of information).
 
@@ -173,7 +173,7 @@ Bit depth is a term to indicate how many bits of memory are allocated to a memor
 
 * **16-bit:** contains 2 bytes per element
 
-Confusingly, some acquisition devices, such as some cameras on microscopes, can acquire information that is not easily divisible into bytes. For example, there are cameras that acquire 12-bit images. In this case, those images are stored in computer memory as 16-bit, even though there are only 12-bits of information.
+Confusingly, some acquisition devices, such as some cameras on microscopes, can acquire information that is not easily divisible into bytes. For example, there are cameras that acquire 12-bit images. In this case, those images are stored in computer memory as 16-bit, even though there are only 12 bits of information.
 
 As we will see later in the course, this disconnect between the way the memory is acquired and the way the memory is stored can cause *display issues*, which are easily corrected if you understand bit depth.
 
@@ -185,14 +185,14 @@ As we have previously discussed, variables represent storage locations in the co
 
 Numeric class variables store numbers. There are many different numeric classes which can be broadly broken down into floating vs integer classes. Floating classes can have significant digits (i.e. numbers after the decimal point), whereas the integer classes solely handle whole numbers.
 
-[MATLAB Numeric Classes](https://www.mathworks.com/help/matlab/numeric-types.html) include signed and unsigned integers, and single- and double precision floating-point numbers. Each class has a different consequence on memory. You can find a list of the  numeric types available in MATLAB [here](http://www.mathworks.com/help/matlab/numeric-types.html). We will focus on a subset of these classes, including the following:
+[MATLAB Numeric Classes](https://www.mathworks.com/help/matlab/numeric-types.html) include signed and unsigned integers, and single- and double precision floating-point numbers. Each class has a different consequence on memory. We will focus on a subset of these classes, including the following:
 
 * Floating Classes
   * [single]{target="_blank"}
   * [double]{target="_blank"}
-*  Integer Classes
-   *  [uint8]{target="_blank"}
-   *  [uint16]{target="_blank"}
+* Integer Classes
+  * [uint8]{target="_blank"}
+  * [uint16]{target="_blank"}
 
 #### Double Precision
 
@@ -206,7 +206,7 @@ The following is an illustration of how a double precision number is stored in m
 
 [img_double_prec]: images/IEEE_754_Double_Floating_Point_Format.svg.png
 
-Double variables can represent numerical values with approximately 15-17 significant *decimal* digits. However, due to the amount of memory allocated per element in an array, double-precision variables  can consume a lot of more memory.
+Double variables can represent numerical values with approximately 15-17 significant *decimal* digits. However, due to the amount of memory allocated per element in an array, double-precision variables can consume a lot more memory.
 
 In MATLAB, you can see how much memory a double precision variable consumes with the following examples:
 
@@ -245,8 +245,9 @@ The variable *`var_single`* contains the output from the conversion of the varia
 
 ```matlab title="variable class"
 whos('var_single')
-  Name      	Size      Bytes  Class     Attributes
-  var_single	1x10        40 	single     
+  Name            Size            Bytes  Class     Attributes
+
+  var_single      1x10               40  single              
 ```
 
 Note that *`var_single`* requires only half of the Bytes (40) that *`c`* requires, even though it contains the exact same values (`1:10`). (1)
@@ -256,15 +257,15 @@ Note that *`var_single`* requires only half of the Bytes (40) that *`c`* require
 
 ### Integers
 
-**Integer Class**. Integer class variables can store only whole numbers in each element. Integer classes typically require far less memory per element than floating class. However, they can only handle a small range of values, such as 0-255.
+**Integer Class**. Integer class variables can store only whole numbers in each element. Integer classes typically require far less memory per element than floating classes. However, they can only handle a small range of values, such as 0-255.
 
-Digital Images are often stored in an unsigned integer class. The most common ones that we will be using for digital images are [uint8] and [uint16].
+Digital images are often stored in an unsigned integer class. The most common ones that we will be using for digital images are [uint8] and [uint16].
 
 ![Table of Integer classes][MATLAB_numeric_classes]{width=400px}
 
 [MATLAB_numeric_classes]: images/numeric_classes.png
 
-There are other integer classes ([int8](http://www.mathworks.com/help/matlab/ref/int8.html){target="_blank"}, [int16](http://www.mathworks.com/help/matlab/ref/int16.html)){target="_blank"}, which are signed (i.e. can have negative values), but we will not use these classes in this tutorial.
+There are other integer classes ([int8](http://www.mathworks.com/help/matlab/ref/int8.html){target="_blank"}, [int16](http://www.mathworks.com/help/matlab/ref/int16.html){target="_blank"}), which are signed (i.e. can have negative values), but we will not use these classes in this tutorial.
 
 #### Memory Considerations
 
@@ -276,7 +277,7 @@ For example, let's convert *`c`* into an unsigned 8-bit integer:
 var8 = uint8(c)
 ```
 
-*`var8`* is now an integer class
+*`var8`* is now an integer class.
 
 ```matlab title="result"
 var8 =
@@ -288,12 +289,12 @@ var8 =
 
 ```matlab title="whos output"
 whos('var8')
-
   Name      Size            Bytes  Class    Attributes
-  var8         1x10               10  uint8              
+
+  var8      1x10               10  uint8              
 ```
 
-Compared to the  *double `c`*, or the  *single `var_single`*, the  *uint8 `var8`* requires only 10 bytes of memory. This is because *uint8* arrays require only 1 byte of memory per element.
+Compared to the *double `c`*, or the *single `var_single`*, the *uint8 `var8`* requires only 10 bytes of memory. This is because *uint8* arrays require only 1 byte of memory per element.
 
 #### Integer Saturation
 
@@ -311,12 +312,12 @@ f =
 
 ```matlab title="whos output"
 whos('f')
-
   Name      Size            Bytes  Class    Attributes
-  f         1x1                 1  uint8    
+
+  f         1x1                 1  uint8              
 ```
 
-Notice that when I converted 1 septillion to an 8-bit unsigned integer, the value was clipped to `255` and the variable (*`f`*) was allocated 1 byte of memory.
+Notice that when you convert 1 septillion to an 8-bit unsigned integer, the value is clipped to `255` and the variable (*`f`*) is allocated 1 byte of memory.
 
 Remember, for an 8-bit unsigned integer, the maximum value you can have is `255`. In computer memory, an 8-bit integer has only 8 positions to store each bit. So, in binary, `255` would be represented as follows:
 
@@ -353,7 +354,7 @@ For a more detail discussion of Integer and Single-Precision Math, please refer 
 
 ##### Challenge 2
 
-??? question "What do you think will happen if you add a 200 more to *`b`*? i.e *`b`* + 200?"
+??? question "What do you think will happen if you add 200 more to *`b`*? i.e. *`b`* + 200?"
 
     The last three elements will be saturated (clamped to 255)
 
@@ -362,7 +363,7 @@ For a more detail discussion of Integer and Single-Precision Math, please refer 
 
     b =
 
-      222  224  236  252  255  255  255
+      212  214  226  242  255  255  255
     ```
 
 ??? question "What do you think will happen if you subtract `10` from `a`? i.e. `a-10`?"
@@ -381,7 +382,7 @@ For a more detail discussion of Integer and Single-Precision Math, please refer 
 
 The character class handles characters (letters, numbers, spaces, etc.). So, how are characters stored in computer memory using binary?
 
-The answer is **ASCII**. [ASCII](http://en.wikipedia.org/wiki/Ascii){target="_blank"} stands for the "American Standard Code for Information Interchange". That's right. America. ASCII is a "character encoding scheme" (basically a look-up table) where each character of text has a numeric equivalent. So, any text that you see on a computer screen (or on your phone) has a numeric equivalent, even the commas, periods and emojis. And even the *characters* for numeric digits, like `'1'`.
+The answer is **ASCII**. [ASCII](http://en.wikipedia.org/wiki/Ascii){target="_blank"} stands for the "American Standard Code for Information Interchange". That's right. America. ASCII is a "character encoding scheme" (basically a look-up table) where each character of text has a numeric equivalent. So, any text that you see on a computer screen (or on your phone) has a numeric equivalent, even the commas and periods. And even the *characters* for numeric digits, like `'1'`.
 
 For example, the character `'1'` is stored in memory as follows:
 
@@ -486,7 +487,7 @@ ans =
 You can also type cast an integer array into a character array using the function *char*
 
 ```matlab
->> char([111    104     32    121    101     97    104])
+char([111    104     32    121    101     97    104])
 
 ans =
 
@@ -504,7 +505,7 @@ char(64)
 ```matlab title="result"
 ans =
 
-@
+    '@'
 ```
 
 Similarly, an array of numbers...
@@ -534,8 +535,9 @@ c = upper(b) % convert to upper case
 
 ```matlab title="result"
 b =
+
     'abcdef'
-  
+
 c =
 
     'ABCDEF'
@@ -631,10 +633,14 @@ The resultant logical array, *`l`*, has the same dimensions as *`k`*, but has on
 
 ```matlab title="result"
 k =
+
     -2    -1     0     1     2
 
 l =
-     1     1     0     1     1
+
+  1×5 logical array
+
+   1   1   0   1   1
 ```
 
 Note that only the zero from *k* was converted to a `FALSE`. The rest of the numbers were converted to `TRUE`. You can do something similar with a character array:

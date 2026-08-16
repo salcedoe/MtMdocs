@@ -8,7 +8,7 @@ In this module, we cover the basics of assigning fundamental data types to varia
 
 ### Special Characters Used
 
-- `=` - **Equal Sign**. A.k.a, the Assignment operator. Used to assign data to a variable.
+- `=` - **Equal Sign**. A.k.a., the Assignment operator. Used to assign data to a variable.
 - `[ ]` - **Square Brackets**. Used to concatenate (or group) numbers or logical values into one variable
 - `' '` - **Single Quotes**. Used to indicate Characters or concatenate multiple characters together.
 
@@ -71,6 +71,7 @@ ans =
 
     'a'
 ```
+
 Now we have the value 'a' assigned to *`ans`*. We didn't get a new variable, we just overwrote the previous contents of *`ans`*. If you review the Workspace, you will see that the `100` is nowhere to be found.
 
 ![workspace ans a](images/array-ans-a.png){ width="400"}
@@ -84,9 +85,10 @@ To do so, you use the following [syntax](http://en.wikipedia.org/wiki/Syntax_(pr
 `name_of_variable = value_of_variable`
 
 Assignment Conventions:
+
 - the variable receiving the data is always on the left side of the equal sign.
-- The data to be assigned is always on the right side of the equation.
-- If the variable doesn't exist,  MATLAB creates one (of the appropriate class)
+- The data to be assigned is always on the right side of the equal sign.
+- If the variable doesn't exist, MATLAB creates one (of the appropriate class).
 
 Type the following in the Command Window:
 
@@ -99,14 +101,6 @@ c = true
 …These three lines of code create the three different variables with three different data types. Notice that the character array is colored pink.
 
 Review the properties of these variables in the workspace:
-
-<!--```matlab title="whos"
-  Name      Size            Bytes  Class      Attributes
-
-  a         1x1                 8  double               
-  b         1x1                 2  char                 
-  c         1x1                 1  logical              
-```-->
 
 !!! note "Review the Workspace"
     ![array vars workspace](images/array-assignment-workspace.png){ width="450"}
@@ -152,10 +146,10 @@ To concatenate characters, we use the single quotes, as follows
     g = '$?_%' % concatenating four characters
     ```
 
-    ```matlab
+    ```matlab title="result"
     f =
 
-    'zx'
+        'zx'
 
     g =
 
@@ -174,10 +168,10 @@ To concatenate characters, we use the single quotes, as follows
     d2 = [11 12 15]
     ```
 
-    ```matlab
+    ```matlab title="result"
     d2 =
 
-    11    12    13
+        11    12    15
     ```
 
 ### Copying data
@@ -213,7 +207,7 @@ Sometimes we want to add new elements to a variable that already exists. To do t
 !!! tip
     Remember the convention: Data is always extracted from the variable name to the right of the `equal sign` and added to the variable name that is to the left of the `equal sign`.
 
-For example, the variable *`h`* currently contains the following characters: `$?_%` — a well known expletive in the comic book world. But, we forgot to include the most important part: the exclamation point at the end. No worries, we can add a character to *`h`* as follows:
+For example, the variable *`h`* currently contains the following characters: `$?_%` — a well-known expletive in the comic book world. But, we forgot to include the most important part: the exclamation point at the end. No worries, we can add a character to *`h`* as follows:
 
 ```matlab linenums="1" title="Add exclamation point to end"
 h = [h '!'] % h on both sides of assignment operator
@@ -288,7 +282,7 @@ As you can see, we generated a lot of data in a very little amount of time. The 
 
 !!! info "Function: **size**"
 
-    The function **[size](https://www.mathworks.com/help/matlab/ref/double.size.html){target="_blank"}** returns the array dimension size of a variable (so you can get the values programmatically instead of having to refer to the workspace)
+    The function **[size](https://www.mathworks.com/help/matlab/ref/size.html){target="_blank"}** returns the array dimension size of a variable (so you can get the values programmatically instead of having to refer to the workspace)
 
     ```matlab linenums="1"
     size(b)
@@ -312,7 +306,7 @@ The function **[ismatrix][mlb-ref-ismatrix]** reports whether a variable is a 2D
     size(g)
     ```
 
-    hint, review the **`whos`** output
+    Hint, review the **`whos`** output
 === "Answer"
 
     ```matlab title="result"
@@ -324,7 +318,7 @@ The function **[ismatrix][mlb-ref-ismatrix]** reports whether a variable is a 2D
 
 ## Variable Names Rules
 
-### Capitalization matters
+### Capitalization Matters
 
 MATLAB is case-sensitive, which means a capital letter creates a different variable name than a lowercase letter. Consider the following:
 
@@ -350,7 +344,7 @@ Here, I use the function **`whos`** to display the contents of the workspace in 
 
 <!--![](images/naming_var_workspace.png)-->
 
-### Valid Array Names
+### Valid Variable Names
 
 You can't just willy-nilly name your variable whatever you want. MATLAB has [rules](https://www.mathworks.com/help/matlab/matlab_prog/variable-names.html){target="_blank"} that you must follow.
 
@@ -381,8 +375,9 @@ In the workspace, there is now a variable called *`monkey_brains_2`* with an ass
     ```
 
     ```matlab title="result"
-    ans = 
-	    63
+    ans =
+
+        63
     ```
     The result 63 indicates the longest number of characters that your variable name can have—not that you will ever want a variable name that long, but it's possible. This value varies depending on the operating system.
 
@@ -390,7 +385,7 @@ In the workspace, there is now a variable called *`monkey_brains_2`* with an ass
 
 When coming up with variable names, you should try to avoid names that are already reserved by MATLAB.
 
-!!! info "Function: exist "
+!!! info "Function: exist"
 
     The MATLAB function **[exist][mlb-ref-exist]** tells you if a variable name is already being used. The basic syntax is to type `exist` followed by a space and then the name in which you are interested in testing
 
@@ -400,7 +395,8 @@ When coming up with variable names, you should try to avoid names that are alrea
 
     ```matlab title="result"
     ans =
-	 5
+
+        5
     ```
     Any result greater than zero means that the name is reserved. So, a result of 5 here means that the word **`function`** is a reserved name used by MATLAB. In contrast, when you type:
 
@@ -409,12 +405,13 @@ When coming up with variable names, you should try to avoid names that are alrea
     ```
 
     ```matlab title="result"
-    ans = 
-	0
+    ans =
+
+        0
     ```
     The output from *`exist`* here is 0 (or false) means that the name *`monkey_brains_4`* is not currently being used by MATLAB and is free for the taking.
 
-### Challenge: Function exist
+#### Challenge: Function exist
 
 === "Question"
 
