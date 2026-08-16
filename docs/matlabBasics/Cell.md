@@ -55,7 +55,7 @@ All right. So we already figured out how to store numbers, characters, and boole
 
 Well, while very useful, the fundamental data types have certain restrictions that at times can become onerous for use at scale. For example, when storing *rows* of characters in a character array (i.e. a character *matrix*), you need to pad the array with empty spaces so that the number of columns is the same across all rows in the character matrix. This gets complicated when you are trying to store a series of characters, like names.
  
-Now, the function **`char`** can simplify  this process.
+Now, the function **`char`** can simplify this process.
 
 !!! example "Example: Using char to pad character matrices"
 
@@ -82,7 +82,7 @@ But, while **`char`** easily manages the padding,  we would need to run this fun
 
 Cell arrays solve these problems by eliminating the need for a single value (number, character, or boolean) in each element of the array. Instead, you can have a whole *array* in a single element of a cell array. To differentiate this functionality, elements in cell arrays are also known as *cells*.
 
-Each cell of a cell array is like a box into which you can stuff other arrays—*even other cell arrays*. This can be very useful for organizing information, but can sometimes make indexing a bit of a pain.  
+Each cell of a cell array is like a box into which you can stuff other arrays—*even other cell arrays*. This can be very useful for organizing information, but can sometimes make indexing a bit of a pain.
 
 ## Cell Array Assignment
 
@@ -183,7 +183,7 @@ cell_ar =
            {[1]}    {'a'}    {[1]}    {[0]}
 ```
 
-…Here, we use the curly brackets to concatenate four separate values: into a cell array: a number, a character, and two logical values, true and false. This syntax packages the values into separate cells of a cell array. Notice that the output in the command window has the value in each cell surrounded by both a square bracket (or single quotes) and a curly bracket. This means that each value is individually packaged into a separate element of the cell array.
+…Here, we use the curly brackets to concatenate four separate values into a cell array: a number, a character, and two logical values, true and false. This syntax packages the values into separate cells of a cell array. Notice that the output in the command window has the value in each cell surrounded by both a square bracket (or single quotes) and a curly bracket. This means that each value is individually packaged into a separate element of the cell array.
 
 ### Concatenating Cell Arrays
 
@@ -249,7 +249,7 @@ We can do the same with numeric or logical arrays.
         {0×0 double } % empty array
     ```
     
-    As you can see, what we get is a cell array with six different rows and one column. In each row, there is different array of varying dimensions  including one empty array
+    As you can see, what we get is a cell array with six different rows and one column. In each row, there is a different array of varying dimensions, including one empty array.
 
 ---
 
@@ -272,7 +272,7 @@ ans =
         {[    1]}    
 ```
 
-… This syntax returns the first two cells from the cell array as a new, smaller, 2x1 cell array. This type of syntax should feel familiar. This is how we index fundamental data types, which also returns smaller versions of the original arrays.  
+… This syntax returns the first two cells from the cell array as a new, smaller, 2x1 cell array. This type of syntax should feel familiar. This is how we index fundamental data types, which also returns smaller versions of the original arrays.
 
 ---
 
@@ -294,32 +294,31 @@ ans =
 
 What happens when we use the curly brackets to extract content from multiple cells?
 
-Let's have a look. The following syntax extracts the contents from cells 2 through 4 in *`ca`*:
+Let's have a look. The following syntax extracts the contents from cells 1 through 3 in *`ca`*:
 
 ```matlab linenums="1" title="Curly Bracket of multiple cells returns a Comma-Separated List"
 ca{1:3}
 ```
 
-```matlab 
+```matlab
 ans =
         'Ab'
 
 ans =
-        2     3
+        1
 
 ans =
-        1×2 logical array
-        1   0
+        2     3
 ```
 
-…When we index multiple cells using the curly brackets, we get the contents of each cell, spit out, one after the other, into the workspace, overwriting *`ans`* each time. Here we get the contents of the first cell, `'Ab'`, followed by the contents of the second cell, `[2 3]`, followed by the contents of the third cell, `[1 0]`. Notice that *`ans`* ends up assigned only the 1x2 logical array , `[1 0]`.
+…When we index multiple cells using the curly brackets, we get the contents of each cell, spit out, one after the other, into the workspace, overwriting *`ans`* each time. Here we get the contents of the first cell, `'Ab'`, followed by the contents of the second cell, `1`, followed by the contents of the third cell, `[2 3]`. Notice that *`ans`* ends up assigned only the 1x2 numeric array, `[2 3]`.
 
 !!! note "comma-separated lists"
     Using the curly brackets to index out multiple cells returns what is known as a "comma-separated list" (even though there are no commas). This simply means that the contents from each cell are spit out, one after the other, into the workspace.  Such an output makes sense from a general point of view, as there is no guarantee that the contents from a given cell in a cell array can be concatenated with the contents from any other elements of the same cell array.
 
 #### The trouble with Curly Bracket indexing
 
-So we can extract the contents from  multiple cells using the curly brackets. How do we concatenate that data into a new variable? Turns out, its a little tricky.
+So we can extract the contents from multiple cells using the curly brackets. How do we concatenate that data into a new variable? Turns out, it's a little tricky.
 
 If the contents of the cell arrays are the same type, we can use the Square Brackets to concatenate the contents. For example, in *`ca`*, cells 2 and 3  contain numeric arrays. We can extract that data using the curly brackets and then concatenate the data using square brackets, as follows:
 
@@ -334,7 +333,7 @@ ans =
 
 This syntax just jams all of the numeric values into one numeric array. Which may be what you want. But not always.
 
-Consider the names90 cell array that we created at the top of this module
+Consider the names90s cell array that we created at the top of this module
 
 ```matlab linenums="1"
 names90s = {'Jessica'; 'Ashley'; 'Emily'; 'Samantha'}
@@ -343,7 +342,7 @@ names90s = {'Jessica'; 'Ashley'; 'Emily'; 'Samantha'}
 We can extract contents from all cells as a comma-separated list using the following syntax
 
 ```matlab linenums="1" title="Extract All Content as comma-separated list"
-names90{:} % extract all elements
+names90s{:} % extract all elements
 ```
 
 ```matlab
@@ -363,7 +362,7 @@ ans =
 But if we try to concatenate this content using the square brackets…
 
 ```matlab linenums="1" title="Extract and Concatenate"
-[names90{:}] % note the square brackets 
+[names90s{:}] % note the square brackets
 ```
 
 ```matlab title="result"
@@ -427,7 +426,7 @@ Since you can put *anything* in each cell of the array, you can't easily extract
 
      2     3
     ```
-    You get a 2X1 numeric vector . 
+    You get a 1x2 numeric vector.
 
 ---
 
