@@ -142,7 +142,7 @@ ans =
    119
 ```
 
-…Note how using dot notation returns a numeric array (*`ans`* is a double). When you use *dot notation*,  you are extracting the data type that is stored in the table variable from that column.
+…Note how using dot notation returns a numeric array (*`ans`* is a double). When you use *dot notation*, you are extracting the data type that is stored in the table variable from that column.
 
 So, the best way to think of a table is a data type that combines and organizes other data types, like cell arrays and numeric arrays.
 
@@ -182,17 +182,17 @@ As expected, indexing with parentheses returns a smaller table.
 
       5×1 table
 
-                    Weight
+                    Height
                     ______
 
-        Smith        176  
-        Johnson      163  
-        Williams     131  
-        Jones        133  
-        Brown        119  
+        Smith         71  
+        Johnson       69  
+        Williams      64  
+        Jones         67  
+        Brown         64  
     ```
 
-    Since we indexed with the parentheses, the output is a smaller table with just the Weight column, but all row names included.
+    Since we indexed with the parentheses, the output is a smaller table with just the Height column, but all row names included.
     
 !!! example "Index Row from a Table variable"
 
@@ -256,7 +256,7 @@ Although Dot notation is usually simpler than Curly Bracket to extract a column 
         64   119
     ```
 
-    …Note, this only works for columns that share the same data type (like numeric arrays)
+    …Note, this only works for columns that share the same data type (like numeric arrays).
 
 ### Indexing by Column Name
 
@@ -291,7 +291,7 @@ Another useful feature for tables is the ability to index by the column or row h
     Since we named our rows, we can use row names to index as well:
 
     ```matlab
-    >>T({'Johnson','Jones'},:)
+    T({'Johnson','Jones'},:)
     ans = 
                   Age    Height    Weight    BloodPressure
                   ___    ______    ______    _____________
@@ -308,11 +308,11 @@ Another useful feature for tables is the ability to index by the column or row h
 
 === "Question 1"
 
-    Show the syntax to index *`T`* and get a smaller table with the just the first three rows in it.
+    Show the syntax to index *`T`* and get a smaller table with just the first three rows in it.
 
 === "Answer 1"
 
-    *Show the syntax to index *`T`* and get a smaller table with the just the first three rows in it.*
+    Show the syntax to index *`T`* and get a smaller table with just the first three rows in it.
 
     To do this, you need to use parentheses, as follows
 
@@ -333,10 +333,10 @@ Another useful feature for tables is the ability to index by the column or row h
         Williams    38       64       131       125     83  
     ```
 === "Question 2"
-    Show the Syntax to return the data from the "BloodPressure" Column in *`T`*.
+    Show the syntax to return the data from the "BloodPressure" Column in *`T`*.
 
 === "Answer 2"
-    *Show the Syntax to return the data from the "BloodPressure" Column in *`T`**.
+    Show the syntax to return the data from the "BloodPressure" Column in *`T`*.
 
     You simply use dot notation, as follows:
 
@@ -354,10 +354,10 @@ Another useful feature for tables is the ability to index by the column or row h
       122    80
     ```
 === "Question 3"
-    Show the Syntax to return just the first column of data from the "BloodPressure" Column in *`T`*.
+    Show the syntax to return just the first column of data from the "BloodPressure" Column in *`T`*.
 
 === "Answer 3"
-    *Show the Syntax to return just the first column of data from the "BloodPressure" Column in *`T`*.*
+    Show the syntax to return just the first column of data from the "BloodPressure" Column in *`T`*.
 
     ```matlab
      T.BloodPressure(:,1)
@@ -514,13 +514,19 @@ T.Properties
 ```matlab title="result"
 ans = 
 
+  TableProperties with properties:
+
              Description: ''
+                UserData: []
+          DimensionNames: {'Row'  'Variables'}
+           VariableNames: {'Age'  'Height'  'Weight'  'BloodPressure'}
+           VariableTypes: ["double"    "double"    "double"    "double"]
     VariableDescriptions: {}
            VariableUnits: {}
-          DimensionNames: {'Row'  'Variable'}
-                UserData: []
-                RowNames: {5x1 cell}
-           VariableNames: {'Age' 'Height'  'Weight'  'BloodPressure'}
+      VariableContinuity: []
+                RowNames: {5×1 cell}
+        CustomProperties: No custom properties are set.
+      Use addprop and rmprop to modify CustomProperties.
 ```
 
 …Notice that `T.Properties` returns a *structure* data type. Also, notice that this structure contains metadata fields that describe the table, such as the column headers ("VariableNames") and row headers ("RowNames"). There are also fields where you can add detailed descriptions and units of measure for each column.
@@ -605,17 +611,17 @@ Variables:
     Age: double
     Height: double
     Weight: double
-    BloodPressure: 2-column double
+    BP: 2-column double
 
 Statistics for applicable variables:
 
-                          NumMissing      Min      Median       Max        Mean          Std    
+               NumMissing      Min      Median       Max        Mean          Std    
 
-    Age                       0            38         40         49         41.6        4.6152  
-    Height                    0            64         67         71           67        3.0822  
-    Weight                    0           119        133        176        144.4        23.975  
-    BloodPressure(:,1)        0           109        122        125        119.4        6.5803  
-    BloodPressure(:,2)        0            75         80         93         81.6        7.0569        
+    Age            0            38         40         49         41.6        4.6152  
+    Height         0            64         67         71           67        3.0822  
+    Weight         0           119        133        176        144.4        23.975  
+    BP(:,1)        0           109        122        125        119.4        6.5803  
+    BP(:,2)        0            75         80         93         81.6        7.0569  
 ```
 
 ### Height, Width, and Size functions
@@ -687,14 +693,14 @@ Organizing your data into a table greatly simplifies data analysis. For example,
 
       5×4 table
 
-                    Age    Height    Weight    BloodPressure
-                    ___    ______    ______    _____________
+                Age    Height    Weight        BP    
+                ___    ______    ______    __________
 
-        Brown       49       64       119       122     80  
-        Johnson     43       69       163       109     77  
-        Jones       40       67       133       117     75  
-        Smith       38       71       176       124     93  
-        Williams    38       64       131       125     83  
+        Brown       49       64       119      122     80
+        Johnson     43       69       163      109     77
+        Jones       40       67       133      117     75
+        Smith       38       71       176      124     93
+        Williams    38       64       131      125     83
     ```
 
 We can also sort by column or by multiple columns. The following syntax sorts the table first by height, then by weight:
@@ -710,14 +716,14 @@ We can also sort by column or by multiple columns. The following syntax sorts th
 
       5×4 table
 
-                    Age    Height    Weight    BloodPressure
-                    ___    ______    ______    _____________
+                Age    Height    Weight        BP    
+                ___    ______    ______    __________
 
-        Brown       49       64       119       122     80  
-        Williams    38       64       131       125     83  
-        Jones       40       67       133       117     75  
-        Johnson     43       69       163       109     77  
-        Smith       38       71       176       124     93  
+        Brown       49       64       119      122     80
+        Williams    38       64       131      125     83
+        Jones       40       67       133      117     75
+        Johnson     43       69       163      109     77
+        Smith       38       71       176      124     93
     ```
 
     …now the rows are sorted in ascending order by the height, followed by the weight.
@@ -730,7 +736,7 @@ We can also sort by column or by multiple columns. The following syntax sorts th
 
 === "Answer"
 
-    *What do you think would happen if you just typed: *sortrows(T)*, without any additional inputs?*
+    What do you think would happen if you just typed `sortrows(T)`, without any additional inputs?
 
     ```matlab linenums="1"
     sortrows(T)
@@ -741,14 +747,14 @@ We can also sort by column or by multiple columns. The following syntax sorts th
 
       5×4 table
 
-                    Age    Height    Weight    BloodPressure
-                    ___    ______    ______    _____________
+                Age    Height    Weight        BP    
+                ___    ______    ______    __________
 
-        Williams    38       64       131       125     83  
-        Smith       38       71       176       124     93  
-        Jones       40       67       133       117     75  
-        Johnson     43       69       163       109     77  
-        Brown       49       64       119       122     80  
+        Williams    38       64       131      125     83
+        Smith       38       71       176      124     93
+        Jones       40       67       133      117     75
+        Johnson     43       69       163      109     77
+        Brown       49       64       119      122     80
     ```
 
     The table is sorted by the first column, 'Age', and the output is assigned to the default variable *ans*.
@@ -769,14 +775,14 @@ T =
 
   5×6 table
 
-                Age    Height    Weight    BloodPressure      Sex       Region 
-                ___    ______    ______    _____________    ________    _______
+                Age    Height    Weight        BP          Sex       Region 
+                ___    ______    ______    __________    ________    _______
 
-    Smith       38       71       176       124     93      "Male"      "North"
-    Johnson     43       69       163       109     77      "Male"      "North"
-    Williams    38       64       131       125     83      "Female"    "West" 
-    Jones       40       67       133       117     75      "Female"    "South"
-    Brown       49       64       119       122     80      "Male"      "East" 
+    Smith       38       71       176      124     93    "Male"      "North"
+    Johnson     43       69       163      109     77    "Male"      "North"
+    Williams    38       64       131      125     83    "Female"    "West" 
+    Jones       40       67       133      117     75    "Female"    "South"
+    Brown       49       64       119      122     80    "Male"      "East" 
 ```
 
 …When you add new variables using dot notation, the default is to add these variable at the far right of the table. 
@@ -792,14 +798,14 @@ T =
 
   5×6 table
 
-                  Sex       Region     Age    Height    Weight    BloodPressure
-                ________    _______    ___    ______    ______    _____________
+                  Sex       Region     Age    Height    Weight        BP    
+                ________    _______    ___    ______    ______    __________
 
-    Smith       "Male"      "North"    38       71       176       124     93  
-    Johnson     "Male"      "North"    43       69       163       109     77  
-    Williams    "Female"    "West"     38       64       131       125     83  
-    Jones       "Female"    "South"    40       67       133       117     75  
-    Brown       "Male"      "East"     49       64       119       122     80  
+    Smith       "Male"      "North"    38       71       176      124     93
+    Johnson     "Male"      "North"    43       69       163      109     77
+    Williams    "Female"    "West"     38       64       131      125     83
+    Jones       "Female"    "South"    40       67       133      117     75
+    Brown       "Male"      "East"     49       64       119      122     80
 ```
 
 …and we get a newly reordered table.
@@ -827,17 +833,17 @@ T =
 
   5×6 table
 
-                 Sex      Region    Age    Height    Weight    BloodPressure
-                ______    ______    ___    ______    ______    _____________
+                 Sex      Region    Age    Height    Weight        BP    
+                ______    ______    ___    ______    ______    __________
 
-    Smith       Male      North     38       71       176       124     93  
-    Johnson     Male      North     43       69       163       109     77  
-    Williams    Female    West      38       64       131       125     83  
-    Jones       Female    South     40       67       133       117     75  
-    Brown       Male      East      49       64       119       122     80  
+    Smith       Male      North     38       71       176      124     93
+    Johnson     Male      North     43       69       163      109     77
+    Williams    Female    West      38       64       131      125     83
+    Jones       Female    South     40       67       133      117     75
+    Brown       Male      East      49       64       119      122     80
 ```
 
-…And now, "Sex" and "region" are categorical arrays (notice that there are no double quote delimiters in Sex and Region columns).
+…And now, "Sex" and "Region" are categorical arrays (notice that there are no double quote delimiters in Sex and Region columns).
 
 Running **`summary`** on the updated table confirms these changes:
 
@@ -856,33 +862,35 @@ Variables:
     Age: double
     Height: double
     Weight: double
-    BloodPressure: 2-column double
+    BP: 2-column double
 
 Statistics for applicable variables:
 
-                          NumMissing      Min      Median       Max        Mean          Std    
+               NumMissing      Min      Median       Max        Mean          Std    
 
-    Sex                       0                                                                 
-    Region                    0                                                                 
-    Age                       0            38         40         49         41.6        4.6152  
-    Height                    0            64         67         71           67        3.0822  
-    Weight                    0           119        133        176        144.4        23.975  
-    BloodPressure(:,1)        0           109        122        125        119.4        6.5803  
-    BloodPressure(:,2)        0            75         80         93         81.6        7.0569  
+    Sex            0                                                                 
+    Region         0                                                                 
+    Age            0            38         40         49         41.6        4.6152  
+    Height         0            64         67         71           67        3.0822  
+    Weight         0           119        133        176        144.4        23.975  
+    BP(:,1)        0           109        122        125        119.4        6.5803  
+    BP(:,2)        0            75         80         93         81.6        7.0569  
 ```
 
 ## Applying Functions to Variables
 
 The **`varfun`** function is used to apply a function to multiple columns in a table. You can use **`varfun`** to quickly calculate the statistics for multiple columns. In contrast to the **`summary`** function,  **`varfun`** returns a table data which can then be assigned to a new table variable (as opposed to just printing the result to the command window).
 
-!!! example "Using varfun to calculate the mean for all columns"
+!!! example "Using varfun to calculate the mean of the numeric columns"
 
     The first input into **`varfun`** should be the function handle. Remember a function handle is just the function name preceded by the @ symbol. This basically means to pass the name of the function into another function.
 
-    Since we want to calculate the average of each column, we need to pass in the **`@mean`** function handle. 
+    Since we want to calculate the average of each numeric column, we need to pass in the **`@mean`** function handle.
+
+    Because *`T`* now also contains the categorical columns "Sex" and "Region" (added in the previous sections), we can't just call **`varfun(@mean,T)`** without specifying which columns to use — MATLAB would try, and fail, to calculate the mean of a categorical array. Instead, we use the `'InputVariables'` input to restrict **`varfun`** to just the numeric columns:
 
     ```matlab linenums="1"
-    S = varfun(@mean,T)
+    S = varfun(@mean,T,'InputVariables',{'Age','Height','Weight','BP'})
     ```
 
     ```matlab title="result"
@@ -890,27 +898,27 @@ The **`varfun`** function is used to apply a function to multiple columns in a t
 
       1×4 table
 
-        mean_Age    mean_Height    mean_Weight    mean_BloodPressure
-        ________    ___________    ___________    __________________
+        mean_Age    mean_Height    mean_Weight       mean_BP    
+        ________    ___________    ___________    ______________
 
-          41.6          67           65.499         119.4     81.6  
+          41.6          67            144.4       119.4     81.6
     ```
 
-    The result is a new table *`S`* with the means from the columns in `T`.
+    The result is a new table *`S`* with the means from the numeric columns in `T`.
 
-    Notice that names of the columns in the new table *`S`* are prepended with the name of the function that was applied to the column, e.g. 'mean_age' is the average of the age column in *`T`*
+    Notice that names of the columns in the new table *`S`* are prepended with the name of the function that was applied to the column, e.g. 'mean_Age' is the average of the age column in *`T`*
 
-    This simple call to **`varfun`**, with no additional inputs, worked because all of the columns in *`T`* are numeric arrays. If the table *`T`* had been more complex (e.g. if some of the columns contained string arrays), then we would have needed more inputs to specify precisely which columns we wanted to apply the **`mean`** function.
+    If every column in *`T`* had been numeric (no categorical or string columns), we could have simply called **`varfun(@mean,T)`** with no additional inputs, and MATLAB would have applied the function to every column.
 
 ### Challenge: varfun
 
 === "Question"
 
-    How would you calculate the standard deviation of the columns in *`T`* and assign the result to *`Sstd`*?
+    How would you calculate the standard deviation of the numeric columns in *`T`* and assign the result to *`Sstd`*?
 === "Answer"
 
     ```matlab linenums="1"
-    Sstd = varfun(@std,T)
+    Sstd = varfun(@std,T,'InputVariables',{'Age','Height','Weight','BP'})
     ```
 
     ```
@@ -918,13 +926,11 @@ The **`varfun`** function is used to apply a function to multiple columns in a t
 
       1×4 table
 
-        std_Age    std_Height    std_Weight    std_BloodPressure
-        _______    __________    __________    _________________
+        std_Age    std_Height    std_Weight         std_BP     
+        _______    __________    __________    ________________
 
         4.6152       3.0822        23.975      6.5803    7.0569
     ```
-
-    and this syntax returns the last element in the array, which contains the letter `o`:
 === "Question 2"
     Review the [varfun][doc_varfun] help page.
     
@@ -965,14 +971,14 @@ Grouping Variables are used to group the rows of a table into different categori
 
       5×5 table
 
-                    Age    Height    Weight    BloodPressure     Old 
-                    ___    ______    ______    _____________    _____
+                Age    Height    Weight        BP         Old 
+                ___    ______    ______    __________    _____
 
-        Smith       38       71       176       124     93      false
-        Johnson     43       69       163       109     77      true 
-        Williams    38       64       131       125     83      false
-        Jones       40       67       133       117     75      true 
-        Brown       49       64       119       122     80      true 
+        Smith       38       71       176      124     93    false
+        Johnson     43       69       163      109     77    true 
+        Williams    38       64       131      125     83    false
+        Jones       40       67       133      117     75    true 
+        Brown       49       64       119      122     80    true 
     ```
 
     Now we have a new column in *`T`* called 'Old' and in this column, there is a `true` for any row where the age is greater than 39 and `false` everywhere else.
@@ -989,11 +995,11 @@ We can use the "Old" column as a grouping variable in the function **`varfun`**:
 
       2×6 table
 
-        Old     GroupCount    mean_Age    mean_Height    mean_Weight    mean_BloodPressure
-        _____    __________    ________    ___________    ___________    __________________
+         Old     GroupCount    mean_Age    mean_Height    mean_Weight        mean_BP    
+        _____    __________    ________    ___________    ___________    _______________
 
-        false        2            38           67.5          153.5        124.5        88  
-        true         3            44         66.667         138.33          116    77.333  
+        false        2            38           67.5          153.5       124.5        88
+        true         3            44         66.667         138.33         116    77.333
     ```
 
     After setting the grouping variable to "Old", **`varfun`** now returns a new table (*`S`*) with two rows: one for each category in the Grouping variable (`false` or `true`). The first row contains the average of all rows in `T` that have a `false` in the 'Old' column, while the second row contains the average of all rows in `T` that have a `true` in the 'Old' column.
@@ -1014,7 +1020,7 @@ The most basic function call to **`groupsummary`** is as follows:
  G = groupsummary(T,"Old")
 ```
 
-```title="result"
+```matlab title="result"
 G =
 
   2×2 table
@@ -1040,11 +1046,11 @@ However, **`groupsummary`**  becomes really useful when you want to calculate th
 
       2×6 table
 
-        Old     GroupCount    mean_Age    mean_Height    mean_Weight    mean_BloodPressure
-        _____    __________    ________    ___________    ___________    __________________
+         Old     GroupCount    mean_Age    mean_Height    mean_Weight        mean_BP    
+        _____    __________    ________    ___________    ___________    _______________
 
-        false        2            38           67.5          153.5        124.5        88  
-        true         3            44         66.667         138.33          116    77.333  
+        false        2            38           67.5          153.5       124.5        88
+        true         3            44         66.667         138.33         116    77.333
     ```
 
     …Here we get the mean for each column. Note, this only works because all of the other columns in the table are numeric.
@@ -1142,14 +1148,14 @@ Taking this into consideration, we can convert our "*Weight*" Column to kilogram
 
       5×5 table
 
-                    Age    Height    Weight    BloodPressure    Weight_k
-                    ___    ______    ______    _____________    ________
+                Age    Height    Weight        BP        Weight_k
+                ___    ______    ______    __________    ________
 
-        Smith       38       71       176       124     93       79.832 
-        Johnson     43       69       163       109     77       73.936 
-        Williams    38       64       131       125     83       59.421 
-        Jones       40       67       133       117     75       60.328 
-        Brown       49       64       119       122     80       53.977 
+        Smith       38       71       176      124     93     79.832 
+        Johnson     43       69       163      109     77     73.936 
+        Williams    38       64       131      125     83     59.421 
+        Jones       40       67       133      117     75     60.328 
+        Brown       49       64       119      122     80     53.977 
     ```
 
     …This syntax adds a new column called *"Weight_k"* with the properly converted values in kilograms
@@ -1165,14 +1171,14 @@ T =
 
   5×5 table
 
-                Age    Height    Weight    BloodPressure    Weight_k
-                ___    ______    ______    _____________    ________
+                Age    Height    Weight        BP        Weight_k
+                ___    ______    ______    __________    ________
 
-    Smith       38       71      79.832     124     93       79.832 
-    Johnson     43       69      73.936     109     77       73.936 
-    Williams    38       64      59.421     125     83       59.421 
-    Jones       40       67      60.328     117     75       60.328 
-    Brown       49       64      53.977     122     80       53.977 
+    Smith       38       71      79.832    124     93     79.832 
+    Johnson     43       69      73.936    109     77     73.936 
+    Williams    38       64      59.421    125     83     59.421 
+    Jones       40       67      60.328    117     75     60.328 
+    Brown       49       64      53.977    122     80     53.977 
 ```
 
 Then, we could remove the *"Weight_k"* column and update the *"VariableUnits"* property field as follows:
@@ -1187,14 +1193,14 @@ T =
 
   5×4 table
 
-                Age    Height    Weight    BloodPressure
-                ___    ______    ______    _____________
+                Age    Height    Weight        BP    
+                ___    ______    ______    __________
 
-    Smith       38       71      79.832     124     93  
-    Johnson     43       69      73.936     109     77  
-    Williams    38       64      59.421     125     83  
-    Jones       40       67      60.328     117     75  
-    Brown       49       64      53.977     122     80  
+    Smith       38       71      79.832    124     93
+    Johnson     43       69      73.936    109     77
+    Williams    38       64      59.421    125     83
+    Jones       40       67      60.328    117     75
+    Brown       49       64      53.977    122     80
 ```
 
 **Module over** :material-table-furniture:
