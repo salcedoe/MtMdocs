@@ -22,7 +22,7 @@ After completing this module, you should be able to:
 
 - Differentiate between a Character and a String Array.
 - Assign values to string arrays using paired double quotes `" "` and square brackets `[ ]`
-- Index string arrays using both `( )` and `{ }` be able to predict the outcome of each
+- Index string arrays using both `( )` and `{ }`, and be able to predict the outcome of each
 - Manipulate string arrays using mathematical operators such as `+` and logical operators such as `==`
 
 ### Relevant Mathworks Documentation
@@ -37,7 +37,7 @@ After completing this module, you should be able to:
 - `" "` - paired double quotes: for creating string arrays
 - `[ ]` - square brackets: for concatenation
 - `( )` - parentheses: for indexing
-- `{ }` - curly brackets: for extract contents from string array elements
+- `{ }` - curly brackets: for extracting contents from string array elements
 
 ---
 
@@ -55,12 +55,12 @@ chary = char('one fish', 'two fish', 'red fish', 'blue fish')
 
 ```matlab title="result"
 chary =
-        4×10 char array
+        4×9 char array
 
-        'one fish  '
-        'two fish  '
-        'red fish'
-        'blue fish '
+        'one fish '
+        'two fish '
+        'red fish '
+        'blue fish'
 ```
 
 To create character array matrices, we needed the function **`char`** to properly pad the rows of the matrix with enough spaces so that there are an equal number of characters in each row (recall that `space` is a character). But this becomes burdensome rather quickly. For every new row added to a character array, the entire array needs to be re-padded with spaces. Worse, those extraneous spaces in a large character array take up valuable memory for no reason. There had to be a better way.
@@ -84,7 +84,7 @@ celly =
     {'blue fish'}
 ```
  
-And this worked for many years, but it was a kludge. Cell arrays were designed to package disparate variable types into a single variable. It is easy to package things into cell arrays, but harder to get them out. And the indexing is unnecessarily complex. Worse, due to its promiscuous proclivities (you can store *anything* in a cell array), the cell class has large memory overhead and few functions designed specifically for managing character arrays.  
+And this worked for many years, but it was a kludge. Cell arrays were designed to package disparate variable types into a single variable. It is easy to package things into cell arrays, but harder to get them out. And the indexing is unnecessarily complex. Worse, due to its promiscuous proclivities (you can store *anything* in a cell array), the cell class has large memory overhead and few functions designed specifically for managing character arrays.
 
 ## String Array Rising
 
@@ -107,7 +107,7 @@ stringy =
         "blue fish"
 ```
 
-…Notice here that we used the transpose operator `'` to orient our new string array, *`stringy`*, as a column vector. Also notice that *`stringy`* requires less bytes to store in memory than *`celly`*: 336 vs 518 bytes, a more than 60% reduction in memory requirement.
+…Notice here that we used the transpose operator `'` to orient our new string array, *`stringy`*, as a column vector. Also notice that *`stringy`* requires less bytes to store in memory than *`celly`*: 320 vs 546 bytes, a more than 40% reduction in memory requirement.
 
 ### Indexing String arrays
 
@@ -138,7 +138,7 @@ ans =
       'one fish' % the character array contents from the first element
 ```
 
-…Here, we can tell that *`ans`* is a character array because the outputted result is bracketed by single quotes:  `'one fish'` (or, by examining the properties of *`ans`* in the workspace)
+…Here, we can tell that *`ans`* is a character array because the outputted result is bracketed by single quotes: `'one fish'` (or, by examining the properties of *`ans`* in the workspace).
 
 We can use keywords, such as `end`, to return a string element, as follows:
 
@@ -189,7 +189,7 @@ stringy =
         "new fish"
 ```
 
-…Notice the use of recursive assignment, where the variable name `stringy` appears on both sides of the assignment operator `=`. This means overwrite `stringy` with a new version of itself that contains all of its original elements, plus a bunch of fun new string elements (four new elements, to be precise). Also notice the use of semi-colons to indicate the addition of elements vertically.
+…Notice the use of recursive assignment, where the variable name `stringy` appears on both sides of the assignment operator `=`. This means we overwrite `stringy` with a new version of itself that contains all of its original elements, plus a bunch of fun new string elements (four new elements, to be precise). Also notice the use of semi-colons to indicate the addition of elements vertically.
 
 ### String array 'arithmetic'
 
@@ -297,7 +297,7 @@ You can also use relational operations on a string array in an intuitive manner.
             1
     ```
 
-    …here, only elements 4 and 6 match 'blue fish,'.  Elements 1,2,3,5,7, and 8 do NOT match.
+    …here, only elements 4 and 6 match 'blue fish,'. Elements 1, 2, 3, 5, 7, and 8 do NOT match.
 
 Notice that in the above examples, we are matching the entire contents of each element in *`stringy`* to the character array. If they don't match precisely, we won't get a match.
 
@@ -319,7 +319,7 @@ ans =
         0
 ```
 
-... The syntax above finds no matches because we didn't include the `,` in the character array at the end of the character array 'blue fish'.
+…The syntax above finds no matches because we didn't include the `,` in the character array at the end of the character array 'blue fish'.
 
 ---
 
@@ -468,7 +468,7 @@ Sometimes you need to clean up extraneous characters from a string array.  For e
 orig_string = "Patella, Professor <professor.patella@university.edu>; Synapse, Sydney <sydney.synapse@university.edu>; Humerus, Harry <harry.humerus@university.edu>; Quadratus, Quentin <quentin.quadratus@university.edu>; Ligament, Linus <linus.ligament@university.edu>; Cortex, Chancellor <chancellor.cortex@university.edu>; Lymph, Lyndsay <lyndsay.lymph@university.edu>; Dendrite, Doctor <doctor.dendrite@university.edu>; Sarcomere, Sarah <sarah.sarcomere@university.edu>; Endothelium, Emmett <emmett.endothelium@university.edu>"
 ```
 
-This is a common formatting style you might encounter if you copy a batch of emails from an email app, like Outlook.  
+This is a common formatting style you might encounter if you copy a batch of emails from an email app, like Outlook.
 
 The string of emails are formatted with the name followed by the email, like this:
 
@@ -476,7 +476,7 @@ The string of emails are formatted with the name followed by the email, like thi
 
 And each Name-Email pair is separated by a semi-colon
 
-If you want to copy this information to say a spreadsheet, you would probably want to reformat the string  to get rid of all the extraneous characters, like the comma, the < >, and the semi-colons. Then move each Name-Email pair to a separate row. And then, have the First and Last Names and the emails in separate columns. Something more like this:
+If you want to copy this information to say a spreadsheet, you would probably want to reformat the string to get rid of all the extraneous characters, like the comma, the < >, and the semi-colons. Then move each Name-Email pair to a separate row. And then, have the First and Last Names and the emails in separate columns. Something more like this:
 
 | First | Last | email |
 | ---  | ---   | ---   |
@@ -518,7 +518,7 @@ Next up, we separate the first and last names and emails from each other, again 
 ```matlab linenums="1" title="split First and Last Names"
 S_cols = split(S_rows,{', ',' '}) % multiple delimiters
 ```
-…**split**  allows you to enter multiple delimiters, packaged as a cell array. Here we enter two delimiters: `, ` and ` `.  (`comma-space` and `space`).
+…**split** allows you to enter multiple delimiters, packaged as a cell array. Here we enter two delimiters: `, ` and ` `. (`comma-space` and `space`).
 
 ```matlab title="split result"
 S_cols = 
@@ -591,7 +591,7 @@ Et voila, a nicely formatted string that we can copy into a spreadsheet file or 
 
 After nicely formatting the string, you realize that you got the email domain wrong. These are students from the for-profit wing of your educational enterprise and as such, should have college.com for their email domain.
 
-??? question " How would you replace "university.edu" for "college.com" in S?"
+??? question "How would you replace 'university.edu' with 'college.com' in S?"
 
     Easy-Peasy. You simply use the function **replace**, as follows:
 
