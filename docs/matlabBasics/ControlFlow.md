@@ -14,15 +14,15 @@ Control flow is the flow chart of computer programming. Control Flow allow you t
 
 ### Somewhat Useful MATLAB Documentation
 
-- [Loops and Conditional Statements](https://www.mathworks.com/help/matlab/control-flow.html'){target="_blank"}
+- [Loops and Conditional Statements](https://www.mathworks.com/help/matlab/control-flow.html){target="_blank"}
 
-- [if, elseif, else](https://www.mathworks.com/help/matlab/ref/if.html'){target="_blank"}
+- [if, elseif, else](https://www.mathworks.com/help/matlab/ref/if.html){target="_blank"}
 
-- [for loops](https://www.mathworks.com/help/matlab/ref/for.html'){target="_blank"}
+- [for loops](https://www.mathworks.com/help/matlab/ref/for.html){target="_blank"}
 
-- [while loops](https://www.mathworks.com/help/matlab/ref/while.html'){target="_blank"}
+- [while loops](https://www.mathworks.com/help/matlab/ref/while.html){target="_blank"}
 
-- [switch, case, otherwise](https://www.mathworks.com/help/matlab/ref/switch.html'){target="_blank"}
+- [switch, case, otherwise](https://www.mathworks.com/help/matlab/ref/switch.html){target="_blank"}
 
 ### Keywords you should know
 
@@ -32,16 +32,16 @@ Control flow is the flow chart of computer programming. Control Flow allow you t
 - else
 - case
 - otherwise
-- [end](https://www.mathworks.com/help/matlab/ref/end.html'){target="_blank"}
-- [return](https://www.mathworks.com/help/matlab/ref/return.html'){target="_blank"}
-- [continue](https://www.mathworks.com/help/matlab/ref/continue.html'){target="_blank"}
-- [break](https://www.mathworks.com/help/matlab/ref/break.html'){target="_blank"}
+- [end](https://www.mathworks.com/help/matlab/ref/end.html){target="_blank"}
+- [return](https://www.mathworks.com/help/matlab/ref/return.html){target="_blank"}
+- [continue](https://www.mathworks.com/help/matlab/ref/continue.html){target="_blank"}
+- [break](https://www.mathworks.com/help/matlab/ref/break.html){target="_blank"}
 
 ### Terminology you should know
 
 - **Control Flow:** the process of creating conditional statements or looping statements.
 
-- **Conditional Statement:** A statement used determine which block of code to execute at run time
+- **Conditional Statement:** A statement used to determine which block of code to execute at run time
 
 - **Looping Statement:** A statement designed to repeatedly execute a block of code
 
@@ -107,7 +107,7 @@ IF, ELSE statements are the simplest and most straight forward of the conditiona
     >**end**
 
     - **Required keywords:** `if` and `end`. 
-    - **Optional keywords:** `else` and `elseif`. `else` must be the last keyword before `end`/
+    - **Optional keywords:** `else` and `elseif`. `else` must be the last keyword before `end`.
     - **Expression:** a statement that can resolve to a `0` or non-zero (e.g. a logical operation). Expressions immediately follow the keywords `if` and `elseif`. `else` and `end` do not have expressions.
     - **Code block:** the line(s) of code that follow a key word line (except `end`). The code that is run if the immediately preceding expression resolves to a non-zero value. If none of the expressions resolve to a non-zero value, then the code block after the `else` line is run.
     - **Evaluation order:** each expression is evaluated sequentially starting from the `if` line. Once an expression resolves to a non-zero value, the subsequent code block is executed and the IF ELSE statement is exited (no other expression is even checked)
@@ -168,17 +168,17 @@ Consider the following example:
     === "Answer"
     
         ```matlab linenums="1" title="Updated IF ELSE statement"
-        IF RESPONSE == ""
+        if RESPONSE == ""
             student = "absent"
-        ELSE
+        else
             student = "present"
-        END
+        end
         ```
         Here, when *`RESPONSE`* is empty, *`student`* is set to "absent". If  *`RESPONSE`* contains anything,  *`student`* is set to "present". 
 
 #### Organizing Multiple ELSE IFs
 
-It is important to remember that in an IF ELSE statement, each expression is evaluated sequentially. Once an expression evaluates to TRUE (or a non-zero number), all subsequent expressions are ignored. So, when you are creating an IF ELSE statement, it is critical to think about the order of the expressions to make sure each expression gets it's fair shake.
+It is important to remember that in an IF ELSE statement, each expression is evaluated sequentially. Once an expression evaluates to TRUE (or a non-zero number), all subsequent expressions are ignored. So, when you are creating an IF ELSE statement, it is critical to think about the order of the expressions to make sure each expression gets its fair shake.
 
 The following example contains multiple expressions to test the property of a number stored in *`x`*. Here we make extensive use the [**`mod`**](https://www.mathworks.com/help/matlab/ref/double.mod.html){target="_blank"} function, which returns the remainder after division (modulo operation). This is a very useful function to help identify even or odd numbers , or even perfect squares and powers of two (1).
 { .annotate}
@@ -212,7 +212,7 @@ fprintf('%d is %s\n', x, str) % fprintf outputs directly to the command window
 
 So, for the value `19`, the `isprime(x)` expression would resolve to true, and *`str`* would be set to 'a prime number' because 19 is a prime number. No other expressions would be tested.
 
-For the value `9`, the first expression would resolve to FALSE (`9` is not prime), but the second expression would resolve to TRUE, and *`str`* would be set to 'a perfect square` (1). The third expression would be ignored.
+For the value `9`, the first expression would resolve to FALSE (`9` is not prime), but the second expression would resolve to TRUE, and *`str`* would be set to 'a perfect square' (1). The third expression would be ignored.
 { .annotate }
 
 1. `9` is of course a perfect square: `3 x 3`
@@ -255,7 +255,7 @@ For the value `9`, the first expression would resolve to FALSE (`9` is not prime
             str = 'a prime number';
         elseif ~mod(sqrt(x),1) % tests for perfect squares
             str = 'a perfect square';
-        elseif ~mod(log2(x),1) % tests for powers of2
+        elseif ~mod(log2(x),1) % tests for powers of 2
             str = 'a power of 2!';
         elseif mod(x,2) % tests for odd numbers 
             str = 'odd';
@@ -276,7 +276,7 @@ You use SWITCH, CASE statmements when you just want to match the variable conten
 
 !!! abstract "Anatomy of a SWITCH CASE statement"
 
-    SWITCH CASE statements use the `switch` and `case` key words. These Conditional Statements execute depending on the value of the indicated  *variable*. If the value in *variable* matches the value in one of the CASE lines, then corresponding block of code is executed. If there are multiple matches, only the first match is executed. If there is no match, the code block following the **otherwise** keyword is executed. The **otherwise** keyword is optional, and if not included, and there is not match, the SWITCH CASE statement simply exits and runs no code blocks.
+    SWITCH CASE statements use the `switch` and `case` key words. These Conditional Statements execute depending on the value of the indicated  *variable*. If the value in *variable* matches the value in one of the CASE lines, then the corresponding block of code is executed. If there are multiple matches, only the first match is executed. If there is no match, the code block following the **otherwise** keyword is executed. The **otherwise** keyword is optional, and if not included, and there is no match, the SWITCH CASE statement simply exits and runs no code blocks.
 
     >**switch** *variable*
     >>**case** *value 1*
@@ -296,7 +296,7 @@ You use SWITCH, CASE statmements when you just want to match the variable conten
     - The *variable* is indicated immediately after the `switch` keyword. This tells the statement to inspect the contents of variable. 
     
     - The potential *values* are listed after each `case` keyword.
-    - If the *value* matches the content of the *variable*, the block of code immediately following the *value*  is executed.
+    - If the *value* matches the content of the *variable*, the block of code immediately following the *value* is executed.
     - Only one CODE BLOCK is executed per run.   
 
 Consider the following example
@@ -320,7 +320,7 @@ end
 fprintf('%s', str) % output string to command window
 ```
 
-Since the variable  *`x`* was assigned the character array 'red', before the SWITCH CASE statement, only the code on line 5 will run: `Roses are red')`. If you change *`x`* to 'green', 'blue', or 7, then that corresponding line of code will run (lines 7 and 11, respectively). If you change *`x`* to *anything* else, like 'moon' or 4, then the *otherwise* code block `display('try again')` will run (line 13). IMMPORTANT: SWITCH CASE statements are case-sensitive. So, you if you change *`x`* to 'Red', the *otherwise* code block will execute.
+Since the variable  *`x`* was assigned the character array 'red', before the SWITCH CASE statement, only the code on line 5 will run: `str = 'Roses are red';`. If you change *`x`* to 'green', 'blue', or 7, then that corresponding line of code will run (lines 7, 9, and 11, respectively). If you change *`x`* to *anything* else, like 'moon' or 4, then the *otherwise* code block `str = 'try again'` will run (line 13). IMPORTANT: SWITCH CASE statements are case-sensitive. So, if you change *`x`* to 'Red', the *otherwise* code block will execute.
 
 ??? question "Challenge: You're on the case"
 
@@ -334,7 +334,7 @@ Since the variable  *`x`* was assigned the character array 'red', before the SWI
         Additional Changes:
 
         - Remove the case for 7
-        - Use the function **`inputdlg`** to request a string from the user. Assign the output from the function to *`x`*
+        - Use the function **`inputdlg`** to request a string from the user. Assign the output from the function to *`x`*.
         - Use the function **`lower`** on *`x`* so all characters in the string are lowercase.
 
     === "Answer"
@@ -359,13 +359,13 @@ Since the variable  *`x`* was assigned the character array 'red', before the SWI
 
         fprintf('%s', str) % output string to command window
         ```
-    Here we use **`inputdlg`** to request a string from the user. Notice that we enter a prompt string to tel the user what to enter: `Enter a color`. 
+    Here we use **`inputdlg`** to request a string from the user. Notice that we enter a prompt string to tell the user what to enter: `Enter a color`. 
     
-    **`inputdlg`** returns a cell array, so we need to extract the contents of the cell using the curly brackets: `x{:}`. The contents from the x are then run through **`lower`** to change all characters to lowercase. Since **`inputdlg`** captures string arrays by default, we needed to remove the case for 7. If we wanted to have cases for numbers, we would need more complicated syntax, and we don't want that.  
+    **`inputdlg`** returns a cell array, so we need to extract the contents of the cell using the curly brackets: `x{:}`. The contents from the x are then run through **`lower`** to change all characters to lowercase. Since **`inputdlg`** captures text (not numbers) by default, we needed to remove the case for 7. If we wanted to have cases for numbers, we would need more complicated syntax, and we don't want that.  
 
     For Orange or Yellow, we use a cell array for the case value: `{'orange' 'yellow'}`. This case will run for either 'orange' or 'yellow'.
 
-    Finally the function **`fprintf`** displays the string in the command window. We could have just as easily used **`display`**: `disp(str`)
+    Finally the function **`fprintf`** displays the string in the command window. We could have just as easily used **`disp`**: `disp(str)`
 
 ## Loops
 
@@ -385,7 +385,7 @@ FOR LOOPS are used to repeatedly execute a CODE BLOCK for a predetermined number
     >
     > **end**
 
-    1. Notice immediately following the the `for` keyword is an initializing statement that resembles a variable assignment
+    1. Notice immediately following the `for` keyword is an initializing statement that resembles a variable assignment
     2. This *initializing statement* determines how many times the LOOP will run
     3. The number of times that the loop will run equals the number of columns in *values*.
     4. On each iteration of the loop, the *index* will pull a value from a subsequent column in *values*. So, *index* will have a different value on each iteration. 
@@ -402,7 +402,7 @@ These 3 lines set up the entire *for loop* statement.
 
 - **Line 1** contains the the *initializing statement* (right after the `for` keyword). This *initializing statement* creates a horizontal vector `i` containing the integers 1 through 10. Since there are 10 *horizontal* elements, the FOR LOOP will run 10 times.
 - **Line 2** contains the executed line of code:
-  > `fprintf('The value of i is %d',n)`
+  > `fprintf('The value of i is %d\n',i)`
 - In **Line 2**, the variable *`i`* refers to current element in the vector set-up in in the *initializing statement*. So, on the first loop, *`i`* equals 1. On the second loop, *`i`* equals 2, etc.
 
 After the above FOR LOOP is complete, you should see the following output in the command window:
@@ -473,7 +473,9 @@ i = zeros(1,10)
 
 ```matlab title="result"
 i =
-    0     0     0     0     0     0     0     0     0     0
+
+     0     0     0     0     0     0     0     0     0     0
+
 ```
 
 You can fill the elements of *i* using a **FOR LOOP** as follows:
@@ -513,7 +515,7 @@ i =
 
 ### Vectorization
 
-The term **vectorization** refers to the creation an array simply by using the MATLAB syntax of array creation (without the use of a FOR LOOP). Indeed, it is often possible to create an array without needing a FOR LOOP in MATLAB. This is known as vectorizing a FOR LOOP. You should always try to vectorize your code whenever possible as the vectorized form of the code can run faster than the FOR LOOP form.
+The term **vectorization** refers to the creation of an array simply by using the MATLAB syntax of array creation (without the use of a FOR LOOP). Indeed, it is often possible to create an array without needing a FOR LOOP in MATLAB. This is known as vectorizing a FOR LOOP. You should always try to vectorize your code whenever possible as the vectorized form of the code can run faster than the FOR LOOP form.
 
 For example,
 
@@ -542,18 +544,28 @@ for x = 1:10
 end
 ```
 
-…This FOR LOOP runs 10 times. On each iteration, the IF, ELSE conditional statement checks whether the current value of `x` is odd or even and sets the value of `eo` accordingly. The function **`fprint`** prints the result to the command window as follows
+…This FOR LOOP runs 10 times. On each iteration, the IF, ELSE conditional statement checks whether the current value of `x` is odd or even and sets the value of `eo` accordingly. The function **`fprintf`** prints the result to the command window as follows
 
 ```matlab title="result"
+
 The number 1 is odd
+
 The number 2 is even
+
 The number 3 is odd
+
 The number 4 is even
+
 The number 5 is odd
+
 The number 6 is even
+
 The number 7 is odd
+
 The number 8 is even
+
 The number 9 is odd
+
 The number 10 is even
 ```
 
@@ -638,7 +650,7 @@ You rolled a 1. Try again.
 You rolled a 5. Nice Job!
 ```
 
-Notice that I needed two calls for **`fprint`**: one for inside the LOOP to report the current value of *die*, prior to changing its value, and one outside of the LOOP to report the final value of the die.
+Notice that I needed two calls for **`fprintf`**: one for inside the LOOP to report the current value of *die*, prior to changing its value, and one outside of the LOOP to report the final value of the die.
 
 If you run this code in MATLAB, you will very likely get a different output. Try it now!
 
@@ -702,14 +714,14 @@ fprintf('The number of weeks to save up for a hoverboard is %d.\nThe price of th
 - *`allowance`*: your weekly income, $20/week
 - *`week`*: a variable used to track the number of weeks.
 
-At the start of the loop, the WHILE relative *expresssion* `bank_account < hoverboard` is evaluated. If bank_account is below hoverboard, the relative operation returns a `TRUE`, and the LOOP starts. Inside of the loop are the steps need to recalculate the balance in your bank account and the price of hoverboard. On each iteration of the loop, the value of *`bank_account`* and *`hoverboard`* are recalculated and *`week`* increases by 1. If, `bank_account < hoverboard`, then the WHILE loop continues to iterate. When `bank_account < hoverboard` is NOT TRUE, the WHILE LOOP code block is skipped and then the line after the WHILE LOOP executes (the line with the function **`fprint`**), which prints the results to the command window.  
+At the start of the loop, the WHILE relative *expresssion* `bank_account < hoverboard` is evaluated. If bank_account is below hoverboard, the relative operation returns a `TRUE`, and the LOOP starts. Inside of the loop are the steps need to recalculate the balance in your bank account and the price of hoverboard. On each iteration of the loop, the value of *`bank_account`* and *`hoverboard`* are recalculated and *`week`* increases by 1. If, `bank_account < hoverboard`, then the WHILE loop continues to iterate. When `bank_account < hoverboard` is NOT TRUE, the WHILE LOOP code block is skipped and then the line after the WHILE LOOP executes (the line with the function **`fprintf`**), which prints the results to the command window.  
 
 And as we can see below, the result is:
 
 ```matlab title="Final Result"
 The number of weeks to save up for a hoverboard is 8.
-At this time, the price of the hoverboard will be 126.68
-and you will have 132.00 in your bank account.
+The price of the hoverboard will be 126.68.
+You will have 132.00 in your bank account
 ```
 
 ### Challenge - WHILE LOOPS 3
