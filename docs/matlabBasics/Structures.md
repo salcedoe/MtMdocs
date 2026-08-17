@@ -43,7 +43,7 @@ A structure array is a hierarchal data structure that groups data into *fields*.
 
 ![img-name](images/struct_illustration1.png){ width="100"}
 
-The good news about structures is that is very simple and intuitive to make a structure. Simply type a new variable name, append a period (`.`) to the end of the name, and then add a field name. This is known as *dot* notation.
+The good news about structures is that it is very simple and intuitive to make a structure. Simply type a new variable name, append a period (`.`) to the end of the name, and then add a field name. This is known as *dot* notation.
 
 For example, the following syntax creates a new structure called *`img_info`*, with three new fields: "filename", "rows", and "cols".
 
@@ -80,7 +80,7 @@ ans =
 ```
 
 !!! tip "Pro-Tip: TAB for a list of structure fields"
-    To automatically bring up a list of all of the filenames in a structure, do the following
+    To automatically bring up a list of all of the field names in a structure, do the following
     1. Type the variable name of the structure
     2. Type the dot (`img_info.`)
     3. Then hit the TAB button.
@@ -93,11 +93,11 @@ ans =
 
 ## Creating an Array of Structures
 
-Like all MATLAB variables, a structure can also be an array. This is a known as a Nonscalar Structure Array (remember, scalar means having just one element).
+Like all MATLAB variables, a structure can also be an array. This is known as a Nonscalar Structure Array (remember, scalar means having just one element).
 
-Think of it like this: each element in the array contains a structure. For this to work, all the  structures in the array must have the same fieldnames, but the data *stored* in the fieldnames can be different.
+Think of it like this: each element in the array contains a structure. For this to work, all the structures in the array must have the same fieldnames, but the data *stored* in the fieldnames can be different.
 
-You  add new elements to a structure array as you would to a numeric array: by using the parentheses to indicate the index of the element.
+You add new elements to a structure array as you would to a numeric array: by using the parentheses to indicate the index of the element.
 
 !!! example "Nonscalar Structure Array"
 
@@ -110,14 +110,14 @@ You  add new elements to a structure array as you would to a numeric array: by u
     ```matlab title="Result: a 1x2 Nonscalar Structure Array"
     img_info = 
 
-    1x2 struct array with fields…
+    1×2 struct array with fields:
 
         filename
         rows
         cols
     ```
 
-    We can be visualize the elements of the nonscalar structure array like this
+    We can visualize the elements of the nonscalar structure array like this
 
     ![nonscalar structure illustration](images/struct_illustration2.png){ width="250"}
 
@@ -150,12 +150,12 @@ ans =
    200
 ```
 
-…Notice that the output is a comma-separated list, spitting out the contents, one  after the other, overwriting *`ans`* each time with the new content. This is similar to what happens when we access multiple cells in a cell array using the curly brackets.
+…Notice that the output is a comma-separated list, spitting out the contents, one after the other, overwriting *`ans`* each time with the new content. This is similar to what happens when we access multiple cells in a cell array using the curly brackets.
 
-To concatenate the output, you must include a concatenating special character (i.e. `[ ]`  or `{ }`):
+To concatenate the output, you must include a concatenating special character (i.e. `[ ]` or `{ }`):
 
 ```matlab title="Concatenating scalar content from the same field across all structure elements"
->>cols = [img_info.cols]
+cols = [img_info.cols]
 cols =
 
     50   200
@@ -230,7 +230,7 @@ img_info.('filename')
 
 If you would like to access the content from a structure after receiving user input, you could use the following programmatic steps:
 
-First, get the field names from the *`img_info`* using the function **`fieldnames`**. This function returns all the field names in from a structure array as a cell array.
+First, get the field names from the *`img_info`* using the function **`fieldnames`**. This function returns all the field names from a structure array as a cell array.
 
 ```matlab linenums="1" title="Get Structure Field names"
 fld_names = fieldnames(img_info)
@@ -239,14 +239,16 @@ fld_names = fieldnames(img_info)
 ```matlab title="result"
 fld_names = 
 
-    'filename'
-    'rows'
-    'cols'
+  3×1 cell array
+
+    {'filename'}
+    {'rows'    }
+    {'cols'    }
 ```
 
 …Notice the output *`fld_names`* is a cell array.
 
-We can plug this cell array into one of MATLAB's built-in dialog functions, **`listdlg`**. This function creates a dialog in which the user can select one element from the inputed cell array:
+We can plug this cell array into one of MATLAB's built-in dialog functions, **`listdlg`**. This function creates a dialog in which the user can select one element from the input cell array:
 
 ```matlab linenums="1" title="Create a list dialog for user input"
 answer = listdlg('ListString',fld_names)
@@ -262,7 +264,7 @@ The **listdlg** function creates the following dialog window.
 
 After you make your selection and you click 'OK', **`listdlg`** returns the index of the rows selected and assigns that value to `answer`. If you click "Cancel", **`listdlg`** sets `answer` to empty.
 
-We can use the value  in `answer` to index the input cell array *`fld_names`*
+We can use the value in `answer` to index the input cell array *`fld_names`*.
 
 ```matlab linenums="1" title="Get selected field"
 selected_field = fld_names{answer}
@@ -271,7 +273,7 @@ selected_field = fld_names{answer}
 ```matlab title="result"
 selected_field =
 
-rows
+    'rows'
 ```
 
 Then we can display the contents of the selected field from the *`img_info`* structure array using the following syntax:
@@ -291,7 +293,7 @@ ans =
    100
 ```
 
-In the above example, the values from the *row* field from both elements of the structure array are displayed. However, if we indicate the index of the element, then we would get the result from the field in that element of the structure. In the following example, we indicate the second element of the structure array and get just one result.
+In the above example, the values from the *rows* field from both elements of the structure array are displayed. However, if we indicate the index of the element, then we would get the result from the field in that element of the structure. In the following example, we indicate the second element of the structure array and get just one result.
 
 ```matlab linenums="1" title="Get contents from just one element in the structure array"
 img_info(2).(selected_field)
