@@ -1,8 +1,10 @@
 # Group Statistics
 
-Group statistics are statics performed on subsets, or groups, of a dataset. This allows us to compare results across the groups. For example, we may want to compare the means of the female observations to the male observations.
+Group statistics are statistics performed on subsets, or groups, of a dataset. This allows us to compare results across the groups. For example, we may want to compare the means of the female observations to the male observations.
 
-When performing group statistics in MATLAB, it is often much easier to organize the data into a [tidy spreadsheet](tidyData.md), where each column contains a different variable in the dataset (like sex, height or weight), and row contains an observation (like the sex, height, and weight of a given individual).
+When performing group statistics in MATLAB, it is often much easier to organize the data into a [tidy spreadsheet](tidyData.md), where each column contains a different variable in the dataset (like sex, height or weight), and each row contains an observation (like the sex, height, and weight of a given individual).
+
+For a refresher on the distinction between quantitative and qualitative data—and why it matters when choosing a grouping variable or a plot type—see [Data Types](dataTypes.md).
 
 ## Overview
 
@@ -50,7 +52,7 @@ T.Name = string(T.Name); % typecast to string
 T.Sex = categorical(T.Sex); % typecast to categorical
 ```
 
-…after loading the data, we typecast the Name column to a **`string`** and the Sex column to a **`categorical`** array. Type casting to a categorical array will make calculate the statistics and visualizing the data easier
+…after loading the data, we typecast the Name column to a **`string`** and the Sex column to a **`categorical`** array. Type casting to a categorical array will make calculating the statistics and visualizing the data easier
 
 Our data table, `T`, contains metrics from a group of adolescents.
 
@@ -140,7 +142,7 @@ s =
 
 …Each row in the table contains the stats from one of the groups in the grouping variable ("F" or "M"). Notice the table *s* includes the variables "mean_Height" and "std_Height". The applied stats function has been embedded into the name of the column.
 
-We can run the statistics on multiple variables by inputting a string array of variable names in last input. The following call to `groupsummary` calculates the mean and standard deviation for both the "Height" and "Weight" columns in `T`
+We can run the statistics on multiple variables by inputting a string array of variable names in the last input. The following call to `groupsummary` calculates the mean and standard deviation for both the "Height" and "Weight" columns in `T`
 
 ```matlab linenums="1" title="Group summary for Height and Weight"
 s = groupsummary(T,"Sex",["mean" "std"],["Height", "Weight"])
@@ -159,6 +161,31 @@ s =
 ```
 
 …and now we have two additional variables in our stats table: mean_Weight and std_Weight.
+
+### Using a Custom Function
+
+**`groupsummary`** isn't limited to built-in stat names like `"mean"` or `"std"`. You can also pass a function handle to calculate a custom statistic. For example, to calculate the range (max − min) of Height for each Sex:
+
+```matlab linenums="1" title="Group summary with a custom function"
+groupsummary(T,"Sex",@range,"Height")
+```
+
+```matlab title="result"
+ans =
+
+  2×3 table
+
+    Sex    GroupCount    fun1_Height
+    ___    __________    ___________
+
+     F          9           15.2    
+     M         10           14.7    
+```
+
+…Since we didn't give **`groupsummary`** a name for our custom statistic, it names the resulting column generically: `fun1_Height`.
+
+!!! tip "See Also"
+    `groupsummary` isn't the only way to compute grouped statistics in MATLAB. The [Tables](../matlabBasics/Tables.md#applying-functions-to-variables) page covers **`varfun`** with `'GroupingVariables'`, an alternate approach worth knowing.
 
 ## Visualizing the Group Stats
 
@@ -183,7 +210,7 @@ errorbar(x,y,e,'k',LineStyle="none")
 ylabel('Height (in)')
 ```
 
-…Notice the **`errorbar`** is a separate function from **`bar`**. Thus, we need to call `hold on` to ensure that the error bar doesn't overwrite the bar. Also, **`errorbar`** requires at minimum three inputs: the grouping variable, the mean data (height of the bar), and the standard deviation (height of the error bar). **`bar`** only needs the grouping variable and the mean data.  
+…Notice the **`errorbar`** is a separate function from **`bar`**. Thus, we need to call `hold on` to ensure that the error bar doesn't overwrite the bar. Also, **`errorbar`** requires at minimum three inputs: the grouping variable, the mean data (height of the bar), and the standard deviation (height of the error bar). **`bar`** only needs the grouping variable and the mean data.
 
 ![img-name](images/class-mean-height-bar.png){ width="450"}
 
@@ -251,8 +278,10 @@ xlabel('Weight (lbs)')
 Data can have multiple groups. Consider the following data:
 
 ```matlab linenums="1" title="Load table"
-
-T = readtable('quiz-multi-groups.csv');
+url = 'https://raw.githubusercontent.com/salcedoe/MtMdocs/refs/heads/main/docs/dataProcessing/quiz-multi-groups.csv';
+T = readtable(url);
+T.Quiz = categorical(T.Quiz, {'Pre','Post'}); % typecast to categorical, Pre before Post
+T.Treatment = categorical(T.Treatment, {'Control','Experiment'}); % typecast to categorical, Control before Experiment
 ```
 
 ```matlab
@@ -281,7 +310,7 @@ The "Quiz" variable has two levels, `Pre` and `Post`, which indicate when the qu
 
 The "Treatment" variable also has two levels, `Control` and `Experiment`, which indicate whether or not a student received an intervention (like a new educational module):
 
-- `Control`:  no intervention
+- `Control`: no intervention
 - `Experiment`: intervention received
 
 ### Group Summary using Multiple Groups
@@ -381,3 +410,40 @@ legend(hbc, categories(T.Quiz),Location="southeast") % input boxchart handle to 
 ![quiz score box plots with swarm charts](images/quiz-scores-boxchart-swarmchart.png){ width="450"}
 
 >Notice that the box plots are not plotted along the x-axis right at `Control` and `Experiment`, but are offset to either side of those tick marks. By adding an offset to the swarm plot position along the x-axis, we can properly overlay the swarm plots on their corresponding box plots.
+
+## Challenge
+
+??? question "Group Statistics and Visualization"
+
+    === "Question"
+
+        Using the table *`T`* from the "Load Example Data" section above:
+
+        1. Use **`groupsummary`** to calculate the mean and standard deviation of `Weight`, grouped by `Sex`.
+        2. Create a box chart of `Weight` grouped by `Sex`.
+
+    === "Answer"
+
+        ```matlab linenums="1"
+        groupsummary(T,"Sex",["mean" "std"],"Weight")
+        ```
+
+        ```matlab title="result"
+        ans =
+
+          2×4 table
+
+            Sex    GroupCount    mean_Weight    std_Weight
+            ___    __________    ___________    __________
+
+             F          9          90.111         19.384  
+             M         10          108.95         22.727  
+        ```
+
+        ```matlab linenums="1"
+        figure
+        boxchart(T,"Sex","Weight")
+        ylabel('Weight (lbs)')
+        ```
+
+        On average, males weigh about 19 lbs more than females in this dataset, and also show slightly more variability (higher standard deviation).
