@@ -11,10 +11,10 @@ This module is broken down into the following sections:
 ### Things you should know
 
 - Describe the difference between a true-color image and a grayscale image
-- Define a colormap and differentiate an RGB image with a grayscale image and a colormap
+- Define a colormap and differentiate between an RGB image, a grayscale image, and a colormap
 - Load an RGB image into the MATLAB workspace
 - Index an RGB image to extract its component channels
-- List the channel order in an RGB image (eg. plane one is always the red channel, etc. )
+- List the channel order in an RGB image (e.g. plane one is always the red channel, etc.)
 - Define an RGB triplet and explain how the triplet represents color
 
 ### Key Terminology you should know
@@ -33,7 +33,7 @@ This module is broken down into the following sections:
 
 ## RGB images are 3D
 
-In contrast to **binary** or **grayscale** images, **RGB** (or truecolor) images are 3D arrays (think cube, or cuboid).  Each channel in an RGB image is stored as plane.
+In contrast to **binary** or **grayscale** images, **RGB** (or truecolor) images are 3D arrays (think cube, or cuboid). Each channel in an RGB image is stored as a plane.
 
 ![RGB 3D array](images/RGB_cube.png){ width="250"}
 
@@ -51,17 +51,17 @@ We can use **`imread`** to load an RGB image into MATLAB, just like we can with 
 
 Here we load one of the example images that comes with MATLAB:
 
-```matlab linenums="1" title="Read tissue iamge"
+```matlab linenums="1" title="Read tissue image"
 RGB = imread('tissue.png');
 ```
 
 ```matlab title="whos output"
-Name        Size                 Bytes  Class    Attributes
+  Name        Size                 Bytes  Class    Attributes
 
   RGB       506x800x3            1214400  uint8    
 ```
 
-Note the dimensions of the image that you just read in: ```506X508X3```. These dimensions match the dimensions we noted in **imageViewer**.
+Note the dimensions of the image that you just read in: ```506×800×3```. These dimensions match the dimensions we noted in **imageViewer**.
 
 ## Displaying an RGB image
 
@@ -73,9 +73,9 @@ imageViewer('tissue.png')
 
 ![img-name](images/tissue-imgVwr.png){ width="750"}
 
->Here, we show the image 'tissue.png' along with its metadata. Notice the Image type is listed as `truecolor`,  the bitdepth is 24 bit. Also notice that the "Pixel Info" indicator now shows three intensity values ([203 203 241] in this case) instead of just one. And there is no contrast tab (those are only available for grayscale images)
+>Here, we show the image 'tissue.png' along with its metadata. Notice the Image type is listed as `truecolor`, the bitdepth is 24 bit. Also notice that the "Pixel Info" indicator now shows three intensity values ([203 203 241] in this case) instead of just one. And there is no contrast tab (those are only available for grayscale images).
 
-When we zoom to pixels (in the Zoom section), each pixel has three color values, R, G, and B
+When we zoom to pixels (in the Zoom section), each pixel has three color values, R, G, and B.
 
 ![img-name](images/tissue-imgVwr-zoom2pixel.png){ width="750"}
 
@@ -83,11 +83,11 @@ When we zoom to pixels (in the Zoom section), each pixel has three color values,
 
 ??? question "Q1: What are the dimensions of this image?"
 
-    506 X 800 X 3 (506 rows, 800 columns, 3 'planes')
+    506 × 800 × 3 (506 rows, 800 columns, 3 'planes')
 
 ??? question "Q2: Based on the class of the variable, what is the maximum pixel intensity that you would expect to find in this image? What single line of MATLAB code could you write to test this?"
 
-    Max Intensity of 255 per channel
+    Max Intensity of 255 per channel.
 
     ```matlab linenums="1" title="Max across all Channels"
     max(RGB(:))
@@ -95,12 +95,15 @@ When we zoom to pixels (in the Zoom section), each pixel has three color values,
 
     ```matlab
     ans = 
-        255
+
+      uint8
+
+       255
     ```
 
 ??? question "Q3: What happens if you forget the 'all elements' indexing syntax ( : ) ?"
 
-    For each channel, you get the max of each column (800 columns). So, the end result is a 3D vector—3  1X800 vectors stacked on top of each other.
+    For each channel, you get the max of each column (800 columns). So, the end result is a 3D vector—3 1×800 vectors stacked on top of each other.
 
 ## Indexing RGB Images
 
@@ -160,6 +163,9 @@ end
 To build an RGB image, you simply need to recreate the 3D array. Use the **`cat`** function to easily concatenate in the third dimension.
 
 ```matlab
+green = RGB(:,:,2); % index out the green channel
+blue = RGB(:,:,3); % index out the blue channel
+
 figure; 
 rgb2 = cat(3, red, green, blue)
 imshow(rgb2)
@@ -169,7 +175,7 @@ imshow(rgb2)
 
 ### Swapping Channels
 
-What happens when you swap the channels---that is, build the RGB image with channel order mixed up:
+What happens when you swap the channels—that is, build the RGB image with channel order mixed up:
 
 ```matlab
 figure; 
