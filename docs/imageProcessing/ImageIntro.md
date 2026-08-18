@@ -2,15 +2,17 @@
 
 *You know, like pictures and stuff, but with no color.*
 
+!!! tip "NEWS FLASH: Images are just matrices"
+
+    📰 As such, images have elements with coordinates (rows and columns) and numeric values. The coordinates of the elements represent a location in the image, while the numeric value represents intensity (or luminance)—how bright that pixel should be. In the following example, we have two luminance values: black and white. These luminance values are stored as 1's and 0's.
+
+    ![][bitmap smiley]{width=600px}
+
+    [bitmap smiley]: images/bitmap-smiley.png 
+
+    Since images are just numeric matrices, we can easily leverage the full power of MATLAB for image processing.
+
 ## Overview
-
-📰 NEWS FLASH: Images are just matrices. As such, images have elements with coordinates (rows and columns) and numeric values. The coordinates of the elements represent a location in the image, while the numeric value represents intensity (or luminance)—how bright that pixel should be. In the following example, we have two luminance values: black and white. These luminance values are stored as 1's and 0's.
-
-![][bitmap smiley]{width=600px}
-
-[bitmap smiley]: images/bitmap-smiley.png 
-
-Since images are just numeric matrices, we can easily leverage the full power of MATLAB for image processing.
 
 In this module, we will explore the properties of intensity (or grayscale) images, which are images that contain only one pixel value per image location and typically represent shades of gray or just one color.
 
@@ -26,11 +28,14 @@ By the end of this module, you should be able to:
 
 - normalize an image to improve contrast
 
-- Define all of the [Key Terminology]
+- define all of the [Key Terminology]
 
 - use all of the listed [Key Functions]
 
-- Change the colormap of a grayscale image
+- change the colormap of a grayscale image
+
+[Key Terminology]: #key-terminology-you-should-know
+[Key Functions]: #key-functions
 
 ### Relevant MATLAB Documentation
 
@@ -60,19 +65,19 @@ By the end of this module, you should be able to:
 
 - [**`imageViewer`**](https://www.mathworks.com/help/images/ref/imageviewer-app.html) - image viewer app
 
-- [**`imread`**](https://www.mathworks.com/help/matlab/ref/imread.html') - reads in image files and returns a matrix
+- [**`imread`**](https://www.mathworks.com/help/matlab/ref/imread.html) - reads in image files and returns a matrix
 
-- [**`imshow`**](https://www.mathworks.com/help/matlab/ref/imshow.html') - displays images in a figure
+- [**`imshow`**](https://www.mathworks.com/help/matlab/ref/imshow.html) - displays images in a figure
 
-- [**`imshowpair`**](https://www.mathworks.com/help/images/ref/imshowpair.html') - overlays images or displays side by side to compare differences
+- [**`imshowpair`**](https://www.mathworks.com/help/images/ref/imshowpair.html) - overlays images or displays side by side to compare differences
 
-- [**`im2double`**](https://www.mathworks.com/help/matlab/ref/im2double.html') - converts an image to double precision ranging from 0 to 1 (but without normalizing the values first)
+- [**`im2double`**](https://www.mathworks.com/help/matlab/ref/im2double.html) - converts an image to double precision ranging from 0 to 1 (but without normalizing the values first)
 
 ### Key Terminology you should know
 
 - **Pixel:** Picture element: the smallest addressable element in a rasterized, bitmapped digital image. Considered to be a point sample of an image. Has x- and y- coordinates and a discretized value to indicate intensity or color.
 
-- **Bit depth:** the number bits used to indicate the color of a single pixel in a bitmapped image
+- **Bit depth:** the number of bits used to indicate the color of a single pixel in a bitmapped image
 
 - **Dimensions:** The height and width (in pixel count) of an image
 
@@ -90,9 +95,10 @@ For this example, we will read one of MATLAB's built-in images (moon.tif):
 img = imread('moon.tif');
 ```
 
-…Since MATLAB already knows about the "moon.tif" image and it's location, we just have to enter the file name.
+…Since MATLAB already knows about the "moon.tif" image and its location, we just have to enter the file name.
 
-!!! warning "WARNING: Do not forget the **semi-colon** at the end of the **`imread`** command to suppress output or you will see a lot of numbers populate the command window."
+!!! warning "Don't Forget the Semicolon"
+    Do not forget the **semi-colon** at the end of the **`imread`** command to suppress output or you will see a lot of numbers populate the command window.
 
 After the **`imread`** function call, examine the *`img`* variable's properties in the workspace:
 
@@ -133,16 +139,22 @@ max(img(:))
 ```matlab title="result"
 ans =
 
-  255
+  253
 ```
 
-…A maximum of 255 matches the maximum potential vale of an unsigned 8-bit variable. Here we indexed *`img`* using `(:)`. This syntax ensures that you get just one value returned from **`max`**, instead of getting a maximum value from each column in the matrix.
+…A maximum of 253 tells us that this particular image never actually reaches the full potential range of an unsigned 8-bit variable, which tops out at 255. Here we indexed *`img`* using `(:)`. This syntax ensures that you get just one value returned from **`max`**, instead of getting a maximum value from each column in the matrix.
 
 ### Challenge: Images are matrices
 
-??? question "Question: What do you predict the minimum pixel intensity of the image to be? Use the function **`min`** to test your prediction."
+??? question "What is the minimum pixel intensity?"
 
-      Since this image is an unsigned 8-bit variable `uint8`, the minimum possible value is `0`. You can see this in the workspace as well.
+    === "Question"
+
+        What do you predict the minimum pixel intensity of the image to be? Use the function **`min`** to test your prediction.
+
+    === "Answer"
+
+        Since this image is an unsigned 8-bit variable `uint8`, the minimum possible value is `0`. You can see this in the workspace as well.
 
 ## Image Properties
 
@@ -150,7 +162,7 @@ Every image stores data in a hidden header field known as the image's metadata. 
 
 The function **`imfinfo`** reads this metadata and returns a structure:
 
-```matlab linenums="1"  title="Get metadata"
+```matlab linenums="1" title="Get metadata"
 img_meta = imfinfo('moon.tif');
 ```
 
@@ -173,7 +185,8 @@ img_meta =
 
 …As you can see, *`img_meta`*, is a MATLAB structure with multiple fields such as, 'Filename','FileSize', 'BitDepth', 'Width', 'Height', etc. And yep, it's an 8-bit image.
 
-!!! note "**Width** and **Height** corresponds to the number of **columns** and **rows**, respectively, in the *`img`* variable."
+!!! note "Width and Height vs Columns and Rows"
+    **Width** and **Height** correspond to the number of **columns** and **rows**, respectively, in the *`img`* variable.
 
 ## Displaying images
 
@@ -182,7 +195,7 @@ img_meta =
 **`imageViewer`** is the basic image viewer app that is included in the MATLAB Image Processing toolbox. (1)
 {.annotate}
 
-1. imageViewer is only recently developed app in MATLAB. The previous image viewer tool was called **`imtool`**. This tool has similar functionality to imageViewer but looks and operates a little differently. Refer to the MATLAB documentation for more information
+1. imageViewer is only a recently developed app in MATLAB. The previous image viewer tool was called **`imtool`**. This tool has similar functionality to imageViewer but looks and operates a little differently. Refer to the MATLAB documentation for more information.
 
 You can launch **`imageViewer`** from the Apps tab. Click on the Image Viewer icon:
 
@@ -202,13 +215,13 @@ In either case, MATLAB will return a window that looks like this:
 
 To open images, you can click on the "Import Image" icon.
 
-Or, you can call **`imageViewer`**  from the command window and input a image file path:
+Or, you can call **`imageViewer`** from the command window and input an image file path:
 
 ```matlab linenums="1"
 imageViewer('moon.tif')
 ```
 
-Or, since we have have already loaded the moon image into the workspace as variable *`img`*, we can input the variable name, as follows:
+Or, since we have already loaded the moon image into the workspace as variable *`img`*, we can input the variable name, as follows:
 
 ```matlab linenums="1"
 imageViewer(img)
@@ -271,7 +284,7 @@ imshow(img)
 
 **`imshow`** becomes really useful when you want to display more than one image in a single figure—or an image and a plot.
 
-First, let's open another image. I have stored another picture on the internets for our enjoyment. As you can see in the syntax below, **`imread`** accept URLs as file locators, so this code will download the image from my cloud drive:
+First, let's open another image. I have stored another picture on the internets for our enjoyment. As you can see in the syntax below, **`imread`** accepts URLs as file locators, so this code will download the image from my cloud drive:
 
 ```matlab linenums="1" title="Import moon2 from the internets"
 URL = 'https://saldenest.s3.amazonaws.com/MATLAB_images/moon2.tif';
@@ -279,7 +292,7 @@ moon2 = imread(URL);
 imshow(moon2)
 ```
 
-Now we have two image variables in the workspace: *`img`* and `moon2`. To display them side by side, we simply combine the use of **`tiledlayout`**, **`nexttile`**,  and **`imshow`** as follows:
+Now we have two image variables in the workspace: *`img`* and `moon2`. To display them side by side, we simply combine the use of **`tiledlayout`**, **`nexttile`**, and **`imshow`** as follows:
 
 ```matlab linenums="1" title="Tile Images"
 figure ('Name','A tale of two moons');
@@ -301,7 +314,7 @@ impixelinfo
 
 #### Interactive Display Tools (impixelinfo)
 
-If you need a little more functionality than what is provided by **`imshow`**, you can add your own display tools (similar to the ones found in **`imageViewer`**) using the [interactive tools](https://www.mathworks.com/help/images/building-guis-with-modular-interactive-tools.html') included in the Image Processing toolbox.
+If you need a little more functionality than what is provided by **`imshow`**, you can add your own display tools (similar to the ones found in **`imageViewer`**) using the [interactive tools](https://www.mathworks.com/help/images/building-guis-with-modular-interactive-tools.html) included in the Image Processing toolbox.
 
 For example, in the code block above, we used the function **`impixelinfo`** to add a pixel browser to the bottom left corner of the figure window so you can browse the pixel information of the image just like you could in **`imageViewer`**:
 
@@ -313,7 +326,7 @@ Pixel Info(X,Y) Pixel Value
 
 Cropping is just like indexing a matrix. You can **index** an image variable just like any numeric variable because an image variable *is* a numeric variable.
 
-For this example,  we will crop the image of the dark side of the moon, *`moon2`*. Display the image using the **`imtool`** app
+For this example, we will crop the image of the dark side of the moon, *`moon2`*. Display the image using the **`imageViewer`** app
 
 ```matlab
 imageViewer(moon2)
@@ -338,7 +351,7 @@ If you inspect the image metadata you will see that this image has different dim
 In **`imageViewer`**, move the pointer around the image to orient yourself to the rows and columns of the image.
 
 !!! note "Pixel coordinates vs ROW, COL indices"
-      In the MATLAB image tools, like **`imageViewer`**, pixel coordinates are listed by their X,Y coordinates, not their ROW, COL indices. In XY coordinates, X corresponds to the column index and Y corresponds to the row index. This means that first number listed inside the parenthesis indicates the column index while the second number indicates the row index — the reverse of  MATLAB indexing. Also notice that the XY coordinate of 0,0 refers the the top left corner of the image, instead of the bottom left corner of most plots.
+      In the MATLAB image tools, like **`imageViewer`**, pixel coordinates are listed by their X,Y coordinates, not their ROW, COL indices. In XY coordinates, X corresponds to the column index and Y corresponds to the row index. This means that the first number listed inside the parenthesis indicates the column index while the second number indicates the row index — the reverse of MATLAB indexing. Also notice that the XY coordinate of 0,0 refers to the top left corner of the image, instead of the bottom left corner of most plots.
 
 To convert to row, column indices, make sure that you use the X values as your columns indices and your Y values as your row indices. For example, the off-center crater in the moon image has the following row, column indices:
 
@@ -364,7 +377,7 @@ imageViewer(crater_col)
 
 ### Crop Function
 
-To simplify cropping, the MATLAB Imaging Toolbox includes a crop tool. The function is called **`imcrop`**. There is also a crop button in the **`imageViewer`** toolbar that does the same thing.
+To simplify cropping, the MATLAB Image Processing Toolbox includes a crop tool. The function is called **`imcrop`**. There is also a crop button in the **`imageViewer`** toolbar that does the same thing.
 
 Here is the syntax to call the crop tool:
 
@@ -374,7 +387,7 @@ figure; % create an empty figure
 imshow(moon2_crop) % show new cropped image
 ```
 
-After you execute the above commands, a window will appear displaying the image *`moon2`*. Your mouse pointer will turn into cross-hairs. Drag the cross-hairs over the image to capture the part of the image you would like to crop.  Then double-click inside the box you created.
+After you execute the above commands, a window will appear displaying the image *`moon2`*. Your mouse pointer will turn into cross-hairs. Drag the cross-hairs over the image to capture the part of the image you would like to crop. Then double-click inside the box you created.
 
 <div class="grid cards" markdown>
 
@@ -384,11 +397,11 @@ After you execute the above commands, a window will appear displaying the image 
 
 </div>
 
-After double-clicking, a new variable will appear in the workspace called *`moon2_crop`*. This is the cropped version of *`moon2`*. Notice that crater variable has smaller dimensions than *`moon2`*.
+After double-clicking, a new variable will appear in the workspace called *`moon2_crop`*. This is the cropped version of *`moon2`*. Notice that the *`moon2_crop`* variable has smaller dimensions than *`moon2`*.
 
 ## Common Image Classes
 
-Images are imported into MATLAB as numeric variables. To properly display images, you need a good understanding of the range of pixels found in the image (the bit depth) and the range of values possible in the numeric class. Remember, integer classes, like **`uint8`** have a maximum value of 255. This can a little confusing when the bit depth of the image does not match the bit depth of the numeric class.
+Images are imported into MATLAB as numeric variables. To properly display images, you need a good understanding of the range of pixels found in the image (the bit depth) and the range of values possible in the numeric class. Remember, integer classes, like **`uint8`** have a maximum value of 255. This can be a little confusing when the bit depth of the image does not match the bit depth of the numeric class.
 
 ### Integer Class
 
@@ -406,16 +419,16 @@ For example, take the *`moon2`* variable that we created using **`imread`**. As 
 
 Also, if you hover over the image in **`imageViewer`** you will notice that the pixel intensity varies between 0 and 255.  
 
-!!! note "A word on Bit Depth and Numeric Classes
+!!! note "A word on Bit Depth and Numeric Classes"
 
-      In the table above, notice that we use the same numeric class, **`uint16`**, for both 12-bit and 16-bit images. While images may be captured at bit depths such as 12-bit, numeric variables can never be 12-bit due to the way computer memory is chunked into bytes (8 bits). So, you can only have a variable that is 8-bit or 16-bit and nothing in between. This can cause display issues in  MATLAB (and other image processing applications) if you don't adjust the image dynamic range to match to the numeric variable's dynamic. More on this later.
+      In the table above, notice that we use the same numeric class, **`uint16`**, for both 12-bit and 16-bit images. While images may be captured at bit depths such as 12-bit, numeric variables can never be 12-bit due to the way computer memory is chunked into bytes (8 bits). So, you can only have a variable that is 8-bit or 16-bit and nothing in between. This can cause display issues in MATLAB (and other image processing applications) if you don't adjust the image dynamic range to match the numeric variable's dynamic range. More on this later.
 
 ### Logical Class
 
-The most basic raster image is a **binary** image, which is comprised of all ones or zeros pixels, (or , trues or falses). The MATLAB class used for binary images is *logical*. We can easily create a binary image by typecasting (1) into a **logical** class.
+The most basic raster image is a **binary** image, which is comprised of pixels that are either all ones or all zeros (or, trues or falses). The MATLAB class used for binary images is *logical*. We can easily create a binary image by typecasting (1) into a **logical** class.
 { .annotate}
 
-1.**Typecasting** coverts a variable from one data type to another. Typecasting is critical for the proper display of scientific images due to the way that these images are stored and (*sometimes*) improperly imported. *`moon2`*.
+1. **Typecasting** converts a variable from one data type to another. Typecasting is critical for the proper display of scientific images due to the way that these images are stored and (*sometimes*) improperly imported.
 
 ```matlab linenums="1" title="Typecast to logical"
 binary_moon2 = logical(moon2)
@@ -459,7 +472,7 @@ imageViewer(moon2_dbl)
 
 ![img-name](images/imgVwr-Range-Warning.png){ width="300"}
 
-This warning is telling us that the range of in the *`moon2_dbl`* variable (0-255) do not match the expected range, which should be from 0-1.
+This warning is telling us that the range in the *`moon2_dbl`* variable (0-255) does not match the expected range, which should be from 0-1.
 
 If we go ahead and click "OK", then we see the following:
 
@@ -467,13 +480,13 @@ If we go ahead and click "OK", then we see the following:
 
 [img]:images/moon2-double-imgVwr.png
 
-…Hmm, the image looks like a **binary image**, but is listed as an "intensity" or grayscale image in Image Information window:
+…Hmm, the image looks like a **binary image**, but is listed as an "intensity" or grayscale image in the Image Information window:
 
 ![][imgVwr_meta_dlb]{width=200px}
 
 [imgVwr_meta_dlb]:images/moon2-double-imgVwr-meta.png 
 
-…Also, notice that if you move the cursor around the image, you can see that the original pixel values are maintained in the image as reported in the Pixel Info display at the bottom of the window
+…Also, notice that if you move the cursor around the image, you can see that the original pixel values are maintained in the image as reported in the Pixel Info display at the bottom of the window.
 
 So, the image still has a range of pixel intensities (and thus contrast), but MATLAB does not display it properly. What gives? Well, as MATLAB warned when we opened the window, a variable with a numeric class of "double" should have a range of values that fall between 0 and 1. ANY pixel values above 1 are displayed as the maximum intensity (or in this case, white).
 
@@ -486,7 +499,7 @@ imageViewer(moon2_dbl)
 
 ![img-name](images/moon2-proper-double-imgVwr.png){ width="400"}
 
-…and now we see the moon in its all its glory, properly displayed in 256 shades of gray. We also have the restoration of the Contrast tab at the top of the window. Notice that the pixel values in the Pixel Info display are now displayed as fractions that all fall between 0.00 and 1.00.
+…and now we see the moon in all its glory, properly displayed in 256 shades of gray. We also have the restoration of the Contrast tab at the top of the window. Notice that the pixel values in the Pixel Info display are now displayed as fractions that all fall between 0.00 and 1.00.
 
 ## Saving Images
 

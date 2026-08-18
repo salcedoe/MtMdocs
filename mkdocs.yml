@@ -47,6 +47,7 @@ nav:
     - Group Statistics: dataProcessing/groupStats.md
     - Sampling and Distributions: dataProcessing/SamplesDistributions.md
     - Hypothesis Testing: dataProcessing/HypTesting.md
+    - Effect Size: dataProcessing/EffectSize.md
   - Imaging:
     - Imaging Concepts:
       - Light: imaging/electromagneticRadiation.md

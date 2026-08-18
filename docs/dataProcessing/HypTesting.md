@@ -23,7 +23,7 @@ One of the most fundamental experimental designs used with Hypothesis Testing is
 
 ## p-values
 
-To decide whether to accept the Null or Aternative Hypothesis, you create a probability cut-off or **p-value**(1).
+To decide whether to accept the Null or Alternative Hypothesis, you create a probability cut-off or **p-value**(1).
 { .annotate}
 
 1. or "Alpha Level of Significance" if you're a stats book.
@@ -33,7 +33,7 @@ The most common p-value used is `0.05`, or `5%`. With a `0.05` p-value, we assum
 ![Hey Girl Meme Fail to Reject](images/Hey-Girl-Meme-I-fail-to-reject-you.png){ width="450"}
 
 !!! warning "Correcting p-values"
-    If you are thinking that `5%` is actually not that unlikely, then you would be right. Five out of a hundred times is also one out of twenty times and that happens more often than you would think. If you are doing a lot of hypotheses testing, then you may need to adjust your p-value to take this into consideration. For example, if you are testing twenty different things using a `0.05` p-value, one of things you are testing may just randomly fall below the p-value criteria because thats how randomness works. There are many ways to adjust the p-value depending on the number of sample comparisons, including the [Bonferonni correction](https://en.wikipedia.org/wiki/Bonferroni_correction){target="_blank"} or the [False Discovery Rate](https://en.wikipedia.org/wiki/False_discovery_rate){target="_blank"}. Talk to a Doctor if you feel you need to correct your p-value.
+    If you are thinking that `5%` is actually not that unlikely, then you would be right. Five out of a hundred times is also one out of twenty times and that happens more often than you would think. If you are doing a lot of hypotheses testing, then you may need to adjust your p-value to take this into consideration. For example, if you are testing twenty different things using a `0.05` p-value, one of things you are testing may just randomly fall below the p-value criteria because that's how randomness works. There are many ways to adjust the p-value depending on the number of sample comparisons, including the [Bonferroni correction](https://en.wikipedia.org/wiki/Bonferroni_correction){target="_blank"} or the [False Discovery Rate](https://en.wikipedia.org/wiki/False_discovery_rate){target="_blank"}. Talk to a Doctor if you feel you need to correct your p-value.
 
 ## The dark side of the p-value
 
@@ -60,15 +60,15 @@ And remember, this whole process is based on making assumptions. If your hypothe
 Hypothesis testing isn't always just testing whether samples are different. You can also test if samples are normally distributed or if the samples have equal variance.  MATLAB has many different functions that perform different types of hypothesis testing, including:
 
 1. [**`adtest`**](https://www.mathworks.com/help/stats/adtest.html) - Anderson Darling test for normality
-2. **`vartest2`** - F-test for equal variance
+2. [**`vartest2`**](https://www.mathworks.com/help/stats/vartest2.html) - F-test for equal variance
 3. [**`ttest2`**](https://www.mathworks.com/help/stats/ttest2.html) - Two Sample t-test
 
 While the inputs vary, the outputs from all these functions (at least the first 2 outputs), take the following form:
 
-- **h**: a boolean. If 1, then the test rejects then null hypothesis.
-- **p**: The p-value. p-values range from 0 to 1.  Less than 0.05 is often considered significantly different.
+- **h**: a boolean. If 1, then the test rejects the null hypothesis.
+- **p**: The p-value. p-values range from 0 to 1. Less than 0.05 is often considered significantly different.
 
-You can find the Null Hypothesis in the MATLAB documentation, but sometimes its a little confusing.
+You can find the Null Hypothesis in the MATLAB documentation, but sometimes it's a little confusing.
 
 ## Testing Normal Data
 
@@ -102,11 +102,14 @@ legend("Exam 1","Exam 4")
 ```
 
 ![histogram of exam scores](images/histogram-exam-grades-1-4.png){ width="400"}
->Loading the `examgrades.mat` file returns a numeric 120X5 matrix as the variable `grades`. This matrix contains exam scores ranging from 0 to 100. The scores for a given exam are organized by column, so column 1 contains Exam 1 scores, column 2 contains Exam 2 scores, etc. There are 5 different exams (columns) and 120 students (rows). Plotted here is a histogram of the scores from Exam 1 (blue) and 4 (orange). The distribution of scores appears to be normal for both exams.
+>Loading the `examgrades.mat` file returns a numeric 120×5 matrix as the variable `grades`. This matrix contains exam scores ranging from 0 to 100. The scores for a given exam are organized by column, so column 1 contains Exam 1 scores, column 2 contains Exam 2 scores, etc. There are 5 different exams (columns) and 120 students (rows). Plotted here is a histogram of the scores from Exam 1 (blue) and 4 (orange). The distribution of scores appears to be normal for both exams.
 
 ### Testing for Normality
 
 Eyeballing the histograms, it looks like the data is normally distributed. But in an official report, you probably want a more officious way to state the data was normal. Fortunately, there are several different tests you can use.
+
+!!! tip "See Also"
+    Visually assessing normality (symmetry in histograms, box plots, skewness) is covered in more depth on the [Sampling and Distributions](SamplesDistributions.md) page. Here, we go one step further and use a formal statistical test instead of just eyeballing it.
 
 To test if your samples have a normal distribution, you can use the Anderson Darling test with the MATLAB function [**`adtest`**](https://www.mathworks.com/help/stats/adtest.html)(1).
 { .annotate}
@@ -127,38 +130,52 @@ In the following example, we test the Exam 1 and Exam 4 scores for normality.
 
 ```matlab title="result"
 h1 =
+
   logical
-    0
-   
-p1 = 
-    0.18539
+
+   0
+
+
+p1 =
+
+      0.18539
+
 
 h4 =
-  logical
-    0
 
-p4 = 
-    0.15005
+  logical
+
+   0
+
+
+p4 =
+
+      0.15005
 ```
 
 …Since `h1=0` and `p1 > 0.05`, you fail to reject the Null Hypothesis for *`x1`* (Exam 1), meaning you accept the alternative hypothesis that the Exam 1 grades have a normal distribution and you can use them in a t-test. We get the same result for *`x4`*, the Exam 4 grades. So, the samples are normal. On to the next step.
 
 ### Testing for Equal Variance
 
-In addition to having a normal distribution, your data should also have equal variance for t-tests. To test for equal variance, you can use [**vartest2**](https://www.mathworks.com/help/stats/vartest2.html){target="_blank"}. As in the **adtest**, the Null Hypothesis is that the samples have Equal Variance.
+In addition to having a normal distribution, your data should also have equal variance for t-tests. To test for equal variance, you can use [**vartest2**](https://www.mathworks.com/help/stats/vartest2.html){target="_blank"}. As in the **`adtest`**, the Null Hypothesis is that the samples have Equal Variance.
 
-As you can see The syntax is  similar, except that you plug both *`x`* and *`y`* into the function call:
+As you can see, the syntax is similar, except that you plug both *`x`* and *`y`* into the function call:
 
 ```matlab linenums="1" title="Testing for Equal Variance using an F-test"
+x = x1; % Exam 1 scores
+y = x4; % Exam 4 scores
 [hv,pv] = vartest2(x,y)
 ```
 
 ```matlab title="result"
-hv = 
-    0
+hv =
 
-pv = 
-    0.88118
+     0
+
+
+pv =
+
+      0.88118
 ```
 
 …Again, since *`hv=0`* and *`pv > 0.05`*, we fail to reject the null hypothesis, meaning the Exam Scores have equal variance and can be used in a t-test.
@@ -179,25 +196,37 @@ As you can see below, the syntax is very similar to the other tests, although he
 ```
 
 ```matlab title="result"
-h = 
-    0
-p = 
+h =
+
+     0
+
+
+p =
+
       0.98218
-ci = 2×1
+
+
+ci =
+
       -2.2277
        2.1777
-stats = struct with fields:
+
+
+stats = 
+
+  struct with fields:
+
     tstat: -0.022359
        df: 238
        sd: 8.6609
 ```
 
-…Here, *`h=0`* and *`p > 0.05`* means that x1 and x4 are likely samples with the same means, meaning that Exam 1 and Exam 4 are not significantly different. *`ci`* indicates the 95% confidence interval, while the *`stats`* structure includes details about the t-test for the stats nerds in the audience. You also use this information when you report the results (see below)
+…Here, *`h=0`* and *`p > 0.05`* means that x1 and x4 are likely samples with the same means, meaning that Exam 1 and Exam 4 are not significantly different. *`ci`* indicates the 95% confidence interval, while the *`stats`* structure includes details about the t-test for the stats nerds in the audience. You also use this information when you report the results (see below).
 
 If we review the normal curves used for the t-tests, we can see they are virtually identical, which is why the t-test calculated such a high p-value and failed to reject the Null Hypothesis.
 
 ![Normal curve plots of the exam data](images/pdf-exam-grades-1-4.png){ width="400"}
->**Normal curves fitted to the histograms of Exam scores are nearly identical**. Mean of Exam 1 = 75±8.7, Mean of Exam 4 = 75±8.6. , we in fact see that they are very similar.
+>**Normal curves fitted to the histograms of Exam scores are nearly identical**. Mean of Exam 1 = 75±8.7, Mean of Exam 4 = 75±8.6; we can see that they are, in fact, very similar.
 
 ??? example "Code to create Normal Curve Plots in the figure above"
 
@@ -231,14 +260,26 @@ text(50,.04,sprintf('p=%1.1e',p)) % add p to axes
 ```
 
 ```matlab title="result"
-h = 
-    1
-p = 
-    1.0908e-05
-ci = 2×1
+h =
+
+     1
+
+
+p =
+
+   1.0908e-05
+
+
+ci =
+
       -7.2277
       -2.8223
-stats = struct with fields:
+
+
+stats = 
+
+  struct with fields:
+
     tstat: -4.4941
        df: 238
        sd: 8.6609
@@ -258,8 +299,8 @@ stats = struct with fields:
     plot(x,y1,'-',LineWidth=2) 
     hold on
     plot(x,y3,'-', LineWidth=2)
-    xline(pd1.mu,'k:','mean 1','LabelHorizontalAlignment','left','LabelVerticalAlignment','bottom','DisplayName','mean 1','Color',(H(1)))
-    xline(pd3.mu,'k:','mean 4','LabelHorizontalAlignment','right','LabelVerticalAlignment','bottom','DisplayName','mean 4','Color',H(2))
+    xline(pd1.mu,'k:','mean 1','LabelHorizontalAlignment','left','LabelVerticalAlignment','bottom','DisplayName','mean 1','Color',RGB(1,:))
+    xline(pd3.mu,'k:','mean 4','LabelHorizontalAlignment','right','LabelVerticalAlignment','bottom','DisplayName','mean 4','Color',RGB(2,:))
     legend("Exam 1","Exam 4")
     xlim([44 105])
     text(50,.04,sprintf('p=%1.1e',p)) % add p to axes
@@ -280,7 +321,45 @@ disp(s)
 
 [How to properly report a t-test in APA style.](https://www.socscistatistics.com/tutorials/ttest/default.aspx)
 
-## Testing Non-normal data
+### Paired t-tests
+
+Everything above uses **`ttest2`**, which assumes the two samples are *independent*—the observations in one sample have no relationship to the observations in the other. But sometimes your samples are related. For instance, the same 120 students took both Exam 1 and Exam 4, so each Exam 1 score is naturally paired with that same student's Exam 4 score.
+
+For paired data like this, use **`ttest`** instead of **`ttest2`**. Rather than comparing the two samples directly, **`ttest`** tests whether the average *difference* between the paired observations is significantly different from zero.
+
+```matlab linenums="1" title="Paired t-test of Exam 1 vs Exam 4"
+[h,p,ci,stats] = ttest(x1,x4)
+```
+
+```matlab title="result"
+h =
+
+     0
+
+
+p =
+
+      0.97717
+
+
+ci =
+
+      -1.7512
+       1.7012
+
+
+stats = 
+
+  struct with fields:
+
+    tstat: -0.028677
+       df: 119
+       sd: 9.5499
+```
+
+…Notice that `df` here is `119` (one less than the 120 students), not `238` like it was for the independent-samples **`ttest2`** call—paired tests have fewer degrees of freedom because they're only comparing one set of differences, not two separate samples. The conclusion is the same either way here (`h=0`, not significantly different), but for genuinely paired data, the paired test is usually more powerful, since it accounts for the natural variability between individual students.
+
+## Testing Non-normal Data
 
 !!! note "aka Nonparametric Testing"
 
@@ -298,7 +377,7 @@ Here, we have a value called "Viral Load" and two categories: "Treated" and "Unt
 
 ![Histogram and Box plot of skewed data](images/viral-load-distribution-plots.png){ width="450"}
 
->**Distribution of Viral Load.** The histogram for both samples indicates a non-normal distribution of the data. In the box plots, the median value is not centered inside the interquartile range box—it's closer to 25th . This offset indicates that the data is skewed.
+>**Distribution of Viral Load.** The histogram for both samples indicates a non-normal distribution of the data. In the box plots, the median value is not centered inside the interquartile range box—it's closer to the 25th percentile. This offset indicates that the data is skewed.
 
 ??? example "Code to generate above plots"
 
@@ -334,10 +413,16 @@ If we test if data is Normally distributed using the **`adtest`**:
 ```
 
 ```matlab title="result"
-h = logical
+h =
+
+  logical
+
    1
-p = 
-     0.018987
+
+
+p =
+
+     0.014208
 ```
 
 …Since `p<.05`, the data is not normal and you should use a non-parametric test, like the Mann-Whitney U test…
@@ -355,7 +440,7 @@ If your data is not normal, but you still want to know if your samples are stati
     - The data should come from two randomly selected independent samples (no relationship between groups). If samples are paired (e.g., repeated measures from the same participants), use a paired samples t-test.
     - Each group should have a sufficient sample size, typically more than 5 observations per group.
 
-The function for a Mann Whitney is called **`ranksum`**. The syntax is as follows:
+The function for a Mann-Whitney is called **`ranksum`**. The syntax is as follows:
 
 ```matlab linenums="1" title="Mann Whitney U-test of Treated vs Untreated Viral Loads"
 x = T.ViralLoad(T.Treatment=="Treated");
@@ -365,13 +450,24 @@ y = T.ViralLoad(T.Treatment=="Untreated");
 ```
 
 ```matlab title="result"
-p = 
-     0.028306
-h = logical
+p =
+
+     0.008127
+
+
+h =
+
+  logical
+
    1
-stats = struct with fields:
-       zval: -2.193
-    ranksum: 75.5
+
+
+stats = 
+
+  struct with fields:
+
+    ranksum: 69.5
+       zval: -2.6467
 ```
 
 …Since `p<0.05`, then we reject the Null Hypothesis and accept the Alternative Hypothesis that groups are different.
@@ -379,7 +475,7 @@ stats = struct with fields:
 When you report results using a Non-parametric test, you should report the median and interquartile range of values (instead of the mean and standard deviation). Something like the following:
 
 ```matlab linenums="1" title="Reporting Mann Whitney results"
-groupsummary(T,"Treatment",["median","range"]);
+groupsummary(T,"Treatment",["median","range"])
 
 s = sprintf('The treated group had a significantly lower viral load than the untreated group,\n');
 s = sprintf('%smedian=%1.2f vs %1.2f, respectively,',s,  median(x), median(y));
@@ -393,11 +489,71 @@ fprintf('%s as indicated by a Mann-Whitney U-test, U(Nleft=%d, Nright=%d)=%1.2f,
 ```
 
 ```matlab title="result"
+ans =
+
+  2×4 table
+
+    Treatment    GroupCount    median_ViralLoad    range_ViralLoad
+    _________    __________    ________________    _______________
+
+    Treated          10               1050              4110      
+    Untreated        10             4749.5              6600      
+
 The treated group had a significantly lower viral load than the untreated group,
-median=1050.00 vs 3375.00, respectively, as indicated by a Mann-Whitney U-test, U(Nleft=10, Nright=10)=75.50,z=-2.19, p=0.028.
+median=1050.00 vs 4749.50, respectively, as indicated by a Mann-Whitney U-test, U(Nleft=10, Nright=10)=69.50,z=-2.65, p=0.008.
 ```
 
 You can find an example on how to report the results from Mann-Whitney U tests [here](https://guides.library.lincoln.ac.uk/c.php?g=110730&p=4638042).
+
+## Challenge
+
+??? question "Testing Exam 2 vs Exam 3"
+
+    === "Question"
+
+        Using the same `examgrades.mat` dataset, test whether Exam 2 and Exam 3 scores are significantly different, following the same three-step process used above for Exam 1 vs. Exam 4:
+
+        1. Test both samples for normality using **`adtest`**.
+        2. Test for equal variance using **`vartest2`**.
+        3. Run the appropriate test and interpret the result.
+
+    === "Answer"
+
+        ```matlab linenums="1"
+        x2 = grades(:,2);
+        x3 = grades(:,3);
+
+        [h2,p2] = adtest(x2)
+        [h3,p3] = adtest(x3)
+        ```
+
+        Both `h2` and `h3` are `0` (p2=0.22039, p3=0.79927), so both samples are normally distributed.
+
+        ```matlab linenums="1"
+        [hv,pv] = vartest2(x2,x3)
+        ```
+
+        `hv=0` (pv=0.16606), so the samples also have equal variance. Since both assumptions are met, we can use a t-test.
+
+        ```matlab linenums="1"
+        [h,p] = ttest2(x2,x3)
+        ```
+
+        ```matlab title="result"
+        h =
+
+             0
+
+
+        p =
+
+             1
+        ```
+
+        `h=0` and `p=1`—Exam 2 and Exam 3 are about as "not different" as two samples can be.
+
+!!! tip "See Also"
+    A p-value tells you whether a difference is likely real, but not how big it is. For that, see the [Effect Size](EffectSize.md) page, which picks up right where this one leaves off.
 
 
 <!-- 
