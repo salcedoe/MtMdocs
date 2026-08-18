@@ -8,7 +8,10 @@ As we muddle through data analysis, we will also be muddling through some basic 
 
 - Population vs Sample
 - Normal Curves
-  
+
+!!! warning "Toolbox Requirement"
+    Some examples on this page (in the Skewed Distributions section) use functions like **`normrnd`**, **`wblrnd`**, and **`histfit`**, which require the **Statistics and Machine Learning Toolbox**.
+
 ## Useful Stats Resources
 
 - :material-web: [Investopedia Analysis Tools](https://www.investopedia.com/tools-for-fundamental-analysis-4689755){target="_blank"}
@@ -20,7 +23,7 @@ As we muddle through data analysis, we will also be muddling through some basic 
 When collecting data, it's good to know the data's provenance:
 
 - Where did this data come from?
-- How Representative is this Data?
+- How representative is this data?
 
 :material-web: **Reference:** [Investopedia - Populations](https://www.investopedia.com/terms/p/population.asp){ target="_blank" }
 
@@ -33,18 +36,18 @@ When collecting data, it's good to know the data's provenance:
 
 ![img-name](images/US-PopvSample.png){ width="550"}
 
->**Examples of Populations vs samples.** Populations (in pink) can be All US Citizens, all Adult US citizens, or even just adult citizens in the state of Colorado. Samples (in yellow) would be subsets of whatever you define as your population.
+>**Examples of Populations vs Samples.** Populations (in pink) can be All US Citizens, all Adult US citizens, or even just adult citizens in the state of Colorado. Samples (in yellow) would be subsets of whatever you define as your population.
 
 :material-web: [Adapted from Psych Explained: Random Sampling](https://www.youtube.com/watch?v=r-rFO_2NsgI&list=PL_pCzdGjrXUXiNIaoUNjjxZ4sAu8ypV-y&index=6){target="_blank"}
 
 #### Groups
 
-Often we break our samples down into different categories, or groups. Very often, you will read about the Control Group or the Experimental Group. The Control group is typically the unmodified group, while the Experimental group has been treated in some fashion (sometimes called the Treatment Group).
+Often we break our samples down into different categories, or groups. Very often, you will read about the Control Group or the Experimental Group. The Control Group is typically the unmodified group, while the Experimental Group has been treated in some fashion (sometimes called the Treatment Group).
 
 So, for example, we could break our CO Citizens Samples down into two groups as follows:
 
 - **Control Group**: those who have never tried marijuana before
-- **Experimental group**: those who use marijuana daily
+- **Experimental Group**: those who use marijuana daily
 
 And then we measure something else, like response time, and use statistics to determine if there is a difference in response time between the groups.
 
@@ -52,12 +55,12 @@ And then we measure something else, like response time, and use statistics to de
 
 *External what?*
 
-External Validity is a just a fancy term for defining how representative your sample (n) is of the population (N).
+External Validity is just a fancy term for defining how representative your sample (n) is of the population (N).
 
 The key to a good sample is that it is representative of the entire population. For example, if your population is 50% women, then your sample should be 50% women.
 
 - **High external validity**: Your sample is representative
-- **Low external validity**: not so much. Your sample may have some bias or is too small (and maybe has a large number of outliers)
+- **Low external validity**: not so much. Your sample may have some bias or may be too small (and maybe has a large number of outliers).
 
 ![img-name](images/Sample-inference.png){ width="350"}
 
@@ -67,11 +70,11 @@ The key to a good sample is that it is representative of the entire population. 
 
 ![bell curve with a You are here arrow pointing at the mean](images/bell-curve-you-are-here.png){ width="250"}
 
-When you measure things, like humans, you will find that their parts vary: height, weight, foot size, the spacing between the eyes (I'm looking at you, Anya Taylor Joy). But each of these measurements won't vary *too* greatly between humans—they tend to fall with a certain range. If you take a large enough sample (>30) and plot the measurements as a histogram, you should get a histogram that looks something like this:
+When you measure things, like humans, you will find that their parts vary: height, weight, foot size, the spacing between the eyes (I'm looking at you, Anya Taylor Joy). But each of these measurements won't vary *too* greatly between humans—they tend to fall within a certain range. If you take a large enough sample (>30) and plot the measurements as a histogram, you should get a histogram that looks something like this:
 
 ![img-name](images/histogram-female-heights.png){ width="450"}
 
->**Histogram of Female Heights**. In this sample of 1000 women, the average height was 63.2 and the standard deviation was 0.25.  Notice how the most frequent heights are clustered around the mean in the center of the histogram. Also notice we don't have any 50" or 80" women (4'2" or 6'7") in our sample.
+>**Histogram of Female Heights**. In this sample of 1000 women, the average height was approximately 63.7 and the standard deviation was approximately 2.5. Notice how the most frequent heights are clustered around the mean in the center of the histogram. Also notice we don't have any 50" or 80" women (4'2" or 6'7") in our sample.
 
 ??? example "Generating Normal Data for the above Histogram"
 
@@ -91,7 +94,7 @@ If you fit a curve to this histogram, you get a bell-shaped curve.
 
 ![img-name](images/histogram-female-heights-PDF.png){ width="450"}
 
-In fact, this bell-shaped curve  was so common, they called it a "Normal" curve (1).
+In fact, this bell-shaped curve was so common, they called it a "Normal" curve (1).
 { .annotate }
 
 1. Or, if you're boring, a "Gaussian" curve, after the [wrong mathematician](https://en.wikipedia.org/wiki/Abraham_de_Moivre){target="_blank"} Johann Gauss.
@@ -100,7 +103,7 @@ In fact, this bell-shaped curve  was so common, they called it a "Normal" curve 
     A normal curve is determined by two components:
 
     1. **The Mean**: which determines the center of the curve.
-    2. **The Standard Deviation (SD)**: which determines the width of the curve
+    2. **The Standard Deviation (SD)**: which determines the width of the curve.
    
     In a Normal Curve, the **Mean, Median, and Mode are all equal**.
 
@@ -110,7 +113,7 @@ In fact, this bell-shaped curve  was so common, they called it a "Normal" curve 
 
 *I guess that's interesting, but how does that help me in the real world?*
 
-The bell curve is so powerful because it allows us to calculate the probability of any value in reference to the mean and standard deviation. This something is called a **Normal Probability Density Function (PDF)**—a fancy term for the math function that creates the normal curve.
+The bell curve is so powerful because it allows us to calculate the probability of any value in reference to the mean and standard deviation. This calculation is called a **Normal Probability Density Function (PDF)**—a fancy term for the math function that creates the normal curve.
 
 !!! note "Key points about the Probability Density Function (PDF)"
       - It is a mathematical function that generates the normal curve.
@@ -119,7 +122,7 @@ The bell curve is so powerful because it allows us to calculate the probability 
 
 ![img-name](images/normal-distribution-1024x640.webp){ width="550"}
 
->**The Normal Probability Distribution Function can predict frequency**. **µ**: the mean, **𝜎**: the standard deviation. Adding up the area under the curve gives you the percentage of measurements that fall in that range. For all normal distributions, 68.3% of the observations will appear within plus or minus one standard deviation of the mean; 95.4% will fall within +/- two standard deviations; and 99.7% within +/- three standard deviations. This fact is sometimes called the **"empirical rule"**, because people (math nerds) saw this phenomenon happen over and over. Read more about [PDFs here](https://en.wikipedia.org/wiki/Probability_density_function){target="_blank"} if you are looking for a good soporific.
+>**The Normal Probability Distribution Function can predict frequency**. **µ**: the mean, **𝜎**: the standard deviation. Adding up the area under the curve gives you the percentage of measurements that fall in that range. For all normal distributions, 68.3% of the observations will appear within plus or minus one standard deviation of the mean; 95.4% will fall within +/- two standard deviations; and 99.7% within +/- three standard deviations. This fact is sometimes called the **"empirical rule,"** because people (math nerds) saw this phenomenon happen over and over. Read more about [PDFs here](https://en.wikipedia.org/wiki/Probability_density_function){target="_blank"} if you are looking for a good soporific.
 
 So, for the heights of females, 68% of all heights would fall between -1SD and +1SD, and 95% of heights fall between -2SD and +2SD. We can use these facts to predict the likelihood of any height. For example, a height of 64" would be pretty likely as most female heights fall in that range. And a female height that falls outside three SD from the mean, such as 71.2", would be fairly unlikely. In the population of women, there are relatively few women with a height of 5'11" or greater—a condition vernacularly known as being "really tall".
 
@@ -135,7 +138,7 @@ Consider the following comparison of a box plot vs the histogram of the height d
 
 ![box plot of female heights](images/normal-bar-histogram.png){ width="450"}
 
->Here we have the same female height data plotted as a both a box plot and a histogram. We have turned the histogram on its side for easier comparison. In the histogram, the bars are symmetrically arrayed on either side of the mean (dotted red lin). In the box plot, the mean (middle blue line) is in the center of the interquartile range (IQR) box, or the middle 50% of the data. Also, the whiskers extend to an equal extent on either side of the IQR. Notice in the bar plot how the mean and the median are equal.
+>Here we have the same female height data plotted as a both a box plot and a histogram. We have turned the histogram on its side for easier comparison. In the histogram, the bars are symmetrically arrayed on either side of the mean (dotted red line). In the box plot, the mean (middle blue line) is in the center of the interquartile range (IQR) box, or the middle 50% of the data. Also, the whiskers extend to an equal extent on either side of the IQR. Notice in the bar plot how the mean and the median are equal.
 
 ??? example "Code to Plot Box Chart and Histogram"
 
@@ -170,6 +173,8 @@ Consider the following comparison of a box plot vs the histogram of the height d
 
     [Wikipedia: Interquartile Range](https://en.wikipedia.org/wiki/Interquartile_range){target="_blank"}
 
+The function **`mmBoxSwarm`** used below is a custom course function (not built into MATLAB) that overlays a box plot on a swarm or violin chart.
+
 A similar symmetry around the mean can be seen in swarm and violin plots.
 
 ![swarm violin charts of female heights](images/normal-swarm-violin.png){ width="450"}
@@ -199,13 +204,13 @@ A similar symmetry around the mean can be seen in swarm and violin plots.
 
 ### Size matters for Normality
 
-Sample size is an important consideration for data processing. Generally, larger sample sizes offer more reliable results, but practical considerations like cost and time may limit how large a sample may be. A [sample of size greater than `30`](https://pmc.ncbi.nlm.nih.gov/articles/PMC3915399/) is often considered to be a good target to for a normal distribution.
+Sample size is an important consideration for data processing. Generally, larger sample sizes offer more reliable results, but practical considerations like cost and time may limit how large a sample may be. A [sample of size greater than `30`](https://pmc.ncbi.nlm.nih.gov/articles/PMC3915399/) is often considered to be a good target for a normal distribution.
 
 As shown below, low sample size can be susceptible to large random effects. Even if a sample comes from a large, normally distributed population (like the heights of all Women), you likely won't get a normal distribution in the sample if your sample size is too small.
 
 ![histogram of data with increasing sample size](images/normal-sample-size.png){ width="650"}
 
->Here we plot a histogram of a female heights with an increasing sample size (n). We don't really see a normal distribution until `n=30`
+>Here we plot a histogram of female heights with an increasing sample size (n). We don't really see a normal distribution until `n=30`.
 
 ??? example "Code to generate the above tiled histogram figure"
 
@@ -231,13 +236,13 @@ There are, of course, other types of data distributions. A unimodal [skewed dist
 
 ![histogram of skewed left data](images/skewed-left-histfit.png){ width="450"}
 
->**Left Skewed Data.** In this histogram, the high frequency data is piled up high on right side of the plot, while much of the low frequency data is spread across the left side of the plot. This low frequency data is sometimes called the tail of the plot. Such a distribution of the data is considered to be **Skewed Left** because the tail is to the left of the high frequency data.
+>**Left Skewed Data.** In this histogram, the high frequency data is piled up high on the right side of the plot, while much of the low frequency data is spread across the left side of the plot. This low frequency data is sometimes called the tail of the plot. Such a distribution of the data is considered to be **Skewed Left** because the tail is to the left of the high frequency data.
 
 Notice that the histogram is not well fit by a normal curve (orange curve) — there's a big hump on the right and a long tail on the left. By comparison, the following data is skewed right…
 
 ![histogram of skewed right data](images/skewed-right-histfit.png){ width="450"}
 
->**Right Skewed data.** Here, the tail is to the right of the highest frequency data.
+>**Right Skewed Data.** Here, the tail is to the right of the highest frequency data.
 
 ### Skewed Mean vs Median
 
@@ -288,13 +293,33 @@ Notice in both datasets that the median value is closer to the highest frequency
 
     Some of this code adapted from the [Mathworks Exploratory Stats documentation](https://www.mathworks.com/help/stats/exploratory-analysis-of-data.html).
 
+You don't have to rely on your eyes alone to detect skew—the function **`skewness`** gives you a number:
+
+```matlab linenums="1" title="Calculate Skewness"
+skewness(left.x)
+skewness(right.x)
+```
+
+```matlab title="result"
+ans =
+
+      -1.0417
+
+
+ans =
+
+       2.1358
+```
+
+…A negative value confirms our data is skewed left, while a positive value confirms it's skewed right. A skewness of `0` would indicate a perfectly symmetric distribution, like the Normal curve.
+
 ### Visualizing Skewed Data in Distribution plots
 
-To spot skewed data, look for asymmetry in the plots.  Here we plot our skewed data as box plots.
+To spot skewed data, look for asymmetry in the plots. Here we plot our skewed data as box plots.
 
 ![skewed box plots](images/skewed-box-plots.png){ width="450"}
 
-> Notice for both plots, how the median is off-centered in the interquartile box.  The open-face blue circles indicate the outlier data, which are found in the tails of the skewed distributions. There is also an asymmetry in the extent of the whiskers on either sides of the boxes.
+>Notice for both plots, how the median is off-centered in the interquartile box. The open-face blue circles indicate the outlier data, which are found in the tails of the skewed distributions. There is also an asymmetry in the extent of the whiskers on either side of the boxes.
 
 ??? example "Code to generate Box Plots"
 
@@ -321,7 +346,7 @@ And here is the same data as a swarm chart overlaid on a box plot…
 
 ![swarm chart of skewed data](images/skewed-swarm-chart.png){ width="450"}
 
->Swarm charts add jitter along the x-axis to highlight density so that the fattest (or widest) parts of the plot have the most data points and clustered around the median. As you can see in these plots, fat regions will be off-centered for a skewed dataset.
+>Swarm charts add jitter along the x-axis to highlight density so that the fattest (or widest) parts of the plot have the most data points and are clustered around the median. As you can see in these plots, fat regions will be off-centered for a skewed dataset.
 
 ??? example "Code to generate Swarm Charts"
 
@@ -352,7 +377,7 @@ The shapes of a swarm and violin chart are basically the same since they both us
 
 ![Violin Charts of left and right skewed data](images/skewed-violin-chart.png){ width="450"}
 
->Here we overlay a violin plot on the scatter plot to highlight the similarity in their shapes.
+>Here we overlay a violin plot on the swarm chart to highlight the similarity in their shapes.
 
 ??? example "Code to Generate the Violin Charts"
 
@@ -378,9 +403,55 @@ The shapes of a swarm and violin chart are basically the same since they both us
     title("Right Skewed")
     ```
 
+!!! tip "See Also"
+    Before comparing groups (e.g. is Height normal for males? for females?), it's worth checking whether each group's data is roughly normal, since that can affect which statistics and tests are appropriate. See the [Group Statistics](groupStats.md) page for how to compute and visualize statistics by group.
+
 ## Distributions all the way down
 
 There are a lot more distributions beyond the scope of this guide. Search for 'probability distributions' if you're interested.
+
+## Challenge
+
+??? question "Skewed or Normal?"
+
+    === "Question"
+
+        Consider the following sample:
+
+        ```matlab
+        data = [12 14 13 15 12 14 78 13 14 12 15 13 14 12 13];
+        ```
+
+        1. Calculate the mean and median of *`data`*. Are they equal?
+        2. Calculate the skewness of *`data`*. Is it skewed left or right?
+        3. Given your answers above, which summary statistic—the mean or the median—better represents a "typical" value in this sample? Why?
+
+    === "Answer"
+
+        ```matlab linenums="1"
+        data = [12 14 13 15 12 14 78 13 14 12 15 13 14 12 13];
+        mean(data)
+        median(data)
+        skewness(data)
+        ```
+
+        ```matlab title="result"
+        ans =
+
+            17.6
+
+
+        ans =
+
+            13
+
+
+        ans =
+
+            3.4517
+        ```
+
+        The mean (17.6) and median (13) are not equal, and the positive skewness (3.45) confirms the data is skewed right. This makes sense: the single value of `78` is a large outlier that pulls the mean up, while the median is unaffected by it. Since most of the data is clustered around 12–15, the **median** is the more representative "typical" value here—the mean is being distorted by that one extreme observation.
 
 <!-- 
 ![Plots of various Probability Distributions](https://www.johnrobininston.com/posts/prob_1_distributions/assets/commondistributions.png){ width="650"}
