@@ -1,7 +1,7 @@
 
 # Basic Plotting
 
-Once you have a figure with an axis (see previous section), you can then add a plot to that axis. MATLAB has extensive plotting capabilities, including bar, scatter, and line plots.
+Once you have a figure with axes (see previous section), you can then add a plot to those axes. MATLAB has extensive plotting capabilities, including bar, scatter, and line plots.
 
 ## Overview
 
@@ -43,7 +43,7 @@ Interested in learning more about Swarm charts? Read these articles:
 
 ## Plots Tab
 
-The simplest way to explore MATLAB's plotting capabilities is through the  "Plots" tab in the ribbon interface.
+The simplest way to explore MATLAB's plotting capabilities is through the "Plots" tab in the ribbon interface.
 
 ![Plots Tab][matlab_plots]{width=600px}
 
@@ -54,18 +54,18 @@ The simplest way to explore MATLAB's plotting capabilities is through the  "Plot
 
 ## Sample data
 
-In this module, we will use a spreadsheet file that contains historical weather information from Denver in September, 2013. The following import this weather data directly into a table variable:
+In this module, we will use a spreadsheet file that contains historical weather information from Denver in September, 2013. The following code imports this weather data directly into a table variable:
 
 ```matlab linenums="1" title="Load Weather Data"
 url = "https://raw.githubusercontent.com/salcedoe/MtMdocs/refs/heads/main/docs/matlabBasics/w2013.csv";
 T = readtable(url)
 ```
 
->you should end up with a table variable, *`T`*
+>You should end up with a table variable, *`T`*.
 
-*`T`* is a 30X23 table variable. Each row in the table contains the data from a given day in September 2013, while each column contains a different metric like Max or Min Temperature.
+*`T`* is a 30×23 table variable. Each row in the table contains the data from a given day in September 2013, while each column contains a different metric like Max or Min Temperature.
 
-We can see the names of all the Column Headers in the table (remember, these are called variables in the table) by access the VariableNames field in the Table Properties, as follows:
+We can see the names of all the Column Headers in the table (remember, these are called variables in the table) by accessing the VariableNames field in the Table Properties, as follows:
 
 ```matlab linenums="1"
 T.Properties.VariableNames'
@@ -90,12 +90,13 @@ So, we have a lot of data to work with. Let's get cracking!
 
 In this module, we focus on the following plotting functions:  
 
-- **Line Plots**: Used to track changes over short or long periods time. Use line plots for smaller changes and bar plots for larger changes
-- **Scatter Plots**: - Also known as an X-Y plot. Used to determine the relationship between two different things (think correlations).
+- **Line Plots**: Used to track changes over short or long periods of time. Use line plots for smaller changes and bar plots for larger changes
+- **Scatter Plots**: Also known as an X-Y plot. Used to determine the relationship between two different things (think correlations).
 - **Bar Plots**: Used to graph categorical data or data sorted into groups.
-Keep the following in mind as you work through these examples.
 - **Histograms**: Used to plot the distribution of a set of observations
 - **Box charts**: Used to plot the summary statistics for a set of observations
+
+Keep the following in mind as you work through these examples.
 
 The following are some similarities that can be seen across these functions:
 
@@ -103,9 +104,9 @@ The following are some similarities that can be seen across these functions:
 
 - If you input two vectors of data, the first vector will be treated as the X-data and the second vector the Y-data.
 
-- After the data inputs, the rest of the inputs typically deal with the appearance of the plot (such as line thick, bar color, or marker appearance).
+- After the data inputs, the rest of the inputs typically deal with the appearance of the plot (such as line thickness, bar color, or marker appearance).
 
-- Line specifications are character shorthand for specifying how the plot should look like. For example, `'r--'` means plot a red, dashed line. Review the documentation for more information
+- Line specifications are character shorthand for specifying how the plot should look. For example, `'r--'` means plot a red, dashed line. Review the documentation for more information.
 
 ## Line Plots
 
@@ -124,14 +125,14 @@ y = T.MaxTemperatureF;
 plot(y)
 ```
 
-…In this function call, **`plot`** assumes that you are inputting the y-values, so it automatically provides the x-values (basically a vector matching the length of the input vector comprised of increasing integers starting at one). Notice that we did not first execute the functions **`figure`** and **`axes`**. We could have, but instead, we had MATLAB do it automatically. If there is no existing axis or figure, the MATLAB plotting functions will simply create one. But be careful—if a plot already exists, MATLAB will simply overwrite the old plot with the new one, which may or may not be what you want.
+…In this function call, **`plot`** assumes that you are inputting the y-values, so it automatically provides the x-values (basically a vector matching the length of the input vector comprised of increasing integers starting at one). Notice that we did not first execute the functions **`figure`** and **`axes`**. We could have, but instead, we had MATLAB do it automatically. If there is no existing axes or figure, the MATLAB plotting functions will simply create them as needed. But be careful—if a plot already exists, MATLAB will simply overwrite the old plot with the new one, which may or may not be what you want.
 
 You can then add plot labels as follows:
 
 ```matlab linenums="1" title="Add Plot Labels"
 xlabel('Day') % labels the x-axis
 ylabel('Max Temperature (˚F)') % labels the y-axis
-title('Denver, Sept 2013') % adds an axis title
+title('Denver, Sept 2013') % adds an axes title
 ```
 
 And the end result should look like this:
@@ -143,7 +144,7 @@ And the end result should look like this:
 
 ### Example 2: Line Graph with both x- and y- inputs
 
-Our table *`T`* has a column called "MDT" which is simply the date of each day.  If we input two vectors into the function **`plot`**, these vectors are treated as X and Y inputs. Inputs beyond the first two inputs are treated as line specifications.
+Our table *`T`* has a column called "MDT" which is simply the date of each day. If we input two vectors into the function **`plot`**, these vectors are treated as X and Y inputs. Inputs beyond the first two inputs are treated as line specifications.
 
 Here we input the date as the X-data and the Minimum Daily temperature as the Y-data.
 
@@ -154,7 +155,7 @@ y = T.MinTemperatureF; % the minimum temp
 hp = plot(x, y, 'm:', 'LineWidth',2); % X-, Y-, and line spec inputs
 xlabel('Day') % labels the x-axis
 ylabel('Minimum Temperature (˚F)') % labels the y-axis
-title('Denver 2013') % adds an axis title
+title('Denver 2013') % adds an axes title
 ```
 
 ![Line Plot Min TempsThe][lineplot-mintemp]{width=400px}
@@ -180,11 +181,10 @@ hp =
              Marker: 'none'
          MarkerSize: 6
     MarkerFaceColor: 'none'
-              XData: [1×30 datetime]
-              YData: [1×30 double]
-              ZData: [1×0 double]
+              XData: [2013-09-01    2013-09-02    2013-09-03    …] (1×30 datetime)
+              YData: [63  60  68  69  62  61  57  56  59  58  60  59  59  58  54  53  58 …] (1×30 double)
 
-  Show all properties
+  Use GET to show all properties
 ```
 
 …Notice the LineWidth property is set to 2 and the "Color" is set to [1 0 1], which is "magenta". You can change the property of the line graph by manipulating these fields. Try it out now. Add the following line after the plot function call and re-run the code block
@@ -213,7 +213,7 @@ hp = plot(x,y1,x,y2); % sequential x and y inputs
 
 xlabel('Day') % labels the x-axis
 ylabel('Temperature (˚F)') % labels the y-axis
-title('Denver 2013') % adds an axis title
+title('Denver 2013') % adds an axes title
 legend('minimum','maximum')
 ```
 
@@ -239,13 +239,13 @@ Notice that we input `x` twice into **`plot`**. First, as the `x` for T.MinTempe
 
     Challenge - Format the Line Plot Programmatically
 
-    Review the MATLAB documentation for  <a href="MATLAB:web(fullfile(docroot, 'matlab/ref/plot.html'))">**plot**</a> and use a single call to **plot** to display the following:
+    Review the MATLAB documentation for [**plot**](https://www.mathworks.com/help/matlab/ref/plot.html) and use a single call to **plot** to display the following:
 
     ![Plot with 3 lines][img_line_3lines]{width=400px}
 
     [img_line_3lines]:images/lineplot-challenge-3lines.png 
 
-    Notice that we are adding a third line of data. You can find this data in table *`T`* T.MeanTemperatureF field. Don't forget to change the figure color to white. You will need to call following functions:
+    Notice that we are adding a third line of data. You can find this data in the *`T.MeanTemperatureF`* field of table *`T`*. Don't forget to change the figure color to white. You will need to call following functions:
 
     * figure
     * plot
@@ -253,7 +253,7 @@ Notice that we input `x` twice into **`plot`**. First, as the `x` for T.MinTempe
     * ylabel
     * legend
 
-    In that order. And you will need to add a line specifications for each plot.
+    In that order. And you will need to add a line specification for each plot.
 
 === "Answer 2"
 
@@ -263,7 +263,7 @@ Notice that we input `x` twice into **`plot`**. First, as the `x` for T.MinTempe
     % hp.Color = 'blue';
     xlabel('Day') % labels the x-axis
     ylabel('Temperature (˚F)') % labels the y-axis
-    title('Denver 2013') % adds an axis title
+    title('Denver 2013') % adds an axes title
     legend('minimum','maximum','mean')
     ```
 
@@ -317,21 +317,21 @@ For example, we can use a histogram to plot the distribution of the Maximum Temp
 ```matlab linenums="1" title="Histogram of Max Temps"
 x=T.MaxTemperatureF;
 histogram(x)
-title('September, 2003. Denver, CO') % add a title
+title('September, 2013. Denver, CO') % add a title
 ylabel('Number of Days'); % label the y-axis
 xlabel('Maximum Temperature (˚F)'); % label the x-axis
 ```
 
 ![img-name](images/hist-max-temps-2003.png){ width="450"}
 
->Here, instead of plotting every single temperature for every day, like we did with the bar plot, we bin the data into 1-degree bins, and then plot the bins (this is all handled by the **`histogram`** function). So, in this plot, 3 temperatures fell between 75.5 and 76.5. So, we got one bar spanning 75.5-76.5 with a height of 3. The histogram also gives us a nice overview of the temperature distributions. For example, we can see there was only one day with a temperature below 55˚F and relatively few days above 95˚C.
+>Here, instead of plotting every single temperature for every day, like we did with the bar plot, we bin the data into 1-degree bins, and then plot the bins (this is all handled by the **`histogram`** function). So, in this plot, 3 temperatures fell between 75.5 and 76.5. So, we got one bar spanning 75.5-76.5 with a height of 3. The histogram also gives us a nice overview of the temperature distributions. For example, we can see there was only one day with a temperature below 55˚F and relatively few days above 95˚F.
 
 Sometimes, the default bin selection used by **`histogram`** produces a plot that is a little sparse or doesn't quite represent the distribution as it should. You can manually set the numbers of bins used in the histogram by adding a second input to the function as follows:
 
 ```matlab linenums="1" title="Histogram of Max Temps"
 x=T.MaxTemperatureF;
-histogram(x,10) %  use 10 bins
-title('September, 2003. Denver, CO') % add a title
+histogram(x,10) % use 10 bins
+title('September, 2013. Denver, CO') % add a title
 ylabel('Number of Days'); % label the y-axis
 xlabel('Maximum Temperature (˚F)'); % label the x-axis
 ```
@@ -341,7 +341,7 @@ xlabel('Maximum Temperature (˚F)'); % label the x-axis
 …Here is the exact same data but using a histogram with just 10 bars (more of the temperature data have been binned together). In this histogram, you can see a little more shape to the distribution of temps.(1)
 { .annotate }
 
-1. Be careful when changing the number of bins that you use in a histogram. The proper number of bins used in a histogram is an arcane subject and there are many papers on the matter that are well beyond the scope of this module. Suffice it to say, you can risk misrepresenting the data if you use a number of bins that does not truly accurate represent the distribution of the data (e.g. overly binned so the the true shape of the distribution is hidden).
+1. Be careful when changing the number of bins that you use in a histogram. The proper number of bins used in a histogram is an arcane subject and there are many papers on the matter that are well beyond the scope of this module. Suffice it to say, you can risk misrepresenting the data if you use a number of bins that does not accurately represent the distribution of the data (e.g. overly binned so the true shape of the distribution is hidden).
 
 ### Box Plots
 
@@ -357,7 +357,7 @@ The function **`boxchart`** creates box plots (1).
 ```matlab linenums="1" title="Box Plot of Max Temperatures"
 boxchart(x)
 ylabel('Max Temperature (˚F)') % label the y-axis
-title('September, 2003. Denver, CO') % add a title
+title('September, 2013. Denver, CO') % add a title
 ```
 
 ![img-name](images/boxchart-max-temps-2003.png){ width="450"}
@@ -366,23 +366,23 @@ title('September, 2003. Denver, CO') % add a title
 
 ### Multiple Box Plots
 
-We can plot multiple box plots in the same axis by inputting a matrix of values. Let's plot the Min and Max Temperatures as box plots in the same figure:
+We can plot multiple box plots in the same axes by inputting a matrix of values. Let's plot the Min and Max Temperatures as box plots in the same figure:
 
 ```matlab linenums="1" title="Multiple Box Plots in same Axes"
 figure % create a new figure
-y = [T.MinTemperatureF   T.MaxTemperatureF]; % create two-column matrix of data
-boxchart(y) % plot data as box plots
+y = [T.MinTemperatureF T.MaxTemperatureF]; % create two-column matrix of data
+boxchart(y,'Notch','on') % plot data as box plots
 xticklabels({'Min' 'Max'}) % change the tick label from a number to a label
 ylabel('Temperature (˚F)') % add a label to the y-axis
 ```
 
-![Box plots of  Minimum and Maximum temperatures](images/boxchart-min-max-temps-2003.png){ width="450"}
+![Box plots of Minimum and Maximum temperatures](images/boxchart-min-max-temps-2003.png){ width="450"}
 
->**Box plots of  Minimum and Maximum temperatures**. Here, we concatenate the Minimum and Maximum Temperatures into a 30X2 matrix and input that matrix into **`boxchart`**. We also turn `Notch on`, which adds notches to the sides of the boxes and can be used to [statistically compare medians](https://www.mathworks.com/help/matlab/ref/boxchart.html#mw_0a6e259a-fc44-4e89-9d6f-09afc9916e0a){target="_blank"}. When we input a matrix into **`boxchart`**, the default tick labels for the x-axis are `1` and `2`: `1` for the first column and `2` for the second column in the matrix. This is not especially informative, so we replace `1` and `2` with `'Min'` and `'Max'` using the **`xticklabels`** function.
+>**Box plots of Minimum and Maximum temperatures**. Here, we concatenate the Minimum and Maximum Temperatures into a 30×2 matrix and input that matrix into **`boxchart`**. We also turn `Notch on`, which adds notches to the sides of the boxes and can be used to [statistically compare medians](https://www.mathworks.com/help/matlab/ref/boxchart.html#mw_0a6e259a-fc44-4e89-9d6f-09afc9916e0a){target="_blank"}. When we input a matrix into **`boxchart`**, the default tick labels for the x-axis are `1` and `2`: `1` for the first column and `2` for the second column in the matrix. This is not especially informative, so we replace `1` and `2` with `'Min'` and `'Max'` using the **`xticklabels`** function.
 
 Inputting a matrix into **`boxchart`** only works if you have the same number of data points for each category (Min and Max). If you have a different number of data points for the different categories, then you can use a **grouping variable** as we discuss on the [Group Statistics page](../dataProcessing/groupStats.md/#grouping-variables).
 
-??? question "How would you add a box of mean temperatures ('MeanTempF') to the axes above?"
+??? question "How would you add a box of mean temperatures ('MeanTemperatureF') to the axes above?"
 
     You would need to modify the y-input:
 
@@ -417,13 +417,13 @@ ylim([32 100]) % set y-axis limits
 
 ![Swarm Chart of Maximum Temperatures](images/swarmchart-max-temp-2003.png){ width="450"}
 
->**Swarm Chart of Maximum Temperatures.** Temperature (˚C) is plotted along the y-axis, while the x-coordinates of the data points randomly jitter around 1. If we changed *`x`* from a vector of `1`'s to a vector of `100`'s, then the values would jitter around `100`.  Notice how the shape of the swarm is dependent on the distribution of the data: the widest part of the plot is along the median temperature of `79.5˚F`, whereas the narrowest parts of the plot have the fewest data points.
+>**Swarm Chart of Maximum Temperatures.** Temperature (˚F) is plotted along the y-axis, while the x-coordinates of the data points randomly jitter around 1. If we changed *`x`* from a vector of `1`'s to a vector of `100`'s, then the values would jitter around `100`.  Notice how the shape of the swarm is dependent on the distribution of the data: the widest part of the plot is along the median temperature of `79.5˚F`, whereas the narrowest parts of the plot have the fewest data points.
 
 ### Multiple Swarm Charts
 
 To plot multiple swarm charts in the same plot, you stack vectors (instead of creating a matrix like for boxchart or barplot).
 
-In the following example, we plot both the Minimum and Maximum Temperatures. For the `x` input, we concatenate a series of `1's` followed by a series of `2's`. The we typecast this vector into a [categorical array](../dataProcessing/dataTypes.md/#categorical-arrays), so we can  associate the label "Min" with the value `1` and the label "Max" with the value `2`. For the `y`, we concatenate the Min and Max Temperatures into a single vector. And then, for a more pleasing aesthetic, we add some additional inputs into the function **`swarmchart`** to modify the face color, transparency, and jitter width of the data points.
+In the following example, we plot both the Minimum and Maximum Temperatures. For the `x` input, we concatenate a series of `1's` followed by a series of `2's`. Then we typecast this vector into a [categorical array](../dataProcessing/dataTypes.md/#categorical-arrays), so we can  associate the label "Min" with the value `1` and the label "Max" with the value `2`. For the `y`, we concatenate the Min and Max Temperatures into a single vector. And then, for a more pleasing aesthetic, we add some additional inputs into the function **`swarmchart`** to modify the face color, transparency, and jitter width of the data points.
 
 ```matlab linenums="1" title="Swarm Chart of Min and Max Temperatures"
 x = [ones(height(T),1); ones(height(T),1)+1]; % stack 1's atop of 2's
@@ -448,7 +448,7 @@ A swarm chart can be extra informative when overlaid with a box plot. Review the
 
 ## Scatter Plots
 
-We use a scatter plot to visualize the relationship between two numerical variables. The shape of the plot can give you some indication as to the nature of that relationship. For example, a scatter plot in which the dots are higher on the right side of the plot vs the left side of the plot typically indicates that the two variables are positively correlated (When the x is high, the y is high).
+We use a scatter plot to visualize the relationship between two numerical variables. The shape of the plot can give you some indication as to the nature of that relationship. For example, a scatter plot in which the dots are higher on the right side of the plot vs the left side of the plot typically indicates that the two variables are positively correlated (when the x is high, the y is high).
 
 For example, we can use a scatter plot to visualize the relationship between minimum and maximum temperatures in a day, as follows:
 
@@ -463,19 +463,19 @@ y = T.MaxTemperatureF;
 hs = scatter(x, y, 50, 'black', 'filled'); % Marker Size 50, black, filled
 hs.MarkerFaceAlpha = 0.5; % change transparency of markers to 0.5
 
-% axis formatting
+% axes formatting
 xlabel('Minimum Temperature (˚F)',"FontSize",14) % add an x-label
 ylabel('Maximum Temperature (˚F)', "FontSize",14) % add a y-label
 title('Denver - September 2013') % Add title
 ```
 
-…Here, we use the function **`scatter`** to generate a scatter plot. Unlike the **`bar`** or **`line`** functions, the **`scatter`** function requires that the first two inputs are x and y vectors.  After these inputs,  **`scatter`** allows for formatting specifications such as
+…Here, we use the function **`scatter`** to generate a scatter plot. Unlike the **`bar`** or **`plot`** functions, the **`scatter`** function requires that the first two inputs are x and y vectors. After these inputs, **`scatter`** allows for formatting specifications such as
 
 - size of dots is 50
 - color of dots is black
-- dots are filled (a solid color,  not just outlines of circles)
+- dots are filled (a solid color, not just outlines of circles)
   
-The order of these formatting inputs is critical, which you can review in the [**scatter**](https://www.mathworks.com/help/matlab/ref/scatter.html') documentation. If you assign an output from **`scatter`**, you get a handle, *`hs`* which allows you to modify the properties of the markers plotted. Here, we use *`hs`* to make the dots more transparent.
+The order of these formatting inputs is critical, which you can review in the [**scatter**](https://www.mathworks.com/help/matlab/ref/scatter.html) documentation. If you assign an output from **`scatter`**, you get a handle, *`hs`*, which allows you to modify the properties of the markers plotted. Here, we use *`hs`* to make the dots more transparent.
 
 And we get a scatter plot that looks like this:
 
