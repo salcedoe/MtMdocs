@@ -4,7 +4,7 @@
 
 ## Overview
 
-Ok. Great. We have [segmented the moon](ImageSegmentation.md) and [cleaned up the mask](ImageSegmentationCleanup.md), so… now what? Well, now, lots of stuff. For example, you can use that mask to make calculations, such as the area or diameter of the mask. Or you can use the mask to restrict image processing to the corresponding regions in the image.  
+Ok. Great. We have [segmented the moon](ImageSegmentation.md) and [cleaned up the mask](ImageSegmentationCleanup.md), so… now what? Well, now, lots of stuff. For example, you can use that mask to make calculations, such as the area or diameter of the mask. Or you can use the mask to restrict image processing to the corresponding regions in the image.
 
 ### Things you should know
 
@@ -22,21 +22,21 @@ You should know how to:
 
 ### Stuff you should read
 
-- [Region and Image Properties](https://www.mathworks.com/help/images/pixel-values-and-image-statistics.html')
+- [Region and Image Properties](https://www.mathworks.com/help/images/pixel-values-and-image-statistics.html)
 
 ### Functions you should know
 
-- [regionprops](https://www.mathworks.com/help/images/ref/regionprops.html') - Measure properties of image regions
+- [regionprops](https://www.mathworks.com/help/images/ref/regionprops.html) - Measure properties of image regions
 
 ## Local Processing
 
-Say we wanted to increase the brightness of the moon. For reference, here is our moon and it's histogram. You can find the code for loading the moon [here.](ImageEnhancement.md/#displaying-the-histogram):
+Say we wanted to increase the brightness of the moon. For reference, here is our moon and its histogram. You can find the code for loading the moon [here](ImageEnhancement.md/#displaying-the-histogram):
 
 ![img-name](images/moon2_hist.png){ width="550"}
 
 >Original moon2 and its histogram
 
-Since all images are just numeric matrices, the simplest way to brighten an image is to add 50 to all pixels, as follows
+Since all images are just numeric matrices, the simplest way to brighten an image is to add 50 to all pixels, as follows:
 
 ```matlab linenums="1" title="Brighten Image"
 moon2 = imread('https://saldenest.s3.amazonaws.com/MATLAB_images/moon2.tif'); % load moon2
@@ -56,7 +56,7 @@ ylim([0 7e3]) % adjust Y- limits of the histogram
 
 [img_bright_all]: images/moon2-all-bright-hist.png
 
->And the moon is brighter, but so is space, which is now an unsatisfyingly dull gray. When we examine the  histogram, we see that we have simply shifted the distribution of pixels to the right and introduced a significant number of saturated pixels, thereby reducing the overall contrast in the image. Remember, this is an 8-bit image, so the maximum intensity any one pixel can have is 255.
+>And the moon is brighter, but so is space, which is now an unsatisfyingly dull gray. When we examine the histogram, we see that we have simply shifted the distribution of pixels to the right and introduced a significant number of saturated pixels, thereby reducing the overall contrast in the image. Remember, this is an 8-bit image, so the maximum intensity any one pixel can have is 255.
 
 To avoid changing the brightness of space, we can use our moon mask as a logical index to restrict the brightening of pixels to just those pixels found in the moon. Remember, we created our moon mask [here](ImageSegmentationCleanup.md/#morph-ops-example) and stored the final cleaned-up mask in *`p.sm_nz`*.
 
@@ -89,41 +89,40 @@ We can also see the effect of just brightening the moon pixels by comparing the 
 
 [img-hist-bright-v-orig]: images/moon2-hist-brightened-v-original.png
 
-#### Challenge - Brighten up That Space
+??? question "Challenge - Brighten up That Space"
 
-=== "Question"
+    === "Question"
 
-      Using the same moon mask from the example above, how would you brighten just the space pixels and not moon pixels, as shown below? Recall that in the original image the space pixels all had a value of 0. Review the histogram.  can you guess what intensity value the space pixels should be set to?
+        Using the same moon mask from the example above, how would you brighten just the space pixels and not moon pixels, as shown below? Recall that in the original image the space pixels all had a value of 0. Review the histogram. Can you guess what intensity value the space pixels should be set to?
 
-=== "Answer"
+    === "Answer"
 
-      ```matlab
-      space_bright = moon2; % copy moon image
-      space_bright(~moon_mask) = 100; % set all NON-MOON pixels (aka SPACE pixels) to 100
+        ```matlab
+        space_bright = moon2; % copy moon image
+        space_bright(~moon_mask) = 100; % set all NON-MOON pixels (aka SPACE pixels) to 100
 
-      % display the results
-      subplot(1,2,1);
-      imshow(space_bright) % show brightened space image
-      
-      subplot(1,2,2);
-      imhist(space_bright) % show histogram
-      xlim([-5 260]) % adjust X- 
-      ylim([0 7e3]) % and Y- limits of the histogram
-      ```
+        % display the results
+        subplot(1,2,1);
+        imshow(space_bright) % show brightened space image
+        
+        subplot(1,2,2);
+        imhist(space_bright) % show histogram
+        xlim([-5 260]) % adjust X- 
+        ylim([0 7e3]) % and Y- limits of the histogram
+        ```
 
-      …As you can see from the code, we set the space pixel intensity values all to 100. Remember, "~" means LOGICAL NOT, which basically converts all **TRUE**s to **FALSE**s, and vice versa in the binary image. 
+        …As you can see from the code, we set the space pixel intensity values all to 100. Remember, "~" means LOGICAL NOT, which basically converts all **TRUE**s to **FALSE**s, and vice versa in the binary image.
 
-![][img_background]{width=600px}
+    ![][img_background]{width=600px}
 
-[img_background]: images/moon2-hist-space-bright.png
+    [img_background]: images/moon2-hist-space-bright.png
 
----
 
 ## Size Measurements
 
-We can also use masks to make measurements. Recall, each pixel in an image represents the sampling of a location in space. Think tiny little boxes. As such, each pixel has a set width and length and, of course, an area. The length and width of each pixel is 1 and the area is also 1 (1x1 = 1 pixel$^2$). So measuring objects typically consists of counting pixels (and even fractions of pixels).
+We can also use masks to make measurements. Recall, each pixel in an image represents the sampling of a location in space. Think tiny little boxes. As such, each pixel has a set width and length and, of course, an area. The length and width of each pixel is 1 and the area is also 1 (1×1 = 1 pixel$^2$). So measuring objects typically consists of counting pixels (and even fractions of pixels).
 
-For example, we can easily calculate the area of the moon mask by counting the number of pixels inside the mask. Since  *`moon_mask`*  is a logical array that contains only logical 1's and 0's, all you need to do add up all of the ones. MATLAB does this automatically for you when use the function **`sum`**:
+For example, we can easily calculate the area of the moon mask by counting the number of pixels inside the mask. Since *`moon_mask`* is a logical array that contains only logical 1's and 0's, all you need to do is add up all of the ones. MATLAB does this automatically for you when you use the function **`sum`**:
 
 ```matlab linenums="1" title="Calculate the area of the mask"
 moon_area = sum(moon_mask(:)) % Add up all of the TRUES
@@ -132,10 +131,10 @@ moon_area = sum(moon_mask(:)) % Add up all of the TRUES
 ```matlab title="area in pixels"
 moon_area =
 
-      273495 % area in pixels
+      269179 % area in pixels
 ```
 
-…The value returned is the area in pixels$^2$
+…The value returned is the area in pixels$^2$.
 
 ### Real World measurements
 
@@ -143,25 +142,25 @@ But what if we want to know our value in real-world measurements, like square mi
 
 For that, we need to know the dimensions of the pixels, length and width, in miles. Often this type of information is included in the metadata of the image, but sadly our image did not provide such data. In such a situation, we need to compare our measurement to a known measurement, like the actual diameter of the Moon in miles.
 
-Once we have such a measurement, we can then easily figure out how big our pixels are in real-world measurements using the following steps
+Once we have such a measurement, we can then easily figure out how big our pixels are in real-world measurements using the following steps:
 
-1. Calculate the diameter of the Moon in pixels
-2. Get the actually diameter of the Moon in miles
+1. Calculate the diameter of the Moon in pixels.
+2. Get the actual diameter of the Moon in miles.
 3. Divide the number of miles by the number of pixels to get the miles/pixel ratio in our image.
 
-So, how do we determine the diameter of the Moon in pixels? Well, we could just draw a line on the moon, using the **`imageViewer** app.
+So, how do we determine the diameter of the Moon in pixels? Well, we could just draw a line on the moon, using the **`imageViewer`** app.
 
 ![img-name](images/moon2-imgVwr-measure-diameter.png){ width="550"}
 
->As shown here, Image Viewer has a "Measure Distance" tool, which we can use to measure distances in pixel on an image. Here, we measure the diameter of the moon to be 603.84 pixels (blue line).
+>As shown here, Image Viewer has a "Measure Distance" tool, which we can use to measure distances in pixels on an image. Here, we measure the diameter of the moon to be 603.84 pixels (blue line).
 
-However, this method requires a precise placement of the line on the image. Another, more robust method that doesn't require user input would be to calculate the diameter from the area. Since the profile of the Moon is basically a circle, we calculate the diameter use some simple Euclidean Geometry and the rearranging of terms, as follows:
+However, this method requires a precise placement of the line on the image. Another, more robust method that doesn't require user input would be to calculate the diameter from the area. Since the profile of the Moon is basically a circle, we calculate the diameter using some simple Euclidean Geometry and the rearranging of terms, as follows:
 
 1. $A=\pi \cdot r^2$ *- Area of a circle*
 2. $r = \sqrt{A / π}$ *- radius from the area*
 3. $d = 2 \cdot \sqrt{A / π}$ *- diameter is 2x the radius*
 
- Now we can calculate the diameter (in pixels) using the moon area that we calculated above:
+Now we can calculate the diameter (in pixels) using the moon area that we calculated above:
 
 ```matlab linenums="1" title="Get Moon Diameter from Area"
 moon_diameter = 2 * sqrt(moon_area / pi) % diameter in pixels
@@ -170,12 +169,12 @@ moon_diameter = 2 * sqrt(moon_area / pi) % diameter in pixels
 ```matlab
 moon_diameter =
 
-       590.11 % pixels
+       585.43 % pixels
 ```
 
 …And we get a value that is slightly smaller than the value we measured using the Measure Distance tool, but within reason.
 
-Next, we need the diameter of the moon in actual miles. Luckily we have [google](https://www.google.com/search?num=100&client=safari&rls=en&q=what+is+the+diameter+of+the+moon&oq=What+is+t&gs_l=serp.3.0.35i39k1j0l3j0i20k1j0l5.24041.24904.0.26041.9.8.0.0.0.0.149.803.6j2.8.0....0...1c.1.64.serp..1.8.802...0i131k1j0i67k1j0i3k1.29ClCq5hfGE), which tells us that the diameter of the moon is `2,159` miles. Sounds big. That's basically the distance between Denver and Miami.
+Next, we need the diameter of the moon in actual miles. Luckily we have [Wikipedia](https://en.wikipedia.org/wiki/Moon), which tells us that the diameter of the moon is `2,159` miles. Sounds big. That's basically the distance between Denver and Miami.
 
 Finally, we can calculate the size of a pixel, as follows:
 
@@ -185,10 +184,10 @@ moon_pixel = 2159 / moon_diameter
 
 ```matlab
 moon_pixel =
-   3.6587
+   3.6879
 ```
 
-…Thus, each pixel in the moon image is 3.67 miles per side (width and height), assuming square pixels.
+…Thus, each pixel in the moon image is 3.69 miles per side (width and height), assuming square pixels.
 
 Now we can calculate the area of the moon mask in square miles:
 
@@ -206,9 +205,9 @@ calc_area =
 
 ### Intensity Measurements
 
-Using the mask of the moon we can also calculate intensities metrics from the original image, such mean intensity:
+Using the mask of the moon, we can also calculate intensity metrics from the original image, such as mean intensity:
 
-If we use the mask as logical index, we get the pixel values from inside the Moon. If we average those values, we get the mean intensity inside the moon
+If we use the mask as a logical index, we get the pixel values from inside the Moon. If we average those values, we get the mean intensity inside the moon.
 
 ```matlab linenums="1" title="Mean Intensity of Moon"
 moon_pixel_intensities = moon2(moon_mask); % pixel intensities inside moon
@@ -218,7 +217,7 @@ avg_moon_pixel_intensities = mean(moon_pixel_intensities) % calculate mean inten
 ```matlab
 avg_moon_pixel_intensities =
 
-  106.2709
+  107.88
 ```
 
 Compare this to the overall average intensity of the image.
@@ -238,47 +237,53 @@ avg_img_pixel_intensities =
 
 …The average of the image is far lower than the average of the moon, because the image includes a high number of space pixels with an intensity of `0`.
 
-##### Challenge - Intensity Measurements
+#### Challenge - Intensity Measurements
 
 ??? question "How would you calculate the range, min, and max pixel intensity of the moon pixels?"
 
-      ```matlab linenums="1" title="Calculate Range"
-      range(moon2(moon_mask)) % range
-      ```
+    === "Question"
 
-      ```matlab
-      ans =
+        How would you calculate the range, min, and max pixel intensity of the moon pixels?
 
-      uint8
+    === "Answer"
 
-         255
-      ```
+        ```matlab linenums="1" title="Calculate Range"
+        range(moon2(moon_mask)) % range
+        ```
 
-      ```matlab linenums="1" title="Calculate Minimum"
-      min(moon2(moon_mask)) % minimum
-      ```
+        ```matlab
+        ans =
 
-      ```matlab
-      ans =
+        uint8
 
-      uint8
+           255
+        ```
 
-         0
-      ```
+        ```matlab linenums="1" title="Calculate Minimum"
+        min(moon2(moon_mask)) % minimum
+        ```
 
-      ```matlab linenums="1" title="Calculate Max"
-      max(moon2(moon_mask)) % maximum
-      ```
+        ```matlab
+        ans =
 
-      ```matlab
-      ans =
+        uint8
 
-      uint8
+           0
+        ```
 
-         255
-      ```
+        ```matlab linenums="1" title="Calculate Max"
+        max(moon2(moon_mask)) % maximum
+        ```
 
-#### Regional Processing Functions
+        ```matlab
+        ans =
+
+        uint8
+
+           255
+        ```
+
+### Regional Processing Functions
 
 The function **`regionprops`** simplifies the process of calculating region properties. With one simple function call, you can quickly calculate an entire series of properties:
 
@@ -291,36 +296,39 @@ ans =
 
   struct with fields:
 
-                   Area: 273495
-               Centroid: [493.4251 483.4057]
-            BoundingBox: [191.5000 194.5000 603 584]
-            SubarrayIdx: {[1×584 double]  [1×603 double]}
-        MajorAxisLength: 600.7383
-        MinorAxisLength: 579.7442
-           Eccentricity: 0.2621
-            Orientation: -6.8450
-             ConvexHull: [400×2 double]
-            ConvexImage: [584×603 logical]
-             ConvexArea: 276330
-            Circularity: 0.7914
-                  Image: [584×603 logical]
-            FilledImage: [584×603 logical]
-             FilledArea: 273495
-            EulerNumber: 1
-                Extrema: [8×2 double]
-          EquivDiameter: 590.1056
-               Solidity: 0.9897
-                 Extent: 0.7766
-           PixelIdxList: [273495×1 double]
-              PixelList: [273495×2 double]
-              Perimeter: 2.0840e+03
-           PerimeterOld: 2.2039e+03
-       MaxFeretDiameter: 605.7169
-          MaxFeretAngle: -173.6494
-    MaxFeretCoordinates: [2×2 double]
-       MinFeretDiameter: 584
-          MinFeretAngle: -90
-    MinFeretCoordinates: [2×2 double]
+                    Area: 269179
+                Centroid: [492.54 480.64]
+             BoundingBox: [191.5 194.5 603 584]
+       BorderConnections: [0 0 0 0]
+    HasBorderConnections: 0
+             SubarrayIdx: {1×2 cell}
+         MajorAxisLength: 596.77
+         MinorAxisLength: 574.89
+            Eccentricity: 0.26832
+             Orientation: 0.56555
+              ConvexHull: [307×2 double]
+             ConvexImage: [584×603 logical]
+              ConvexArea: 273983
+             Circularity: 0.59547
+                   Image: [584×603 logical]
+             FilledImage: [584×603 logical]
+              FilledArea: 269179
+             EulerNumber: 1
+                 Extrema: [8×2 double]
+           EquivDiameter: 585.43
+                Solidity: 0.98247
+                  Extent: 0.76438
+            PixelIdxList: [269179×1 double]
+               PixelList: [269179×2 double]
+               Perimeter: 2380.2
+            PerimeterOld: 2520.2
+     BoundaryCoordinates: [2189×2 double]
+        MaxFeretDiameter: 605.18
+           MaxFeretAngle: -174.12
+     MaxFeretCoordinates: [2×2 double]
+        MinFeretDiameter: 578.88
+           MinFeretAngle: 77.471
+     MinFeretCoordinates: [2×2 double]
 ```
 
 But wait, there's more. If you also want to calculate the intensity properties from the original image, input the image as the second input:
@@ -334,12 +342,12 @@ ans =
 
   struct with fields:
 
-    WeightedCentroid: [461.4839 441.1727]
-       MeanIntensity: 106.2709
+    WeightedCentroid: [461.46 441.04]
+       MeanIntensity: 107.88
         MinIntensity: 0
         MaxIntensity: 255
 ```
 
 …weight centroid uses intensity as an additional input to calculate the center of the mask.
 
-Review the [regionprops documentation](https://www.mathworks.com/help/images/ref/regionprops.html#buoixjn-3') for more information.
+Review the [regionprops documentation](https://www.mathworks.com/help/images/ref/regionprops.html#buoixjn-3) for more information.

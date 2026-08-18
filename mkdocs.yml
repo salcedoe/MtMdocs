@@ -48,6 +48,14 @@ nav:
     - Sampling and Distributions: dataProcessing/SamplesDistributions.md
     - Hypothesis Testing: dataProcessing/HypTesting.md
     - Effect Size: dataProcessing/EffectSize.md
+  - Image Processing:
+    - 2D Image Processing:
+      - Grayscale Images: imageProcessing/ImageIntro.md
+      - Image Enhancement: imageProcessing/ImageEnhancement.md
+      - Image Segmentation: imageProcessing/ImageSegmentation.md
+      - Segmentation Cleanup: imageProcessing/ImageSegmentationCleanup.md
+      - Region Processing: imageProcessing/ImageRegionProcessing.md
+      - RGB Images: imageProcessing/ImageRGB.md
   - Imaging:
     - Imaging Concepts:
       - Light: imaging/electromagneticRadiation.md
@@ -60,16 +68,7 @@ nav:
       - Introduction: imaging/medicalImagingIntro.md
       - X-ray Imaging: imaging/XrayImaging.md
       - CT Imaging: imaging/CTImaging.md
-      - MRI Atlas: imaging/Liesel_Brain_Atlas.html
-  - Image Processing:
-    - 2D Image Processing:
-      - Grayscale Images: imageProcessing/ImageIntro.md
-      - Image Enhancement: imageProcessing/ImageEnhancement.md
-      - Image Segmentation: imageProcessing/ImageSegmentation.md
-      - Segmentation Cleanup: imageProcessing/ImageSegmentationCleanup.md
-      - Region Processing: imageProcessing/ImageRegionProcessing.md
-      - RGB Images: imageProcessing/ImageRGB.md
-    
+      - MRI Atlas: imaging/Liesel_Brain_Atlas.html    
   - Volume Processing: 
     - Overview: volumeProcessing/volumeOverview.md
     - Loading Volumes:
