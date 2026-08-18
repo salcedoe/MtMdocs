@@ -8,14 +8,14 @@
 
 ## Overview
 
-In this module, we discuss the basic components needed to create a plot. Specifically, we will learn about empty MATLAB windows, called figures, and empty axes (where the plots are added) called **axes**.
+In this module, we discuss the basic components needed to create a plot. Specifically, we will learn about empty MATLAB windows called **figures**, and the empty plotting areas within them, called **axes**.
 
 ### Things you should know
 
 After this module you should be able to:
 
-- Create a blank figure and add a blank axis to the figure
-- Access and modify a figure or axis's properties using the 'Edit' menu
+- Create a blank figure and add a blank axes to the figure
+- Access and modify a figure's or axes' properties using the 'Edit' menu
 - Access and modify a figure's properties using the relevant handle and either *dot notation* or the **`set`** and **`get`** functions
 - Tile multiple axes into the same figure
 - Know all the listed important terminology and be able to use the listed important functions
@@ -24,25 +24,25 @@ After this module you should be able to:
 
 You should know what these functions do and how to use them
 
-- [**figure**](https://www.mathworks.com/help/matlab/ref/figure.html')
+- [**figure**](https://www.mathworks.com/help/matlab/ref/figure.html)
 
-- [**axes**](https://www.mathworks.com/help/matlab/ref/axes.html')
+- [**axes**](https://www.mathworks.com/help/matlab/ref/axes.html)
 
-- [**tiledLayout**](https://www.mathworks.com/help/matlab/ref/bar.html')
+- [**tiledlayout**](https://www.mathworks.com/help/matlab/ref/tiledlayout.html)
 
-- [**nexttile**](https://www.mathworks.com/help/matlab/ref/nexttile.html')
+- [**nexttile**](https://www.mathworks.com/help/matlab/ref/nexttile.html)
 
 ### Relevant MATLAB documentation and other links
 
-- [Graphics](https://www.mathworks.com/help/matlab/graphics.html?s_tid=CRUX_lftnav')
+- [Graphics](https://www.mathworks.com/help/matlab/graphics.html?s_tid=CRUX_lftnav)
 
-- [Graphics Objects](https://www.mathworks.com/help/matlab/graphics-objects.html')
+- [Graphics Objects](https://www.mathworks.com/help/matlab/graphics-objects.html)
 
-- [Graphic Object Handles](https://www.mathworks.com/help/matlab/creating_plots/currently-active-figure-and-axes.html')
+- [Graphic Object Handles](https://www.mathworks.com/help/matlab/creating_plots/currently-active-figure-and-axes.html)
 
-- [Graphic Object Properties](https://www.mathworks.com/help/matlab/graphics-object-properties.html?s_tid=CRUX_lftnav')
+- [Graphic Object Properties](https://www.mathworks.com/help/matlab/graphics-object-properties.html?s_tid=CRUX_lftnav)
 
-- [Axis Toolbar](https://www.mathworks.com/help/matlab/creating_plots/interactively-explore-plotted-data.html'): Interactively Explore Plotted Data
+- [Axes Toolbar](https://www.mathworks.com/help/matlab/creating_plots/interactively-explore-plotted-data.html): Interactively Explore Plotted Data
 
 - [Mathworks Blog: Creating Pretty Graphs](http://blogs.mathworks.com/loren/2007/12/11/making-pretty-graphs/)
 
@@ -58,7 +58,7 @@ You should be able to define the following terms and use them to discuss MATLAB 
 
 - **Axes**: an object to which you can add plots or images
 
-- **Handle**: an object identifier. Every figure, axis, and control element has a handle
+- **Handle**: an object identifier. Every figure, axes, and control element has a handle
 
 - **Properties**: the name, color, size, location, etc. of a graphic object
 
@@ -88,25 +88,25 @@ You can explore the properties of your new figure by selecting the "Edit:Figure 
 
 ![Property Inspector](images/properties-inspector-window-collapsed.png){width="250"}
 
->As you can see, the properties window has a series of collapsible tabs
+>As you can see, the properties window has a series of collapsible tabs.
 
 Let's explore these tabs by opening the "Identifiers" tab:
 
 ![identifiers tab](images/properties-inspector-window-Identifiers.png){width="250"}
 
->Here we find a series of properties related to the identification of the figure window
+>Here we find a series of properties related to the identification of the figure window.
 
 We can rename our new figure by entering "My first figure" in the Name field.
 
 ![Property Inspector Identifiers](images/figure-title-bar.png){width="250"}
 
->Notice how the title bar of the figure changes to include our new figure name, and the Figure number
+>Notice how the title bar of the figure changes to include our new figure name and the Figure number.
 
-If you want to remove the "Figure 1:" part of the title, simple click off the NumberTitle Check box.
+If you want to remove the "Figure 1:" part of the title, simply click off the NumberTitle check box.
 
 ![Figure Title no number](images/figure-title-bar-NoNumTitle.png){ width="250"}
 
-If you prefer your windows in hot pink you change the color by clicking on the "Window Appearance" tab and modifying the "Color" property:
+If you prefer your windows in hot pink, you can change the color by clicking on the "Window Appearance" tab and modifying the "Color" property:
 
 ![Property Inspector Window Appearance](images/properties-inspector-window-appearance.png){ width="250"}
 
@@ -120,15 +120,15 @@ And now our figure is hot pink:
 
 You can also hide the default toolbar by setting the "ToolBar" setting to "none". Or, if you don't want a menubar, set the "MenuBar" setting to "none". Almost any property of the figure can be adjusted in this fashion.
 
-In fact, the Property Inspector is a great way to inspect which properties can (or cannot) be adjusted, and what values they accept. You just need play around with the settings to get a feel for what's possible, most of which is likely beyond the scope of this course.
+In fact, the Property Inspector is a great way to inspect which properties can (or cannot) be adjusted, and what values they accept. You just need to play around with the settings to get a feel for what's possible, most of which is likely beyond the scope of this course.
 
-You can read a full description of all the Figure Properties [here](https://www.mathworks.com/help/matlab/ref/matlab.ui.figure-properties.html').
+You can read a full description of all the Figure Properties [here](https://www.mathworks.com/help/matlab/ref/matlab.ui.figure-properties.html).
 
 [img-undock]: images/undock_icon.png
 
 ### Programming Figure Properties
 
-The Properties Inspector is what is known as a GUI (a graphics user interface), which simply means that you interact with the inspector using your mouse and clicking on buttons—like how most software works. However, since MATLAB is a programming language, anything that you can accomplish with a click of a button, you can also accomplish using MATLAB code. Coding the properties of a figure to your specifications allows you to quickly recreate the settings of a figure in exactly the same way every time.
+The Properties Inspector is what is known as a GUI (a graphical user interface), which simply means that you interact with the inspector by using your mouse and clicking on buttons—like how most software works. However, since MATLAB is a programming language, anything that you can accomplish with a click of a button, you can also accomplish using MATLAB code. Coding the properties of a figure to your specifications allows you to quickly recreate the settings of a figure in exactly the same way every time.
 
 You can programmatically change the properties of a figure in two ways:
 
@@ -147,13 +147,13 @@ figure('Name','My Second Great Figure', 'Color', 'Red')
 
 ![red figure][img-fig-red]{width="300"}
 
->Here we set the title of the figure to "My Second Great Figure" and the background color to red by inputting paired inputs in the function call. 
+>Here we set the name of the figure to "My Second Great Figure" and the background color to red by inputting paired inputs in the function call. 
 
 [img-fig-red]: images/figure-window-red.png
 
 ### Figure Handles
 
-Once you have created the figure, you can access all of its properties through its figure handle. A figure handle is an identifier that is specific to an figure.
+Once you have created the figure, you can access all of its properties through its figure handle. A figure handle is an identifier that is specific to a figure.
 
 Here we use a call to the **`figure`** function with no inputs to create a *default* figure and we assign the output from **`figure`** to *`fh`*.
 
@@ -161,7 +161,7 @@ Here we use a call to the **`figure`** function with no inputs to create a *defa
 fh = figure
 ```
 
-…*`fh`* is the figure handle. Its icon is a cube (![][img-obj-icon]) and its class is "Matlab.ui.Figure", which basically means a graphical object.  (1)
+…*`fh`* is the figure handle. Its icon is a cube (![][img-obj-icon]) and its class is "matlab.ui.Figure", which basically means a graphical object.  (1)
 { .annotate}
 
 1. An Object is a computer element that can have both storage and functions. So, like a variable with some functions attached. Objects that have plots or images in them are called Graphic Objects.
@@ -181,10 +181,10 @@ fh =
     Position: [1000 918 560 420]
        Units: 'pixels'
 
-  Show all properties
+  Use GET to show all properties
 ```
 
-…A click on the "Show all properties" prints out the full list of the figure properties to the command window, which matches the list of properties that you can find in the [Properties Inspector](#figure-properties).
+…A click on the "Use GET to show all properties" link prints out the full list of the figure properties to the command window, which matches the list of properties that you can find in the [Properties Inspector](#figure-properties).
 
 The figure handle can be used to set the properties of a figure using the *dot notation* syntax as follows:
 
@@ -221,7 +221,7 @@ fh.NumberTitle = 'off'
 
 ## Adding Stuff to figures
 
-As previously discussed, figures are blank windows onto which you can add stuff. This stuff is added as a layer onto the figure. For example, you can add a blank axes to a blank figure. And then a line plot to the axes. The figure, the axes, and the line plot are all considered different graphic objects added to different layers of the figure. This layering systme is also known as the Parent-Child relationship between objects.
+As previously discussed, figures are blank windows onto which you can add stuff. This stuff is added as a layer onto the figure. For example, you can add a blank axes to a blank figure. And then a line plot to the axes. The figure, the axes, and the line plot are all considered different graphic objects added to different layers of the figure. This layering system is also known as the Parent-Child relationship between objects.
 
 ### Parents and Children
 
@@ -252,9 +252,9 @@ And you get a figure with an axes
 
 [img-fig-window-axes]: images/figure-window-axes.png
 
->As you can see here, the axis has and x- and a y-axis. It even has limits for each axis (they both range from 0 to 1). The axis is smaller than the figure and it's default background is white (as opposed to the gray background of the figure).
+>As you can see here, the axes has an x-axis and a y-axis. It even has limits for each axis (they both range from 0 to 1). The axes is smaller than the figure and its default background is white (as opposed to the gray background of the figure).
 
-The variable *`ah`*  contains the axis handle to the axis.
+The variable *`ah`* contains the handle to the axes.
 
 ```matlab title="Axes handle"
 ah = 
@@ -269,42 +269,42 @@ ah =
          Position: [0.1300 0.1100 0.7750 0.8150]
             Units: 'normalized'
 
-  Show all properties
+  Use GET to show all properties
 ```
 
->You can click "Show all properties" in the  MATLAB command window and  MATLAB will print all of the axes properties to the Command Window.
+>You can click "Use GET to show all properties" in the MATLAB command window and MATLAB will print all of the axes properties to the Command Window.
 
-Notice that one of the properties of the axis is called 'Parent.' This property stores the handle to the parent figure. You can access the properties of the Parent figure using double dot notation, as follows:
+Notice that one of the properties of the axes is called 'Parent.' This property stores the handle to the parent figure. You can access the properties of the Parent figure using double dot notation, as follows:
 
 ```matlab linenums="1" title="Change Figure background"
 ah.Parent.Color = 'white'
 ```
 
->This changes the background of the figure to white and is the same as typing: `fh.Color = 'White'`
+>This changes the background of the figure to white and is the same as typing: `fh.Color = 'white'`
 
-You can also remove the axis from the figure by deleting its handle using the function **`delete`**
+You can also remove the axes from the figure by deleting its handle using the function **`delete`**
 
 ```matlab linenums="1" title="Remove axes from figure"
 delete(ah)
 ```
 
->Notice that after this command, only the axis disappears, not the figure.
+>Notice that after this command, only the axes disappears, not the figure.
 
 ### Axes Property Functions
 
-Axis property functions are helper functions that label the axes. The most common functions we will use in this tutorial are the following:
+Axes property functions are helper functions that label the axes. The most common functions we will use in this tutorial are the following:
 
-- [**title**](https://www.mathworks.com/help/matlab/ref/title.html'): Add title to axes
+- [**title**](https://www.mathworks.com/help/matlab/ref/title.html): Add title to axes
 
-- [**xlim**](https://www.mathworks.com/help/matlab/ref/xlim.html') and [**ylim**](https://www.mathworks.com/help/matlab/ref/ylim.html'): set x- and y-axis limits
+- [**xlim**](https://www.mathworks.com/help/matlab/ref/xlim.html) and [**ylim**](https://www.mathworks.com/help/matlab/ref/ylim.html): set x- and y-axis limits
 
-- [**xlabel**](https://www.mathworks.com/help/matlab/ref/xlabel.html') and  [**ylabel**](https://www.mathworks.com/help/matlab/ref/ylabel.html'): add X- and Y- labels to axes
+- [**xlabel**](https://www.mathworks.com/help/matlab/ref/xlabel.html) and  [**ylabel**](https://www.mathworks.com/help/matlab/ref/ylabel.html): add X- and Y- labels to axes
 
-- [**legend**](https://www.mathworks.com/help/matlab/ref/legend.html'): Add legend to axes
+- [**legend**](https://www.mathworks.com/help/matlab/ref/legend.html): Add legend to axes
 
 ### Axes Toolbar
 
-If you hover over an axis, you should see a pop-up toolbar that looks like this:
+If you hover over an axes, you should see a pop-up toolbar that looks like this:
 
 ![Axes toolbar][img-axis-toolbar]
 
@@ -316,7 +316,7 @@ This toolbar has several functions, including:
 
 - ![Save Icon][img-axes-save]{width="35"}: **Save** and **Copy**
 
-- ![Data Brush Icon][img-axes-databrush]{width="25"}: **Data Brushing**: allows you to replace or copy specific datapoint, like outliers
+- ![Data Brush Icon][img-axes-databrush]{width="25"}: **Data Brushing**: allows you to replace or copy specific data points, like outliers
 
 - ![Data Tip Icon][img-axes-datatip]{width=30px}: **Data Tips**: allows you to explore specific data points (shown in figure above, the x,y data points)
 
@@ -335,15 +335,15 @@ This toolbar has several functions, including:
 
 ### Saving Plots from Axes toolbar
 
-To save your plot, click on the save icon in the axes toolbar or go the File menu in the figure's menubar and select "Save as..."
+To save your plot, click on the save icon in the axes toolbar or go to the File menu in the figure's menubar and select "Save as..."
 
-For emailing or to embed the plot into digital presentations, choose the .PNG format, which helps reduce file size. For printing, choose the .SVG or .PDF format. These formats allow the plot to be modified using other software, such as  Adobe Photoshop or Illustrator, to change the color of the bars or the fonts. This format also provides a greater resolution range. However, not all imaging packages can open an .svg file and sometimes some complex raster images do not reproduce properly.
+For emailing or to embed the plot into digital presentations, choose the .PNG format, which helps reduce file size. For printing, choose the .SVG or .PDF format. These formats allow the plot to be modified using other software, such as Adobe Photoshop or Illustrator, to change the color of the bars or the fonts. These formats are also resolution-independent, meaning they can be scaled to any size without losing quality. However, not all imaging packages can open an .svg file, and some complex raster images do not reproduce properly.
 
 ### Copying plots from Axes Toolbar
 
 In the axes toolbar, you have two choices for copying plots:
 
-- **Copy as image**: Preserves resolution of figure on the screen (probably won't be able to zoom into the image without revealing rasterized pixels). Great option for dropping the figure into a powerpoint. Most universal format - can probably paste into most software. Best option for images.
+- **Copy as image**: Preserves resolution of figure on the screen (probably won't be able to zoom into the image without revealing rasterized pixels). Great option for dropping the figure into a PowerPoint. Most universal format - can probably paste into most software. Best option for images.
 
 - **Copy as vector graphic**. Like a PDF format. Allows nearly infinite zooming. Can edit the graphic in vector editing software, like Adobe Illustrator. Great for printing. Best option for Plots and graphs.
 
@@ -360,9 +360,9 @@ In the axes toolbar, you have two choices for copying plots:
 
 ### Tiled Layouts
 
-Sometimes, you want more than one axis per figure. The functions **`tiledlayout`** and **`nexttile`** allow you to add multiple axes to a single figure in tiled positions.
+Sometimes, you want more than one axes per figure. The functions **`tiledlayout`** and **`nexttile`** allow you to add multiple axes to a single figure in tiled positions.
 
-The syntax is fairly straightforward. In the simplest syntax, you simply call **`nexttile`** each time you want to add a new axis to a figure window. Here, we will add two axes, as follows:
+The syntax is fairly straightforward. In the simplest syntax, you simply call **`nexttile`** each time you want to add a new axes to a figure window. Here, we will add two axes, as follows:
 
 ```matlab linenums="1" title="Adding Tiled Axes"
 figure
@@ -386,7 +386,7 @@ nexttile
 
 ![Figure with 3 Axes][img-tiled3]
 
->Notice that the layout of the axes is automatically reconfigured to a 2X2 layout. This is automatic layout system is known as the 'flow' layout. MATLAB tries to keep a 4:3 ratio of axes on a figure with a 'flow' layout.
+>Notice that the layout of the axes is automatically reconfigured to a 2×2 layout. This automatic layout system is known as the 'flow' layout. MATLAB tries to keep a 4:3 ratio of axes on a figure with a 'flow' layout.
 
 [img-tiled3]:images/figure-3tiledwindow.png
 
@@ -411,19 +411,19 @@ nexttile
 
 *To be discontinued... (eventually)*
 
-Prior to the release of **`nexttile`** and **`tiledlayout`**, the function **`subplot`** accomplished  the same goal of **`nexttile`**: plotting multiple axes in one figure.
+Prior to the release of **`nexttile`** and **`tiledlayout`**, the function **`subplot`** accomplished the same goal as **`nexttile`**: plotting multiple axes in one figure.
 
-However, the syntax is a little more convoluted. First you needed to decide beforehand how many rows and tiles you want. Then, instead of simply calling **`subplot`**, you need to explicitly set the position the axes each time you would like to add a new axis to the figure, using the following syntax:
+However, the syntax is a little more convoluted. First, you needed to decide beforehand how many rows and columns you want. Then, instead of simply calling **`subplot`**, you need to explicitly set the position of the axes each time you would like to add a new axes to the figure, using the following syntax:
 
 ```matlab linenums="1" title="SUBPLOT set-up"
 subplot(ROWS,COLUMNS,INDEX) 
 ```
 
-…where *`ROWS`* equals the number of rows of axes that you want to add to the figure, *`COLUMNS`* equals the number of columns that you want to add, and *`INDEX`* indicates the location of the axis (in a ROW major order). Unlike the flow layout that you can use with **`nexttile`**, subplot requires everything to be predetermined and organized before you start plotting.
+…where *`ROWS`* equals the number of rows of axes that you want to add to the figure, *`COLUMNS`* equals the number of columns that you want to add, and *`INDEX`* indicates the location of the axes (in row-major order). Unlike the flow layout that you can use with **`nexttile`**, subplot requires everything to be predetermined and organized before you start plotting.
 
-For example, to create a 2X2 matrix of axes in a figure, you would run the following commands:
+For example, to create a 2×2 matrix of axes in a figure, you would run the following commands:
 
-```matlab linenums="1" title="Example: 2X2 Tiled Axes using SUBPLOT"
+```matlab linenums="1" title="Example: 2×2 Tiled Axes using SUBPLOT"
 fh = figure
 sph(1) = subplot (2,2,1) % Top Left Corner
 title ('Position One')
@@ -435,11 +435,11 @@ sph(4) = subplot (2,2,4) % Bottom Right Corner
 title('Position Four')
 ```
 
-…Notice that the first two inputs into each call to **`subplot`** are exactly the same: 2,2. These inputs indicate that there are should be 2 rows and 2 columns. The third input is the only input that changes, and it increases from 1 to 4. Also notice that the indexing here is ROW-MAJOR, for some reason, instead of COLUMN-MAJOR as is found in all other MATLAB indexing. This means that consecutive axes are beside each other across the rows first, then down across the columns. 
+…Notice that the first two inputs into each call to **`subplot`** are exactly the same: 2,2. These inputs indicate that there should be 2 rows and 2 columns. The third input is the only input that changes, and it increases from 1 to 4. Also notice that the indexing here is ROW-MAJOR, for some reason, instead of COLUMN-MAJOR as is found in all other MATLAB indexing. This means that consecutive axes are beside each other across the rows first, then down across the columns.
 
 After you run the above code, you should see the following:
 
-![][2x2fig]{width=400px}
+![figure with four axes][2x2fig]{width=400px}
 
 >Again, the axes are empty because we didn't add any data.  Similar to the **`nexttile`** function, we add the plotting functions after we call **`subplot`**.
 
@@ -447,7 +447,7 @@ After you run the above code, you should see the following:
 
 !!! note "Tiled Layout Take-Away"
 
-    There are two functions you can used to tile your axes: **`nexttile`** and **`subplot`**. The syntax for **`nexttile`** is easier and, in combination with **`tiledlayout`**, more powerful. For example, you can more easily control the spacing of the axes using **`tiledlayout`**. The function **`subplot`** is the older function. As such, it is more compatible with more functions. But, it is not as powerful as **`nexttile`** and doesn't have modern features like the flow layout or compact spacing.
+    There are two functions you can use to tile your axes: **`nexttile`** and **`subplot`**. The syntax for **`nexttile`** is easier and, in combination with **`tiledlayout`**, more powerful. For example, you can more easily control the spacing of the axes using **`tiledlayout`**. The function **`subplot`** is the older function. As such, it has greater backward compatibility—it works with more existing code and functions written before **`nexttile`** was introduced. But, it is not as powerful as **`nexttile`** and doesn't have modern features like the flow layout or compact spacing.
 
     So, the main takeaway here is that you should use **`nexttile`** unless you are getting weird results. Then try **`subplot`**.
 

@@ -1,6 +1,6 @@
 # Data Wrangling
 
-![img-name](images/DalleAI-DataWrangler.jpeg){width=300px}
+![img-name](images/ChatGPT-Data-Wrangler-2026.png){width=600px}
 
 Data comes in many forms and often these forms are messy. Part of data wrangling involves organizing and cleaning up this data in a fashion that makes it easier to analyze. Usually, the first step in data analysis is to organize the data in a *tidy* fashion—a concept popularized for the R programming language but applicable to all data analysis.
 
