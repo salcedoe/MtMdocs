@@ -6,7 +6,7 @@
 
 ## Overview
 
-Sometimes you only need to process just part (or parts) of an image. Or, you need identify objects inside an image. To do these things, you need to label the image as having important and unimportant parts. This labeling is known as segmentation and these smaller parts are often referred to as regions (or blobs or connected components). These regions are often stored as logical arrays that are the same size as the image being processed. In this logical array, which are often called binary images or masks, the regions to be processed will be represented as a cluster of 1's.
+Sometimes you only need to process just part (or parts) of an image. Or, you need to identify objects inside an image. To do these things, you need to label the image as having important and unimportant parts. This labeling is known as segmentation and these smaller parts are often referred to as regions (or blobs or connected components). These regions are often stored as logical arrays that are the same size as the image being processed. In this logical array, which is often called a binary image or mask, the regions to be processed will be represented as a cluster of 1's.
 
 In this module, we will learn how to segment an image into regions, how to create a mask from those regions, and how to analyze the properties of those masks or how to use those masks for regional processing.
 
@@ -21,31 +21,31 @@ By the end of this module you should be able to:
 ### Terminology you should be able to use
 
 - **Image Segmentation**: the process of partitioning an image into parts or regions
-- **Binarization**: the process of creating a binary image by binning the original image's intensity values based a histogram threshold value. The most common binarization operation results in two bins: a positives bin for intensity values above the threshold and a negatives bin for intensity values that fall below the threshold.
+- **Binarization**: the process of creating a binary image by binning the original image's intensity values based on a histogram threshold value. The most common binarization operation results in two bins: a positive bin for intensity values above the threshold and a negative bin for intensity values that fall below the threshold.
 - **Connected components**: connected clusters of pixels in an image
 - **Otsu's Method**: A popular algorithm used to come up with the threshold value for binarization from an image's histogram
-- **Region**: aka **Neighborhood** aka **Connected Components** aka **Blobs**: areas of significance in an image. In a binary image, these regions are essentially contiguous **TRUEs** surrounded by **FALSEs**.
+- **Region**: aka **Connected Components** aka **Blobs**: areas of significance in an image. In a binary image, these regions are essentially contiguous **TRUEs** surrounded by **FALSEs**.
 - **ROI**: region of interest, a part of an image captured by a drawing tool such as the ellipse tool or the polygon tool
 - **Mask**: a binary image with the same dimensions as a grayscale image, but which has **`TRUEs`** in the locations corresponding to regions of interest and **`FALSEs`** everywhere else.
 
 ### Relevant MATLAB Stuff you should read
 
-- [Image segmenter app](https://www.mathworks.com/help/images/Segment-an-Image-Using-Thresholding.html')
+- [Image segmenter app](https://www.mathworks.com/help/images/Segment-an-Image-Using-Thresholding.html)
 
-- [ROI based processing](https://www.mathworks.com/help/images/roi-based-processing.html?s_tid=CRUX_lftnav')
+- [ROI based processing](https://www.mathworks.com/help/images/roi-based-processing.html?s_tid=CRUX_lftnav)
 
-- [Image segmentation](https://www.mathworks.com/help/images/image-segmentation.html')
+- [Image segmentation](https://www.mathworks.com/help/images/image-segmentation.html)
 
 ### Important Functions you should know
 
-- [drawcircle](https://www.mathworks.com/help/images/ref/drawcircle.html') - Create customizable circular ROI
-- [graythresh](https://www.mathworks.com/help/images/ref/graythresh.html') - Global image threshold using Otsu's method (input image)
+- [drawcircle](https://www.mathworks.com/help/images/ref/drawcircle.html) - Create customizable circular ROI
+- [graythresh](https://www.mathworks.com/help/images/ref/graythresh.html) - Global image threshold using Otsu's method (input image)
 - [otsuthresh](https://www.mathworks.com/help/images/ref/otsuthresh.html) - Global histogram threshold using Otsu's method (input histogram)
-- [imbinarize](https://www.mathworks.com/help/images/ref/imbinarize.html') - Binarize 2-D grayscale images thresholding
+- [imbinarize](https://www.mathworks.com/help/images/ref/imbinarize.html) - Binarize 2-D grayscale images thresholding
 
 ## Segmentation
 
-Segmentation is the process of selecting and labeling regions in an image. Each region represents a span of connected pixels and you can have more than one region. Segmentation is often used to identify objects in image and capture relevant metrics such as area and average pixel intensity of the object.
+Segmentation is the process of selecting and labeling regions in an image. Each region represents a span of connected pixels and you can have more than one region. Segmentation is often used to identify objects in an image and capture relevant metrics such as area and average pixel intensity of the object.
 
 Consider the following image of the moon:
 
@@ -61,7 +61,7 @@ Consider the following image of the moon:
 
 Often the most straightforward way to segment an image (and the most time-consuming) is to manually outline the region of interest. A manual outline is typically called a **Region-of-Interest** or **ROI**.
 
-MATLAB includes a collection of ROI tools with differing shapes that you can use to manually segment images, as described in the [ROI-based processing documentation.](https://www.mathworks.com/help/images/roi-based-processing.html?s_tid=CRUX_lftnav')  Shape options include circles, ellipses, polygons, lines, and others.
+MATLAB includes a collection of ROI tools with differing shapes that you can use to manually segment images, as described in the [ROI-based processing documentation.](https://www.mathworks.com/help/images/roi-based-processing.html?s_tid=CRUX_lftnav) Shape options include circles, ellipses, polygons, lines, and others.
 
 The following example code activates the Circle ROI tool, allowing you to draw a circle around the moon and create your very first ROI. Here we use the function **`drawcircle`**, which activates the ROI tool and returns a handle to the ROI, called simply *`roi`*.
 
@@ -80,7 +80,7 @@ roi.wait; % pause code until user double-clicks on ROI
 nexttile
 bw = roi.createMask; % create mask
 imshow(bw) % display the mask
-title('mask)
+title('mask')
 ```
 
 ![Moon with Circle Annotation][moon2_roi]{width=550px}
@@ -98,7 +98,7 @@ roi.Center
 ```matlab title="result"
 ans =
 
-  495.9819  486.5542
+       495.98       486.55
 ```
 
 ```matlab linenums="1" title="Display ROI Radius"
@@ -108,18 +108,18 @@ roi.Radius
 ```matlab title="result"
 ans =
 
-  296.1042
+        296.1
 ```
 
  If you move the ROI, the coordinates will automatically be updated. If you resize the ROI, the radius will be updated.
 
-The object handle also includes functions that can be evoked using dot notation. For example, the code **`roi.wait`** executes a wait function, which tells MATLAB to pause execution of the code until you have finished drawing the ROI to your specifications. MATLAB waits until you double-clicked on the ROI. This allows you to draw and move the ROI at your leisure without worrying about the code continuing to execute without your final input. Once you double-click inside the ROI and the code will resume execution after the  **`roi.wait`** line. The function **`roi.createMask`** creates a mask from your ROI. This mask is a binary image that has the same dimensions as the original image but with TRUEs at locations that correspond to inside the ROI, and FALSEs everywhere else.
+The object handle also includes functions that can be evoked using dot notation. For example, the code **`roi.wait`** executes a wait function, which tells MATLAB to pause execution of the code until you have finished drawing the ROI to your specifications. MATLAB waits until you double-click on the ROI. This allows you to draw and move the ROI at your leisure without worrying about the code continuing to execute without your final input. Once you double-click inside the ROI, the code will resume execution after the **`roi.wait`** line. The function **`roi.createMask`** creates a mask from your ROI. This mask is a binary image that has the same dimensions as the original image but with TRUEs at locations that correspond to inside the ROI, and FALSEs everywhere else.
 
 ### Multiple Manual Segmentations
 
 Sometimes, you need to segment multiple ROIs sequentially. To simplify this process, we can use a WHILE LOOP to continue the segmentation process until the user indicates they would like to stop.
 
-The following code allows us to segment multiple circles on the moon. To use, activate the code block. When the image comes up, draw a circle on each crater that you want to capture. Make sure that you double-click on the crater when you're finished. And then draw the next crater.  When you're done, press the stop button.
+The following code allows us to segment multiple circles on the moon. To use, activate the code block. When the image comes up, draw a circle on each crater that you want to capture. Make sure that you double-click on the crater when you're finished. And then draw the next crater. When you're done, press the stop button.
 
 ```matlab linenums="1" title="Multiple Segmentations"
 figure;
@@ -144,10 +144,10 @@ while ishandle(button_handle) % continue looping while there is still a STOP but
 end
 
 figure; % create a new figure
-imshowpair(img,crater_mask) % overlay the mask (pink) and the original image (green)
+imshowpair(moon2,crater_mask) % overlay the mask (pink) and the original image (green)
 ```
 
-…In this code, we start by adding a push-button (labeled "STOP") to the figure. The sole function of this button is to delete the figure in which it exists.  This is accomplished by setting the callback property of the button to `delete(gcbf)`. The callback function is the function that is called when the button is pressed.  **`gbcf`** is a function that points to the current figure, so `delete(gcbf)` deletes the current figure. Once you delete the figure, everything inside of the figure is deleted as well, including the button. So, this acts kind of like a self-destruct function. Pretty cool.
+…In this code, we start by adding a push-button (labeled "STOP") to the figure. The sole function of this button is to delete the figure in which it exists. This is accomplished by setting the callback property of the button to `delete(gcbf)`. The callback function is the function that is called when the button is pressed. **`gcbf`** is a function that points to the current figure, so `delete(gcbf)` deletes the current figure. Once you delete the figure, everything inside of the figure is deleted as well, including the button. So, this acts kind of like a self-destruct function. Pretty cool.
 
 ![Moon with multiple ROIs][img_mult_rois]{width=400px}
 
@@ -175,7 +175,7 @@ Thresholding is the process of generating binary images from grayscale images ba
 
 The simplest way to threshold is to choose a cut-off and then apply a logical operation.
 
-For example, the space pixels in the moon image all have an intensity of 0. You can confirm this by "Zooming to Pixels" in the **`imageViewer`**: in the imageViewer "Viewer" tab, under the "ZOOM" section, select "Zoom to Pixels" in the pop-up menu. Be sure that the "Show Pixels Values" checkbox is checked.
+For example, the space pixels in the moon image all have an intensity of 0. You can confirm this by "Zooming to Pixels" in the **`imageViewer`**: in the imageViewer "Viewer" tab, under the "ZOOM" section, select "Zoom to Pixels" in the pop-up menu. Be sure that the "Show Pixel Values" checkbox is checked.
 
 ![Zoomed in image][img-pixel-region]{width=800px}
 
@@ -183,20 +183,21 @@ For example, the space pixels in the moon image all have an intensity of 0. You 
 
 [img-pixel-region]: images/moon2-zoom-to-pixels.png
 
-Here we simply perform a relational operation on the moon along the lines of "find all pixels with an intensity great than zero":
+Here we simply perform a relational operation on the moon along the lines of "find all pixels with an intensity greater than zero":
 
 ```matlab linenums="1" title="Pixels greater than 0"
 moon_binary = moon2>0;
 imshow(moon_binary)
 ```
 
-![…This mask contains 1s (or **true**) wherever there is a pixel inside the moon, and 0s (or **false**) for pixels in space. Notice that the mask looks close but not identical to the mask we generated using the ROI circle tool. This mask has more noise in it, which is often the result from thresholding.][moon2_binary_annotated]{width=350px}
+![A binary image that masks the moon.][moon2_binary_annotated]{width=350px}
 
->A binary image that masks the moon.
+>This mask contains 1s (or **true**) wherever there is a pixel inside the moon, and 0s (or **false**) for pixels in space. Notice that the mask looks close but not identical to the mask we generated using the ROI circle tool. This mask has more noise in it, which is often the result from thresholding.
 
 [moon2_binary_annotated]: images/moon2_binary_annotated.png
 
-!!! note "NOTE: This is an unusually easy image to segment. Most images would have more noise in the segmentation."
+!!! note "An Unusually Easy Image"
+    This is an unusually easy image to segment. Most images would have more noise in the segmentation.
 
 #### Threshold by algorithm
 
@@ -208,7 +209,7 @@ In the previous example, we visually inspected the image and found that most spa
 
 >Notice the propensity of space pixels (intensity of 0) while most of the moon's intensity values fall between 25 and 200.
 
-Wouldn't it be nice if we could train a computer to read an image's histogram and come up with a threshold all on its own, leaving us time to work on our instagram posts or Tik-tok videos? Well, in fact, we have, and this method is called [Otsu's Method](http://www.wikiwand.com/en/Otsu%27s_method) (so, technically Otsu came up with this method). This algorithm assumes that an image contains two classes of pixels (background and foreground pixels) and it then calculates a threshold that best separates these pixels based on the image's histogram. Note, there are other algorithms out there, but Otsu's is one of the most commonly used algorithms for thresholding. Otsu was the man.
+Wouldn't it be nice if we could train a computer to read an image's histogram and come up with a threshold all on its own, leaving us time to work on our Instagram posts or TikTok videos? Well, in fact, we have, and this method is called [Otsu's Method](http://www.wikiwand.com/en/Otsu%27s_method) (so, technically Otsu came up with this method). This algorithm assumes that an image contains two classes of pixels (background and foreground pixels) and it then calculates a threshold that best separates these pixels based on the image's histogram. Note, there are other algorithms out there, but Otsu's is one of the most commonly used algorithms for thresholding. Otsu was the man.
 
 The function **`graythresh`** uses Otsu's method and returns a threshold value. All we do is plug in the image variable, as follows:
 
@@ -265,7 +266,7 @@ mask = img>cutoff; % logical operation to create mask
 
 And plot the results to see how we did:
 
-```matlab linenums="1"  title="Display results"
+```matlab linenums="1" title="Display results"
 figure;
 subplot(2,1,1); % create first tile
 imshowpair(img, mask,'montage') % display preprocessed image and mask, side by side

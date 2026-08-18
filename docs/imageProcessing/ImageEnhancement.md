@@ -350,8 +350,6 @@ end
 
 >**Comparison of imadjust to adapthisteq**. The **`imadjust`** histogram is spread to cover the entire dynamic range of the image. In contrast, the **`adapthisteq`** histogram maintains a similar distribution shape to the original image, but it has been smoothed. In the images, local variations in the CLAHE image are greatly exaggerated, especially compared to the **`imadjust`** image.
 
-Congratulations, you have made it to the end! 📸
-
 ## Challenge
 
 ??? question "Diagnose and Fix an Underexposed Image"
@@ -379,3 +377,5 @@ Congratulations, you have made it to the end! 📸
         ![dim_moon2 before and after imadjust](images/moon2_dim_challenge_answer.png){ width="550"}
 
         …**`imadjust`** stretches the existing pixel values to cover the full 0–255 range, revealing detail that was there all along but was too dim to see clearly.
+
+Congratulations, you have made it to the end! 📸
