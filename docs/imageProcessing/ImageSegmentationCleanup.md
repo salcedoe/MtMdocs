@@ -21,20 +21,19 @@ Fortunately, there are easy ways to clean this up, which is what this module is 
 ### Important Terminology
 
 - **Morphological Operations**: Image processing that works on Regions. Examples include removing small regions from an image (noise clean-up) or changing the shapes of the regions by, for example, making them fatter or skinnier.
-- **Region Properties**: The properties of said regions. Examples include area, count, roundness, etc.
-- **4- or 8 -Connected Neighborhoods**: Refers to the Method of determining whether two pixels are contiguous (touching). Are their sides touching (4-connected, more restrictive)? Or are their corners touching too (8-connected, less restrictive)?
+- **4- or 8-Connected Neighborhoods**: Refers to the method of determining whether two pixels are contiguous (touching). Are their sides touching (4-connected, more restrictive)? Or are their corners touching too (8-connected, less restrictive)?
 
 ### Stuff you should read
 
-- [Morphological operations](https://www.mathworks.com/help/images/morphological-filtering.html')
+- [Morphological operations](https://www.mathworks.com/help/images/morphological-filtering.html)
 - [Types of Morphological Operations](https://www.mathworks.com/help/images/morphological-dilation-and-erosion.html)
 
 ### Functions you should know
 
 - [bwmorph](https://www.mathworks.com/help/images/ref/bwmorph.html) - Perform a select set of morphological operations on an image
-- [bwareaopen](https://www.mathworks.com/help/images/ref/bwareaopen.html') - Remove small objects from binary image
-- [bwareafilt](https://www.mathworks.com/help/images/ref/bwareafilt.html') - Extract objects from binary image by size
-- [imfill](https://www.mathworks.com/help/images/ref/imfill.html') - Fill image regions and holes
+- [bwareaopen](https://www.mathworks.com/help/images/ref/bwareaopen.html) - Remove small objects from binary image
+- [bwareafilt](https://www.mathworks.com/help/images/ref/bwareafilt.html) - Extract objects from binary image by size
+- [imfill](https://www.mathworks.com/help/images/ref/imfill.html) - Fill image regions and holes
 
 ## Morphological Operations
 
@@ -46,21 +45,21 @@ These operations depend on the concept of "touching" or "connected pixels." So, 
 
 [img_conn_neigh]: images/connected_neighborhoods.png
 
->**Pixel Connectivity.**  **Left Panel**. In a 4-connected neighborhood, only pixels that share an edge (horizontally or vertically) are considered touching. In this definition, the Red pixels touch the white pixel, while the gray pixels do not.  A 4-connected neighborhood is a more stringent definition of touching. **Right Panel**. In an **8-connected neighborhood**, pixels that touch an edge or a corner are considered touching. In the above figure, all of the red pixels are considered to be touching the white pixel. This is the default setting.
+>**Pixel Connectivity.** **Left Panel**. In a 4-connected neighborhood, only pixels that share an edge (horizontally or vertically) are considered touching. In this definition, the red pixels touch the white pixel, while the gray pixels do not. A 4-connected neighborhood is a more stringent definition of touching. **Right Panel**. In an **8-connected neighborhood**, pixels that touch an edge or a corner are considered touching. In the above figure, all of the red pixels are considered to be touching the white pixel. This is the default setting.
 
-A collection of touching pixels is known by many names: connected components, blobs, objects, or even regions. And you can have more than one blob per image mask, which are known as non-contiguous blobs.
+A collection of touching pixels is known by many names: connected components, blobs, objects, or even regions. And an image mask can contain more than one blob; these separate blobs are called non-contiguous blobs.
 
 ### Basic Morphological Operations
 
-The image processing toolbox offers many functions that manipulate connected-components based on their size, shape, or location.
+The image processing toolbox offers many functions that manipulate connected components based on their size, shape, or location.
 
-These operations work using a Structuring Element, which is like a mini-mask with a specified shape like a disk or a diamond
+These operations work using a Structuring Element, which is like a mini-mask with a specified shape like a disk or a diamond.
 
-Morphological Operations on masks can be summarized as follows
+Morphological Operations on masks can be summarized as follows:
 
 - **Dilate**: Expand the mask and shrink holes in the mask
 - **Erode**: Shrink the mask and expand holes in the mask
-- **Open**: Erosion followed by dilation.  Remove masks objects smaller than the structuring element
+- **Open**: Erosion followed by dilation. Removes mask objects smaller than the structuring element
 - **Close**: Dilation followed by erosion. This removes holes in the mask smaller than the structuring element
 
 For example, the most basic operations make masks thicker (aka "dilate"):
@@ -75,11 +74,11 @@ For example, the most basic operations make masks thicker (aka "dilate"):
 
 >**Left Panel.** Original Mask. **Right Panel.** Eroded Mask
 
-Common matlab functions that we will use include:
+Common MATLAB functions that we will use include:
 
 - **`bwareaopen`** - used to clean up small pixel clusters.
 - **`bwmorph`** - a general morphologic operations tool
-- **`bwareafilt`** - filter out connected-components by size
+- **`bwareafilt`** - filter out connected components by size
 - **`imfill`** - When used with the 'holes' input, fills any gaps (or holes) in the connected components
 - **`imclearborder`** - remove connected components that touch the edges of the image
 
@@ -100,7 +99,7 @@ p.sm_nz = bwareaopen(p.fill,100); % remove any small noise
 figure(visible="on");
 tiledlayout("horizontal","TileSpacing","none","Padding","tight");
 
-s = ["img" "mask" "edges" "fill" "sm_nz"]; % setsorder of display
+s = ["img" "mask" "edges" "fill" "sm_nz"]; % sets order of display
 
 % FOR LOOP
 for n=s % runs for each field in p
@@ -112,6 +111,6 @@ end
 
 ![img-name](images/moon2-morphOps.png){ width="550"}
 
->Here we display the incremental steps in the Segmentation and Mask Clean-up process. To organize all of the incrementally changing masks, we package everything in structure, *`p`*, which  then allows us to easily create a FOR LOOP that displaying all of the images. **img.** The original image. **mask.** The thresholded image (a binary image) generated using **`imbinarize`**. **edges.** The mask after **`bwmorph`** with a 'close' second input. **fill.** The mask after **`imfill`**. **ms_nz.** The mask after a **`bwareaopen**.
+>Here we display the incremental steps in the Segmentation and Mask Clean-up process. To organize all of the incrementally changing masks, we package everything in structure, *`p`*, which then allows us to easily create a FOR LOOP that displaying all of the images. **img.** The original image. **mask.** The thresholded image (a binary image) generated using **`imbinarize`**. **edges.** The mask after **`bwmorph`** with a 'close' second input. **fill.** The mask after **`imfill`**. **sm_nz.** The mask after **`bwareaopen`**.
 
-Notice in the code that for each the morphological operation, we input the output from the previous step. So, we are in effect daisy chain morphological operations. This is a very common procedure as each morphological operation typically only affects one aspect of the mask.
+Notice in the code that for each morphological operation, we input the output from the previous step. So, we are in effect daisy chaining morphological operations. This is a very common procedure as each morphological operation typically only affects one aspect of the mask.

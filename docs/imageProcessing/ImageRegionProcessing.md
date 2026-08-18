@@ -18,7 +18,7 @@ You should know how to:
 
 ### Important Terminology
 
-- **Region Properties**: The properties of said regions. Examples include area, count, roundness, etc.
+- **Region Properties**: The properties of connected-components or masks. Examples include area, count, roundness, etc.
 
 ### Stuff you should read
 

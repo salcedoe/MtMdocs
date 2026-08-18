@@ -256,7 +256,7 @@ imshowpair(moon2, mask,'montage') % display original and mask, side by side
 
 #### Image Pre-processing
 
-Because computers are kind of dumb, you will often need to preprocess your image to make the thresholding task really easy for the computer. For the moon image, one way to do so would be to reduce the contrast between the crater pixels and the pixels from the rest of the moon. As we discussed in the Enhancement Module, we can do this using **`gamma`** and **`imadjust`**. Then, we just repeat the steps from above.
+Because computers are kind of dumb, you will often need to preprocess your image to make the thresholding task really easy for the computer. For the moon image, one way to do so would be to reduce the contrast between the crater pixels and the pixels from the rest of the moon. As we discussed in the [Enhancement Module](ImageEnhancement.md), we can do this using **`gamma`** and **`imadjust`**. Then, we just repeat the steps from above.
 
 ```matlab linenums="1" title="Preprocess, then Threshold"
 img = imadjust(moon2,[],[],0.10); % apply gamma 
