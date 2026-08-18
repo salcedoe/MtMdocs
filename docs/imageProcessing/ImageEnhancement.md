@@ -1,6 +1,6 @@
 # Image Enhancement
 
-!!! abstract "like snapchat or instagram filtering, but for work"
+!!! abstract "like Snapchat or Instagram filtering, but for work"
 
 ## Overview
 
@@ -20,34 +20,34 @@ After completing this module, you should be able to:
 
 ### Relevant Documentation
 
-- [image filtering](https://www.mathworks.com/help/images/linear-filtering.html')
+- [image filtering](https://www.mathworks.com/help/images/linear-filtering.html)
 
-- [contrast adjustment](https://www.mathworks.com/help/images/contrast-adjustment.html')
+- [contrast adjustment](https://www.mathworks.com/help/images/contrast-adjustment.html)
 
-- [neighbor operations](https://www.mathworks.com/help/images/sliding-neighborhood-operations.html')
+- [neighbor operations](https://www.mathworks.com/help/images/sliding-neighborhood-operations.html)
 
 ### Important Functions you should know
 
-- [imhist](https://www.mathworks.com/help/images/ref/imhist.html'): Histogram of image data
+- [imhist](https://www.mathworks.com/help/images/ref/imhist.html): Histogram of image data
 
-- [imcomplement](https://www.mathworks.com/help/images/ref/imcomplement.html'): Complement image (like a digital negative)
+- [imcomplement](https://www.mathworks.com/help/images/ref/imcomplement.html): Complement image (like a digital negative)
 
-- [imadjust](https://www.mathworks.com/help/images/ref/imadjust.html'): Adjust image intensity values or colormap by adjusting pixel distributions
+- [imadjust](https://www.mathworks.com/help/images/ref/imadjust.html): Adjust image intensity values or colormap by adjusting pixel distributions
 
-- [histeq](https://www.mathworks.com/help/images/ref/histeq.html'): Enhance contrast using histogram equalization
+- [histeq](https://www.mathworks.com/help/images/ref/histeq.html): Enhance contrast using histogram equalization
 
-- [adapthisteq](https://www.mathworks.com/help/images/ref/adapthisteq.html'): Contrast-limited adaptive histogram equalization (CLAHE)
+- [adapthisteq](https://www.mathworks.com/help/images/ref/adapthisteq.html): Contrast-limited adaptive histogram equalization (CLAHE)
 
 ### Terminology you should know
 
-- **Histogram**: a graphical representation of the distribution of pixel intensities.  
+- **Histogram**: a graphical representation of the distribution of pixel intensities.
 
 - **Intensity Transformation**: altering an image by adjusting the pixel values (intensity)
 
 - **Complement**: the digital negative of an image
 
 - **Neighborhood Processing**: modifying a single pixel at a time based on the intensities of its neighboring pixels.
-- **Kernel**: a small matrix used in neighboring processing to modify the values of single pixels ([wikipedia link](https://en.wikipedia.org/wiki/Kernel_(image_processing)))
+- **Kernel**: a small matrix used in neighborhood processing to modify the values of single pixels ([wikipedia link](https://en.wikipedia.org/wiki/Kernel_(image_processing)))
 
 ## Histograms
 
@@ -81,7 +81,7 @@ ylim([0 5000]); % zoom in on the y-axis to better display the shape of the histo
 
 ![img-name](images/moon2_hist.png){ width="550"}
 
->**The Moon and its Histogram. Left.** Image of the dark side of the moon. **Right.** Histogram of the moon image. X-axis: pixel count. Y-axis: frequency. Gradient bar along the x-axis indicates mapped shade of gray that corresponds to the pixel intensity. Zero is black, 255 is white. Note: we have modified the default display of the histogram by capping the y-limits at 5000. The large amount of black (or zero) pixels completely overshadowed the rest of the histogram (see as the tallest bin on the left side of the histogram )
+>**The Moon and its Histogram. Left.** Image of the dark side of the moon. **Right.** Histogram of the moon image. X-axis: pixel count. Y-axis: frequency. Gradient bar along the x-axis indicates mapped shade of gray that corresponds to the pixel intensity. Zero is black, 255 is white. Note: we have modified the default display of the histogram by capping the y-limits at 5000. The large amount of black (or zero) pixels completely overshadowed the rest of the histogram (seen as the tallest bin on the left side of the histogram)
 
 ## Image Contrast
 
@@ -89,7 +89,7 @@ The appearance of an image can be markedly altered simply by adjusting the distr
 
 ### Manually Adjust Contrast
 
-You can use the **`imageViewer`** app to manually adjust contrast. First, let's open the 'moon' image with **`imtool`**.
+You can use the **`imageViewer`** app to manually adjust contrast. First, let's open the 'moon' image with **`imageViewer`**.
 
 ```matlab
 imageViewer(moon2)
@@ -101,7 +101,7 @@ Next, in the imageViewer app, click on the contrast tab to bring up the contrast
 
 ![img-name](images/imgVwr-contrast-tab.png){ width="450"}
 
-Click on the "Interative Histogram" button and you should see the following:
+Click on the "Interactive Histogram" button and you should see the following:
 
 ![img-name](images/moon2-imgVwr-interactiveHistogram.png){ width="450"}
 
@@ -117,15 +117,15 @@ For example, here we have dragged the right blue handle to the left:
 
 >Our window has now changed to have a width of 128 and a center of 64. Any values greater than 128 are now treated as max intensities, which is why the moon looks so washed out and overexposed.
 
-If you hover over the middle of the histogram window (white box bookended by the blue handles), your cursor will turn into a 4-way arrow and you can drag the  window to the left or right. Try it now and drag the window over to the right side of the histogram so that the maximum intensity is 255 and the minimum intensity is 128.
+If you hover over the middle of the histogram window (white box bookended by the blue handles), your cursor will turn into a 4-way arrow and you can drag the window to the left or right. Try it now and drag the window over to the right side of the histogram so that the maximum intensity is 255 and the minimum intensity is 128.
 
 ??? question "What will happen to the image if you drag the histogram window to the right?"
 
-    The moon will appear much dimmer as all pixels that fall below 128 will be clipped to black
+    The moon will appear much dimmer as all pixels that fall below 128 will be clipped to black.
 
     ![Left Clipped Histogram](images/moon2-imgVwr-leftClippedHistogram.png){ width="450"}
 
-If you don't like the changes, simple click on the "Undo Changes" button and the window will be restored to its original width and the image will look like when it was originally loaded.
+If you don't like the changes, simply click on the "Undo Changes" button and the window will be restored to its original width and the image will look like when it was originally loaded.
 
 ### Programmatically Adjust Contrast
 
@@ -133,7 +133,7 @@ Instead of playing around with histogram windows to manually adjust contrast, yo
 
 #### Linear Contrast
 
-One way to adjust the contrast is linear scale (stretch) the distribution of pixel intensities so that they cover the full dynamic range of the image. This basically means that the brightest pixels in the adjusted image will have a value of 255 and the dimmest pixels have a value of 0.
+One way to adjust the contrast is to linearly scale (stretch) the distribution of pixel intensities so that they cover the full dynamic range of the image. This basically means that the brightest pixels in the adjusted image will have a value of 255 and the dimmest pixels have a value of 0.
 
 Consider the following:
 
@@ -167,13 +167,12 @@ As opposed to linearly correcting the distribution, we can also adjust the distr
 
 >As you can see here, a gamma setting < 1 raises the intensities of low-intensity pixels, so that the end result is an overall brighter image. By contrast, a gamma > 1 lowers the intensities of low intensity pixels, resulting in an overall dimmer image. A gamma of 1 does not affect the histogram distribution at all.
 
-by adding some additional inputs into  
-
-We can use **`imadjust`**  to modify the histogram in a non-linear fashion. This is known as "gamma". The gamma setting adds a curve to the histogram distribution as follows:
+We can use **`imadjust`** to modify the histogram in a non-linear fashion. This is known as "gamma". The gamma setting adds a curve to the histogram distribution as follows:
 
 ```matlab title="imadjust inputs for gamma"
 img_adj = imadjust(img, [low_in high_in], [low_out high_out], gamma)
 ```
+
 To visualize these effects, we will apply incrementing amounts of gamma to the picture of the moon, as follows:
 
 ```matlab linenums="1" title="Apply gamma to moon2"
@@ -182,7 +181,7 @@ rows = 2; cols = 3;
 gamma = 0.25; % start with a gamma of 0.25
 
 for n=1:3
-    moon_adj = imadjust(moon,[],[],gamma); % notice the two empty inputs before gamma
+    moon_adj = imadjust(moon2,[],[],gamma); % notice the two empty inputs before gamma
     
     % plot image
     subplot(rows,cols,n)
@@ -200,7 +199,33 @@ end
 
 ![img-name](images/moon2-gamma.png){ width="550"}
 
->Notice the asymmetrical shifting of the histogram towards the intensity poles. For gamma values below 1, the histogram distribution shifts towards the maximum pixel intensity (255). In contrast, for gammas greater than 1, the histogram distribution shifts towards zero. Also notice that the effect is primarily on the appearance of the moon. With a low Gamma setting, the moon surface loses contrast, but still has high contrast compared to space. With a high gamma setting, the shadows in on the moon's surface begin to blend in with the space.
+>Notice the asymmetrical shifting of the histogram towards the intensity poles. For gamma values below 1, the histogram distribution shifts towards the maximum pixel intensity (255). In contrast, for gammas greater than 1, the histogram distribution shifts towards zero. Also notice that the effect is primarily on the appearance of the moon. With a low gamma setting, the moon surface loses contrast, but still has high contrast compared to space. With a high gamma setting, the shadows on the moon's surface begin to blend in with the space.
+
+#### Histogram Equalization
+
+Another way to enhance contrast is **histogram equalization**, which redistributes pixel intensities so that the histogram is as flat (uniform) as possible across the whole dynamic range. The function **`histeq`** does this for you automatically—no inputs to tune, unlike **`imadjust`**.
+
+```matlab linenums="1" title="Histogram Equalization with histeq"
+figure;
+rows = 2; cols = 2;
+img = {moon2, histeq(moon2)};
+title_str = ["original", "histeq"];
+
+for n=1:2
+    subplot(rows, cols, n);
+    imshow(img{n});
+    title(title_str{n},'FontSize',14)
+    
+    subplot(rows, cols, n+cols)
+    imhist(img{n})
+    xlim([-5 260])
+    ylim([0 5e3])
+end
+```
+
+![histeq comparison](images/moon2_histeq.png){ width="550"}
+
+>**Comparison of the original moon image to its histeq result.** Notice how much more aggressive **`histeq`** is compared to **`imadjust`**: rather than just stretching the ends of the distribution, it actively redistributes pixels so that the histogram is spread as evenly as possible across the full range. This is why the background here turns gray instead of staying black—**`histeq`** doesn't preserve the original black background the way **`imadjust`**'s default 1% saturation does. This aggressiveness can be a feature or a bug, depending on what you're trying to accomplish.
 
 ## Image Complement
 
@@ -209,7 +234,7 @@ The complement is the process of inverting an image. Maximum Intensity Values ar
 ```matlab linenums="1" title="Apply Complement to moon2"
 figure;
 rows = 2; cols = 2;
-img = {moon2; imcomplement(moon2)}; % Package image and its complement into a 1X2 cell array
+img = {moon2; imcomplement(moon2)}; % Package image and its complement into a 2x1 cell array
 title_str = ["original","complement"]; 
 for n=1:numel(img) % run for number of elements in img
     subplot(rows,cols,n);
@@ -225,7 +250,7 @@ end
 
 ![img-name](images/moon2_complement_hist.png){ width="550"}
 
->Notice how the histograms for the two images are mirrored horizontally. Also notice that the colormap is the same for both images. Here, the actual pixel intensities of the image change, not the colormap. To emphasize the reflected shapes of the histograms, we cropped the y-axis and expanded the x-axis using **`xlim`** and **`ylim`**
+>Notice how the histograms for the two images are mirrored horizontally. Also notice that the colormap is the same for both images. Here, the actual pixel intensities of the image change, not the colormap. To emphasize the reflected shapes of the histograms, we cropped the y-axis and expanded the x-axis using **`xlim`** and **`ylim`**.
 
 ## Neighborhood / Block Processing
 
@@ -233,7 +258,7 @@ In the previous examples, we enhanced the image by globally modifying all pixel 
 
 A neighborhood (or block) is simply a small piece of the entire image. Block processing, therefore, operates on a small block of the image, one block at a time, until the entire image has been processed. In this type of processing, only the center pixel in the block is actually modified and that modification is based on the immediately surrounding pixels.
 
-Neighborhood processing is also referred to as a filter---as in applying a filter to an image.
+Neighborhood processing is also referred to as a filter—as in applying a filter to an image.
 
 The most common type of filtering involves averaging the adjacent pixels in a matrix and then replacing the center pixel intensity with the average intensity.
 
@@ -249,11 +274,7 @@ The process is then repeated for all pixels in the image. Ultimately, this proce
 
 The specific block used in a given filter is called a kernel. A kernel (or mask or filter) is essentially a small matrix populated with numbers that can be used to apply mathematical operations to the neighborhood pixels. Different kernels have different sizes and can be used to apply different types of math to the pixels.
 
-[Predefined Filters]: http://www.mathworks.com/help/images/linear-filtering.html
-
-[neighborhood]: http://www.mathworks.com/help/images/performing-sliding-neighborhood-operations.html#brcu16c
-
-The function **`imsharpen`**  uses an unsharp masking filter to make edges and fine detail in the image more crisp. The function **`imgaussfilt`** blurs the image based on a gaussian distribution. The following code applies both filters to a somewhat blurry image of our moon
+The function **`imsharpen`** uses an unsharp masking filter to make edges and fine detail in the image more crisp. The function **`imgaussfilt`** blurs the image based on a gaussian distribution. The following code applies both filters to a somewhat blurry image of our moon.
 
 ```matlab linenums="1" title="Apply filters to image"
 blurry_moon = imread('https://saldenest.s3.amazonaws.com/MATLAB_images/Filter_blurry_moon.png'); % read image from secret remote location
@@ -276,18 +297,41 @@ title('Gaussian Blur - Sigma 3','FontSize',18)
 
 ![Filter a blurry moon](images/blurry-moon-filtered-results.png){ width="550"}
 
-There are many standard filters that you can find in digital image processing software. Review the [**image filtering documentation page**](https://www.mathworks.com/help/images/linear-filtering.html') for more information.
+There are many standard filters that you can find in digital image processing software. Review the [**image filtering documentation page**](https://www.mathworks.com/help/images/linear-filtering.html) for more information.
+
+### Median Filtering for Noise Removal
+
+Averaging filters, like the one used by **`imgaussfilt`**, work well for smoothing out gradual noise, but they can struggle with a specific kind of noise called **salt-and-pepper noise**—random pixels that are either fully black or fully white. Since an average is heavily influenced by extreme outlier values, averaging over a salt-and-pepper pixel still leaves a noticeable smudge.
+
+Instead, the function **`medfilt2`** replaces each pixel with the *median* (not the mean) of its neighborhood. Since the median largely ignores extreme outliers, it's much better at removing salt-and-pepper noise while still preserving edges.
+
+```matlab linenums="1" title="Remove Salt-and-Pepper Noise with medfilt2"
+noisy_moon = imnoise(moon2,'salt & pepper',0.05); % add salt-and-pepper noise
+
+figure;
+subplot(1,2,1)
+imshow(noisy_moon)
+title('Noisy (salt & pepper)')
+
+subplot(1,2,2)
+imshow(medfilt2(noisy_moon)) % apply the median filter
+title('Median Filtered')
+```
+
+![median filter comparison](images/moon2_medfilt.png){ width="550"}
+
+>**Removing salt-and-pepper noise with a median filter.** Notice that the speckled noise is almost entirely gone in the filtered image, while the moon's craters and edges remain sharp—something an averaging filter would have blurred away along with the noise.
 
 ### Contrast-limited adaptive histogram equalization
 
-The **`adapthisteq`** function uses neighborhood processing to adjust the image histogram of an image block by block (instead of the entire image histogram at once). This process is often abbreviated as CLAHE (Contrast-limited adaptive histogram equalization)
+The **`adapthisteq`** function uses neighborhood processing to adjust the image histogram of an image block by block (instead of the entire image histogram at once). In other words, it's the local, block-by-block version of **`histeq`**, discussed above. This process is often abbreviated as CLAHE (Contrast-limited adaptive histogram equalization).
 
 The following code compares the image of the moon to CLAHE to imadjust:
 
 ```matlab linenums="1" title="Apply CLAHE to moon2"
 figure;
 rows = 2; cols = 3;
-img = {moon2, adapthisteq(moon,'Distribution','uniform'), imadjust(moon)};
+img = {moon2, adapthisteq(moon2,'Distribution','uniform'), imadjust(moon2)};
 title_str = ["original", "adapthisteq", "imadjust"];
 
 for n=1:cols
@@ -304,6 +348,34 @@ end
 
 ![img-name](images/moon2_adapthisteq.png){ width="650"}
 
->**Comparison of imadjust to adapthisteq**. The **`imadjust`** histogram is spread to cover the entire dynamic range of the image. In contrast, the **`adapthisteq`** histogram maintains a similar distribution shape to the original image, but it has been smoothed. In the images,  local variations in the CLAHE image are greatly exaggerated, especially compared to **`imadjust`** image.
+>**Comparison of imadjust to adapthisteq**. The **`imadjust`** histogram is spread to cover the entire dynamic range of the image. In contrast, the **`adapthisteq`** histogram maintains a similar distribution shape to the original image, but it has been smoothed. In the images, local variations in the CLAHE image are greatly exaggerated, especially compared to the **`imadjust`** image.
 
-Congratulations, you have made to the end! 📸
+Congratulations, you have made it to the end! 📸
+
+## Challenge
+
+??? question "Diagnose and Fix an Underexposed Image"
+
+    === "Question"
+
+        Consider the following image, *`dim_moon2`*, and its histogram:
+
+        ![dim_moon2 and its histogram](images/moon2_dim_challenge.png){ width="550"}
+
+        1. Based on the histogram, is this image underexposed, overexposed, or properly exposed? How can you tell?
+        2. Use a function from this module to fix the image's contrast.
+
+    === "Answer"
+
+        The histogram is heavily shifted to the left (all pixel intensities fall below about `105`, out of a possible `255`), so the image is **underexposed**.
+
+        You can fix this with **`imadjust`** (or **`histeq`**, or **`adapthisteq`**):
+
+        ```matlab linenums="1"
+        fixed_moon2 = imadjust(dim_moon2);
+        imshow(fixed_moon2)
+        ```
+
+        ![dim_moon2 before and after imadjust](images/moon2_dim_challenge_answer.png){ width="550"}
+
+        …**`imadjust`** stretches the existing pixel values to cover the full 0–255 range, revealing detail that was there all along but was too dim to see clearly.
