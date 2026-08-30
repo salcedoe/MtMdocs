@@ -36,8 +36,11 @@ We'll also be using several forms of AI, including these Large Language Models:
 
 - **MATLAB Copilot**: Built right into MATLAB, [Copilot](https://www.mathworks.com/products/matlab-copilot.html) offers quick access to MATLAB documentation. It explains code and error messages and helps generate code suggestions.
 - **ChatGPT EDU**: Students have access to [ChatGPT Edu](https://www.cuanschutz.edu/offices/iss/access-tools-and-services/access-tools-and-services-detail-page/chatgpt-edu), which offers more power than the free version.
+- https://ucdenver.instructure.com/enroll/M6KBJ6
 - [Perplexity AI](https://www.perplexity.ai){target="_blank"}
 - [Claude AI](https://claude.ai){target="_blank"}
+
+Review the [CU Anschutz AI resources here.](https://www.cuanschutz.edu/offices/iss/ai-hub/work-with-ai#CUChatGPTEdu)
 
 <!-- -   :simple-github: [**Github**](https://github.com){target="_blank"}
   
