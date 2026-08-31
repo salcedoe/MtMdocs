@@ -28,7 +28,7 @@ The MtM Tools repository comes with an easy-install button:
 - Clone the Repository when asked
 - Notice that the MtMtools repo contains a copy of the [bfmatlab](https://github.com/ome/bioformats/releases)  toolbox
 
-### Add matGeom using MATLAB
+<!-- ### Add matGeom using MATLAB
 
 Do this step for the matGeom repo.
 
@@ -40,7 +40,7 @@ Do this step for the matGeom repo.
 6. Click on "Clone"  
 7. The matGeom folder should appear in the MATLAB Drive  
 
-![New Git Clone Menu](images/menu-new-git-clone.png){ width="250"} ![git clone dialog window](images/dialog-add-git-clone.png){ width="450"}
+![New Git Clone Menu](images/menu-new-git-clone.png){ width="250"} ![git clone dialog window](images/dialog-add-git-clone.png){ width="450"} -->
 
 ### Updating GitHub Repositories
 
