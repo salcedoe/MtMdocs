@@ -652,7 +652,7 @@ And we get the following regular expression:
 expression = '\((.*?)\)'; % find the parenthetical characters
 ```
 
-We can then use the function `regexprep` to replace all the instances of text inside parentheses with nothing (or `''`), as follows
+We can then use the function `regexprep` to replace all the instances of text inside parentheses with an empty string, as follows:
 
 ```matlab linenums="1" title="Find and Replace"
 S = regexprep(funny_names, expression, '') % replace the parenthetic characters with an empty string
@@ -676,6 +676,29 @@ S =
 ```
 
 And we get a new string with the parenthetical text and the parentheses removed.
+
+??? question "How would your remove the trailing spaces from the string `S`?"
+
+    ```matlab linenums="1" title="Use strtrm"
+    strtrim(S)
+    ```
+
+    ```matlab title="result" 
+    ans = 
+
+    10×1 string array
+
+        "Amy Stake"
+        "Barb Dwyer"
+        "Chris P Bacon"
+        "Chris P Baker"
+        "Jacqueline Hyde"
+        "Jed I Knight"
+        "Laura Lynn Hardy"
+        "Ophelia Pane"
+        "Robyn Banks"
+        "Tim Burr"
+    ```
 
 ___
 
