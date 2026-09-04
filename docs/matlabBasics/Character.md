@@ -536,7 +536,23 @@ ___
 
 *Now we're getting into the really complicated stuff. Don't sweat it if you don't understand this section.*
 
-Regular Expressions are like a super-charged search function. They are used widely—not just in MATLAB. A regular expression is nothing but a sequence of characters that match a pattern. Besides using literal characters (like 'abc'), there are some meta characters (*,+,? and so on) which have special purposes. Using regular expressions (sometimes called GREP), you can find patterns in strings, like all words in a paragraph that are capitalized but are not preceded by a period. Or, suppose you have a list of people’s names that you want to alphabetize. If the list is arranged first name first, but you want to alphabetize by last names, a simple grep pattern can be used to put the names in the proper order for sorting.
+Regular Expressions are like a super-charged search function. Regular Expressions are not MATLAB — they are used across all programming languages, and you can find them in certain word processing software as well. MATLAB just has a few functions that can handle regular expressions.
+
+A regular expression is simply a sequence of characters that match a pattern. These expressions use literal characters (like 'abc'), and some meta characters, like *,+,and ?, which have special purposes.
+
+Here are some examples of regular expressions:
+
+- `\d` - match any digit
+- `^dog` - begins with dog
+- `gr[ae]y` - contains either gray or grey
+
+As you can see, the expressions can be arcane and a bit difficult to understand, but they are very powerful. Using regular expressions (sometimes called GREP), you can find patterns in strings like:
+
+>all words in a paragraph that are capitalized but are not preceded by a period.
+
+Or, suppose you have a list of people’s names that you want to alphabetize. If the list is arranged first name first, but you want to alphabetize by last names, a simple grep pattern can be used to put the names in the proper order for sorting.
+
+You can read more about regular expressions here:
 
 - [A Practical Guide to Regular Expressions](https://www.freecodecamp.org/news/practical-regex-guide-with-real-life-examples/){target="_blank"}
 - MATLAB Functions
@@ -545,7 +561,7 @@ Regular Expressions are like a super-charged search function. They are used wide
 
 ### regexp
 
-The function **`regexp`** is MATLAB's version of this an incredibly powerful search function.  **`regexp`** uses regular expressions to find these snippets of strings and performs some sort of operation on those characters / snippets.
+The function **`regexp`** is MATLAB's version of regular expressions.  **`regexp`** uses regular expressions to find these snippets of strings and performs some sort of operation on those characters / snippets.
 
 For example, consider the following character array:
 
@@ -586,9 +602,44 @@ s =
 
 …This syntax replace the lower case letters in *`s`* with the upper case version at only the *`idc`* locations in the character array
 
+We can of course also find strings of numbers. For example, in the following, we want to match the year, which is a series of 4 digits. To match 4 sequential digits, we use regular expression `\d{4}`, as follows
+
+```matlab linenums="1" title="Match Year"
+date1 = 'March 19, 1970';
+regexp(date1, '\d{4}', 'Match')
+```
+
+```matlab title="result"
+ans =
+
+  1×1 cell array
+
+    {'1970'}
+```
+
+Notice that `regexp` returns a cell array containing the match. 
+
+??? question "What do you think would happen if we change the `4` to a `2` in the regular expression `\d{4}`?"
+
+    You match all the 2 sequential digits, in this case `19`, `19`, and `70`
+
+    ```matlab linenums="1" 
+    regexp(date1, '\d{2}', 'Match')
+    ```
+
+    ```matlab title="result" 
+    ans =
+
+      1×3 cell array
+
+        {'19'}    {'19'}    {'70'}
+    ```
+
+You could ask for more complicated patterns, such as two digits that precede a comma, or similar.
+
 ### regexprep
 
-We can use a variant of **`regexp`**, the function **`regexprep`**, to *replace* characters in a character array with other characters or with nothing at all. 
+We can use a variant of **`regexp`**, the function **`regexprep`**, to *replace* characters in a character array with other characters or with nothing at all.
 
 For example, to replace the spaces in *`s`* with underscores, we would use the following syntax:
 

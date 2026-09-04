@@ -616,4 +616,67 @@ After nicely formatting the string, you realize that you got the email domain wr
         "Emmett"        "Endothelium"    "emmett.endothelium@college.com"
     ```
 
+### Regular Expressions on Strings
+
+As we discussed on the [Character page](Character.md#regular-expressions), Regular Expressions are a super-charged search function. Regular Expressions become really powerful on large string arrays.
+
+Consider the following string array of "funny" names:
+
+```matlab linenums="1" title="Create string array of names"
+funny_names = ["Amy Stake (A mistake)";
+    "Barb Dwyer (Barbed wire)";
+    "Chris P Bacon (Crispy bacon)";
+    "Chris P Baker (Crispy baker)";
+    "Jacqueline Hyde (Jekyll and Hyde)";
+    "Jed I Knight (Jedi Knight)";
+    "Laura Lynn Hardy (Laurel and Hardy)";
+    "Ophelia Pane (I feel your pain)";
+    "Robyn Banks (Robbing banks)";
+    "Tim Burr (Timber)"]
+```
+
+Say we want to remove the text between the parentheses, and the parentheses themselves from each element in the string array. To do so, we would need to:
+
+1. Find the parentheses
+2. Find the text between the parentheses
+3. Match the parentheses and the text
+4. Replace the match with nothing (an empty string)
+
+So, first, we need a regular expression that matches both the parenthetical text and the parentheses. A MATLAB Copilot prompt can help find the regular expression we need:
+
+>Use regexp to find characters bracketed by parentheses. Match the parentheses as well.
+
+And we get the following regular expression:
+
+```matlab linenums="1" title="Set regular expression" 
+expression = '\((.*?)\)'; % find the parenthetical characters
+```
+
+We can then use the function `regexprep` to replace all the instances of text inside parentheses with nothing (or `''`), as follows
+
+```matlab linenums="1" title="Find and Replace"
+S = regexprep(funny_names, expression, '') % replace the parenthetic characters with an empty string
+```
+
+```matlab title="result"
+S = 
+
+    10×1 string array
+
+    "Amy Stake "
+    "Barb Dwyer "
+    "Chris P Bacon "
+    "Chris P Baker "
+    "Jacqueline Hyde "
+    "Jed I Knight "
+    "Laura Lynn Hardy "
+    "Ophelia Pane "
+    "Robyn Banks "
+    "Tim Burr "
+```
+
+And we get a new string with the parenthetical text and the parentheses removed.
+
+___
+
 Module Complete 🧶
