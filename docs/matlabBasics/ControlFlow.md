@@ -91,7 +91,7 @@ IF, ELSE statements are the simplest and most straight forward of the conditiona
 !!! abstract "Anatomy of an IF ELSE STATEMENT"
 
     This is what an IF ELSE statement looks like:
-
+    
     >**if** *expression 1*
     >
     >>CODE BLOCK 1
@@ -105,14 +105,15 @@ IF, ELSE statements are the simplest and most straight forward of the conditiona
     >>CODE BLOCK 3
     >
     >**end**
-
+    
     - **Required keywords:** `if` and `end`. 
     - **Optional keywords:** `else` and `elseif`. `else` must be the last keyword before `end`.
     - **Expression:** a statement that can resolve to a `0` or non-zero (e.g. a logical operation). Expressions immediately follow the keywords `if` and `elseif`. `else` and `end` do not have expressions.
     - **Code block:** the line(s) of code that follow a key word line (except `end`). The code that is run if the immediately preceding expression resolves to a non-zero value. If none of the expressions resolve to a non-zero value, then the code block after the `else` line is run.
     - **Evaluation order:** each expression is evaluated sequentially starting from the `if` line. Once an expression resolves to a non-zero value, the subsequent code block is executed and the IF ELSE statement is exited (no other expression is even checked)
-   
-    
+
+
+​    
 Consider the following example:
 
 ![img-name](images/if-else-anatomy.png){ width="650"}
@@ -127,24 +128,24 @@ Consider the following example:
     === "Question"
         
         IF ELSE statements don't actually require an else statement
-
+    
         Here, we have a statement that checks whether the variable *`RESPONSE`* contains the string `"Here"`. (like a simplistic Taking Attendance Algorithm).(1)
         { .annotate }
-
+    
         1. Not shown here is the assignment of a value to *`RESPONSE`*, which typically occurs before the IF ELSE statement.
-
+    
         ```matlab linenums="1" title="Simple Attendance Algorithm"
         if RESPONSE == "Here"
             student = "present"
         end
         ```
-
+    
         If *`RESPONSE`* does contain `"Here"`, then variable *`student`* gets assigned the value `"present"`. If not, nothing happens. 
-
+    
         **CHALLENGE:** add an `else` statement so that if *`RESPONSE`* contains anything other than `"Here"`, *`student`* is set to `"absent"`.
     
     === "Answer"
-
+    
         ```matlab linenums="1" title="The Attendance Code"
         if RESPONSE == "Here"
             student = "present"
@@ -152,19 +153,19 @@ Consider the following example:
             student = "absent"
         end
         ```
-
+    
         In this IF ELSE statement, if *`RESPONSE`* is anything other than "Here", *`student`* is set to `"absent"`. 
 
 ??? question "Challenge 2: When Present is not Here"
 
     === "Question"
-
+    
         In the previous challenge, we only test if *`RESPONSE`* is equal to `"Here"`. This works great, if the response from the student is exactly "Here". But what if the student is not an automaton and responds with an alternate response, like "Yup", "Yo", or even "present"? The conditional statement would return a `FALSE` and the student would be marked absent. 
         
         Perhaps it would be more accurate to only mark the student "absent" if there is no response (Bueller? Bueller? Bueller?) and "present" if there is any response at all.
         
         How would you modify the above IF ELSE statement so that when *`RESULT`* is set to `""`, *`student`* is set to `"absent"`, and when *`RESULT`* has any other value,  *`student`* is set to "present"?
-
+    
     === "Answer"
     
         ```matlab linenums="1" title="Updated IF ELSE statement"
@@ -184,7 +185,8 @@ The following example contains multiple expressions to test the property of a nu
 { .annotate}
 
 1. For example, `mod(x,2)` returns the remainder after dividing by 2. So, this expression returns a `1` if `x` is odd, and a `0` if `x` is even. Similarly, `mod(x,1)` is useful for identifying whole numbers. In this case, it returns a 0 if *`x`* is a whole number, and a fractional number otherwise. Remember, expressions in IF ELSE must resolve to zero or a non-zero number.
-   
+  
+
 Here is some terminology and facts to recall as you review the following code:
 
 - **Prime Number**: a number divisible only by itself and 1. `1` is not a prime number, but `2` is. The rest of the prime numbers are odd numbers.
@@ -220,36 +222,36 @@ For the value `9`, the first expression would resolve to FALSE (`9` is not prime
 ??? question annotate "Challenge: The trouble with 16"
 
     === "Question"
-
+    
         Is 16 a perfect square? (1)
         { .annotate }
-
+    
         1. Yes. $4 * 4=16$
-
+    
         Is 16 a power of 2? (1)
         { .annotate }
-
+    
         1. Yes. $2^4=16$
         
         So, what is *`str`* set to after running the above IF ELSE statement?
     
     === "Answer"
-
+    
         Even though 16 is both a Perfect Square and a Power of 2, *`str`* will be set to `'a perfect square'` since that is the first expression encountered that resolves to true. The third expression testing for Powers of 2 will be ignored in this case.
 
 ??? question "Challenge: Odds or Evens"
 
     === "Question"
         Review the IF ELSE Statement above and add the following functionality:
-
+    
         1. Reports if the Number is 'odd, but not prime or a perfect square'
         2. Reports if the number is even
-
+    
         Remember that `mod(x,2)` returns a `1` if the number is odd.
 
 
     === "Answer"
-
+    
         ```matlab
         if isprime(x) % tests whether a number is prime
             str = 'a prime number';
@@ -264,7 +266,7 @@ For the value `9`, the first expression would resolve to FALSE (`9` is not prime
         end
         fprintf('%d is %s\n', x, str) % fprintf outputs directly to the command window
         ```
-
+    
         3. Notice the expression to test for 'odd' is after the other expressions. So this will only be reported once testing for the other properties have been exhausted. Remember, `1` is a power of 2 — $2^0=1$.
         4. Note that we don't have to test whether the number is even. We just assume once all of the other expressions resolve to false, that the number is even, so we place that after the **`else`** keyword.
 
@@ -277,7 +279,7 @@ You use SWITCH, CASE statmements when you just want to match the variable conten
 !!! abstract "Anatomy of a SWITCH CASE statement"
 
     SWITCH CASE statements use the `switch` and `case` key words. These Conditional Statements execute depending on the value of the indicated  *variable*. If the value in *variable* matches the value in one of the CASE lines, then the corresponding block of code is executed. If there are multiple matches, only the first match is executed. If there is no match, the code block following the **otherwise** keyword is executed. The **otherwise** keyword is optional, and if not included, and there is no match, the SWITCH CASE statement simply exits and runs no code blocks.
-
+    
     >**switch** *variable*
     >>**case** *value 1*
     >>>CODE BLOCK 1
@@ -292,7 +294,7 @@ You use SWITCH, CASE statmements when you just want to match the variable conten
     >>>CODE BLOCK 4
     >
     >**end**
-
+    
     - The *variable* is indicated immediately after the `switch` keyword. This tells the statement to inspect the contents of variable. 
     
     - The potential *values* are listed after each `case` keyword.
@@ -325,23 +327,23 @@ Since the variable  *`x`* was assigned the character array 'red', before the SWI
 ??? question "Challenge: You're on the case"
 
     === "Challenge"
-
+    
         Add two additional cases to the SWITCH CASE statement that do the following
-
+    
         1. For 'magenta', set the variable *`str`* to 'Magenta is Magnificent'
         2. For either 'orange' or 'yellow' (case statements can be cell arrays to indicate multiple options), set *`str`* to 'Orange you glad you chose yellow (or orange)'
-
+    
         Additional Changes:
-
+    
         - Remove the case for 7
         - Use the function **`inputdlg`** to request a string from the user. Assign the output from the function to *`x`*.
         - Use the function **`lower`** on *`x`* so all characters in the string are lowercase.
-
+    
     === "Answer"
-
+    
         ```matlab linenums="1" title="Example: Switch, Case"
         x = inputdlg('Enter a color') % get input from User, returns a cell array
-
+    
         switch lower(x{:}) % notice the indexing of x
             case 'red'
                 str = 'Roses are red';
@@ -356,22 +358,22 @@ Since the variable  *`x`* was assigned the character array 'red', before the SWI
             otherwise
                 str = 'try again'
         end
-
+    
         fprintf('%s', str) % output string to command window
         ```
     Here we use **`inputdlg`** to request a string from the user. Notice that we enter a prompt string to tell the user what to enter: `Enter a color`. 
     
     **`inputdlg`** returns a cell array, so we need to extract the contents of the cell using the curly brackets: `x{:}`. The contents from the x are then run through **`lower`** to change all characters to lowercase. Since **`inputdlg`** captures text (not numbers) by default, we needed to remove the case for 7. If we wanted to have cases for numbers, we would need more complicated syntax, and we don't want that.  
-
+    
     For Orange or Yellow, we use a cell array for the case value: `{'orange' 'yellow'}`. This case will run for either 'orange' or 'yellow'.
-
+    
     Finally the function **`fprintf`** displays the string in the command window. We could have just as easily used **`disp`**: `disp(str)`
 
 ## Loops
 
 **Looping Statements** are used to repeatedly execute the same code block over and over while modifying the values of certain variables. Computers are really good at repeating tasks over and over, sometimes to a fault.
 
-### FOR LOOPS
+### FOR LOOPS	
 
 FOR LOOPS are used to repeatedly execute a CODE BLOCK for a predetermined number of times.
 
@@ -384,12 +386,12 @@ FOR LOOPS are used to repeatedly execute a CODE BLOCK for a predetermined number
     >>CODE BLOCK
     >
     > **end**
-
+    
     1. Notice immediately following the `for` keyword is an initializing statement that resembles a variable assignment
     2. This *initializing statement* determines how many times the LOOP will run
     3. The number of times that the loop will run equals the number of columns in *values*.
     4. On each iteration of the loop, the *index* will pull a value from a subsequent column in *values*. So, *index* will have a different value on each iteration. 
-  
+
 For example, consider the following:
 
 ```matlab linenums="1" title="FOR LOOP"
@@ -425,9 +427,9 @@ The value of i is 10
 !!! note "Important Notes About For Loops"
 
       - **FOR LOOPS** will loop the number of times equal to the number of columns in the array of the *initializing statement* (not the maximum value in the array)
-
+    
       - You can use any variable name in the *initializing statement* (*n* and *i* are popular variable names for **FOR LOOPS**), or you could even use a vector array that has already been created
-
+    
       - The **FOR LOOP** initializing array does not have to start with the value 1
 
 ---
@@ -437,13 +439,13 @@ The value of i is 10
 === "QUESTION"
 
     How many times will the following **FOR LOOP** loop?
-
+    
     ```matlab linenums="1"
     for m = 2:2:10
         fprintf('The value of m is %d\n',m)
     end
     ```
-
+    
     - Also, what will be displayed in the command window after execution of the FOR LOOP is complete?
 
 === "Answer"
@@ -578,7 +580,7 @@ WHILE LOOPS are used to repeatedly execute a block of code until a condition is 
 !!! annotation "Anatomy of a WHILE LOOP"
     
     WHILE LOOPS are bracketed by the **while** and **end** keywords. The **while** keyword is followed by an *expression* that resolves to `true` or `false`
-
+    
     >**while** *expression*
     >
     >>CODE BLOCK
@@ -611,7 +613,7 @@ This loop simply displays the value of *n* each time the loop iterates. And then
 === "Answer"
 
     You change the expression to `n<20`
-
+    
     ```matlab linenums="1"
     n = 1
     while n<20
@@ -663,9 +665,9 @@ If you run this code in MATLAB, you will very likely get a different output. Try
     You would Change the conditional expression to:
 
     `while die ~=3`
-
+    
     as follows
-
+    
     ```matlab linenums="1"
     die = 1; % assign die value of 1
     while die ~=3 % <== Change the 5 to a 3 here
@@ -729,19 +731,19 @@ You will have 132.00 in your bank account
 === "QUESTION"
 
     How many weeks would it take if:
-
+    
     -  you eliminate your Candy and Soda expense? (and everything else was at the original setting)?
     -  You allowance was only $15?
     -  The starting price of a Hoverboard was $150?
     -  You already had $100 in your bank account?
-
+    
     …When answering the above questions, assume that all other variables are reverted back to their original defaults
 
 === "Answer"
     How many weeks would it take if: (Remember, answer each question assuming all other variables are reverted back to their original defaults).
 
     To answer these questions, you simply change the starting values of the variables prior to the start of the WHILE LOOP. Don't change anything inside the loop. Be sure to change all the variables back to the default values, before adjusting the value of any 1 variable. 
-
+    
     -  ...your Candy and Soda expense was $0 (and everything else was at the original setting)?
     > 5 weeks
     -  ...your allowance was $15?

@@ -350,6 +350,48 @@ end
 
 >**Comparison of imadjust to adapthisteq**. The **`imadjust`** histogram is spread to cover the entire dynamic range of the image. In contrast, the **`adapthisteq`** histogram maintains a similar distribution shape to the original image, but it has been smoothed. In the images, local variations in the CLAHE image are greatly exaggerated, especially compared to the **`imadjust`** image.
 
+### Dealing with Uneven Illumination
+
+The function **`adapthisteq`** is especially powerful for dealing with uneven illumination. Consider the following image:
+
+```matlab linenums="1" title="Load Book Image"
+close all
+clearvars
+mmSetUnitDataFolder(1) % set current folder to data/unit1
+book = imread("book.png");
+book = im2gray(book);
+
+figure
+imshow(book)
+```
+
+![open book with uneven illumination](images/book.png){ width="450"}
+
+>There is extensive shadowing and bright spots on the pages that affect the contrast between the text and the pages.
+
+Global histogram adjustments don't quite fix the problem, but **`adapthisteq`** works quite nicely in this situation.
+
+```matlab linenums="1" title="Image processing comparison"
+figure
+tiledlayout("horizontal",TileSpacing="tight",Padding="tight");
+i = {book,...           % original
+    imadjust(book),...  % imadjust
+    histeq(book),...    % histeq
+    adapthisteq(book)}; % adapthisteq
+
+title_str = ["Original" "imadjust" "histeq" "adapthisteq"];
+
+for n=1:numel(i)
+    nexttile
+    imshow(i{n})
+    title(title_str(n))
+end
+```
+
+![image processing applied to book image](images/book-img-processing.png){ width="800"}
+
+>**`imadjust`** and **`histeq`** still have extensive shadows and bright spots. **`adapthisteq`** cleans up much of the shadowing—notice the contrast improvement between the text and the pages.
+
 ## Challenge
 
 ??? question "Diagnose and Fix an Underexposed Image"

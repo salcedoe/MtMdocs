@@ -700,6 +700,6 @@ And we get a new string with the parenthetical text and the parentheses removed.
         "Tim Burr"
     ```
 
-___
+---
 
 Module Complete 🧶
