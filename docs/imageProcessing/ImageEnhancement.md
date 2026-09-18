@@ -201,32 +201,6 @@ end
 
 >Notice the asymmetrical shifting of the histogram towards the intensity poles. For gamma values below 1, the histogram distribution shifts towards the maximum pixel intensity (255). In contrast, for gammas greater than 1, the histogram distribution shifts towards zero. Also notice that the effect is primarily on the appearance of the moon. With a low gamma setting, the moon surface loses contrast, but still has high contrast compared to space. With a high gamma setting, the shadows on the moon's surface begin to blend in with the space.
 
-#### Histogram Equalization
-
-Another way to enhance contrast is **histogram equalization**, which redistributes pixel intensities so that the histogram is as flat (uniform) as possible across the whole dynamic range. The function **`histeq`** does this for you automatically—no inputs to tune, unlike **`imadjust`**.
-
-```matlab linenums="1" title="Histogram Equalization with histeq"
-figure;
-rows = 2; cols = 2;
-img = {moon2, histeq(moon2)};
-title_str = ["original", "histeq"];
-
-for n=1:2
-    subplot(rows, cols, n);
-    imshow(img{n});
-    title(title_str{n},'FontSize',14)
-    
-    subplot(rows, cols, n+cols)
-    imhist(img{n})
-    xlim([-5 260])
-    ylim([0 5e3])
-end
-```
-
-![histeq comparison](images/moon2_histeq.png){ width="550"}
-
->**Comparison of the original moon image to its histeq result.** Notice how much more aggressive **`histeq`** is compared to **`imadjust`**: rather than just stretching the ends of the distribution, it actively redistributes pixels so that the histogram is spread as evenly as possible across the full range. This is why the background here turns gray instead of staying black—**`histeq`** doesn't preserve the original black background the way **`imadjust`**'s default 1% saturation does. This aggressiveness can be a feature or a bug, depending on what you're trying to accomplish.
-
 ## Image Complement
 
 The complement is the process of inverting an image. Maximum Intensity Values are inverted to minimum intensity values and vice versa. The function **`imcomplement`** automates this process. The following code compares the complement to the original image:
@@ -251,6 +225,59 @@ end
 ![img-name](images/moon2_complement_hist.png){ width="550"}
 
 >Notice how the histograms for the two images are mirrored horizontally. Also notice that the colormap is the same for both images. Here, the actual pixel intensities of the image change, not the colormap. To emphasize the reflected shapes of the histograms, we cropped the y-axis and expanded the x-axis using **`xlim`** and **`ylim`**.
+
+#### Histogram Equalization
+
+Another way to enhance contrast is **histogram equalization**. By default, **`histeq(I)`** doesn't spread pixel intensities across the full 256 possible values—it targets a flat distribution across 64 discrete gray levels. This is why the equalized histogram below shows a limited number of tall, spike-like bars rather than 256 evenly short ones.
+
+For this example, we will use a different image of the moon
+
+```matlab linenums="1" title="Histogram Equalization with histeq"
+mmSetUnitDataFolder(1) % set to unit 1 data folder
+fullMoon = imread("FullMoonGray.png"); % different moon image
+
+figure
+mmShowHist(fullMoon,1,2,'original') % display image and histogram
+
+moon_eq = histeq(fullMoon); % histeq
+mmShowHist(moon_eq,2,2,'histeq') % display image and histogram
+```
+
+![full moon hist equalize](images/fullMoon-histeq-mmShowHist-compare.png){ width="650"}
+
+**`histeq`** also allows you to set the number of final intensities you want in the image. In the following example, we set the number to only three intensities:
+
+```matlab linenums="1" title="Limit histeq to three intensities"
+moon_eq3 = histeq(fullMoon,3);
+mmShowHist(moon_eq3)
+```
+
+![img-name](images/fullMoon-histeq3-mmshowhist.png){ width="450"}
+
+>Notice the blue lines on the edges of the histogram. Those are the other intensities in addition to the one in the middle.
+
+You can clearly see the change in intensity continuity using a different color for the image.
+
+```matlab linenums="1" title="Compare original, histeq, and 3-intensity histeq"
+figure
+tiledlayout("horizontal","TileSpacing","none","Padding","tight")
+
+nexttile
+imshow(fullMoon,turbo)
+title('original')
+
+nexttile
+imshow(moon_eq,turbo)
+title("default histeq")
+
+nexttile
+imshow(moon_eq3,turbo)
+title("histeq - 3 intensities")
+```
+
+![img-name](images/fullMoon-histeq-compare.png){ width="450"}
+
+>In this example, **`histeq`** appears to uncover some manipulation of the image on the right side (cutting out background?).
 
 ## Neighborhood / Block Processing
 
