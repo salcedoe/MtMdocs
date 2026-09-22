@@ -56,6 +56,7 @@ nav:
       - Segmentation Cleanup: imageProcessing/ImageSegmentationCleanup.md
       - Region Processing: imageProcessing/ImageRegionProcessing.md
       - RGB Images: imageProcessing/ImageRGB.md
+      - RGB Enhancement: imageProcessing/ImageRGBEnhancement.md
   - Imaging:
     - Imaging Concepts:
       - Light: imaging/electromagneticRadiation.md
