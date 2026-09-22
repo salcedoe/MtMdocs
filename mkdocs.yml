@@ -49,14 +49,13 @@ nav:
     - Hypothesis Testing: dataProcessing/HypTesting.md
     - Effect Size: dataProcessing/EffectSize.md
   - Image Processing:
-    - 2D Image Processing:
-      - Grayscale Images: imageProcessing/ImageIntro.md
-      - Image Enhancement: imageProcessing/ImageEnhancement.md
-      - Image Segmentation: imageProcessing/ImageSegmentation.md
-      - Segmentation Cleanup: imageProcessing/ImageSegmentationCleanup.md
-      - Region Processing: imageProcessing/ImageRegionProcessing.md
-      - RGB Images: imageProcessing/ImageRGB.md
-      - RGB Enhancement: imageProcessing/ImageRGBEnhancement.md
+    - Grayscale Images: imageProcessing/ImageIntro.md
+    - Image Enhancement: imageProcessing/ImageEnhancement.md
+    - Image Segmentation: imageProcessing/ImageSegmentation.md
+    - Segmentation Cleanup: imageProcessing/ImageSegmentationCleanup.md
+    - Region Processing: imageProcessing/ImageRegionProcessing.md
+    - RGB Images: imageProcessing/ImageRGB.md
+    - RGB Enhancement: imageProcessing/ImageRGBEnhancement.md
   - Imaging:
     - Imaging Concepts:
       - Light: imaging/electromagneticRadiation.md
