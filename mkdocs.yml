@@ -57,6 +57,7 @@ nav:
     - RGB Images: imageProcessing/ImageRGB.md
     - RGB Enhancement: imageProcessing/ImageRGBEnhancement.md
     - Color Segmentation: imageProcessing/ImageColorSegmentation.md
+    - Texture Segmentation: imageProcessing/ImageTextureSegmentation.md
   - Imaging:
     - Imaging Concepts:
       - Light: imaging/electromagneticRadiation.md
