@@ -1,0 +1,5771 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://salcedoe.github.io/MtMdocs/imageProcessing/ImageColorSegmentation/">
+      
+      
+        <link rel="prev" href="../ImageRGBEnhancement/">
+      
+      
+        <link rel="next" href="../ImageTextureSegmentation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/skull-scan-blue.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Color Segmentation - Muddling through Medical Imaging</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-SPQ0E4H9P9"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-SPQ0E4H9P9",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-SPQ0E4H9P9",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>if("undefined"!=typeof __md_analytics){var consent=__md_get("__consent");consent&&consent.analytics&&__md_analytics()}</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#color-segmentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Muddling through Medical Imaging" class="md-header__button md-logo" aria-label="Muddling through Medical Imaging" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 0C.9 0 0 .9 0 2v4h2V2h4V0zm16 0v2h4v4h2V2c0-1.1-.9-2-2-2zm-6 3c-4.4 0-8 3.6-8 8 0 2.5 1.2 4.8 3 6.2V21h2v-3h2v3h2v-3h2v3h2v-3.8c1.8-1.5 3-3.7 3-6.2 0-4.4-3.6-8-8-8M8 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m2.5 2 1.5-3 1.5 3zm5.5-2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2M0 18v4c0 1.1.9 2 2 2h4v-2H2v-4zm22 0v4h-4v2h4c1.1 0 2-.9 2-2v-4z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Muddling through Medical Imaging
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Color Segmentation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/salcedoe/MtMtools" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../setup/softwareOverview/" class="md-tabs__link">
+          
+  
+  
+  Setup
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/courseFunctions/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../matlabBasics/MatlabIntro/" class="md-tabs__link">
+          
+  
+  
+  MATLAB Basics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dataProcessing/" class="md-tabs__link">
+          
+  
+  
+  Data Processing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../ImageIntro/" class="md-tabs__link">
+          
+  
+  
+  Image Processing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../imaging/electromagneticRadiation/" class="md-tabs__link">
+          
+  
+  
+  Imaging
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../volumeProcessing/volumeOverview/" class="md-tabs__link">
+          
+  
+  
+  Volume Processing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../slicer/InterfaceIntro/" class="md-tabs__link">
+          
+  
+  
+  3D Slicer
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Muddling through Medical Imaging" class="md-nav__button md-logo" aria-label="Muddling through Medical Imaging" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 0C.9 0 0 .9 0 2v4h2V2h4V0zm16 0v2h4v4h2V2c0-1.1-.9-2-2-2zm-6 3c-4.4 0-8 3.6-8 8 0 2.5 1.2 4.8 3 6.2V21h2v-3h2v3h2v-3h2v3h2v-3.8c1.8-1.5 3-3.7 3-6.2 0-4.4-3.6-8-8-8M8 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m2.5 2 1.5-3 1.5 3zm5.5-2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2M0 18v4c0 1.1.9 2 2 2h4v-2H2v-4zm22 0v4h-4v2h4c1.1 0 2-.9 2-2v-4z"/></svg>
+
+    </a>
+    Muddling through Medical Imaging
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/salcedoe/MtMtools" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/softwareOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/matlabInstallation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installing MATLAB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/githubRepoInstallation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Github Repositories
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/computerSetup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/courseFunctions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MtM Toolbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/MATLABReferencePages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MATLAB resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MATLAB Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    MATLAB Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/MatlabIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Muddling Through MATLAB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/matlabInterface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The MATLAB Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Basic Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/DataOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/ArrayAssignmentOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Array Assignment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/BinaryNumbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Binary Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Data Classes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Basic Data Classes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Numeric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numeric Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Logical/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logical Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Character/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Character Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complex Data Classes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Complex Data Classes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Cell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cells
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Strings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Structures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simple Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Simple Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/ControlFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/FilesFolders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Files and Folders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Plotting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingComponents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingBasics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingOverlaysTiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting Overlays and Tiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/groupStats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting Group Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scripts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/scripts/Control_Flow_Functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control Flow and Functions in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Processing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Processing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/dataTypes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/tidyData/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tidy Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/groupStats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting Group Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/SamplesDistributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sampling and Distributions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/HypTesting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hypothesis Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/EffectSize/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Effect Size
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Processing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Image Processing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImageIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grayscale Images
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImageEnhancement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Enhancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImageSegmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImageSegmentationCleanup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Segmentation Cleanup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImageRegionProcessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Region Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImageRGB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RGB Images
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImageRGBEnhancement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RGB Enhancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Color Segmentation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Color Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#things-you-should-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Things you should know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-terminology-you-should-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Terminology you should know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thresholding-by-color-with-apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thresholding by Color with Apps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thresholding by Color with Apps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototyping-a-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prototyping a Segmentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-anything-sam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segment Anything (SAM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparing-masks-against-a-ground-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparing Masks Against a Ground Truth
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#separating-touching-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Separating Touching Objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programmatic-color-segmentation-in-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programmatic Color Segmentation in L*a*b*
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programmatic Color Segmentation in L*a*b*">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-right-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding the Right Channel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#letting-otsu-pick-the-threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Letting Otsu Pick the Threshold
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-it-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Does It Compare?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#does-it-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Does It Scale?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking-our-own-method-on-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breaking Our Own Method on Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-did-we-actually-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Did We Actually Learn?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmenting-multiple-colors-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segmenting Multiple Colors at Once
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segmenting Multiple Colors at Once">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-multilevel-thresholding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: Multilevel Thresholding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-k-means-clustering-in-the-ab-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: K-Means Clustering in the a*b* Plane
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparing-the-two-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparing the Two Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Challenge
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImageTextureSegmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Texture Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Imaging
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Imaging
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Imaging Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Imaging Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/electromagneticRadiation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Light
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/humanVision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human Vision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/colorModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Color Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Imaging with Light
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Imaging with Light
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/digitalPhotography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digital Photography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/digitalMicroscopy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digital Microscopy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Medical Imaging
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Medical Imaging
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/medicalImagingIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/XrayImaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    X-ray Imaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/CTImaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CT Imaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/Liesel_Brain_Atlas.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MRI Atlas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume Processing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Volume Processing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volumeOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loading Volumes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Loading Volumes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/medicalFileFormats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Medical File Formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/loadingConfocalDatasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loading Confocal Datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/loadingMedicalDatasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loading Medical Datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_3" id="__nav_8_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume Visualization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Volume Visualization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volumeVisualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Viewing Image Slices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_4" id="__nav_8_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rendering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume and Surface Rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/medVolumeViewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Medical Volume Viewer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volshow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering with volshow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_4_4" id="__nav_8_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Surface Rendering
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Surface Rendering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/surfaceModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Surface Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/medicalSurfaceRendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering Medical Datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/surfaceModelTransformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transforming Surface Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_5" id="__nav_8_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume Analysis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Volume Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volumeSegmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3D Slicer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3D Slicer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/InterfaceIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/CustomizeSlicer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customize Slicer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/troubleshootingSlicer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting Slicer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Exploration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Exploration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/CTChestExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTChest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/CTPETExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PET CT (Multi-modal Dataset)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/CTMRExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CT MRI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/MRHeadExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MRHead
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/UltrasoundExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ultrasound
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/ImportDICOMDataset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Import DICOM datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume Segmentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Volume Segmentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/CTACardioSegment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTACardio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/MRTumorSegment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MR Tumors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/CTFemurSegment_9553F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CT Femur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/TotalSegmentator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Total Segmentator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Surface Models
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Surface Models
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/CreateModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Surface Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/ExportModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exporting Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_7" id="__nav_9_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generating Animations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Generating Animations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../slicer/ImageSequenceToVideo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image sequence to video (MAC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#things-you-should-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Things you should know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-terminology-you-should-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Terminology you should know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thresholding-by-color-with-apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thresholding by Color with Apps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thresholding by Color with Apps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototyping-a-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prototyping a Segmentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segment-anything-sam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segment Anything (SAM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparing-masks-against-a-ground-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparing Masks Against a Ground Truth
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#separating-touching-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Separating Touching Objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programmatic-color-segmentation-in-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programmatic Color Segmentation in L*a*b*
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programmatic Color Segmentation in L*a*b*">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-right-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding the Right Channel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#letting-otsu-pick-the-threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Letting Otsu Pick the Threshold
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-it-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Does It Compare?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#does-it-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Does It Scale?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking-our-own-method-on-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breaking Our Own Method on Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-did-we-actually-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Did We Actually Learn?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#segmenting-multiple-colors-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segmenting Multiple Colors at Once
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Segmenting Multiple Colors at Once">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-multilevel-thresholding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: Multilevel Thresholding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-k-means-clustering-in-the-ab-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: K-Means Clustering in the a*b* Plane
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparing-the-two-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparing the Two Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Challenge
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../ImageIntro/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Image Processing
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="color-segmentation">Color Segmentation</h1>
+<div class="admonition abstract">
+<p class="admonition-title">Letting the pixels do the talking</p>
+</div>
+<h2 id="overview">Overview</h2>
+<p><strong>Segmentation</strong> means separating the pixels you care about from everything else. The result is a <strong>mask</strong>: a logical array that is <code>TRUE</code> at every pixel belonging to your object, and <code>FALSE</code> everywhere else. Up to now, we've segmented objects using intensity alone. But color carries a lot of information that a single grayscale value throws away, and that extra information can make segmentation easier—or, as we'll see, more misleading if you don't understand what it's actually measuring.</p>
+<p>In this module, we segment color images three different ways: interactively with MATLAB apps, programmatically with a single color-based threshold, and programmatically across several colors at once. Along the way, we validate our masks against a hand-drawn ground truth, separate touching objects, and deliberately break our own methods to understand their limits.</p>
+<p>This module is broken down into the following sections:</p>
+<h3 id="things-you-should-know">Things you should know</h3>
+<ul>
+<li>Explain the difference between a class-label image and an object mask</li>
+<li>Use the <strong>Color Thresholder</strong> app to prototype a color-based segmentation</li>
+<li>Use the <strong>Jaccard</strong> and <strong>Dice</strong> coefficients to quantify how well a mask matches a ground truth</li>
+<li>Use <strong><code>graythresh</code></strong> and <strong><code>imbinarize</code></strong> to threshold a single color channel adaptively</li>
+<li>Explain the difference between a <em>reproducible</em> method and a <em>generalizable</em> one</li>
+<li>Use <strong><code>multithresh</code></strong> and <strong><code>imquantize</code></strong> to divide one channel into several value ranges</li>
+<li>Use <strong><code>imsegkmeans</code></strong> to cluster pixels by color in a multi-dimensional color space</li>
+<li>Identify the dominant color cluster inside a segmented object</li>
+</ul>
+<h3 id="key-terminology-you-should-know">Key Terminology you should know</h3>
+<ul>
+<li><strong>Mask</strong>: a logical array that is <code>TRUE</code> at pixels belonging to an object, <code>FALSE</code> elsewhere</li>
+<li><strong>Reproducibility</strong>: whether a procedure gives the same result when repeated</li>
+<li><strong>Generalizability</strong>: whether a procedure still works on new images acquired under different conditions</li>
+<li><strong>Class-label image</strong>: an image where each pixel is assigned an integer describing which <em>value range</em> (not which <em>object</em>) it belongs to</li>
+<li><strong>Heuristic</strong>: a convenient rule that works because of something you know about a specific problem, with no guarantee it generalizes</li>
+<li><strong>Cluster</strong>: a group of pixels that are close together in color space</li>
+</ul>
+<h3 id="key-functions">Key Functions</h3>
+<ul>
+<li><a href="https://www.mathworks.com/help/images/ref/colorthresholder-app.html">colorThresholder</a>: Interactively segment an image by color</li>
+<li><a href="https://www.mathworks.com/help/images/ref/imagesegmenter-app.html">imageSegmenter</a>: Interactively segment an image, including with the Segment Anything Model (SAM)</li>
+<li><a href="https://www.mathworks.com/help/images/ref/jaccard.html">jaccard</a> and <a href="https://www.mathworks.com/help/images/ref/dice.html">dice</a>: Measure the similarity between two masks</li>
+<li><a href="https://www.mathworks.com/help/images/ref/graythresh.html">graythresh</a>: Compute a global threshold using Otsu's method</li>
+<li><a href="https://www.mathworks.com/help/images/ref/multithresh.html">multithresh</a>: Compute multiple thresholds for an image</li>
+<li><a href="https://www.mathworks.com/help/images/ref/imquantize.html">imquantize</a>: Quantize an image using specified thresholds</li>
+<li><a href="https://www.mathworks.com/help/images/ref/imsegkmeans.html">imsegkmeans</a>: Segment an image into clusters using k-means clustering</li>
+</ul>
+<hr />
+<h2 id="thresholding-by-color-with-apps">Thresholding by Color with Apps</h2>
+<p>The <strong>Color Thresholder</strong> app is a quick way to explore how different color models separate the colors in an image.</p>
+<p>Consider this image of a (rather large) cube:</p>
+<p><img alt="cube illusion" src="../images/cube-illusion.png" width="450" /></p>
+<p>Launching <strong><code>colorThresholder</code></strong> on this image, and trying the RGB, HSV, and L*a*b* color models in turn, reveals something surprising: no matter which color model you pick, you cannot separate the "brown" tile near the top from the "orange" tile on the front face—they occupy nearly identical pixel values in every color model. They only <em>look</em> different to you because your visual system is correcting for the shadow falling across the cube. The thresholding tools only see the numbers, and the numbers are the same:</p>
+<p><img alt="sampled brown and orange tiles" src="../images/cube-illusion-sample.png" width="650" /></p>
+<blockquote>
+<p>Sampling a small patch from each tile confirms it numerically: the "brown" tile averages RGB <code>[127 73 29]</code>, and the "orange" tile averages <code>[112 66 28]</code>—nearly identical, well within the kind of variation you'd see from JPEG compression and surface shading alone. Keep this in mind for the rest of this module: what looks obviously separable to your eye is not always separable in the pixel data.</p>
+</blockquote>
+<h3 id="prototyping-a-segmentation">Prototyping a Segmentation</h3>
+<p>For a more typical task, let's try to capture and count strawberries:</p>
+<p><img alt="strawberry image" src="../images/strawberry-original.png" width="550" /></p>
+<p>The usual workflow is to prototype a segmentation by hand in <strong><code>colorThresholder</code></strong>—trying different color models, dragging sliders, and lassoing the object—before committing anything to code. Here are three masks produced this way, one per color model:</p>
+<p><img alt="RGB vs HSV vs L*a*b* masks" src="../images/strawberry-colormodel-compare.png" width="650" /></p>
+<blockquote>
+<p>All three capture the strawberries reasonably well here, though in practice you'll often see the <strong>L*a*b*</strong> mask hold up best, since its a* channel (green ↔ red) tends to separate ripe fruit from foliage more cleanly than any single RGB or HSV channel. Small differences in noise and coverage between the three are typical—which model wins depends on the image.</p>
+</blockquote>
+<div class="admonition tip">
+<p class="admonition-title">Exporting your own segmentation function</p>
+<p>Once you're happy with a threshold in <strong><code>colorThresholder</code></strong>, hold down the <strong>Export</strong> button and choose <strong>Export Function</strong>. MATLAB generates a ready-to-use function that converts an image to your chosen color space and applies the exact slider ranges you selected on each channel—so the next image you throw at it gets the same, repeatable treatment.</p>
+</div>
+<h3 id="segment-anything-sam">Segment Anything (SAM)</h3>
+<p>The <strong>Image Segmenter</strong> app (not the Color Thresholder) also offers a very different approach: the <strong>Segment Anything Model (SAM)</strong>, a machine learning model trained on millions of images, accessible by clicking <strong>Segment Anything</strong> and then clicking directly on the objects you want. Launch it with <strong><code>imageSegmenter</code></strong>.</p>
+<h3 id="comparing-masks-against-a-ground-truth">Comparing Masks Against a Ground Truth</h3>
+<p>How do you know which mask is actually best? Ideally, you compare each one against a <strong>ground truth</strong>: a mask a human has carefully drawn by hand.</p>
+<p><img alt="strawberry ground truth mask" src="../images/strawberry-groundtruth.png" width="450" /></p>
+<p>The <strong>Jaccard</strong> and <strong>Dice</strong> coefficients both quantify how similar two masks are, on a scale from 0 to 1:</p>
+<ul>
+<li><strong>Jaccard</strong> (intersection over union): the size of the overlap divided by the size of the union</li>
+<li><strong>Dice</strong>: twice the overlap, divided by the sum of the two mask areas (always a bit more generous than Jaccard for the same pair of masks)</li>
+</ul>
+<p>Comparing our RGB, HSV, L*a*b*, and SAM masks against the ground truth:</p>
+<p><img alt="mask comparison overlays" src="../images/strawberry-mask-comparison.png" width="650" /></p>
+<table>
+<thead>
+<tr>
+<th>Mask</th>
+<th style="text-align: right;">Jaccard</th>
+<th style="text-align: right;">Dice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RGB</td>
+<td style="text-align: right;">0.807</td>
+<td style="text-align: right;">0.893</td>
+</tr>
+<tr>
+<td>HSV</td>
+<td style="text-align: right;">0.892</td>
+<td style="text-align: right;">0.943</td>
+</tr>
+<tr>
+<td>L*a*b*</td>
+<td style="text-align: right;">0.907</td>
+<td style="text-align: right;">0.951</td>
+</tr>
+<tr>
+<td>SAM</td>
+<td style="text-align: right;">0.907</td>
+<td style="text-align: right;">0.951</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>In this particular comparison, the SAM mask and the L*a*b* mask score identically—not because SAM failed, but because the SAM mask used here is a saved backup (for anyone without GPU access or the SAM download), and it happens to have been generated from the same L*a*b* threshold. The scores still make the broader point: in these pseudocolored overlays, magenta marks pixels the candidate mask found but the ground truth didn't, green marks pixels the ground truth found but the candidate missed, and white marks agreement. More white and less color means a better match—and that's exactly the trend from RGB through L*a*b*.</p>
+</blockquote>
+<h3 id="separating-touching-objects">Separating Touching Objects</h3>
+<p>Masks that lump multiple touching objects into one blob will undercount them. Before separating anything, clean up small noise and holes:</p>
+<p><img alt="cleaned strawberry mask" src="../images/strawberry-cleaned-mask.png" width="550" /></p>
+<p>Then apply the <strong>watershed transform</strong>, which can detach regions that are only barely touching. The course function <strong><code>mmGetWatershed</code></strong> automates the usual multi-step watershed recipe. Its <code>ShowSteps</code> option visualizes what's happening under the hood: the distance transform (left), the watershed regions with their seed points overlaid (middle), and the mask before and after separation (right):</p>
+<p><img alt="watershed steps" src="../images/strawberry-watershed-steps.png" width="650" /></p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Clean, separate, and count</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">maskClean</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bwareaopen</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span><span class="mi">50</span><span class="p">);</span><span class="w">     </span><span class="c">% remove small noise</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">maskClean</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imfill</span><span class="p">(</span><span class="n">maskClean</span><span class="p">,</span><span class="s">'holes'</span><span class="p">);</span><span class="w">       </span><span class="c">% fill holes inside each object</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">maskClean</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imclearborder</span><span class="p">(</span><span class="n">maskClean</span><span class="p">);</span><span class="w">        </span><span class="c">% remove objects touching the edge</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="n">watershedMask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetWatershed</span><span class="p">(</span><span class="n">maskClean</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span><span class="w"> </span><span class="c">% separate touching objects</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="n">rp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">regionprops</span><span class="p">(</span><span class="s">'table'</span><span class="p">,</span><span class="n">watershedMask</span><span class="p">,</span><span class="s">"basic"</span><span class="p">);</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="nb">height</span><span class="p">(</span><span class="n">rp</span><span class="p">)</span><span class="w"> </span><span class="c">% count the separated objects</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="watershed-separated mask" src="../images/strawberry-watershed-final.png" width="550" /></p>
+<blockquote>
+<p><strong><code>imclearborder</code></strong> removed one small strawberry in the corner because it touches the edge of the frame—standard practice when <em>measuring</em> objects (a strawberry half out of frame gives a bad area measurement), but a real trade-off if you're <em>counting</em>: you just threw away a real strawberry.</p>
+</blockquote>
+<p>Counting the separated regions and labeling them confirms the result:</p>
+<p><img alt="counted strawberries" src="../images/strawberry-counted.png" width="650" /></p>
+<blockquote>
+<p>Fourteen strawberries, correctly separated and numbered. Counting connected components is easy; deciding which components represent meaningful objects—and whether any were lost or incorrectly split along the way—requires looking at the result.</p>
+</blockquote>
+<h2 id="programmatic-color-segmentation-in-lab">Programmatic Color Segmentation in L*a*b*</h2>
+<p>Clicking through an app works for a handful of images, but it doesn't scale to hundreds. A programmatic approach replaces the clicks with a repeatable rule based on image data. That makes the analysis <strong>reproducible</strong>—but not automatically <strong>generalizable</strong>. A method can give the same answer every time and still fail on a new image with different lighting, colors, or backgrounds. This section builds a rule, validates it, scales it up, and then deliberately gives it an image designed to break it.</p>
+<h3 id="finding-the-right-channel">Finding the Right Channel</h3>
+<p>L*a*b* separates lightness from color, and the two color axes (a*: green ↔ red; b*: blue ↔ yellow) are stored independently. For red strawberries against green foliage, the a* channel is our best bet:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Convert to L*a*b* and inspect the channels</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">p</span><span class="p">.</span><span class="n">rgb</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">imread</span><span class="p">(</span><span class="s">'strawberries.png'</span><span class="p">);</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">p</span><span class="p">.</span><span class="n">lab</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">rgb2lab</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">rgb</span><span class="p">);</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="nb">tiledlayout</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s">'TileSpacing'</span><span class="p">,</span><span class="s">'compact'</span><span class="p">,</span><span class="s">'Padding'</span><span class="p">,</span><span class="s">'compact'</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="n">titles</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s">"L* (lightness)"</span><span class="p">,</span><span class="w"> </span><span class="s">"a* (green to red)"</span><span class="p">,</span><span class="w"> </span><span class="s">"b* (blue to yellow)"</span><span class="p">];</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="k">for</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">    </span><span class="nb">nexttile</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span><span class="nb">imshow</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">lab</span><span class="p">(:,:,</span><span class="n">n</span><span class="p">),[])</span><span class="w"> </span><span class="c">% rescale each channel independently for display</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span><span class="nb">title</span><span class="p">(</span><span class="n">titles</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">    </span><span class="nb">nexttile</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="nb">histogram</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">lab</span><span class="p">(:,:,</span><span class="n">n</span><span class="p">),</span><span class="mi">50</span><span class="p">)</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">    </span><span class="nb">xlabel</span><span class="p">(</span><span class="s">'Channel value'</span><span class="p">)</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">    </span><span class="nb">ylabel</span><span class="p">(</span><span class="s">'Pixels'</span><span class="p">)</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="k">end</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="L*a*b* channels and histograms of the strawberry image" src="../images/strawberry-lab-channels.png" width="650" /></p>
+<blockquote>
+<p>The strawberries pop in the a* plane: foliage sits at lower, more negative a* values, while ripe strawberries sit at higher, positive values. The a* histogram is roughly bimodal, suggesting that a single threshold can separate the two color groups. Remember: the exact a* range depends on the colors in <em>this</em> image—it isn't a fixed, universal cutoff.</p>
+</blockquote>
+<h3 id="letting-otsu-pick-the-threshold">Letting Otsu Pick the Threshold</h3>
+<p><strong><code>graythresh</code></strong> calculates Otsu's threshold—the value that splits a histogram into two groups while minimizing the variation within each group—plus an effectiveness metric describing how well that split worked. Since <code>graythresh</code> and <code>imbinarize</code> expect values between 0 and 1, we rescale the raw a* plane first:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Otsu threshold on the a* plane</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">p</span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">lab</span><span class="p">(:,:,</span><span class="mi">2</span><span class="p">);</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="n">p</span><span class="p">.</span><span class="n">aNorm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">rescale</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c">% rescale a* to the range 0-1</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="p">[</span><span class="n">p</span><span class="p">.</span><span class="n">aLevel</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">otsuEffectiveness</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">graythresh</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">aNorm</span><span class="p">);</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="n">aMin</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">a</span><span class="p">,[],</span><span class="s">'all'</span><span class="p">);</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="n">aMax</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">a</span><span class="p">,[],</span><span class="s">'all'</span><span class="p">);</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="n">p</span><span class="p">.</span><span class="n">aThresh</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">aLevel</span><span class="o">*</span><span class="p">(</span><span class="n">aMax</span><span class="o">-</span><span class="n">aMin</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">aMin</span><span class="p">;</span><span class="w"> </span><span class="c">% convert back to the raw a* scale</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="Otsu threshold on the normalized a* histogram" src="../images/strawberry-a-otsu-hist.png" width="550" /></p>
+<blockquote>
+<p>The threshold (0.48 normalized, equivalent to a raw a* value of 17.1) lands right in the valley between the two groups, with an Otsu effectiveness of 0.845. This cutoff was calculated from the image data—not hand-picked—which makes the procedure repeatable.</p>
+</blockquote>
+<p>Binarizing, cleaning up noise, and running the watershed produces the full pipeline in one view:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Full a*-plane segmentation pipeline</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">p</span><span class="p">.</span><span class="n">aMaskNorm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imbinarize</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">aNorm</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">aLevel</span><span class="p">);</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="n">p</span><span class="p">.</span><span class="n">aMaskClean</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bwareaopen</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">aMaskNorm</span><span class="p">,</span><span class="mi">200</span><span class="p">);</span><span class="w"> </span><span class="c">% 200 px is appropriate for this image's resolution</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="n">p</span><span class="p">.</span><span class="n">aMaskClean</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imclearborder</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">aMaskClean</span><span class="p">);</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="n">p</span><span class="p">.</span><span class="n">aWatershed</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetWatershed</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">aMaskClean</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="nb">tiledlayout</span><span class="p">(</span><span class="s">"flow"</span><span class="p">,</span><span class="s">"TileSpacing"</span><span class="p">,</span><span class="s">"none"</span><span class="p">,</span><span class="s">"Padding"</span><span class="p">,</span><span class="s">"tight"</span><span class="p">)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="n">fieldsToShow</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s">"rgb"</span><span class="w"> </span><span class="s">"aNorm"</span><span class="w"> </span><span class="s">"aMaskNorm"</span><span class="w"> </span><span class="s">"aMaskClean"</span><span class="w"> </span><span class="s">"aWatershed"</span><span class="p">];</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="k">for</span><span class="w"> </span><span class="n">fieldName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">fieldsToShow</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">    </span><span class="nb">nexttile</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">    </span><span class="nb">imshow</span><span class="p">(</span><span class="n">p</span><span class="p">.(</span><span class="n">fieldName</span><span class="p">))</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">    </span><span class="nb">title</span><span class="p">(</span><span class="n">fieldName</span><span class="p">,</span><span class="s">'Interpreter'</span><span class="p">,</span><span class="s">'none'</span><span class="p">)</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="k">end</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="full a* segmentation pipeline" src="../images/strawberry-a-pipeline-review.png" width="650" /></p>
+<blockquote>
+<p><strong>Important:</strong> pixel-area cutoffs like the 200 used here depend on image resolution and object size. If the magnification or resolution changes, the same cutoff may no longer be appropriate.</p>
+</blockquote>
+<h3 id="how-does-it-compare">How Does It Compare?</h3>
+<p>One threshold on one channel did much of what previously required all that clicking. Against the same ground truth used earlier:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Validate against the ground truth</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nb">load</span><span class="p">(</span><span class="s">'strawberry-mask-ground-truth.mat'</span><span class="p">,</span><span class="s">'maskGT'</span><span class="p">);</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nb">fprintf</span><span class="p">(</span><span class="s">'Jaccard: %.3f\n'</span><span class="p">,</span><span class="w"> </span><span class="n">jaccard</span><span class="p">(</span><span class="n">maskGT</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">aMaskClean</span><span class="p">));</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nb">fprintf</span><span class="p">(</span><span class="s">'Dice:    %.3f\n'</span><span class="p">,</span><span class="w"> </span><span class="n">dice</span><span class="p">(</span><span class="n">maskGT</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">aMaskClean</span><span class="p">));</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-matlab highlight"><span class="filename">result</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">Jaccard</span><span class="p">:</span><span class="w"> </span><span class="mf">0.929</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">Dice</span><span class="p">:</span><span class="w">    </span><span class="mf">0.963</span>
+</span></code></pre></div>
+<p><img alt="a* mask versus ground truth" src="../images/strawberry-a-vs-gt.png" width="550" /></p>
+<blockquote>
+<p>This single, reproducible threshold actually scores <em>higher</em> than every mask produced by hand-clicking in the Color Thresholder app, including the SAM result. But be clear about what this does and doesn't mean: MATLAB has <strong>not learned what a strawberry is</strong>. It has simply identified pixels that fall on one side of a color threshold—for <em>this</em> image.</p>
+</blockquote>
+<p>Counting the separated regions with <strong><code>regionprops</code></strong> turns up a subtlety worth watching for:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Count blobs, then filter by size</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">rp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">regionprops</span><span class="p">(</span><span class="s">'table'</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">aWatershed</span><span class="p">,</span><span class="s">'basic'</span><span class="p">);</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nb">fprintf</span><span class="p">(</span><span class="s">'Blobs found: %d\n'</span><span class="p">,</span><span class="nb">height</span><span class="p">(</span><span class="n">rp</span><span class="p">));</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="nb">fprintf</span><span class="p">(</span><span class="s">'Blobs larger than 2000 px: %d\n'</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">rp</span><span class="p">.</span><span class="n">Area</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2000</span><span class="p">));</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-matlab highlight"><span class="filename">result</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">Blobs</span><span class="w"> </span><span class="s">found:</span><span class="w"> </span><span class="s">15</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">Blobs</span><span class="w"> </span><span class="s">larger</span><span class="w"> </span><span class="s">than</span><span class="w"> </span><span class="s">2000</span><span class="w"> </span><span class="s">px:</span><span class="w"> </span><span class="s">14</span>
+</span></code></pre></div>
+<blockquote>
+<p>Fifteen blobs, but only fourteen strawberries by eye—one is a noise speck (363 px) that survived cleanup. Counting connected components is easy; deciding which ones represent meaningful objects requires an additional criterion like an area filter, and some validation.</p>
+</blockquote>
+<h3 id="does-it-scale">Does It Scale?</h3>
+<p>Let's test the same rule on two new strawberry photos with different lighting, fruit sizes, and ripeness. We store all the images in a <strong>structure array</strong>, <code>p(1)</code>, <code>p(2)</code>, <code>p(3)</code>, so the same loop can process every one:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Apply the same pipeline to new images</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="n">p</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">'strawberries2.jpeg'</span><span class="p">;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="n">p</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">'strawberries3.jpeg'</span><span class="p">;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="k">for</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">    </span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">rgb</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">imread</span><span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">name</span><span class="p">);</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">    </span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">lab</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">rgb2lab</span><span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">rgb</span><span class="p">);</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">lab</span><span class="p">(:,:,</span><span class="mi">2</span><span class="p">);</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">aNorm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">rescale</span><span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">a</span><span class="p">);</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">    </span><span class="p">[</span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">aLevel</span><span class="p">,</span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">otsuEffectiveness</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">graythresh</span><span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">aNorm</span><span class="p">);</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">    </span><span class="n">aMin</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">a</span><span class="p">,[],</span><span class="s">'all'</span><span class="p">);</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="w">    </span><span class="n">aMax</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">a</span><span class="p">,[],</span><span class="s">'all'</span><span class="p">);</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">    </span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">aThresh</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">aLevel</span><span class="o">*</span><span class="p">(</span><span class="n">aMax</span><span class="o">-</span><span class="n">aMin</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">aMin</span><span class="p">;</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14"></a>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="w">    </span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">aMaskNorm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imbinarize</span><span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">aNorm</span><span class="p">,</span><span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">).</span><span class="n">aLevel</span><span class="p">);</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="k">end</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="adaptive a* masks on three strawberry photos" src="../images/strawberry-multi-image.png" width="650" /></p>
+<blockquote>
+<p>The approach identifies the <strong>ripe red</strong> fruit, not every object that happens to be a strawberry—notice the pale, unripe berries in images 2 and 3 are correctly left unmasked, since they blend with the foliage in the a* channel. That's not an algorithmic mistake; it reveals what the rule actually means: we didn't build a general "strawberry detector." We built a detector for pixels that are relatively red-ward <em>within each image</em>.</p>
+</blockquote>
+<h3 id="breaking-our-own-method-on-purpose">Breaking Our Own Method on Purpose</h3>
+<p>Now for the real test: the color-illusion strawberries. They look red to your eye, but their pixel data is strongly shifted away from red. Ideally, our "find red pixels" rule should find nothing here.</p>
+<p><img alt="the not-red strawberries" src="../images/notred-original.png" width="400" /></p>
+<p>First, a simple sanity check in plain RGB terms:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Check for true red pixels</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span>
+<span class="normal"><a href="#__codelineno-9-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="n">R</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="n">rgb</span><span class="p">(:,:,</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="n">G</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="n">rgb</span><span class="p">(:,:,</span><span class="mi">2</span><span class="p">);</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="n">B</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="n">rgb</span><span class="p">(:,:,</span><span class="mi">3</span><span class="p">);</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="n">redDominantFraction</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">mean</span><span class="p">(</span><span class="n">R</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">G</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="s">'all'</span><span class="p">);</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="nb">fprintf</span><span class="p">(</span><span class="s">'Pixels where red is the strongest RGB channel: %.1f%%\n'</span><span class="p">,</span><span class="mi">100</span><span class="o">*</span><span class="n">redDominantFraction</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-matlab highlight"><span class="filename">result</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">Pixels</span><span class="w"> </span><span class="s">where</span><span class="w"> </span><span class="s">red</span><span class="w"> </span><span class="s">is</span><span class="w"> </span><span class="s">the</span><span class="w"> </span><span class="s">strongest</span><span class="w"> </span><span class="s">RGB</span><span class="w"> </span><span class="s">channel:</span><span class="w"> </span><span class="s">0.0%</span>
+</span></code></pre></div>
+<p>Zero percent. Now let's run the exact same adaptive a*-threshold pipeline anyway:</p>
+<p><img alt="adaptive mask applied to the not-red strawberries" src="../images/notred-adaptive-mask.png" width="650" /></p>
+<blockquote>
+<p>That's unexpected—we get a substantial mask even though there is reportedly no red in this image, and it only captures parts of each strawberry rather than the whole thing. So what's going on?</p>
+</blockquote>
+<p>Plotting the raw a* histograms for all four images side by side with their Otsu thresholds marked tells the story:</p>
+<p><img alt="a* histograms for all four images, with thresholds" src="../images/strawberry-all-a-histograms.png" width="650" /></p>
+<div class="language-matlab highlight"><span class="filename">result</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">Original</span><span class="w"> </span><span class="s">strawberry</span><span class="w"> </span><span class="s">a*</span><span class="w"> </span><span class="s">range:</span><span class="w"> </span><span class="o">-</span><span class="mf">35.4</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="mf">74.3</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="s">"Not red"</span><span class="w"> </span><span class="nb">image</span><span class="w"> </span><span class="n">a</span><span class="o">*</span><span class="w"> </span><span class="n">range</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mf">31.7</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="mf">2.5</span>
+</span></code></pre></div>
+<blockquote>
+<p>The three real strawberry photos all have clearly bimodal a* distributions with <strong>positive</strong> Otsu thresholds. The not-red image has a unimodal distribution sitting almost entirely on the green side of zero, with a <strong>negative</strong> threshold (-15.9). Otsu doesn't know what red is, and it doesn't know what a strawberry is—it just finds the best mathematical split in whatever data it's given, whether or not two meaningful classes actually exist. Worse, because we rescale each image independently with <code>rescale</code>, a normalized value of 0.8 doesn't represent the same physical color in two different photographs.</p>
+</blockquote>
+<p>To see the difference concretely, compare the adaptive, per-image threshold against a <strong>fixed</strong> threshold carried over from the first (real) strawberry image:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Adaptive versus fixed threshold</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="n">fixedAThresh</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">aThresh</span><span class="p">;</span><span class="w"> </span><span class="c">% the raw a* threshold learned from strawberries.png</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="n">p</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="n">fixedMask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">fixedAThresh</span><span class="p">;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="nb">fprintf</span><span class="p">(</span><span class="s">'Pixels in the fixed-threshold mask: %d\n'</span><span class="p">,</span><span class="w"> </span><span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="n">fixedMask</span><span class="p">(:)));</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-matlab highlight"><span class="filename">result</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">Pixels</span><span class="w"> </span><span class="s">in</span><span class="w"> </span><span class="s">the</span><span class="w"> </span><span class="s">fixed-threshold</span><span class="w"> </span><span class="s">mask:</span><span class="w"> </span><span class="s">0</span>
+</span></code></pre></div>
+<p><img alt="adaptive mask versus fixed-threshold mask on the not-red strawberries" src="../images/notred-adaptive-vs-fixed.png" width="650" /></p>
+<blockquote>
+<p>Zero pixels. The two approaches answer genuinely different questions: <strong>adaptive Otsu after per-image rescaling</strong> finds the higher-a* group <em>relative to each individual image</em>, while a <strong>fixed raw threshold</strong> applies the same absolute color criterion to every image—and is far less forgiving of illusions, lighting shifts, or camera differences. Neither is automatically "better"; you have to decide which behavior you actually want, and validate that choice on more than one image.</p>
+</blockquote>
+<h3 id="what-did-we-actually-learn">What Did We Actually Learn?</h3>
+<ul>
+<li>A segmentation algorithm finds <strong>numerical classes</strong>, not semantic objects.</li>
+<li>Reproducible code is not necessarily generalizable code.</li>
+<li>Per-image normalization is useful for adaptive segmentation, but it removes the absolute meaning of the original channel values.</li>
+<li>A threshold should be validated on images beyond the one used to develop it.</li>
+<li>Area cutoffs and similar parameters can depend on acquisition scale and resolution.</li>
+</ul>
+<p>A segmentation algorithm will usually give you an answer if you ask it a numerical question. Your job is to make sure the numerical question corresponds to the physical question you actually care about.</p>
+<h2 id="segmenting-multiple-colors-at-once">Segmenting Multiple Colors at Once</h2>
+<p>A single a*-channel threshold works nicely for two colors. But what about an image with <strong>six</strong> distinct candy colors, plus a non-uniform table?</p>
+<p><img alt="M&amp;Ms" src="../images/mms-original.png" width="500" /></p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Convert to L*a*b* and inspect the channels</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span>
+<span class="normal"><a href="#__codelineno-14-12">12</a></span>
+<span class="normal"><a href="#__codelineno-14-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="n">p</span><span class="p">.</span><span class="n">rgb</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">imread</span><span class="p">(</span><span class="s">'https://blogs.mathworks.com/images/steve/2010/mms.jpg'</span><span class="p">);</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="n">p</span><span class="p">.</span><span class="n">lab</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">rgb2lab</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">rgb</span><span class="p">);</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="nb">tiledlayout</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s">"TileSpacing"</span><span class="p">,</span><span class="s">"tight"</span><span class="p">)</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="n">titles</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s">"L (lightness)"</span><span class="p">,</span><span class="w"> </span><span class="s">"a (green-red)"</span><span class="p">,</span><span class="w"> </span><span class="s">"b (yellow-blue)"</span><span class="p">];</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="k">for</span><span class="w"> </span><span class="n">n</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="w">    </span><span class="nb">nexttile</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="w">    </span><span class="nb">imshow</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">lab</span><span class="p">(:,:,</span><span class="n">n</span><span class="p">),[])</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="w">    </span><span class="nb">title</span><span class="p">(</span><span class="n">titles</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a><span class="w">    </span><span class="nb">nexttile</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12"></a><span class="w">    </span><span class="nb">histogram</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">lab</span><span class="p">(:,:,</span><span class="n">n</span><span class="p">))</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="k">end</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="L*a*b* channels of the M&amp;Ms image" src="../images/mms-lab-channels.png" width="650" /></p>
+<blockquote>
+<p>The interiors of many candies look fairly uniform in a* and b*, but some colors separate more clearly along one axis than the other—and both histograms show several distinct groups of values, not just two. A single threshold won't cut it here. We'll try two strategies: treating a* and b* <strong>independently</strong>, and treating a pixel's color as a single <strong>point</strong> in the combined a*b* plane.</p>
+</blockquote>
+<h3 id="method-1-multilevel-thresholding">Method 1: Multilevel Thresholding</h3>
+<p><strong><code>multithresh</code></strong> generalizes Otsu's method to find several thresholds at once. Three thresholds divide a channel into four value ranges:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Multi-level threshold the a* channel</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="n">a</span><span class="p">.</span><span class="n">plane</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">lab</span><span class="p">(:,:,</span><span class="mi">2</span><span class="p">);</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="n">a</span><span class="p">.</span><span class="n">thresh</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">multithresh</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">plane</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="c">% three thresholds -&gt; four classes</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="multi-level thresholds on the a* histogram" src="../images/mms-a-multithresh.png" width="550" /></p>
+<p><strong><code>imquantize</code></strong> then assigns every pixel to one of those four ranges, producing a <strong>class-label image</strong>:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Convert ranges into class labels</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="n">a</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imquantize</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">plane</span><span class="p">,</span><span class="n">a</span><span class="p">.</span><span class="n">thresh</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="a* class-label image" src="../images/mms-a-classlabels.png" width="550" /></p>
+<blockquote>
+<p>Each integer in <code>a.label</code> tells us <em>which a* range</em> a pixel belongs to—not which object. Two candies on opposite sides of the image with similar a* values would get the same label. The colors in this display come from a lookup table used purely to distinguish the four numeric classes; a green-looking region here doesn't mean those pixels are physically green in the original image.</p>
+</blockquote>
+<p>In this image, the table happens to occupy more pixels than any single candy color—a convenient, image-specific <strong>heuristic</strong> for identifying the background:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Identify the background by area</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span>
+<span class="normal"><a href="#__codelineno-17-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="n">rpA</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">regionprops</span><span class="p">(</span><span class="s">'table'</span><span class="p">,</span><span class="n">a</span><span class="p">.</span><span class="n">label</span><span class="p">,</span><span class="s">'area'</span><span class="p">);</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="p">[</span><span class="o">~</span><span class="p">,</span><span class="n">a</span><span class="p">.</span><span class="n">background</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="n">rpA</span><span class="p">.</span><span class="n">Area</span><span class="p">);</span><span class="w"> </span><span class="c">% the label with the most total area</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="n">a</span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">background</span><span class="p">;</span><span class="w"> </span><span class="c">% everything that is NOT background</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="n">a</span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bwareaopen</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span><span class="mi">250</span><span class="p">);</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="n">a</span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imclose</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span><span class="n">strel</span><span class="p">(</span><span class="s">"diamond"</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="candies found using the a* channel" src="../images/mms-a-mask.png" width="550" /></p>
+<blockquote>
+<p>The a* channel captures most candy colors, but misses the blue and brown candies—they don't stand out from the table along the green–red axis. Repeating the identical process on the <strong>b*</strong> channel (blue ↔ yellow) instead:</p>
+</blockquote>
+<p><img alt="candies found using the b* channel" src="../images/mms-b-mask.png" width="550" /></p>
+<blockquote>
+<p>The b* channel finds the colors that a* missed, but it in turn struggles with the reds. Each channel describes a different color direction, so a color that blends into the table along one axis can be much easier to separate along the other.</p>
+</blockquote>
+<p>Combining the two masks with a logical OR picks up the best of both:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Combine, dilate, and separate</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="n">p</span><span class="p">.</span><span class="n">abMask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">mask</span><span class="p">;</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="n">p</span><span class="p">.</span><span class="n">abMask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imdilate</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">abMask</span><span class="p">,</span><span class="n">strel</span><span class="p">(</span><span class="s">"diamond"</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span><span class="w"> </span><span class="c">% slightly expand the mask</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="n">p</span><span class="p">.</span><span class="n">abMask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetWatershed</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">abMask</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="combined a* and b* mask" src="../images/mms-ab-combined.png" width="550" /></p>
+<p><img alt="watershed-separated combined mask" src="../images/mms-ab-final.png" width="550" /></p>
+<div class="language-matlab highlight"><span class="filename">result</span><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">Number</span><span class="w"> </span><span class="s">of</span><span class="w"> </span><span class="s">candies</span><span class="w"> </span><span class="s">found</span><span class="w"> </span><span class="s">by</span><span class="w"> </span><span class="s">Method</span><span class="w"> </span><span class="s">1:</span><span class="w"> </span><span class="s">54</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>What's the limitation?</strong> We're still treating a* and b* <strong>independently</strong>. But a color is really described by the <em>combination</em> of both coordinates at once—which suggests a different idea: instead of asking where a pixel falls on one axis at a time, what if we ask where it falls in the entire a*b* plane?</p>
+</blockquote>
+<h3 id="method-2-k-means-clustering-in-the-ab-plane">Method 2: K-Means Clustering in the a*b* Plane</h3>
+<p>Every pixel has two color coordinates, <span class="arithmatex">\((a^*, b^*)\)</span>, so it can be plotted as a single point in a two-dimensional color space:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Visualize pixels in a*b* space</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span>
+<span class="normal"><a href="#__codelineno-20-3">3</a></span>
+<span class="normal"><a href="#__codelineno-20-4">4</a></span>
+<span class="normal"><a href="#__codelineno-20-5">5</a></span>
+<span class="normal"><a href="#__codelineno-20-6">6</a></span>
+<span class="normal"><a href="#__codelineno-20-7">7</a></span>
+<span class="normal"><a href="#__codelineno-20-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="n">p</span><span class="p">.</span><span class="n">ab</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">lab</span><span class="p">(:,:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">);</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="n">abPoints</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">reshape</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">ab</span><span class="p">,[],</span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c">% one row per pixel</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="n">sample</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="nb">size</span><span class="p">(</span><span class="n">abPoints</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c">% plot every 20th pixel</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4"></a>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="nb">scatter</span><span class="p">(</span><span class="n">abPoints</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">abPoints</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="mi">6</span><span class="p">,</span><span class="s">"filled"</span><span class="p">)</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="nb">xlabel</span><span class="p">(</span><span class="s">"a*"</span><span class="p">);</span><span class="w"> </span><span class="nb">ylabel</span><span class="p">(</span><span class="s">"b*"</span><span class="p">)</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7"></a><span class="nb">title</span><span class="p">(</span><span class="s">"Pixels in a*b* Color Space"</span><span class="p">)</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8"></a><span class="nb">axis</span><span class="w"> </span><span class="n">equal</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="scatter plot of pixels in a*b* space" src="../images/mms-ab-scatter.png" width="500" /></p>
+<blockquote>
+<p>Distinct arms radiate outward from a dense central cluster (the table). If groups of similarly colored pixels form clusters like this, we can ask the computer to separate them automatically with <strong>k-means clustering</strong>.</p>
+</blockquote>
+<p>K-means repeatedly places cluster centers, assigns each pixel to its nearest center, and moves the centers toward their assigned pixels, until the assignments stop changing. It does <strong>not</strong> choose the number of clusters for you—you have to pick that in advance. There are six visible candy colors, but the table's lighting varies enough that it tends to split across more than one cluster, so we ask for eight:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Cluster pixels by color</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
+<span class="normal"><a href="#__codelineno-21-2">2</a></span>
+<span class="normal"><a href="#__codelineno-21-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="n">p</span><span class="p">.</span><span class="n">ab</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">im2single</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">ab</span><span class="p">);</span><span class="w"> </span><span class="c">% imsegkmeans expects single or double</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="n">nColors</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3"></a><span class="n">p</span><span class="p">.</span><span class="n">kLabel</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imsegkmeans</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">ab</span><span class="p">,</span><span class="n">nColors</span><span class="p">,</span><span class="s">'NumAttempts'</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c">% try several starting points, keep the best</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="k-means cluster labels" src="../images/mms-kmeans-labels.png" width="650" /></p>
+<blockquote>
+<p>Each candy color is largely assigned to its own distinct cluster, and the table—whose appearance varies across the image—is split across more than one. Cluster numbers are <strong>arbitrary</strong>: cluster 4 doesn't inherently mean "yellow," it just means "the pixels k-means happened to group together as cluster 4" in this particular run.</p>
+</blockquote>
+<details class="example">
+<summary>Code to create figure above</summary>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-22-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-22-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-22-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-22-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-22-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-22-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-22-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-22-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-22-10">10</a></span>
+<span class="normal"><a href="#__codelineno-22-11">11</a></span>
+<span class="normal"><a href="#__codelineno-22-12">12</a></span>
+<span class="normal"><a href="#__codelineno-22-13">13</a></span>
+<span class="normal"><a href="#__codelineno-22-14">14</a></span>
+<span class="normal"><a href="#__codelineno-22-15">15</a></span>
+<span class="normal"><a href="#__codelineno-22-16">16</a></span>
+<span class="normal"><a href="#__codelineno-22-17">17</a></span>
+<span class="normal"><a href="#__codelineno-22-18">18</a></span>
+<span class="normal"><a href="#__codelineno-22-19">19</a></span>
+<span class="normal"><a href="#__codelineno-22-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="nb">figure</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2"></a>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="nb">tiledlayout</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s">"TileSpacing"</span><span class="p">,</span><span class="s">"none"</span><span class="p">,</span><span class="s">"Padding"</span><span class="p">,</span><span class="s">"tight"</span><span class="p">)</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4"></a>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5"></a><span class="n">ax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">nexttile</span><span class="p">;</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6"></a><span class="nb">imshow</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">rgb</span><span class="p">)</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7"></a><span class="nb">title</span><span class="p">(</span><span class="s">"Original Image"</span><span class="p">)</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8"></a>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9"></a><span class="n">ax</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">nexttile</span><span class="p">;</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10"></a><span class="nb">imshow</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">kLabel</span><span class="p">,[])</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11"></a><span class="nb">title</span><span class="p">(</span><span class="s">"K-means Cluster Labels"</span><span class="p">)</span>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12"></a>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13"></a><span class="nb">colormap</span><span class="p">(</span><span class="n">ax</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="nb">turbo</span><span class="p">(</span><span class="n">nColors</span><span class="p">))</span>
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14"></a>
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15"></a><span class="n">clim</span><span class="p">([</span><span class="mf">0.5</span><span class="w"> </span><span class="n">nColors</span><span class="o">+</span><span class="mf">0.5</span><span class="p">])</span>
+</span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16"></a><span class="n">cb</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">colorbar</span><span class="p">;</span>
+</span><span id="__span-22-17"><a id="__codelineno-22-17" name="__codelineno-22-17"></a><span class="n">cb</span><span class="p">.</span><span class="n">Ticks</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">nColors</span><span class="p">;</span>
+</span><span id="__span-22-18"><a id="__codelineno-22-18" name="__codelineno-22-18"></a>
+</span><span id="__span-22-19"><a id="__codelineno-22-19" name="__codelineno-22-19"></a><span class="n">impixelinfo</span>
+</span><span id="__span-22-20"><a id="__codelineno-22-20" name="__codelineno-22-20"></a><span class="s">linkaxes(ax,"xy")</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+<p>The same area heuristic used for the M&amp;Ms' a* classes also works for identifying the background clusters here, since the table again occupies the most total area, split across two clusters:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Identify background clusters, then build a mask</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span>
+<span class="normal"><a href="#__codelineno-23-3">3</a></span>
+<span class="normal"><a href="#__codelineno-23-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="n">rp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">regionprops</span><span class="p">(</span><span class="s">'table'</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">kLabel</span><span class="p">,</span><span class="s">'Area'</span><span class="p">);</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2"></a><span class="p">[</span><span class="o">~</span><span class="p">,</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">maxk</span><span class="p">(</span><span class="n">rp</span><span class="p">.</span><span class="n">Area</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c">% the two largest-area clusters</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3"></a>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="n">p</span><span class="p">.</span><span class="n">kMask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">~</span><span class="nb">ismember</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">kLabel</span><span class="p">,</span><span class="n">idx</span><span class="p">);</span><span class="w"> </span><span class="c">% true for every cluster EXCEPT the two largest</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="raw k-means candy mask, before cleanup" src="../images/mms-kmeans-rawmask.png" width="550" /></p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Clean the mask</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span>
+<span class="normal"><a href="#__codelineno-24-2">2</a></span>
+<span class="normal"><a href="#__codelineno-24-3">3</a></span>
+<span class="normal"><a href="#__codelineno-24-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="n">p</span><span class="p">.</span><span class="n">kMask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imfill</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">kMask</span><span class="p">,</span><span class="s">'holes'</span><span class="p">);</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="n">p</span><span class="p">.</span><span class="n">kMask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bwareaopen</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">kMask</span><span class="p">,</span><span class="mi">200</span><span class="p">);</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="n">p</span><span class="p">.</span><span class="n">kMask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bwmorph</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">kMask</span><span class="p">,</span><span class="s">'thicken'</span><span class="p">);</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4"></a><span class="n">p</span><span class="p">.</span><span class="n">kMask</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetWatershed</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">kMask</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="cleaned k-means candy mask" src="../images/mms-kmeans-cleanedmask.png" width="550" /></p>
+<blockquote>
+<p>Just like the a*-plane mask earlier, the raw cluster-based mask has small gaps and noise around the reflective highlights on each candy, which the usual <code>imfill</code>/<code>bwareaopen</code>/<code>bwmorph</code> cleanup takes care of.</p>
+</blockquote>
+<div class="language-matlab highlight"><span class="filename">result</span><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">Number</span><span class="w"> </span><span class="s">of</span><span class="w"> </span><span class="s">candies</span><span class="w"> </span><span class="s">found</span><span class="w"> </span><span class="s">by</span><span class="w"> </span><span class="s">Method</span><span class="w"> </span><span class="s">2</span><span class="w"> </span><span class="s">(k-means):</span><span class="w"> </span><span class="s">54</span>
+</span></code></pre></div>
+<p>Finally, we can identify the dominant cluster <em>inside</em> each separated candy using the <strong>mode</strong> of its pixel labels:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Label each candy with its dominant cluster</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span>
+<span class="normal"><a href="#__codelineno-26-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="n">rp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">regionprops</span><span class="p">(</span><span class="s">'table'</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">kMask</span><span class="p">,</span><span class="n">p</span><span class="p">.</span><span class="n">kLabel</span><span class="p">,[</span><span class="s">"Centroid"</span><span class="p">,</span><span class="s">"Area"</span><span class="p">,</span><span class="s">"PixelValues"</span><span class="p">]);</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2"></a><span class="n">rp</span><span class="p">.</span><span class="n">Label</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">cellfun</span><span class="p">(@</span><span class="nb">mode</span><span class="p">,</span><span class="n">rp</span><span class="p">.</span><span class="n">PixelValues</span><span class="p">);</span><span class="w"> </span><span class="c">% the most common cluster label in each candy</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="each candy labeled with its dominant cluster number" src="../images/mms-kmeans-labeled.png" width="650" /></p>
+<blockquote>
+<p>Candies with the same real-world color generally end up with the same cluster number—but that number is still just an arbitrary label. To make the result readable, we can map those numbers to actual color names for this particular run:</p>
+</blockquote>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Map cluster numbers to color names</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="n">rp</span><span class="p">.</span><span class="n">Color</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">categorical</span><span class="p">(</span><span class="n">rp</span><span class="p">.</span><span class="n">Label</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="mi">7</span><span class="p">,{</span><span class="s">'blue'</span><span class="p">,</span><span class="s">'green'</span><span class="p">,</span><span class="s">'orange'</span><span class="p">,</span><span class="s">'yellow'</span><span class="p">,</span><span class="s">'brown'</span><span class="p">,</span><span class="s">'red'</span><span class="p">});</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="each candy labeled with its color name" src="../images/mms-colorname-labeled.png" width="650" /></p>
+<blockquote>
+<p>Every label matches its candy's real color—k-means found the same underlying color groups that a human would, even though it has no concept of "red" or "blue." Note that the mapping from cluster numbers to color names (<code>2:7</code> → <code>blue, green, ...</code>) is specific to <em>this</em> clustering run; a different image, or even the same image clustered again, could reorder the cluster numbers.</p>
+</blockquote>
+<h3 id="comparing-the-two-methods">Comparing the Two Methods</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>How it treats color</th>
+<th>Strength</th>
+<th>Limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multilevel thresholding</td>
+<td>Separates a* and b* independently</td>
+<td>Simple and easy to inspect</td>
+<td>Ignores the joint relationship between the two color coordinates</td>
+</tr>
+<tr>
+<td>K-means</td>
+<td>Treats each pixel as a point in a*b* space</td>
+<td>Uses both color coordinates at once</td>
+<td>Requires choosing the number of clusters; produces arbitrary cluster numbers</td>
+</tr>
+</tbody>
+</table>
+<p>Thresholding asks: <em>where does this pixel fall along one axis?</em> K-means asks: <em>which cluster center is this pixel closest to, in two-dimensional color space?</em> That's why k-means tends to shine when several colors need to be separated at the same time.</p>
+<h2 id="challenge">Challenge</h2>
+<details class="question">
+<summary>How well do the two M&amp;M methods actually agree?</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="question" name="__tabbed_1" type="radio" /><input id="answer" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="question">Question</label><label for="answer">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Both Method 1 (combined a*/b* thresholds) and Method 2 (k-means) produced a final, watershed-separated candy mask—<code>p.abMask</code> and <code>p.kMask</code>. Without a hand-drawn ground truth for this image, how could you still get a sense of how much the two methods agree with <em>each other</em>? Try it, and also compare how many candies each one found.</p>
+</div>
+<div class="tabbed-block">
+<p>The same <strong>Jaccard</strong> and <strong>Dice</strong> coefficients used earlier to compare against a ground truth work just as well to compare two masks against each other:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Compare Method 1 and Method 2 directly</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
+<span class="normal"><a href="#__codelineno-28-2">2</a></span>
+<span class="normal"><a href="#__codelineno-28-3">3</a></span>
+<span class="normal"><a href="#__codelineno-28-4">4</a></span>
+<span class="normal"><a href="#__codelineno-28-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="n">m1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">abMask</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2"></a><span class="n">m2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">kMask</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3"></a>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4"></a><span class="nb">fprintf</span><span class="p">(</span><span class="s">'Jaccard: %.3f\n'</span><span class="p">,</span><span class="w"> </span><span class="n">jaccard</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">m2</span><span class="p">));</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5"></a><span class="nb">fprintf</span><span class="p">(</span><span class="s">'Dice:    %.3f\n'</span><span class="p">,</span><span class="w"> </span><span class="n">dice</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">m2</span><span class="p">));</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-matlab highlight"><span class="filename">result</span><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="n">Jaccard</span><span class="p">:</span><span class="w"> </span><span class="mf">0.956</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="n">Dice</span><span class="p">:</span><span class="w">    </span><span class="mf">0.978</span>
+</span></code></pre></div>
+<p><img alt="overlay comparing Method 1 and Method 2 masks" src="../images/mms-method-compare.png" width="550" /></p>
+<p>Both methods also found exactly <strong>54</strong> candies. High agreement between two very different approaches—one that treats color axes independently, one that clusters in a joint color space—is a reassuring sign that both are picking up on a real, consistent signal in the image rather than an artifact of either method.</p>
+</div>
+</div>
+</div>
+</details>
+<p>Congratulations, you have made it to the end! 🍓</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2025 <a href="https://github.com/salcedoe"  target="_blank" rel="noopener">Ernesto Salcedo</a> - <a href="#__consent">Change cookie settings</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+
+  
+
+
+<h4>Cookie consent</h4>
+<p>We use cookies to recognize repeated visits and measure site usage. With your consent, you're helping us improve this documentation.</p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+    
+      
+        
+  
+  
+    
+    
+  
+  <li class="task-list-item">
+    <label class="task-list-control">
+      <input type="checkbox" name="analytics" checked>
+      <span class="task-list-indicator"></span>
+      Google Analytics
+    </label>
+  </li>
+
+      
+    
+    
+      
+        
+  
+  
+    
+    
+  
+  <li class="task-list-item">
+    <label class="task-list-control">
+      <input type="checkbox" name="github" checked>
+      <span class="task-list-indicator"></span>
+      GitHub
+    </label>
+  </li>
+
+      
+    
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Manage settings</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.instant", "navigation.top", "navigation.path", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
