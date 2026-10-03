@@ -443,6 +443,30 @@ p.kLabel = imsegkmeans(p.ab,nColors,'NumAttempts',3); % try several starting poi
 
 >Each candy color is largely assigned to its own distinct cluster, and the table—whose appearance varies across the image—is split across more than one. Cluster numbers are **arbitrary**: cluster 4 doesn't inherently mean "yellow," it just means "the pixels k-means happened to group together as cluster 4" in this particular run.
 
+??? example "Code to create figure above"
+    ```matlab linenums="1"
+    figure
+
+    tiledlayout(1,2,"TileSpacing","none","Padding","tight")
+
+    ax(1) = nexttile;
+    imshow(p.rgb)
+    title("Original Image")
+
+    ax(2) = nexttile;
+    imshow(p.kLabel,[])
+    title("K-means Cluster Labels")
+
+    colormap(ax(2),turbo(nColors))
+
+    clim([0.5 nColors+0.5])
+    cb = colorbar;
+    cb.Ticks = 1:nColors;
+
+    impixelinfo
+    linkaxes(ax,"xy")
+    ```
+
 The same area heuristic used for the M&Ms' a\* classes also works for identifying the background clusters here, since the table again occupies the most total area, split across two clusters:
 
 ```matlab linenums="1" title="Identify background clusters, then build a mask"
