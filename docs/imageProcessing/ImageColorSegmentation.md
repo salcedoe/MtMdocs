@@ -8,7 +8,67 @@
 
 In this module, we segment color images three different ways: interactively with MATLAB apps, programmatically with a single color-based threshold, and programmatically across several colors at once. Along the way, we validate our masks against a hand-drawn ground truth, separate touching objects, and deliberately break our own methods to understand their limits.
 
-This module is broken down into the following sections:
+### Processing Recipes
+
+??? example "Convert to L\*a\*b\* and display planes"
+    ```matlab linenums="1"
+    p.lab = rgb2lab(p.medf); % convert to L*a*b* Space
+    figure;
+
+    tiledlayout(2,3,"TileSpacing","tight")
+    titles = ["L (lightness)", "a (green-red)", "b (yellow-blue)"];
+    for n=1:3
+        nexttile(n);
+        imshow(p.lab(:,:,n),[])
+        title(titles(n));
+
+        nexttile(n+3)
+        histogram(p.lab(:,:,n))
+    end
+    ```
+
+    Discussed [here](#programmatic-color-segmentation-in-lab).
+
+??? example "K-means Segmentation on a\*b\* plane"
+
+    ```matlab linenums="1"
+    p.ab = p.lab(:,:,2:3); % grab the a* and b* color channels
+    p.ab = im2single(p.ab); % type-cast to a single
+    nColors = 4; % predetermine the number of colors
+    p.label = imsegkmeans(p.ab,nColors, 'NumAttempts',3); % K-means clustering
+    ```
+
+    Discussed [here](#method-2-k-means-clustering-in-the-ab-plane)
+
+??? example "Visualize K-means results"
+
+    Run this code after you run the code to segment the a\*b\* plane using k-means. 
+
+    ```matlab linenums="1"
+    figure
+
+    tiledlayout("horizontal","TileSpacing","none","Padding","tight")
+
+    ax(1) = nexttile;
+    imshow(p.rgb) % display original image
+    title("Original Image")
+
+    ax(2) = nexttile;
+    imshow(p.label,[]) % scale image to class label range
+    title("K-means Class Labels")
+
+    colormap(ax(2),turbo(nColors)) % set color map to turbo with indicated number of colors
+
+    clim([0.5 nColors+0.5]) % offset color limits 
+    cb = colorbar; % add color bar
+    cb.Ticks = 1:nColors; % set color bar ticks
+
+    % optional live interactive tools
+    impixelinfo
+    linkaxes(ax,"xy")
+    ```
+
+    Discussed [here](#method-2-k-means-clustering-in-the-ab-plane)
 
 ### Things you should know
 
@@ -441,31 +501,7 @@ p.kLabel = imsegkmeans(p.ab,nColors,'NumAttempts',3); % try several starting poi
 
 ![k-means cluster labels](images/mms-kmeans-labels.png){ width="650"}
 
->Each candy color is largely assigned to its own distinct cluster, and the table—whose appearance varies across the image—is split across more than one. Cluster numbers are **arbitrary**: cluster 4 doesn't inherently mean "yellow," it just means "the pixels k-means happened to group together as cluster 4" in this particular run.
-
-??? example "Code to create figure above"
-    ```matlab linenums="1"
-    figure
-
-    tiledlayout(1,2,"TileSpacing","none","Padding","tight")
-
-    ax(1) = nexttile;
-    imshow(p.rgb)
-    title("Original Image")
-
-    ax(2) = nexttile;
-    imshow(p.kLabel,[])
-    title("K-means Cluster Labels")
-
-    colormap(ax(2),turbo(nColors))
-
-    clim([0.5 nColors+0.5])
-    cb = colorbar;
-    cb.Ticks = 1:nColors;
-
-    impixelinfo
-    linkaxes(ax,"xy")
-    ```
+>Each candy color is largely assigned to its own distinct cluster, and the table—whose appearance varies across the image—is split across more than one. Cluster numbers are **arbitrary**: cluster 4 doesn't inherently mean "yellow," it just means "the pixels k-means happened to group together as cluster 4" in this particular run. Code to create this figure shown at the [top of this page](#processing-recipes).
 
 The same area heuristic used for the M&Ms' a\* classes also works for identifying the background clusters here, since the table again occupies the most total area, split across two clusters:
 
