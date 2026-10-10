@@ -12,7 +12,7 @@ In this module, we segment color images three different ways: interactively with
 
 ??? example "Convert to L\*a\*b\* and display planes"
     ```matlab linenums="1"
-    p.lab = rgb2lab(p.medf); % convert to L*a*b* Space
+    p.lab = rgb2lab(p.rgb); % convert to L*a*b* Space
     figure;
 
     tiledlayout(2,3,"TileSpacing","tight")
