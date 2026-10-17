@@ -24,7 +24,7 @@ V = [0.5 0.5 1.0;... % vertex 1
     1 1 0]    % vertex 5
 ```
 
-In this matrix, `V`, each column contains the x,y, or z coordinate, respectively, and each row contains a single vertex (i.e. the x,y, and z coordinates for a given vertex). So, in this example, Vertex 1 has the x,y,z coordinates of `0.5, 0.5, 1.0`, and Vertex 2 has the coordinates `0,0,0`.
+In this matrix, `V`, each column contains the x, y, or z coordinate, respectively, and each row contains a single vertex (i.e., the x, y, and z coordinates for a given vertex). So, in this example, Vertex 1 has the x, y, z coordinates of `0.5, 0.5, 1.0`, and Vertex 2 has the coordinates `0,0,0`.
 
 We can plot these vertices as a 3D scatter plot using `scatter3`.
 
@@ -105,11 +105,11 @@ Consider the following volume:
     volumeViewer(Vol); % display with Volume Viewer
     ```
 
-    Adapted from this [Mathworks example](https://www.mathworks.com/help/images/ref/watershed.html).
+    Adapted from this [MathWorks example](https://www.mathworks.com/help/images/ref/watershed.html).
 
 In the above example, we use voxels set to logical `false` to represent empty signal surrounding the sphere, analogous to air in a CT scan. We use voxels set to logical `true` to indicate positive signal representing the sphere, analogous to a segmented structure like a bone. Since we just want to render the sphere, we can exclude all voxels that are logical `false`. And we actually don't even need to render the voxels inside the sphere. They would just be hidden by the surface voxels. So, we really need to create a surface model of the outer boundary of the sphere.
 
-To capture that outer spherical boundary between the voxels `trues` and the `falses`, we use the function `isosurface`, which creates a 3D surface (with vertices and faces), at the boundary:
+To capture that outer spherical boundary between the `true` and `false` voxels, we use the function `isosurface`, which creates a 3D surface (with vertices and faces), at the boundary:
 
 ```matlab linenums="1" title="Create Surface from volume" 
 fv = isosurface(Vol, 0.5)
@@ -136,11 +136,11 @@ grid on
 ![surface render of the sphere](images/isosurface-sphere.png){ width="250"}
 >Surface render of the 3D surface
 
-If you zoom in on the sphere, you can see the surface of the sphere is made up of many, many, triangles.
+If you zoom in on the sphere, you can see the surface of the sphere is made up of many, many triangles.
 
 ![surface of sphere](images/isosurface-sphere-dollyzoom.png){ width="250"}
 
-In fact, the surface is probably made up of too many triangles — `isosurface` tends to go a little crazy with the triangles. If the surface is very large, too many triangles might make the surface too excruciatingly slow to render. Luckily, we can easily reduce the number of triangles using the function `reducepatch`.
+In fact, the surface is probably made up of too many triangles — `isosurface` tends to go a little crazy with the triangles. If the surface is very large, too many triangles can make the surface excruciatingly slow to render. Luckily, we can easily reduce the number of triangles using the function `reducepatch`.
 
 ```matlab linenums="1" title="Decimate 3D surface" 
 reducepatch(hp,0.1) % input the patch handle

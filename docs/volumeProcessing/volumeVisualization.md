@@ -1,10 +1,10 @@
 # Viewing Image Stacks
 
-Viewing image stacks often starts by viewing the individual slices of the stack.  Consider the [taste bud image stack](loadingConfocalDatasets.md).
+Viewing image stacks often starts by viewing the individual slices of the stack. Consider the [taste bud image stack](loadingConfocalDatasets.md).
 
 ![A color confocal image stack showing taste bud structures](images/image-stack-tastebud-color.png){ width="350"}
 
-This image stack has 4 Dimensions. Its size is `512x512x3x12`, where the first two dimensions (`512x512`) represent the height and width of each slice, the third dimension (`3`) corresponds to the color channels (e.g., RGB), and the fourth dimension (`12`) represents the number of slices in the stack.
+This image stack has 4 dimensions. Its size is `512x512x3x12`, where the first two dimensions (`512x512`) represent the height and width of each slice, the third dimension (`3`) corresponds to the color channels (e.g., RGB), and the fourth dimension (`12`) represents the number of slices in the stack.
 
 ## Viewing Individual Slices
 
@@ -22,7 +22,7 @@ You can also display a slice with all the channels, as follows:
 
 ```matlab linenums="1" title="Display slice in color"
 imshow(RGB4(:,:,:,6))
-title("All Channel, Slice 6")
+title("All Channels, Slice 6")
 ```
 
 ![all channel slice 6](images/image-stack-all-ch-slice-6.png){ width="250"}
@@ -51,7 +51,7 @@ montage(RGB4)
 
 >As you can see, **`montage`** accepts 4D arrays with 3 channels. It reformats all the slices into a grid layout (2D matrix) for visualization purposes and displays them as an RGB image. The first slice is positioned in the upper left corner, and the last slice is in the bottom right corner. Notice the montage contains 12 different color images, one for each slice.
 
-If we want to inspect just one channel, you first index out the channel of interest and then plug the 3D array into **`montage`**.
+If you want to inspect just one channel, you first index out the channel of interest and then plug the 3D array into **`montage`**.
 
 ```matlab linenums="1" title="View Blue Channel as a montage"
 BLUE = squeeze(RGB4(:,:,3,:)); % index out the blue channel as a 3D array
@@ -64,7 +64,7 @@ montage(BLUE)
 
 ## Max Projections
 
-Another way to view an image stack is as a max projection, which enhances visibility by collapsing the brightest structures across slices into a single image. This technique is particularly useful for highlighting features that span multiple slices or for summarizing the entire stack in one view.  It's like an aerial view of the image stack.
+Another way to view an image stack is as a max projection, which enhances visibility by collapsing the brightest structures across slices into a single image. This technique is particularly useful for highlighting features that span multiple slices or for summarizing the entire stack in one view. It's like an aerial view of the image stack.
 
 Here, we create a max projection of the BLUE array we created above. Recall that *`BLUE`* is a 3D array where the z-axis is in the 3rd dimension:
 
@@ -87,4 +87,4 @@ imshow(proj)
 
 ![max projection all channels](images/image-stack-max-proj-all.png){ width="250"}
 
->Here, the max projection ,*`proj`*, retains the color information from the original 4D array, with 3 channels displayed in color.
+>Here, the max projection, *`proj`*, retains the color information from the original 4D array, with 3 channels displayed in color.

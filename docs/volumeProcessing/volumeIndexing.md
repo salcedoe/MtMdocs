@@ -2,13 +2,13 @@
 
 Volume processing often requires indexing the stack to pull out smaller stacks or individual slices.
 
-Indexing image stacks is fairly straightforward — you just need to keep track of the Dimensions. For example, if we have a 4D volume, `RGB4`, with dimensions `512x512x3x12`, we can index out the Red channel using the following syntax:
+Indexing image stacks is fairly straightforward — you just need to keep track of the dimensions. For example, if we have a 4D volume, `RGB4`, with dimensions `512x512x3x12`, we can index out the Red channel using the following syntax:
 
 ```matlab linenums="1" title="Index out the Red Channel"
 RED = RGB4(:,:,1,:); % all rows, all columns, channel 1, all z-slices
 ```
 
-…This returns a 4D array with just 1 channel
+…This returns a 4D array with just 1 channel.
 
 ```matlab title="Size of RED"
 size(RED)
@@ -54,7 +54,7 @@ If we wanted all three channels in a slice, we simply index the original, 4D vol
 rgb_slice = RGB4(:,:,:,6); % all rows, all columns, all channels, slice 6
 ```
 
-```matlab title="Size of slice"
+```matlab title="Size of rgb_slice"
 size(rgb_slice)
 
 ans =
@@ -64,4 +64,4 @@ ans =
 
 …*`rgb_slice`* is an image with 3 channels (RGB image).
 
-So, we can index out a color channel by accessing the third dimension and index out a z-plane by accessing the 4th dimension.
+So, we can index out a color channel by accessing the third dimension and index out a z-plane by accessing the fourth dimension.

@@ -3,7 +3,7 @@
 To render a segmentation as a 3D surface, we need to:
 
 1. Load the Segmentation volume (e.g. a `.seg.nrrd` file) into MATLAB
-2. Create a 3D surface from one of the segmentations in that volume.
+2. Create a 3D surface from one of the segmentations in that volume
 3. Render the 3D surface
 
 ## Slicer Segmentation Files
@@ -58,22 +58,22 @@ segS =
      volume: 99574
 ```
 
-`mmGetMedicalVolumeSegment` returns a structure that includes a logical mask of the specified segmentation ('right kidney' field) and some basic metadata on the segment.
+`mmGetMedicalVolumeSegment` returns a structure that includes a logical mask of the specified segmentation (the `mask` field) and some basic metadata on the segment.
 
-Now we have the segmentation we want as its own volume (segS.mask). Next, we need to create a surface from this volume (using `isosurface`). And then render the surface (using `patch`). The course function `mmPlotMask2Surface` performs both of these steps in one function call.
+Now we have the segmentation we want as its own volume (`segS.mask`). Next, we need to create a surface from this volume (using `isosurface`) and then render the surface (using `patch`). The course function `mmPlotMask2Surface` performs both of these steps in one function call.
 
 ```matlab linenums="1" title="Render Kidney Surface" 
 hp = mmPlotMask2Surface(segS.mask,fcolor=segS.color,transform=segS.tform);
 title("Right Kidney")
 ```
 
->mmPlotMask2Surface returns a handle to the surface render (`hp`). Notice here we input the mask of the kidney (`segS.mask`) as the first input. We also input the transformation matrix, `tform`, as the third input. This transforms the segmentation into anatomical space (millimeter space).
+>`mmPlotMask2Surface` returns a handle to the surface render (`hp`). Notice here we input the mask of the kidney (`segS.mask`) as the first input. We also input the transformation, `segS.tform`, using the `transform` name-value argument. This transforms the segmentation into anatomical space (millimeter space).
 
-![img-name](images/surface-render-right-kidney.png){ width="250"}
+![surface render of right kidney](images/surface-render-right-kidney.png){ width="250"}
 
-## Rendering using the Medical Toolbox
+## Rendering using the Medical Imaging Toolbox
 
-You can also render a segment using the Medical Toolbox, as follows:
+You can also render a segment using the Medical Imaging Toolbox, as follows:
 
 ```matlab
 hvr = viewer3d("BackgroundColor",'white','BackgroundGradient','off'); % create viewer
@@ -86,7 +86,7 @@ surf1 = images.ui.graphics.Surface(hvr,... % viewer handle
 ```
 
 ![surface render of right kidney](images/medToolBox-surface-render-right-kidney.png){ width="350"}
->In this example, the function `images.ui.graphics.Surface` creates the surface and renders in one step. The resulting render is a little more blocky than the `mmPlotMask2Surface` render, but can be more easily combined with [`volshow` visualization methods.](volshow.md)
+>In this example, the function `images.ui.graphics.Surface` creates the surface and renders it in one step. The resulting render is a little more blocky than the `mmPlotMask2Surface` render, but can be more easily combined with [`volshow` visualization methods](volshow.md).
 
 ## Render all Segments
 
@@ -97,7 +97,7 @@ figure;
 mmPlotAllSeg(segMV,segT) 
 ```
 
->The `mmPlotAllSeg` uses the `isosurface` function to create the 3D Surface and then the `patch` function to render the surface. For volumes with more than one segmentation, it repeats the process for each segmentation. As you can see below, we get one surface render for each segmentation in the volume
+>`mmPlotAllSeg` uses the `isosurface` function to create the 3D surface and then the `patch` function to render the surface. For volumes with more than one segmentation, it repeats the process for each segmentation. As you can see below, we get one surface render for each segmentation in the volume.
 
 ![surface render of kidneys and aorta](images/mmPlotAllSeg-kidneys.png){ width="250"}
 >Surface render of kidneys and aorta using colors set in Slicer. The default transparency is set to 0.5.

@@ -6,11 +6,11 @@ Since surface models are just points in 3D space, it is very easy to manipulate 
 
     Transformations can be broadly categorized as:
 
-    - **Translation:** movement along the x,y,z axes (addition or subtraction)
+    - **Translation:** movement along the x, y, and z axes (addition or subtraction)
     - **Scale:** enlarging or shrinking the model (multiplication or division)
     - **Rotation:** rotation around a given axis (transformation matrix and linear algebra)
 
-    Often, these transformations are combined.  You can also warp and shear a model, but we won't get into that here. 
+    Often, these transformations are combined. You can also warp and shear a model, but we won't get into that here. 
 
 ## Translating Surface Models
 
@@ -52,13 +52,13 @@ set(hp,"FaceAlpha",0.5, "EdgeAlpha", 0.5); % increase transparency of original d
 axis equal % 2nd call helps zoom in on renders
 ```
 
-In the above code, we created a new vertices matrix, `V2`, by adding 2 to all vertices in `V`. Notice we didn't need to change the Faces matrix, `F`. We just modified the vertices. By adding `2` to each vertex, we translated the surface `+2` in the x,y, and z directions.
+In the above code, we created a new vertices matrix, `V2`, by adding 2 to all vertices in `V`. Notice we didn't need to change the Faces matrix, `F`. We just modified the vertices. By adding `2` to each vertex, we translated the surface `+2` in the x, y, and z directions.
 
 ![translate new surface and render](images/surface-transform-diamond-translate2side.png){ width="250"}
->Side-view render of the original (transparent) and translated diamond (solid). Here, the z is the vertical axis.
+>Side-view render of the original (transparent) and translated diamond (solid). Here, z is the vertical axis.
 
 ![translate new surface and render](images/surface-transform-diamond-translate2aerial.png){ width="250"}
->Aerial view of the same render. Bottom left render is original diamond, while top right is the translated diamond.
+>Aerial view of the same render. The bottom-left render is the original diamond, while the top-right render is the translated diamond.
 
 ```matlab linenums="1" title="Translate render using handle"
 hp2.Vertices = hp2.Vertices - [0 0 6]; % translate -6 in the z-direction
@@ -74,14 +74,14 @@ The patch handle (`hp2`) contains the faces and vertices of the surface. When we
 hp2.Vertices = hp2.Vertices-mean(hp2.Vertices); % center surface
 ```
 
-Sometimes, it is useful to center a 3D surface at 0,0,0. Here we center the surface by subtracting the mean of the vertices from all vertices. This works because the mean returns the centroid of the surface (its center of mass).
+Sometimes, it is useful to center a 3D surface at 0,0,0. Here we center the surface by subtracting the mean of the vertices from all vertices. This works because the mean of the vertices gives the center of the vertex cloud, which, for a symmetric shape like this diamond, is also its centroid.
 
-![img-name](images/surface-transform-diamond-translate-centered.png){ width="150"}
+![centered diamond](images/surface-transform-diamond-translate-centered.png){ width="150"}
 >The surface is now centered at 0,0,0
 
 ## Scaling
 
-Scaling changes the size of the surface model. As we just saw, to move a surface, you add or subtract values from the vertices. To scale a surface, you multiply or divide values from the vertices. Multiplying enlarges the model, while dividing shrinks the model.
+Scaling changes the size of the surface model. As we just saw, to move a surface, you add or subtract values from the vertices. To scale a surface, you multiply or divide the vertices by a value. Multiplying enlarges the model, while dividing shrinks the model.
 
 ```matlab linenums="1" title="Double the size of the Diamond"
 hp2.Vertices = hp2.Vertices * 2 % double the size
@@ -104,7 +104,7 @@ hp2.Vertices = hp2.Vertices * 2 % double the size
 
 To rotate a surface, you need a [transformation matrix](https://www.mathworks.com/help/images/matrix-representation-of-geometric-transformations.html) and some linear algebra. For those who prefer not to perform linear algebra on the fly, the required steps are encapsulated in the course function **`mmRotateSurfaceVertices`**:
 
-```matlab linenums="1" title="Rotate surface 90˚ around the y-axis"
+```matlab linenums="1" title="Rotate surface 90° around the y-axis"
 hp2.Vertices = mmRotateSurfaceVertices(hp2.Vertices,'y',90)
 ```
 
@@ -119,7 +119,7 @@ The function takes three arguments:
 
 You can chain multiple rotations together by passing the result of one rotation into the next:
 
-```matlab linenums="1" title="Rotate 45˚ around x, then 30˚ around z"
+```matlab linenums="1" title="Rotate 45° around x, then 30° around z"
 V_rot = mmRotateSurfaceVertices(hp2.Vertices,'x',45);
 hp2.Vertices = mmRotateSurfaceVertices(V_rot,'z',30);
 axis equal

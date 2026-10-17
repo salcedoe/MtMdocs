@@ -20,7 +20,7 @@ You can right-click on the `volshow` window to bring up a contextual menu with a
 
 ## Adjusting display
 
-If you want to modify the background of the figure, you first need to create an empty scene using **`viewer3D`**. Here we create a viewer with a white background and no gradient.
+If you want to modify the background of the figure, you first need to create an empty scene using **`viewer3d`**. Here we create a viewer with a white background and no gradient.
 
 ```matlab linenums="1" title="White Background"
 hvr = viewer3d(parent=uifigure,BackgroundColor="white",BackgroundGradient="off",CameraZoom=1); % set background color to white and turn off gradient
@@ -39,22 +39,22 @@ hvs.GradientOpacityValue = .1; % additional setting for Gradient Opacity
 ![comparison of volshow rendering styles](images/volshow-rendering-comparisons.png){ width="450"}
 >Comparison of Rendering Styles using `volshow`
 
-We can also modify the Colormap and add a title by modifying the respective fields in the volshow and viewer3d handles, respectively:
+We can also change the colormap and add a title by modifying the corresponding properties of the volshow and viewer3d handles:
 
 ```matlab linenums="1" title="Change colormap and add title"
 hvs.Colormap = parula; % volshow handle
-hvr.Title = "CTACardio" % viewer3D handle
+hvr.Title = "CTACardio" % viewer3d handle
 ```
 
 ![volshow with parula colormap and title](images/volshow-ctacardio-crop-parula-title.png){ width="450"}
 
 ## `mmSetVolShowColors`
 
-`mmSetVolShowColors` is a utility function for **`volshow`** that simplifies the customization of the display. It automatically changes the background color of the `volshow` background to white and then applies a Medical alphamap and colormap to the volume render. The alpha- and colormaps are the same options available in the [Medical Volume Viewer](medVolumeViewer.md)
+`mmSetVolShowColors` is a utility function for **`volshow`** that simplifies the customization of the display. It automatically changes the `volshow` background to white and then applies a medical alphamap and colormap to the volume render. The alpha- and colormaps are the same options available in the [Medical Volume Viewer](medVolumeViewer.md).
 
 To use, first display a volume using `volshow` and then simply input the handle from `volshow` into `mmSetVolShowColors`.
 
-```matlab linenums="1" title="Apply CT Bone "
+```matlab linenums="1" title="Apply a medical alphamap"
 hvs = volshow(intMV);
 mapName = mmSetVolShowColors(hvs)
 ```
@@ -83,20 +83,20 @@ hvs.Parent.BackgroundGradient = 'off';
 hvs.Parent.BackgroundColor = 'white';
 ```
 
- Notice that "OverlayData" must be inputted as an array (not a medical volume), which is why we input the 'Voxels' field at the second input.
+Notice that `OverlayData` must be an array (not a medicalVolume), which is why we pass in the `Voxels` property of `segMV`.
 
 ![ctacardio with kidneys](images/volshow-ctacardio-kidney-overlay.png){ width="250"}
 >**Overlay Render**. Kidney (orange and yellow) and Aorta (purple) segmentations overlaid on a volume render of the CTA Cardio CT volume
 
 ```matlab linenums="1" title="SlicePlane Render"
 hvr = viewer3d(parent=uifigure,BackgroundColor="white",BackgroundGradient="off",CameraZoom=1); % set background color to white and turn off gradient
-volshow(segMV,parent= hvr,RenderingStyle="Isosurface",Colormap=hot) % display total segmentation as slice planes
-volshow(intMV,parent= hvr,RenderingStyle="SlicePlanes",OverlayData=segMV.Voxels) % display total segmentation as slice planes
+volshow(segMV,parent=hvr,RenderingStyle="Isosurface",Colormap=hot) % render label map as an isosurface
+volshow(intMV,parent=hvr,RenderingStyle="SlicePlanes",OverlayData=segMV.Voxels) % display intensity volume as slice planes with label overlay
 ```
 
 Here we first create a viewer window (`viewer3d`), then we have two calls to `volshow`, with both calls using the same viewer window as the parent. This allows us to create a composite visualization. In the first call, we render the label volume as an "Isosurface". This gives the render that blocky label map appearance. For this call, we use a Colormap setting of "hot" to make the segments appear red. In the second call to `volshow`, we render the intensity volume as orthogonal slice planes. We also add the label map as overlay data. This adds color to the orthogonal slices where the label overlaps with the intensity volume.
 
 ![slice plane](images/volshow-ctacardio-kidney-overlay-sliceplanes.png){ width="450"}
->**SlicePlane Render**. Segments rendered in red. Intensity volume rendered as orthogonal planes
+>**SlicePlane Render**. Segments rendered in red. Intensity volume rendered as orthogonal planes.
 
-Note, you should be able to click and drag on the orthogonal planes to move their position. This is was enabled due to the order of the `volshow` calls. Having the second volshow call be the call that uses SlicePlanes rendering enabled interactive manipulation of the orthogonal planes. If the volshow calls were reversed, you wouldn't be able to manipulate the orthogonal planes. 
+Note, you should be able to click and drag on the orthogonal planes to move their position. This is enabled by the order of the `volshow` calls: because the second `volshow` call uses SlicePlanes rendering, the orthogonal planes are interactive. If the `volshow` calls were reversed, you wouldn't be able to manipulate the orthogonal planes. 

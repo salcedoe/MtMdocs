@@ -44,11 +44,11 @@ waterMask = mmGetWatershed(Mask,[3 1]); % apply watershed transformation
 >The `mmGetWatershed` function applies the watershed transform to the input Mask. The second input of `[3 1]` means the transformation is run twice, first with a Regional Minima pixel size of 3, followed by a pixel size of 1. Often watershed transforms work best with sequential calls.
 
 ![side by side volshow display of mask and watershed transform](images/bubbles-watershed-comparison.png){ width="750"}
->**Render of the mask before and after the Watershed Transform**. For these renders, we first convert the masks into label maps where each individual bubble has its own numeric label. **In the label map before** the watershed transform, there are 62 individual bubbles, including several fused bubbles. Fused bubbles have the same color (see arrow and asterisk). **In the label map after** the transform, there are 71 individual bubbles (an increase of 9) and only one fused bubble remaining. Here the arrow points to the same cluster of bubbles shown in the before transform, but now with an increased number of colors indicating an increased number of separated bubbles. By comparison, the asterisk indicates a fused bubble which has the same color for the two fused bubbles. Note, this is the same fused bubble from the "Before" render, but its color has changed because its numeric label changed. Its label changed because there was an increase in the number of unfused bubbles, shifting the labeling scheme for each bubble in the new label map.
+>**Render of the mask before and after the Watershed Transform**. For these renders, we first convert the masks into label maps where each individual bubble has its own numeric label. **In the label map before** the watershed transform, there are 62 individual bubbles, including several fused bubbles. Fused bubbles have the same color (see arrow and asterisk). **In the label map after** the transform, there are 71 individual bubbles (an increase of 9) and only one fused bubble remaining. Here the arrow points to the same cluster of bubbles shown in the before-transform render, but now with an increased number of colors indicating an increased number of separated bubbles. By comparison, the asterisk indicates a fused bubble, where both bubbles share the same color. Note, this is the same fused bubble from the "Before" render, but its color has changed because its numeric label changed. Its label changed because there was an increase in the number of unfused bubbles, shifting the labeling scheme for each bubble in the new label map.
 
 ??? example "Code to create the above Watershed Comparison Plot"
 
-    To verify we separated touching bubbles using the watershed transform, we  transform the masks to label maps, where each bubble in the mask has a unique numeric label. In this label map, bubbles adjacent to each other tend to have adjacent numeric labels. Using `volshow`, we render the masks with the ColorMap set to `colorcube` — a randomized color map that assigns a different color to adjacent lookup values. This allows us to color nearby bubbles separate colors.
+    To verify we separated touching bubbles using the watershed transform, we transform the masks to label maps, where each bubble in the mask has a unique numeric label. In this label map, bubbles adjacent to each other tend to have adjacent numeric labels. Using `volshow`, we render the masks with the ColorMap set to `colorcube` — a randomized color map that assigns a different color to adjacent lookup values. This allows us to color nearby bubbles different colors.
 
     ```matlab linenums="1" title="Visualize Watershed result" 
     % Create Label Maps
@@ -84,7 +84,7 @@ waterMask = mmGetWatershed(Mask,[3 1]); % apply watershed transformation
 
 ### Region Properties
 
-We can calculate the properties of the segmented bubbles using the function `regionprops3`
+We can calculate the properties of the segmented bubbles using the function `regionprops3`:
 
 ```matlab linenums="1" title="Calculate properties"
 rp = regionprops3(waterMask)
@@ -120,13 +120,13 @@ histogram(rp.Volume,20)
 
 A histogram of the bubble volumes easily identifies the fused bubble, which has a volume nearly twice the average bubble volume.
 
-We can exclude this volume from further analysis using a simple logical operation:
+We can exclude this bubble from further analysis using a simple logical operation:
 
 ```matlab linenums="1" title="Exclude Fused Bubble"
 la = rp.Volume < 1.6e4; %  only volumes below cut-off
 figure;
 histogram(rp.Volume(la))
-xlabel("Volume (vox^3)")
+xlabel("Volume")
 set(gca,"FontSize",18)
 ```
 
@@ -140,7 +140,7 @@ Often when segmenting, it is convenient to create label maps, instead of binary 
 Consider the following label map, `shapes3D.mat`(1), which loads as the variable `Vol`.
 { .annotate }
 
-1. The volume, 'shapes3D.mat' is stored as a MATLAB .mat file and can be found in the Unit 3 data folder.
+1. The volume `shapes3D.mat` is stored as a MATLAB .mat file and can be found in the Unit 3 data folder.
 
 ```matlab linenums="1" title="Load Vol"
 clearvars
@@ -166,7 +166,7 @@ ans =
     'uint8'
 ```
 
-As you can see the label map is a `318x318x159` uint8 volume.  
+As you can see, the label map is a `318x318x159` uint8 volume.
 
 ```matlab linenums="1" title="Volume Histogram"
 imhist(Vol)
@@ -176,7 +176,7 @@ As shown in the histogram, the label map only contains 5 different intensity val
 
 ![image histogram](images/vol-seg-3Dshapes-imhist.png){ width="250"}
 
-We can determine the intensity values in `Vol` using the `unique` function
+We can determine the intensity values in `Vol` using the `unique` function:
 
 ```matlab linenums="1" title="Get Unique Intensities"
 vals = unique(Vol(:)); % unique values
@@ -226,7 +226,7 @@ volshow(Mask)
 
 ![render of a sphere](images/vol-seg-sphere.png){ width="250"}
 
-Or, if we want both the cube and the cylinder, we could use this logical operation
+Or, if we want both the cube and the cylinder, we could use this logical operation:
 
 ```matlab linenums="1" title="Segment Cube and Cylinder"
 Mask = Vol > 128;
@@ -247,7 +247,7 @@ volshow(Mask)
 
 ### Region Properties
 
-We can calculate the region properties of the shapes using the `regionprops3` function
+We can calculate the region properties of the shapes using the `regionprops3` function:
 
 ```matlab linenums="1" title="Get region properties of shapes"
 rp = regionprops3(Mask)
@@ -269,7 +269,7 @@ rp =
 
 We get four rows in the region properties table, `rp`, because there are four shapes in `Mask`.
 
-If we want a little clarity on which properties belong to which shapes, we can first convert the label map `Vol` to a categorical array and then calculate the properties:
+If we want more clarity on which properties belong to which shapes, we can first convert the label map `Vol` to a categorical array and then calculate the properties:
 
 ```matlab
 volCat = categorical(Vol,[64 128 192 250],["Sphere" "Diamond" "Cube" "Cylinder"]);
@@ -290,4 +290,4 @@ rp =
     "Cylinder"    6.2602e+05    195.17    195.17        80        250     
 ```
 
-Now, the region properties table, `rp`, has a column LabelName which can be used to match the shape to the property. 
+Now, the region properties table, `rp`, has a `LabelName` column that can be used to match each shape to its properties. 
