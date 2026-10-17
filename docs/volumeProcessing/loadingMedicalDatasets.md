@@ -202,5 +202,99 @@ segT =
 
 !!! note "What is a Layer?"
 
-    In the Slicer metadata, there is a column for layer. In this example, the value is the same for all segmentations (1) and the segmentation volume is 3D. In other volumes, the layer values can differ, if "overlaying segments" was enabled in Slicer. Overlaying segments allows you to have more than one segment in the same physical space, like Total Lung and Right Lung, where the right side of Total Lung and Right Lung are virtually identical. So, if there is more than one layer value, then the segmentation volume is 4D, not 3D, and "Layer" indicates the index value in the 4th dimension.  You would index in the 4th dimension to access these separate segmentations. 
-    
+    In the Slicer metadata, there is a column for layer. In this example, the value is the same for all segmentations (1) and the segmentation volume is 3D. In other volumes, the layer values can differ, if "overlaying segments" was enabled in Slicer. Overlaying segments allows you to have more than one segment in the same physical space, like Total Lung and Right Lung, where the right side of Total Lung and Right Lung are virtually identical. So, if there is more than one layer value, then the segmentation volume is 4D, not 3D, and "Layer" indicates the index value in the 4th dimension.  You would index in the 4th dimension to access these separate segmentations.
+
+## Voxel and Patient Coordinates
+
+Every voxel in a medical volume can be located in two different ways:
+
+- **Intrinsic (voxel) coordinates** — the row, column, and slice indices of the voxel in the `Voxels` array. These are unitless and simply count voxels from the corner of the array, starting at `(1,1,1)`.
+- **Patient (world) coordinates** — the physical position of the voxel in millimeters, measured along the anatomical axes of the patient's body.
+
+Intrinsic coordinates tell you *where a voxel is stored*. Patient coordinates tell you *where that voxel is in the body*. The `VolumeGeometry` property of a `medicalVolume` contains everything needed to convert between the two.
+
+### Anatomical Axes: LPS vs RAS
+
+Patient coordinates are measured along three anatomical axes. There are two common conventions for which direction counts as positive:
+
+| Convention | +x points toward | +y points toward | +z points toward | Used by |
+| :--------- | :--------------- | :--------------- | :--------------- | :------ |
+| **LPS**    | patient's **L**eft | **P**osterior    | **S**uperior     | DICOM, MATLAB `medicalVolume` |
+| **RAS**    | patient's **R**ight | **A**nterior     | **S**uperior     | 3D Slicer (display) |
+
+The two conventions differ only in the sign of x and y. MATLAB always reports patient coordinates in LPS, so a point at x = +50 mm in MATLAB is 50 mm to the patient's *left*. (See the [3D Slicer documentation on coordinate systems](https://slicer.readthedocs.io/en/latest/user_guide/coordinate_systems.html) for more detail.)
+
+### How the Voxels are Stored: `DataDimensionMeaning`
+
+Compare the `DataDimensionMeaning` property of the two volumes we loaded above:
+
+```matlab
+% LungCT02 (DICOM)
+DataDimensionMeaning: ["left"    "posterior"    "superior"]
+
+% CTACardio Crop (Slicer .nrrd)
+DataDimensionMeaning: ["right"    "anterior"    "superior"]
+```
+
+`DataDimensionMeaning` tells you which direction in the body each array dimension moves toward as its index *increases*. In the DICOM volume, moving down the rows (dimension 1) moves toward the patient's **left**. In the Slicer volume, moving down the rows moves toward the patient's **right**.
+
+In other words, the two datasets store their voxels in opposite left–right and anterior–posterior orders. If you displayed slices directly from the two `Voxels` arrays (e.g., with `imshow`), one would appear mirrored relative to the other. Neither is wrong — they are just stored differently. This is why it matters to keep the `VolumeGeometry` along with the voxel data.
+
+### Converting Between Coordinate Systems
+
+The function **`intrinsicToWorld`** converts voxel indices into patient coordinates. Here we step one voxel at a time along each dimension of the Slicer segmentation volume:
+
+```matlab linenums="1" title="Convert voxel indices to patient coordinates"
+R = segMV.VolumeGeometry;            % spatial referencing information
+[x,y,z] = intrinsicToWorld(R,1,1,1)  % first voxel in the array
+[x,y,z] = intrinsicToWorld(R,2,1,1)  % one step along dimension 1 (rows)
+[x,y,z] = intrinsicToWorld(R,1,2,1)  % one step along dimension 2 (columns)
+[x,y,z] = intrinsicToWorld(R,1,1,2)  % one step along dimension 3 (slices)
+```
+
+| Voxel index `(I,J,K)` | x (mm)  | y (mm)  | z (mm)   | Change |
+| :-------------------- | ------: | ------: | -------: | :----- |
+| (1,1,1)               | 238.25  | 166.11  | −199.74  | —      |
+| (2,1,1)               | 237.23  | 166.11  | −199.74  | x decreases 1.027 mm → toward the **right** |
+| (1,2,1)               | 238.25  | 165.08  | −199.74  | y decreases 1.027 mm → toward the **anterior** |
+| (1,1,2)               | 238.25  | 166.11  | −198.72  | z increases 1.027 mm → toward the **superior** |
+
+Each step moves exactly one voxel width (1.027 mm), in exactly the directions listed in `DataDimensionMeaning`: right, anterior, superior.
+
+The same conversion can be expressed as a single 4×4 transformation matrix, which you can get with `intrinsicToWorldMapping`:
+
+```matlab linenums="1" title="Get the transformation matrix"
+tform = intrinsicToWorldMapping(segMV.VolumeGeometry);
+tform.A
+```
+
+```matlab
+ans =
+            0       -1.027            0       239.28
+       -1.027            0            0       167.14
+            0            0        1.027      -200.77
+            0            0            0            1
+```
+
+>The 1.027 values are the voxel spacing (scaling), the negative signs flip the right/anterior storage order into LPS, and the last column is the patient position of the volume's corner (translation). The swapped first two columns reflect that MATLAB arrays are indexed (row, column), while points are written (x, y). This `tform` is the same transformation returned by [`mmGetMedicalVolumeSegment`](medicalSurfaceRendering.md) and used to place surface renders in millimeter space.
+
+### Sanity Check: Which Kidney is Which?
+
+Patient coordinates make anatomical claims we can check. Using the transformation matrix, we can convert the centroid of each kidney from voxel coordinates into patient coordinates:
+
+```matlab linenums="1" title="Kidney centroids in patient coordinates"
+segT = mmGetSlicerSegmentInfo(segFile);
+for name = ["right kidney" "left kidney"]
+    s = mmGetMedicalVolumeSegment(segMV,segT,segName=name);
+    c = regionprops3(double(s.mask),"Centroid").Centroid;  % centroid in voxel coordinates
+    p = transformPointsForward(s.tform,c);                 % centroid in patient coordinates (mm)
+    fprintf("%s: x = %.1f mm\n", name, p(1))
+end
+```
+
+```matlab
+right kidney: x = -41.9 mm
+left kidney: x = 88.1 mm
+```
+
+>Remember that in LPS, +x points to the patient's left. The right kidney has a negative x (patient's right) and the left kidney has a positive x (patient's left), so the segment labels match the anatomy. Note that we use `double(s.mask)` so that `regionprops3` returns a single centroid for the whole segment, even if the mask contains a few disconnected pieces.
