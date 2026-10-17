@@ -14,7 +14,7 @@ What's [FDG 18F](http://www.wikiwand.com/en/Fludeoxyglucose_(18F))?
 
 ## Load Dataset
 
-The datasets in this exercise are multimodal PT CT datasets. They were acquired from a patient who presented with a tumor. The following are the impressions from the Surgeon.
+The datasets in this exercise are multimodal PET/CT datasets. They were acquired from a patient who presented with a tumor. The following are the impressions from the Surgeon.
 
 - **Pathology**: poorly differentiated squamous cell carcinoma
 
@@ -32,7 +32,7 @@ To load the data, we will load .MRB files. An .MRB file is like a zip file and c
 2. Click on "Choose File(s) to Add"
 3. Navigate to the  "dataset3_PETCT" folder in the Unit 3 data folder of the MATLAB drive.
 4. Shift-Select both "PET_CT_pre-treatment.mrb" and "PET_CT_post-treatment.mrb"
-5. Click "OK""
+5. Click "OK"
 
 ### Method 2: Drag-and-drop
 
@@ -60,7 +60,7 @@ To load the data, we will load .MRB files. An .MRB file is like a zip file and c
 
 - Switch to the Volumes Module
 - Set the Active Volume first to CT1, then to PET1
-- Compare the CT and PET voxels sizes.
+- Compare the CT and PET voxel sizes.
 
 ??? question "Which has a smaller voxel (and better resolution)?"
 
@@ -88,7 +88,7 @@ Your settings should now be as follows:
 
 ### Remove black edges of the orthogonal planes
 
-You can remove the black portions of the orthogonal places in the 3D Viewer using controls in the Volumes Module.
+You can remove the black portions of the orthogonal planes in the 3D Viewer using controls in the Volumes Module.
 
 1. Switch to the volumes module
 2. Set the Active Volume to "PET1."
@@ -163,7 +163,7 @@ The following are the clinical findings for the patient:
 
 ## Before and After Comparisons
 
-This multimodal dataset includes CT and PET scans from before and after () treatment (CT1-PET1 vs CT2-PET2, respectively) . We can use a different layout to visualize all of the volumes at once.
+This multimodal dataset includes CT and PET scans from before and after treatment (CT1-PET1 vs CT2-PET2, respectively). We can use a different layout to visualize all of the volumes at once.
 
 Choose "Three over Three" from the Layout Menu:
 
@@ -186,7 +186,8 @@ You should get something that looks like this:
 
 ![img-name](images/CTPET-three-over-three.png){ width="550"}
 
-Review the results
+Review the results:
+
 - Are the volumes the same size?
 - Can you find the same region where the tumor was?
 - Is the tumor still there?

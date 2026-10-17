@@ -7,7 +7,7 @@ The two main ways to customize Slicer:
 
 ## Application Settings
 
-The Application settings contain settings that control Slicer Appearance and performance
+The Application settings contain settings that control Slicer's appearance and performance
 
 ### Modules
 
@@ -96,9 +96,9 @@ Extensions are customized modules to handle specialized tasks. For the Slicer ex
 ![img-name](images/button-extension-manager.png){ width="100"}
 
 1. Click on the Extension Manager toolbar button to bring up the Manager.
-2. On the Side bar, Select a Category, like "Segmentation"
-3. Find Extension of interest, like "segEditExtraFX"
-4. Click the Install Button
+2. On the sidebar, select a category, like "Segmentation"
+3. Find the extension of interest, like "segEditExtraFX"
+4. Click the Install button
 5. Repeat
 6. When you are finished installing extensions, restart Slicer.
 

@@ -40,7 +40,7 @@ In a transabdominal examination, the bladder is situated above the prostate
 
 [i_patient_transverse]: http://res.cloudinary.com/cudenes/image/upload/v1493957481/medical_imaging/US_prostate_scan_plane_ts.jpg
 
-![Tranverse view - prostate shown here in blue][i_us_transabd_transverse]{width=350px}
+![Transverse view - prostate shown here in blue][i_us_transabd_transverse]{width=350px}
 
 [i_us_transabd_transverse]: http://res.cloudinary.com/cudenes/image/upload/v1493957481/medical_imaging/us_trasnabd_prostate_transverse_normal_hl.jpg
 
@@ -117,7 +117,7 @@ Use the following settings:
 2. Change **LUT** to "**WarmShade3**"
 3. Set View Control transparency to 1.0 for MRprostate
 4. Find the Bladder. Hint: contrast has been added to the bladder
-5. Find the prostate. Hint, look for the crescent shaped structure as seen in the [transverse view][img_mri_prostate] of the prostate in the MRI image above.
+5. Find the prostate. Hint: look for the crescent-shaped structure as seen in the [transverse view][img_mri_prostate] of the prostate in the MRI image above.
 6. Find the Urethra.
 
 ### Volume Rendering
@@ -158,11 +158,11 @@ Slicer should now look something like this:
 ### Bladder
 
 * Bring up the "Segment Editor" module
-* For "Master Volume" - choose "MRProstate"
+* For "Source Volume" - choose "MRProstate"
 
 1. Add a segmentation for the bladder and call this segmentation "Bladder"
 2. Use Paint to paint inside bladder
-3. Add a segmentation for outside the bladder. Paint outside the bladder. Remember, you are just sampling voxels that are not bladder. You do not need a precision outline of the bladder
+3. Add a segmentation for outside the bladder. Paint outside the bladder. Remember, you are just sampling voxels that are not bladder. You do not need a precise outline of the bladder
 4. "Grow from seeds"
 
 * Select the Bladder segmentation
@@ -172,9 +172,9 @@ Slicer should now look something like this:
 * Notice that you only need to repair a small segment and the tool will update the segmentation in that region
 * After you have checked all of the slices click **"Apply"**
 
-6. "Show 3D" If you haven't done so, display the 3D view to see the result. You will probably see a large block
-7. Remove Outside segmentation
-8. "Smoothing"
+5. "Show 3D" If you haven't done so, display the 3D view to see the result. You will probably see a large block
+6. Remove Outside segmentation
+7. "Smoothing"
 
 * Use the default Kernel size
 * Open

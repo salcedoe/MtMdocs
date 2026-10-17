@@ -1,4 +1,4 @@
-## CT VS MRI
+# CT vs MRI
 
 In this exercise, we load a dataset that contains a CT and two MRI volumes, all aligned with each other
 
@@ -16,7 +16,7 @@ Use the Data module to review the loaded datasets: ![img-name](images/button-dat
 
 ## Volume Information Exploration
 
-1. Open the `Volumes` Modules and review the Information
+1. Open the `Volumes` module and review the Information
 2. Select each volume in the Active Volume Menu and then examine the:
     - Image Dimensions and Image Spacing
     - Scalar Type
@@ -24,7 +24,7 @@ Use the Data module to review the loaded datasets: ![img-name](images/button-dat
 
 ![img-name](images/CT-MR-volume-info.png){ width="450"}
 
-??? question "Which is the largest volume (Has the Largest Dimensions)"
+??? question "Which is the largest volume (has the largest dimensions)?"
 
     - The CT volume has the most Z-slices and the most voxels: nearly 20 million voxels (512 X 507 X 76).
     - The MR volumes only have roughly 5 million voxels.
@@ -38,7 +38,7 @@ Use the Data module to review the loaded datasets: ![img-name](images/button-dat
 
 ??? question "Which volume has the widest dynamic range?"
 
-    The CT volume ranges from -3024 to 1996, so that's widest range. Notice how CT volumes have negative values, which MR volumes do not
+    The CT volume ranges from -3024 to 1996, so that's the widest range. Notice how CT volumes have negative values, which MR volumes do not
 
 ## Display Volumes in the viewers
 
@@ -53,13 +53,13 @@ Use the Data module to review the loaded datasets: ![img-name](images/button-dat
 As you scrub through each volume, what differences do you notice right away?
 
 - Which volume has an obvious cylindrical dataset?
-- Which volume has the highest resolution the Sagittal Plane?
+- Which volume has the highest resolution in the Sagittal Plane?
 - Which volume(s) has the highest resolution in the Axial Plane?
 - Which Volume was captured at an angle oblique to the Inferior-Superior Axis?
 
 !!! note "Maximize viewer"
 
-    Remember For each viewer, you can expand the view by clicking on the "Maximize View" icon (![expand icon][icon-expand]{ width="25"}) or double-clicking on the image itself. To restore the full-layout view, click on the "Restore Layout" icon (![restore icon][icon-full-layout]{width="25"}).
+    Remember, for each viewer, you can expand the view by clicking on the "Maximize View" icon (![expand icon][icon-expand]{ width="25"}) or double-clicking on the image itself. To restore the full-layout view, click on the "Restore Layout" icon (![restore icon][icon-full-layout]{width="25"}).
         
     [icon-expand]: images/button-viewer-expand-icon-green.png
 
@@ -67,11 +67,11 @@ As you scrub through each volume, what differences do you notice right away?
 
 ### Compare Slice Views
 
-We have only one high resolution view for the each of MR volumes, so let's display those volumes in separate viewers.  Click on the push-pin icon and set the Chain-Link icon to unlinked (![img-name](images/icon-unlinked-chain.png){ width="18"}) so the viewers are not synchronized. Set the viewers as follows:
+We have only one high resolution view for each of the MR volumes, so let's display those volumes in separate viewers.  Click on the push-pin icon and set the Chain-Link icon to unlinked (![img-name](images/icon-unlinked-chain.png){ width="18"}) so the viewers are not synchronized. Set the viewers as follows:
 
 - **Red Viewer**: MRBrainT2.
-- **Green Viewer**: to CTBrain.
-- **Yellow viewer**: to MRBrainT1.
+- **Green Viewer**: CTBrain.
+- **Yellow Viewer**: MRBrainT1.
 
 Be sure to fit all the volumes to the Window: ![img-name](images/button-fit-to-window-green.png){ width="25"}. You should see the following in the viewers:
 
@@ -93,7 +93,7 @@ In the **T2 Volume**, find:
 - The uncus
 - The basal ganglia.
 - The thalamus
-- The Cochlea? (Look for the shrek ears on slice -23.9265mm)
+- The Cochlea? (Look for the Shrek ears on slice -23.9265mm)
 
 In the **T1 Volume**, find:
 
@@ -140,7 +140,7 @@ Add the T1 and T2 slices to the 3D view by clicking on the respective slice view
 
 To remove the edges of the slices in the 3D view, switch to the **Volume Module** and:
 
-1. Select each MR Volume in the `Volume` pop-menu
+1. Select each MR Volume in the `Volume` pop-up menu
 2. Under the Display tab, set the `Threshold` as indicated in the table below:
 
 | Volume | Lower Threshold |

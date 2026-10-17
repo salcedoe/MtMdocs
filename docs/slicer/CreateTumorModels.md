@@ -49,7 +49,7 @@ Switch to the Data module
 
 - You should see the MRTumorModels listed there
 - Right-click on "MRTumorModels"
-- Select "Convert models to segmentation mode"
+- Select "Convert models to segmentation node"
 - A new segmentation node called "MRTumorModels segmentation" will be added to the list
 
 SAVE YOUR WORK!

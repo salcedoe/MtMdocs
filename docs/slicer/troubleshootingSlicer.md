@@ -1,6 +1,6 @@
 # Troubleshooting Slicer
 
-Slicer can be a bit cantankerous at times. So be sure to save your data, often. Also, avoid removing, moving, or renaming slicer files (e.g. .NRRD files) outside of Slicer (ie don't use the Mac Finder or Windows explorer to modify the contents of a Slicer folder without extreme care).
+Slicer can be a bit cantankerous at times. So be sure to save your data, often. Also, avoid removing, moving, or renaming slicer files (e.g. .NRRD files) outside of Slicer (i.e., don't use the Mac Finder or Windows Explorer to modify the contents of a Slicer folder without extreme care).
 
 ## Restart
 
@@ -26,11 +26,11 @@ If you still are having strange issues, especially with segmentation:
 
     - Uncheck any scene (.mrml) or image (.png) files, as these are not needed for loading the raw data.
     - Uncheck any Surface model files (e.g .mtl and .obj), as you don't need to load those back into Slicer
-    - Leave checked all `.seg.nrrd` and `.nrrd files`
-    - Leave checked on all `.mrk.json` files
+    - Leave checked all `.seg.nrrd` and `.nrrd` files
+    - Leave checked all `.mrk.json` files
   
     Finally, click `OK`.
 
 Your data should now be loaded. You may not see what you last saved, but you should have all the relevant data and should be able to segment or proceed with any other steps you were previously taking.
 
-Note, the next time you save your work, Slicer will automatically generate a new Scene file (.mrml). Be sure to use the lasted scene file when reopening your work. 
+Note, the next time you save your work, Slicer will automatically generate a new Scene file (.mrml). Be sure to use the latest scene file when reopening your work. 

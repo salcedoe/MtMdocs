@@ -20,7 +20,7 @@ Bring up the Volumes Module and review the Volumes Information tab.
     ![img-name](images/CTFemur-Volume-Info.png){ width="450"}
     
     - This volume has `512 x 512 x 473` voxels (124 million voxels)
-    - The volume also anisotropic voxels with dimensions of `0.98mm x 0.98mm x 3.5mm`
+    - The volume also has anisotropic voxels with dimensions of `0.98mm x 0.98mm x 3.5mm`
 
 When segmenting, it helps to adjust the contrast so that the target anatomy (e.g. the femur) is brighter than the rest of the tissue.
 
@@ -65,7 +65,7 @@ Switch to the Volume Rendering Module and select the 'Body Bone' volume from the
     
     ![4up implant](images/CTFemur-3D-vol-render-implant.png){ width="450"}
 
-Before continuing, select the`CT-AAA` to again render the skeletal system. Notice how the implants create a spiky distortion in the CT scan around the knee
+Before continuing, select the `CT-AAA` preset to again render the skeletal system. Notice how the implants create a spiky distortion in the CT scan around the knee
 
 ### Create a precise ROI for cropping
 
@@ -112,7 +112,7 @@ Now we use our ROI to crop the volume. Switch to the **Crop Volume** module and 
     **IO tab**
 
     - Input Volume: `BODY BONE`
-    - Input ROI: `PelvisFemurRoi`
+    - Input ROI: `PelvisFemurROI`
     - Output volume: select "Create new volume as..." and enter "BODY BONE crop"
     
     **Advanced tab:** Be sure to check "Interpolated cropping" and "Isotropic space". Set the `Spacing Scale` to `1.10x` and select "B-spline".
@@ -124,7 +124,7 @@ When you have set all of the settings, click "Apply".
    - This may also end anticlimactically - nothing may seem to happen.
 
 ??? tip "ABOUT ISOTROPIC SPACING and the Spacing Scale setting"
-    What isotropic spacing actually does is up- or downsample the 3D volume. Basically, you are adding or subtracting rows, columns, or slices. Subtracting rows and columns means that you are downsampling, which should ultimately create a smaller volume, which in turns saves memory (and hopefully avoids crashing Slicer). Ultimately, you want the total volume loaded into Slicer to take only 1/10 the amount of RAM that is available on your system. For 3D processing, you rarely benefit from having high in-plane resolution if distance between planes is large. For example, a volume of `2500 x 2500 x 500` (with spacing of `0.1x0.1x0.5`) will give you approximately same quality 3D reconstructions as a volume of `500 x 500 x 500` (with spacing of `0.5x0.5x0.5`). This means we rarely want to upsample and instead should use a larger Spacing scale setting to downsample the volume (even larger than shown here). See the discussion here: [Is there a way to reduce the CPU usage and reduce the amount of RAM used? - #3 by goetzf - Support - 3D Slicer Community](https://discourse.slicer.org/t/is-there-a-way-to-reduce-the-cpu-usage-and-reduce-the-amount-of-ram-used/3181/3)
+    What isotropic spacing actually does is up- or downsample the 3D volume. Basically, you are adding or subtracting rows, columns, or slices. Subtracting rows and columns means that you are downsampling, which should ultimately create a smaller volume, which in turn saves memory (and hopefully avoids crashing Slicer). Ultimately, you want the total volume loaded into Slicer to take only 1/10 the amount of RAM that is available on your system. For 3D processing, you rarely benefit from having high in-plane resolution if distance between planes is large. For example, a volume of `2500 x 2500 x 500` (with spacing of `0.1x0.1x0.5`) will give you approximately the same quality 3D reconstructions as a volume of `500 x 500 x 500` (with spacing of `0.5x0.5x0.5`). This means we rarely want to upsample and instead should use a larger Spacing scale setting to downsample the volume (even larger than shown here). See the discussion here: [Is there a way to reduce the CPU usage and reduce the amount of RAM used? - #3 by goetzf - Support - 3D Slicer Community](https://discourse.slicer.org/t/is-there-a-way-to-reduce-the-cpu-usage-and-reduce-the-amount-of-ram-used/3181/3)
 
 ### Data Review
 
@@ -140,7 +140,7 @@ You should see the new `BODY BONE crop` volume in this list.
 2. **Delete Original Volume:** Right-Click on the original "6 BODY BONE" volume and select "delete".
     - We won't need this volume any more and deleting it will help save on computer memory (and avoid slicer crashes).
     - Also, we can always reload the volume from the DICOM dataset if needed.
-3. **Hide the PelvisFemurRoi** by clicking on the corresponding eye-icon.
+3. **Hide the PelvisFemurROI** by clicking on the corresponding eye-icon.
 4. In the **Volumes** module, turn on the CT-bone preset for the `BODY BONE crop` volume
 
 ### Save Your Data
@@ -155,7 +155,7 @@ Now would be a good time to save your data. Remember, you need to create a new f
 
     - Ensure that all of the files are checked. 
     - Click on the "Change directory for selected files" 
-    - In the dialog the pops-up, navigate to the location where you want to create your folder. The Documents folder is a good place to start (Macs should avoid saving stuff on the desktop as it can slow down your computer.).
+    - In the dialog that pops up, navigate to the location where you want to create your folder. The Documents folder is a good place to start (Macs should avoid saving stuff on the desktop as it can slow down your computer.).
     - Create a new folder in that location
     - Call this folder "CTFemur" or something similar. And select OK. 
 
@@ -224,7 +224,7 @@ To copy the femur segments, use the following steps:
 ![slicer screenshot](images/femur-segmentations-copy-moveD-panel.png){ width="450"}
 >Copy/move segments panel in the Segmentations Module
 
-### Review Copied Segmentats
+### Review Copied Segmentations
 
 Switch to the Data Module.
 
@@ -249,7 +249,7 @@ Switch to the **Smooth Tool** and smooth the Femurs using the following settings
 
 ### Segment Implant
 
-Switch to "Local Threshold" (included with the [SegmentEditorExtraEffects extension](CustomizeSlicer.md/#installing-extensions))
+Switch to "Local Threshold" (included with the [SegmentEditorExtraEffects extension](CustomizeSlicer.md#installing-extensions))
 
 ![img-name](images/seg-editor-local-threshold-button.png){ width="45"}
 
@@ -264,11 +264,11 @@ Your implants should look like the following:
 
 ### Clean up Left Femur
 
-The Left Femur segmentation is incorrect at the knee. It looks as if the implant is completely embedded inside the bone, but that is not how total knee implants work. Surgeons replace (saw off) the inferior distal end of the femur and the superior end of the tibia with metal components. The femur shaft is inserted into the implant, and the metal implant is exposed at the knee, separated by a plastic spacer.
+The Left Femur segmentation is incorrect at the knee. It looks as if the implant is completely embedded inside the bone, but that is not how total knee implants work. Surgeons replace (saw off) the distal end of the femur and the proximal end of the tibia with metal components. The femur shaft is inserted into the implant, and the metal implant is exposed at the knee, separated by a plastic spacer.
 
 ![total knee replacement x-ray](images/total-knee-replacement.jpg){ width="250"} ![img-name](images/Total%20Knee%20Replacement%20(TEP).jpeg){ width="250"}
 
-So, to clean up the segmentation, we need remove any extraneous femoral segmentation at the level of the knee. If you review the left femur segmentation axially through the implant, you can see how the segmentation does not accurately represent the bone at the level of the implant. It just seems to have guessed where bone should have been. But in reality, that bone was cut away to make room for the implant. As you scrub axially through the implant, there should be a point where the actual femur disappears, as shown below:
+So, to clean up the segmentation, we need to remove any extraneous femoral segmentation at the level of the knee. If you review the left femur segmentation axially through the implant, you can see how the segmentation does not accurately represent the bone at the level of the implant. It just seems to have guessed where bone should have been. But in reality, that bone was cut away to make room for the implant. As you scrub axially through the implant, there should be a point where the actual femur disappears, as shown below:
 
 ![femur screenshot](images/Femur-implant-interface.png){ width="450"}
 
@@ -282,11 +282,6 @@ It's easiest to find the bottom of femur in the Coronal (green) viewer. Hover th
 
     ![img-name](images/seg-editor-erase-button.png){ width="48"} 
 
-
-    Then, 
-    
-    Under masking, Select
-    
     Erase the segmentation slice using the following steps:
 
     1. Switch to the **Erase tool**. 
@@ -311,9 +306,9 @@ There should now be a very evident break in the segmentation in the Coronal Slic
     Switch to the Islands Tool and remove segmentation inferior to the slice cut as follows:
 
     1. Select "Remove Selected Island"
-    2. In the Coronal Slicer viewer, click on the Femur Segmentation below the slice cut
+    2. In the Coronal Slice viewer, click on the Femur Segmentation below the slice cut
 
-There are still some remaining femur segmentation that artificially hangs outside the implant
+There is still some remaining femur segmentation that artificially hangs outside the implant
 
 !!! abstract "Final Segmentation Clean up"
 
@@ -322,7 +317,7 @@ There are still some remaining femur segmentation that artificially hangs outsid
     3. Select `Slice cut` to "Negative" — this will help avoid cutting the femur head
     4. Trim any bone overhangs in the 3D view
     5. For trickier clean-up, switch to the Red Viewer and trim there
-    6. Trim any femur segmentations that all outside the implant, as shown below.
+    6. Trim any femur segmentations that fall outside the implant, as shown below.
     7. You may have to scrub through several slices along the implant to completely trim away the bone. 
 
     ![img-name](images/Femur-RedViewer-ScissorTrim.png){ width="450"}

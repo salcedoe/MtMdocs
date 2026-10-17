@@ -1,7 +1,7 @@
 
 # Segmenting a Contrast-Enhanced CT Volume
 
-Medical image segmentation is the process of dividing a medical image into regions or segments that represent different tissue types or categories. The goal is to identify areas of interest, such as tumors, lesions, or other abnormalities. In this module, will we use 3D Slicer to segment the Kidneys,  Aorta, Lungs, and everything else from the CTACardio Sample dataset.
+Medical image segmentation is the process of dividing a medical image into regions or segments that represent different tissue types or categories. The goal is to identify areas of interest, such as tumors, lesions, or other abnormalities. In this module, we will use 3D Slicer to segment the Kidneys,  Aorta, Lungs, and everything else from the CTACardio Sample dataset.
 
 ## Extensions Required
 
@@ -75,7 +75,7 @@ Volume rendering is a great way to determine which parts of the volume have high
 #### Adjust Rendering
 
 1. Slide the Shift slider back and forth to reveal different aspects of the volume
-   - Notice how bright the veins are in the patients arm
+   - Notice how bright the veins are in the patient's arm
    - Slide the Shift slider to the left to reveal the oxygen tank sitting atop the patient's chest
 2. Select the "CT-Chest Contrast Enhanced" Preset
    - Slide the Shift slider to the right to reveal the kidneys
@@ -84,22 +84,22 @@ Volume rendering is a great way to determine which parts of the volume have high
 
 ![volume render CT Chest enhanced](images/CTACardio-CT-chest-contrast-enhanced.png){ width="250"}
 
->Notice that the kidneys, heart, vasculature, bones all segment out at the similar intensity mappings. This means that it will not be possible to use a simple threshold to segment these organs individually
+>Notice that the kidneys, heart, vasculature, bones all segment out at similar intensity mappings. This means that it will not be possible to use a simple threshold to segment these organs individually
 
 ??? abstract "Optional: Crop volume down to the Right Kidney"
 
     Adjust the ROI to capture just the right kidney:
 
-        1. In the `Volume Rendering` module, Check "Enable" crop and click on "Display ROI"
-        2. Adjust the ROI to encompass just the right kidney
-        3. Under the Advanced Tab, click on the "Scalar Opacity Mapping" function to adjust the transparency of the volume
-        4. Hide the Crop ROI
+    1. In the `Volume Rendering` module, check "Enable" crop and click on "Display ROI"
+    2. Adjust the ROI to encompass just the right kidney
+    3. Under the Advanced Tab, click on the "Scalar Opacity Mapping" function to adjust the transparency of the volume
+    4. Hide the Crop ROI
 
     You should see something that looks like this:
         
     ![volume render kidney](images/CTACardio-vol-render-cropped-kidney.png){ width="250"}
 
-        The kidney is surrounded by ribs and the spinal column which imaged with similar levels of intensity. So, if we use basic thresholding, we will need to clean up a lot of the segmentation surrounding the kidney
+    The kidney is surrounded by ribs and the spinal column, which are imaged with similar levels of intensity. So, if we use basic thresholding, we will need to clean up a lot of the segmentation surrounding the kidney
 
 *Before continuing, turn off the 3D render by clicking the **eye icon** closed*
 
@@ -119,7 +119,7 @@ Let's start with Right kidney. Remember, we should look at the right kidney in a
 
     ![img-name](images/CTACardio-4up-crosshair.png){ width="350"}
 
-5. Release **shift** and move the mouse pointer over the kidney and surrounding tissue inspect the intensity values of the voxels
+5. Release **shift** and move the mouse pointer over the kidney and surrounding tissue to inspect the intensity values of the voxels
 6. Compare the intensity value of the kidney to the tissue surrounding the kidney and to the spinal column. Make note of these intensity values:
     - **Kidney**: `~245`
     - **Surrounding Tissue**, `~80`
@@ -129,7 +129,7 @@ Let's start with Right kidney. Remember, we should look at the right kidney in a
 
 ### Crop Volume
 
-Segmentation projects are often memory intensive. So, is often useful to crop the volume down to the bare minimum needed for the segmentation project. For analysis of the segmentations, it is also useful to resample the voxels so that they are isotropic.
+Segmentation projects are often memory intensive. So, it is often useful to crop the volume down to the bare minimum needed for the segmentation project. For analysis of the segmentations, it is also useful to resample the voxels so that they are isotropic.
 
 #### Create ROI
 
@@ -165,7 +165,7 @@ If the Cropped volume is not displayed, select it in all the slice viewers:
 
 ![img-name](images/CTACardio-pushpin-select-crop-volume.png){ width="550"}
 
-!!! abstracts "Steps before continuing"
+!!! abstract "Steps before continuing"
 
     Return to the `Volume Rendering` module
 
@@ -174,7 +174,7 @@ If the Cropped volume is not displayed, select it in all the slice viewers:
 
     Return to the `Volume` module
 
-    3. Set the `Volume` to 'CTACardio Crop`
+    3. Set the `Volume` to 'CTACardio Crop'
     4. Select the 'CT-Abdomen' preset under the `Display` tab
 
 You should now see the following in the Slice Viewers:
@@ -220,7 +220,7 @@ The Editor has three main parts:
 
 At the top of the Segment editor, create the following settings:
 
-1. Set the `Segmentation` by selecting 'Rename the Current Segmentation' and adding your last name to the segmentation, as follow: 'LastName Segmentation'
+1. Set the `Segmentation` by selecting 'Rename the Current Segmentation' and adding your last name to the segmentation, as follows: 'LastName Segmentation'
 2. Set the `Source Volume` to 'CTACardio Crop'
 
 ### Add Segmentations to the Segmentation table
@@ -230,7 +230,7 @@ At the top of the Segment editor, create the following settings:
 
 ![screenshot from slicer of segment editor](images/CTACardio-seg-edit-table-Segment_1.png){ width="450"}
 
->This table organizes the Segmentation Labels. Currently, we just have one Named Label: "Segment_1". And its selected. So, any segmentation you add using the Segment Editor tools will have the label of "Segment_1". We are going to use this label as a placeholder label, so let's move onto the next step.
+>This table organizes the Segmentation Labels. Currently, we just have one Named Label: "Segment_1". And it's selected. So, any segmentation you add using the Segment Editor tools will have the label of "Segment_1". We are going to use this label as a placeholder label, so let's move onto the next step.
 
 ### Segment the Kidneys using the Threshold Tool
 
@@ -263,7 +263,7 @@ You should now see the following in the 3D view:
 
 #### Clean up Segmentation using the Islands Tool
 
-First we will remove a lot of the segmentation noise using the "Remove Small Islands" command, which removes any connected components smaller that the indicated value.
+First we will remove a lot of the segmentation noise using the "Remove Small Islands" command, which removes any connected components smaller than the indicated value.
 
 !!! abstract "Remove Small Islands"
 
@@ -275,7 +275,7 @@ First we will remove a lot of the segmentation noise using the "Remove Small Isl
 
 Now both Kidneys are clearly separate segmentations.
 
-!!! abstract "Use the Scissors tool remove the Ureter and vasculature from the kidneys"
+!!! abstract "Use the Scissors tool to remove the Ureter and vasculature from the kidneys"
 
     ![scissors icon](images/seg-editor-scissors-button2.png){ width="45"}
 
@@ -297,7 +297,7 @@ For this step, we add new labels to the Segmentation Labels table and then switc
     ![img-name](images/seg-editor-add-button.png){ width="45"}
 
     1. Click the Add button and add a new Label for the **Left Kidney**
-    3. Click the Add button and add a new Label for the **Right Kidney**
+    2. Click the Add button and add a new Label for the **Right Kidney**
 
     The segmentation colors should be different from "Segment_1" — so, not green.
 
@@ -351,7 +351,7 @@ Time to save your hard work!
 ### Segment the Aorta
 
 ![aorta](https://my.clevelandclinic.org/-/scassets/images/org/health/articles/17058-aorta-anatomy){ width="450"}
-> Adapted from [Aorta, Clevand Clinic](https://my.clevelandclinic.org/health/body/17058-aorta-anatomy).
+> Adapted from [Aorta, Cleveland Clinic](https://my.clevelandclinic.org/health/body/17058-aorta-anatomy).
 
 For the Aorta, we will use a different segmentation method. First, though, we need to create the segmentation volume.
 
@@ -380,7 +380,7 @@ There should be a color flashing in the 2D viewers. This color indicates what wi
 
 ![img-name](images/CTACardio-local-threshold-preview.png){ width="250"}
 
-!!! abstract "Applying Local Threshhold"
+!!! abstract "Applying Local Threshold"
 
     Once you have these settings, **Ctrl- or Command-click** on the descending aorta and watch the magic happen.
 
@@ -407,7 +407,7 @@ The Scissors tool allows you to cut out segmentation you don't want.
 9. In **the 2D view** of the segmentation, click on a segmentation in the heart to remove that portion of the segmentation
 >![img-name](images/CTACardio-4up-remove-selected-island.png){ width="350"}
 >
->Notice that the pointer icon shows the island tool when pointing to the segmentation in the 2D view only (not the the 3D viewer)
+>Notice that the pointer icon shows the island tool when pointing to the segmentation in the 2D view only (not the 3D viewer)
 10. Select "Remove small islands" using a minimum size of 1000 voxels
 11. Click apply and enjoy your segmented aorta
 12. Save your work!
@@ -447,7 +447,7 @@ Open the Lung CT Segmenter:
 1. Make sure that your **Input volume** is "CTACardio"
 2. Otherwise, don't change any of the settings
 3. Click Start
-4. You will be present with an axial slice and Prompted to add three points to the right lung
+4. You will be presented with an axial slice and prompted to add three points to the right lung
 5. Scrub to the middle of the lungs
 6. Click on three points in the right lung, followed by three points in the left lung
 >![img-name](images/LungCTSegmenter-axial-plane.png){ width="350"}
@@ -455,7 +455,7 @@ Open the Lung CT Segmenter:
 8. Again, scrub to a region near the middle of the lungs
 9. Click on three points in the right lung, followed by three points in the left lung
 >![img-name](images/LungCTSegmenter-coronal-plane.png){ width="350"}
-10. Once you have added the points, you be prompted to add a point to the trachea. If you don't see the trachea, scrub through the coronal planes until you do.
+10. Once you have added the points, you will be prompted to add a point to the trachea. If you don't see the trachea, scrub through the coronal planes until you do.
 11. Add a point to the trachea
 12. If everything looks good, click **Apply**
 13. Enjoy segmentations of the lung and trachea
@@ -480,7 +480,7 @@ You can also review the segmentations in the Segmentations Module.
 
 In the segmentations module, you find a segmentations table similar to the one in the Segment Editor.
 
-But, here you can modify the display properties of the segmentation. Switch the Lung Segmentations by selecting it in the `Segmentation` Pop-up menu
+But, here you can modify the display properties of the segmentation. Switch to the Lung Segmentation by selecting it in the `Segmentation` Pop-up menu
 
 ![slicer segmentations module](images/ctacardio-segmentations-mod-lungs.png){ width="450"}
 
@@ -506,18 +506,18 @@ Compare to the Segmentation Node with the Kidneys, by selecting the Segmentation
     1. Select the Segmentations node with the kidneys on the right-hand side
     2. Select "right lung, left lung, and other" on the left side
     3. Click on the `+>` icon
-    4. The segmentations should be now be copied over to the right (and are now part of that segmentation node).
+    4. The segmentations should now be copied over to the right (and are now part of that segmentation node).
     
     ![slicer screengrab](images/ctacardio-segmentations-copy-MOVED.png){ width="450"}
 
-Ok, great. Now we have a single segmentation node that contains all the segments we want to proces. But, since Lung segmentation had layers, those layers have been transferred to the new segmentation node. Having layers makes things kind of hard to process, so let's get rid of those layers
+Ok, great. Now we have a single segmentation node that contains all the segments we want to process. But, since Lung segmentation had layers, those layers have been transferred to the new segmentation node. Having layers makes things kind of hard to process, so let's get rid of those layers
 
 !!! abstract "Collapse Layers in a Segmentation Node"
 
     To collapse the layers, follow these steps:
 
     1. First, save your work (in case something goes horribly wrong)
-    2. Select to the segmentation with the kidneys using the pop-up menu at the to of the Segmentations Module (the `Segmentation` pop-up menu)
+    2. Select the segmentation with the kidneys using the pop-up menu at the top of the Segmentations Module (the `Segmentation` pop-up menu)
     3. The segmentations listed in the table should now include both the kidneys and the lungs
     4. Open the "Binary labelmap layers" tab 
     5. Check on: "Force collapse to a single layer"
@@ -527,11 +527,11 @@ Ok, great. Now we have a single segmentation node that contains all the segments
 
 ### Total Segmentator
 
-TotalSegmentator is a 3D Slicer extension for fully automatic whole body CT segmentation using the "TotalSegmentator" AI model. You can find Total Tegmentator in the Modules Menu, under the Segmentations Submenu.
+TotalSegmentator is a 3D Slicer extension for fully automatic whole body CT segmentation using the "TotalSegmentator" AI model. You can find Total Segmentator in the Modules Menu, under the Segmentations Submenu.
 
 ![module menu](images/mod-menu-TotalSegmentator.png){ width="450"}
 
-Use the following settings to Segment all the organs found in CTACardio Crop. Be sure to used the Cropped volume (to best compare with your Kidney segmentations)
+Use the following settings to Segment all the organs found in CTACardio Crop. Be sure to use the Cropped volume (to best compare with your Kidney segmentations)
 
 ![total segmentator settings](images/CTAcardio-totalSegmentator-settings.png){ width="450"}
 

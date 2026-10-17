@@ -35,9 +35,9 @@ Slicer includes many sample datasets, which you can find in the Sample Data Modu
 
 ![Screen shot of 3D Slicer showing loaded CTChest dataset](images/CTChest-Load.png){ width="450"}
 
-??? question "Which panel shows the original data as it was capture and which panels show the Multiplanar reconstructions"
+??? question "Which panel shows the original data as it was captured and which panels show the Multiplanar reconstructions?"
 
-    CT data is captured along the axial plane, which is shown in the Red Viewer (Coronal Slices). You can tell because this data set is circular (actually columnar). The other two viewers display the [MPRs](http://www.wikiradiography.net/page/Multiplanar+Reconstruction+(MPR)).
+    CT data is captured along the axial plane, which is shown in the Red Viewer (Axial Slices). You can tell because this data set is circular (actually columnar). The other two viewers display the [MPRs](http://www.wikiradiography.net/page/Multiplanar+Reconstruction+(MPR)).
 
 ### Layout Menu
 
@@ -65,7 +65,7 @@ To remove the volume from Slicer, right-click on the "CTChest" and select "Delet
 
 ## Navigation and Control
 
-To explore the dataset, you will want to scroll through the slices, zoom in, or drag th image around.
+To explore the dataset, you will want to scroll through the slices, zoom in, or drag the image around.
 
 !!! note "The following are specific to each viewer. So, move the mouse over one of the viewers before attempting."
 
@@ -97,7 +97,7 @@ You can align the location of all three viewers, by **holding down the shift but
 
 ## Data Probe
 
-The data probe returns information about the image under the mouse arrow head, so  move the cursor over one of the images. Here is an example of what you might see if you over the mouse arrow over the red panel:
+The data probe returns information about the image under the mouse arrow head, so  move the cursor over one of the images. Here is an example of what you might see if you hover the mouse arrow over the red panel:
 
 ![data probe](images/data-probe-red-panel.png){ width="350"}
 
@@ -108,7 +108,7 @@ The data probe returns information about the image under the mouse arrow head, s
     In the above example,
 
     - "Red" means red panel
-    - (R 1.9, A 93.4, I, 35) Anatomical coordinate information in RAS space. So, in this case, Right, Anterior, and Inferior. 
+    - (R 1.9, A 93.4, I 35) Anatomical coordinate information in RAS space. So, in this case, Right, Anterior, and Inferior. 
     - B CTChest (254, 103, 125) -977 indicates the image Coordinate information with intensity data, as follows: (X,Y,Z) I
 
 ??? question "What intensity value is bone? Air? tissue?"
@@ -139,9 +139,9 @@ The Volume module contains information about the active volume.
 
 [volumes_module_button]:images/volumes_module_button.png
 
-- Set the active volume to CTChest (if its not already that)
+- Set the active volume to CTChest (if it's not already)
 
-There should only be one volume to choose in the active volume menu. If there are more than one volume, than you have inadvertently loaded multiple volumes. Be sure to select the correct volume "CTChest"
+There should only be one volume to choose in the active volume menu. If there is more than one volume, then you have inadvertently loaded multiple volumes. Be sure to select the correct volume "CTChest"
 
 ### Volume Information Tab
 
@@ -166,7 +166,7 @@ There should only be one volume to choose in the active volume menu. If there ar
 
 ??? question "Compare the resolution of the images in the red panel vs the Green and Yellow panels? Do you notice any difference in the resolution? If so, why do you think this is?"
 
-    In the axial view (red viewer), we are see the XY side of the voxel. These are packed more close together, so the resolution appears higher. In the other two viewers, we are seeing multiplanar reconstrutions (MPR) of the voxels, so the XZ or YZ sides, which are spaced further apart, since the voxels are anisotropic.
+    In the axial view (red viewer), we see the XY side of the voxel. These are packed more closely together, so the resolution appears higher. In the other two viewers, we are seeing multiplanar reconstructions (MPR) of the voxels, so the XZ or YZ sides, which are spaced further apart, since the voxels are anisotropic.
 
 ??? question "What is the range of intensity values for this dataset? What is the likely bit depth of this stack?"
 
@@ -176,7 +176,7 @@ There should only be one volume to choose in the active volume menu. If there ar
 
 We can adjust the contrast or change the Lookup table using the controls in the Display tab.
 
-Click on the triangle icon besides the Name "Display" to reveal the display controls
+Click on the triangle icon beside the Name "Display" to reveal the display controls
 
 ![ctchest display](images/ctchest_display_tab.png){ width="450"}
 
@@ -189,16 +189,16 @@ You can also adjust the Lookup table. Try different LUTs for the LULz.
 
 #### Histogram
 
-To better understand the Window/Level settings, reveal the histogram display by clicking on the triangle icon next the Histogram Header:
+To better understand the Window/Level settings, reveal the histogram display by clicking on the triangle icon next to the Histogram Header:
 
 ![img-name](images/ctchest-display-histogram.png){ width="450"}
 
 >Here you see the plot of the image histogram (blue line). There is also a black-white gradient overlaid on the blue. This gradient indicates the Window/Level settings.
-  
-    - Change the Window/Level Presets and notice what happens to the gradient
-    - Drag the Window/Level sliders back and forth and notice what happens to the gradient and the image display
 
-In summary, the Window/Level doesn't change the image histogram, it changes the mapping of the lookup table (changing what is displayed as black and what is displayed as white, and what is displayed as gray in between). Level sets the black and white levels. Window determines the distance between the black and white levels (and the intensities that are shown as gray).
+- Change the Window/Level Presets and notice what happens to the gradient
+- Drag the Window/Level sliders back and forth and notice what happens to the gradient and the image display
+
+In summary, the Window/Level doesn't change the image histogram, it changes the mapping of the lookup table (changing what is displayed as black and what is displayed as white, and what is displayed as gray in between). Level sets the center of the gray-scale range (the intensity shown as mid-gray). Window sets the width of that range: intensities below it are shown as black, intensities above it as white, and intensities within it as shades of gray.
 
 #### Mouse Control of Window / Level
 
@@ -208,7 +208,7 @@ You can also control the Window/Level settings using the mouse and dragging on t
 
     ![img-name](images/button-window-level-set.png){ width="50"}
 
-2. The click-and-drag on the image in one of the viewers.
+2. Then click-and-drag on the image in one of the viewers.
 
     - Dragging up and down adjusts the levels
     - Dragging left and right adjusts the window sizes
@@ -216,7 +216,7 @@ You can also control the Window/Level settings using the mouse and dragging on t
 
 ##### Selection Mode
 
-If instead you would like to set the window / level based on the pixel intensity of a certain region of the image, you switch to "Select region" or "Select region - centered" mode, hold down on the triangle icon next to the  Adjust Window Level icon to bring up the context menu:
+If instead you would like to set the window / level based on the pixel intensity of a certain region of the image, switch to "Select region" or "Select region - centered" mode: hold down on the triangle icon next to the Adjust Window Level icon to bring up the context menu:
 
 ![img-name](images/window-level-button-menu.png){ width="250"}
 
@@ -224,7 +224,7 @@ Once the "Select region" menu item is selected, then you can draw a rectangular 
 
 ![img-name](images/window-level-select-region-adjustment.png){ width="250"}
 
-To exit the Window/leveling mode, click on the white arrow button next the adjustment button in the toolbar: ![img-name](images/button-white-arrow.png){ width="20"}
+To exit the Window/leveling mode, click on the white arrow button next to the adjustment button in the toolbar: ![img-name](images/button-white-arrow.png){ width="20"}
 
 ## Display Slices in 3D
 
@@ -254,7 +254,7 @@ You can display the 2D slices in the 3D viewer as follows:
   Basic controls of 3D Viewer
     - **Rotate:** drag on 3D view
     - **Pan:** shift-drag on 3D view to reposition the slices
-    - **Zoom:** scroll on the 3D view or  (or click on + or -) - to zoom in and out
+    - **Zoom:** scroll on the 3D view (or click on + or -) to zoom in and out
     - **Recenter:** click on the "Fit to Window" icon
   
   Slices are linked between the 2D and 3D views
@@ -289,15 +289,15 @@ To do so:
 
 !!! tip "Adjust Settings to add Orientation Marker and remove slice edges on Launch"
 
-    If you want these orientation markers to be added on launch of Slicer, you can set the default the Slicer Settings. You can also remove those annoying Slice Edge views
+    If you want these orientation markers to be added on launch of Slicer, you can set the defaults in the Slicer Settings. You can also remove those annoying Slice Edge views.
     
-    Review the [Customize Slicer Page](CustomizeSlicer.md) for more detailed information on hwo to do this
+    Review the [Customize Slicer Page](CustomizeSlicer.md) for more detailed information on how to do this
 
 ### Adjust 3D Slice display
 
 By default, each orthogonal slice in the 3D viewer is displayed as a rectangular plane. If there is extraneous information in the plane (like area where data was not generated), you can remove that area using the threshold setting in the Volumes Module
 
-1. Switch the Volumes module
+1. Switch to the Volumes module
 
     ![][volumes_module_button]
 
@@ -305,7 +305,7 @@ By default, each orthogonal slice in the 3D viewer is displayed as a rectangular
 
 ![img-name](images/volumes-threshold-slider-adjust.png){ width="350"}
 
-- the axial plane in the 3D viewer is now a circular (displaying only the data that was captured)
+- the axial plane in the 3D viewer is now circular (displaying only the data that was captured)
 
     ![img-name](images/CTChest-3D-orthogonal-planes-threshold.png){ width="250"}
 
@@ -387,7 +387,7 @@ We can add the orthogonal slices back to the 3D Viewer to show the render inters
 
 ![img-name](images/CTChest-3D-Render-Crop-OrthoSlice.png){ width="350"}
 
-* What happens to the slice in the 3D window as you scroll over the view axial viewing pane?
+* What happens to the slice in the 3D window as you scroll over the axial viewing pane?
 
 ## Screenshot - capture
 
@@ -432,7 +432,7 @@ So, each time you work with a volume in Slicer, you generate a lot of files, and
 We are working on the CTChest volume, so let's create a new folder called CTChest.
 
 1. Make sure that all of the files are checked on the left-hand side.
-2. Click on the on the "Change directory for selected files" button.  
+2. Click on the "Change directory for selected files" button.  
 3. A File Dialog will appear.
 4. Create a new folder called CTChest. Place it on your desktop
 5. Select this folder
@@ -441,6 +441,6 @@ We are working on the CTChest volume, so let's create a new folder called CTChes
 
     ![img-name](images/CTChest-save-dialog-new-directory.png){ width="450"}
 
-   - Now all of the files will now be saved in the CTChest Folder on the Desktop
+   - Now all of the files will be saved in the CTChest Folder on the Desktop
 
 8. Click Save.

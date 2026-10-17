@@ -13,7 +13,7 @@
 
 PyTorch is a python library for machine learning. Slicer uses this library to run Total Segmentator. Sometimes, this library needs to be updated to be compatible with the latest version of Total Segmentator.
 
-The latest version of Total Segmentator requires a version Pytorch greater than 2.0. Bring up the PyTorch Utils module to check what version of PyTorch you have installed.
+The latest version of Total Segmentator requires a version of PyTorch greater than 2.0. Bring up the PyTorch Utils module to check what version of PyTorch you have installed.
 
 ![img-name](images/mod-menu-pytorch.png){ width="450"}
 
@@ -27,7 +27,7 @@ If your Torch version is < 2.0
 2. `Restart the application`
 3. Bring up PyTorch Utils again.
 4. Set the **Torch version requirement** to: `>=1.12`
-5. If you have a Mac or and AMD Windows machine, set the **Computation backend** to `CPU`. Otherwise, if you have a NVIDIA graphics card, leave as `automatic`
+5. If you have a Mac or an AMD Windows machine, set the **Computation backend** to `CPU`. Otherwise, if you have an NVIDIA graphics card, leave as `automatic`
 6. `Install PyTorch`
 
 ![img-name](images/pytorch-utilities-install.png){ width="450"}
@@ -60,7 +60,7 @@ Finally, you should get some segmentations.
 
 ### Show the Segmentations in 3D
 
-1. Switch to the **Segmentation Editor**
+1. Switch to the **Segment Editor**
 2. Click on **Show 3D**
 
 ### Hide some Segmentations

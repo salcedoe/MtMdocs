@@ -8,7 +8,7 @@ This exercise is based on the following Slicer tutorial: [pdf](https://www.dropb
 
 - The most common type of primary brain tumor: ~30% of all brain tumors
 - These tumors originate in the Meninges
-    - Three protective layers that surrounds and supports the brain
+    - Three protective layers that surround and support the brain
     - Dura, Arachnoid, and Pia mater
 -  Meningiomas grow out of the arachnoid (the middle layer of the meninges). 
     -  Their growth can press against the brain or spinal cord and cause serious problems. 
@@ -95,7 +95,7 @@ Then inspect Tumor 2.
 - measures 3.10 cm anteroposteriorly and 3.51 cm in height.
 - enhances moderately on post gadolinium imaging.
 
-### volume Render the Tumors
+### Volume Render the Tumors
 
 In this step, we will render the MRI volume in 3D and then use the crop tool to crop the volume down to the tumor.
 
@@ -146,8 +146,8 @@ In the Volumes Module, change the colormap of the newly created "MRBT2mvd" volum
 Use the Slice controllers to overlay Tumor1 with MRBT2mvd.
 
 - **Foreground**: `MRBrainTumor1`
-- **Background**: `MRT2mvd`
-- Adjust LUT for MRT2mvd (so its not so overexposed)
+- **Background**: `MRBT2mvd`
+- Adjust LUT for MRBT2mvd (so it's not so overexposed)
 - Set transparency to 50%
 
 Are they aligned?
@@ -177,7 +177,7 @@ Bring up the Segment Editor and use the following settings:
 
 1. **Segmentation:** Rename new segmentation as `SegTumor1`
    ![img-name](images/seg-editor-rename-segment.png){ width="450"}
-2. **Master Volume:** Set to `MRBrainTumor1`
+2. **Source Volume:** Set to `MRBrainTumor1`
 3. Create a new Segmentation called Tumor1
 4. Create another segmentation called Not_tumor
 
@@ -194,12 +194,12 @@ The threshold tool allows you to select a range of intensities to segment. Here,
 3. Notice that the cursor has the icon of the Threshold tool in one corner
 4. Click and hold on the center of the tumor
 5. A yellow circle will appear. As you drag, the circle gets larger
-6. Drag to the edge of the tumor to to capture the intensities in that tumor
+6. Drag to the edge of the tumor to capture the intensities in that tumor
 7. Release the mouse button
 8. Notice that you have just set the Threshold Range in the Threshold module.
     ![threshold settings](images/seg-editor-threshold-125-500.png){ width="450"}
 9. Adjust the range to 125-500 if needed
-   - *The flashing color in the view slicers indicates what will be segmented if you were to click `Apply` (but don't do that)*
+   - *The flashing color in the slice viewers indicates what will be segmented if you were to click `Apply` (but don't do that)*
 10. Click on the `Use for masking` button.
     - This will restrict the paint tool to only paint voxels with an intensity that falls in the intensity range (125-500)
 
@@ -252,7 +252,7 @@ SAVE YOUR WORK!
 Ok, repeat the segmentation for Tumor2, with the following changes:
 
 1. Create a New Segmentation as `SegTumor2`
-2. Change the Master Volume to `MRBT2mvd`
+2. Change the Source Volume to `MRBT2mvd`
 3. Create a new Segment called Tumor2. Change the color of this segment to Blue (or a different color from the original tumor)
 
 ![img-name](images/MRTumor-seg-editor-seg-list2.png){ width="450"}
@@ -276,7 +276,7 @@ Review how slicer organizes the data.
 2. Click on MRBrainTumor1
     - Notice how other items in the Data table light up - these are connected to Tumor1 in some fashion
 3. Hover over one of the Segmentations (Like Tumor1). After a beat, you get information about that volume:
-    >Segment - ID, Segment_1, Representations: Binary labelmap, Closed Surface, Colol: (128, 174,128)
+    >Segment - ID, Segment_1, Representations: Binary labelmap, Closed Surface, Color: (128, 174, 128)
 4. Compare that information to the information that you get for the volumes, like "MRBrainTumor1"
     >Volume (Dimensions: 256 X 256 X 112 Spacing: 0.938 x 0.938 x 1.42mm )
   
@@ -306,7 +306,7 @@ Switch to the **Markups** module to keep track of your markup measurements.
 
 1. Scrub the viewers so that you see the widest aspect of the tumor in each view.
 2. Select the Line Markup tool (the second button from the left)
-3. Measure the tumor by click on one side of the tumor and then on the other side
+3. Measure the tumor by clicking on one side of the tumor and then on the other side
    - Each time you click, Slicer adds a control point (red dot) to the viewer
    - Slicer measures the distance between two sequential control points.
    - Be consistent how you make your measurements

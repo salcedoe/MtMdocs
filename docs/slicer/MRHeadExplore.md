@@ -35,7 +35,7 @@ Switch to the `Volume Rendering` module.
 1. Lobes and Sulci
     - temporal lobe
     - occipital lobe
-    - Parieto occiptal sulcus
+    - Parieto-occipital sulcus
     - Calcarine Sulcus
     - Uncus
     - Cingulate Gyrus

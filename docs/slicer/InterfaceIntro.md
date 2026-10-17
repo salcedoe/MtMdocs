@@ -2,7 +2,7 @@
 
 ![3D slicer logo](images/3D-Slicer-Logo.png){ width="150"}
 
-3D Slicer is an application used to visualize and analyze medical image datasets like CT scans or MRI dataset. In this course, we will also use Slicer to segment and render anatomical objects in these datasets.
+3D Slicer is an application used to visualize and analyze medical image datasets like CT or MRI scans. In this course, we will also use Slicer to segment and render anatomical objects in these datasets.
 
 ## Useful Slicer Documentation
 
@@ -20,7 +20,7 @@
 
 ### Application Menu
 
-Slicer has four fairly simple menus
+Slicer has four fairly simple menus.
 
 ### Toolbar
 
@@ -33,7 +33,7 @@ The Toolbar provides quick access to commonly used functions.
 There are two types of viewers in 3D Slicer
 
 - **2D Viewers**: Display orthogonal cross-sections of the volume data
-- **3D Viewers**: Displays 3D Renderings and/or orthogonal slices in 3D space.
+- **3D Viewers**: Display 3D renderings and/or orthogonal slices in 3D space.
 
 In the default view, there are three 2D slice viewers: Red, Yellow, and Green. These typically correspond to the axial, sagittal, and coronal anatomical planes (see the Red, Yellow, and Green Slice viewers shown above). There is also one 3D viewer, which shows anything being rendered in 3D.
 
