@@ -85,6 +85,7 @@ nav:
       - volumeProcessing/index.md
       - Medical Volume Viewer: volumeProcessing/medVolumeViewer.md
       - Rendering with volshow: volumeProcessing/volshow.md
+      - Rendering Confocal Volumes: volumeProcessing/renderingConfocalVolumes.md
       - Surface Rendering:
         - Creating Surface Models: volumeProcessing/surfaceModels.md
         - Rendering Medical Datasets: volumeProcessing/medicalSurfaceRendering.md

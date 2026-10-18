@@ -39,7 +39,7 @@ MATLAB offers several ways to render volumes and surfaces. They overlap quite a 
 | Tool | Kind | Renders | Best for | Requires | Learn more |
 | :--- | :--- | :------ | :------- | :------- | :--------- |
 | **Medical Volume Viewer**<br>`medicalVolumeViewer` | App | Volume, isosurface, label overlays | Interactively exploring CT and MRI datasets using medical alphamap presets (e.g., CT-Bone, CT-Lung), displayed in patient coordinates | Medical Imaging Toolbox, R2026a+ | [Medical Volume Viewer](medVolumeViewer.md) |
-| **Volume Viewer**<br>`volumeViewer` | App | Volume, isosurface, slice planes | Interactively exploring non-medical volumes, like confocal or EM stacks | Image Processing Toolbox | [MATLAB documentation](https://www.mathworks.com/help/images/ref/volumeviewer-app.html){target="_blank"} |
+| **Volume Viewer**<br>`volumeViewer` | App | Volume, isosurface, slice planes | Interactively exploring non-medical volumes, like confocal or EM stacks | Image Processing Toolbox | [Rendering Confocal Volumes](renderingConfocalVolumes.md) |
 | **`volshow`** + **`viewer3d`** | Function | Volume, isosurface, slice planes, label overlays | Scripted, reproducible renders in live scripts; combining several volumes in one scene | Image Processing Toolbox, R2022b+ | [Rendering with volshow](volshow.md) |
 | **`isosurface`** + **`patch`**<br>(`mmPlotMask2Surface`, `mmPlotAllSeg`) | Function | Surface | Smooth surface models that you can measure, move, rotate, scale, or export for 3D printing | MATLAB only | [Creating Surface Models](surfaceModels.md),<br>[Rendering Medical Datasets](medicalSurfaceRendering.md) |
 | **`images.ui.graphics.Surface`** | Function | Surface (in a `viewer3d` scene) | Placing a surface in the same scene as a `volshow` render | Image Processing Toolbox, R2022b+ | [Rendering with viewer3d](medicalSurfaceRendering.md#rendering-with-viewer3d) |
@@ -68,6 +68,7 @@ Most of the Volume Processing section needs **MATLAB R2022b or later** with two 
     | [Viewing Image Slices](volumeVisualization.md) | — | Image Processing |
     | [Medical Volume Viewer](medVolumeViewer.md) | **R2026a** | Medical Imaging |
     | [Rendering with volshow](volshow.md) | R2022b | Image Processing, Medical Imaging |
+    | [Rendering Confocal Volumes](renderingConfocalVolumes.md) | R2022b | Image Processing, bfmatlab (for `mmReadImgND`) |
     | [Creating Surface Models](surfaceModels.md) | — | MATLAB only (the optional figure code uses `volumeViewer` from the Image Processing Toolbox) |
     | [Rendering Medical Datasets](medicalSurfaceRendering.md) | R2022b | Image Processing, Medical Imaging |
     | [Transforming Surface Models](surfaceModelTransformation.md) | R2023b (for the `abyss` colormap) | MATLAB only |
