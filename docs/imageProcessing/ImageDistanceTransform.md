@@ -22,6 +22,7 @@ Before we get to pixels, though, it's worth reviewing where "distance" comes fro
 - Calculate the distance between two points using the Pythagorean theorem and **`hypot`**
 - Explain what the distance transform (**`bwdist`**) measures, and what a zero in its output means
 - Use **`imregionalmax`** to find the ridge lines exactly halfway between objects
+- Explain how the watershed transform uses the distance transform to separate touching objects
 - Threshold a distance transform to draw a ring of a specific width around a mask
 - Use **`imreconstruct`** to keep only the objects in one mask that touch a marker in another
 - Normalize a count (like nuclei touching a duct) by a size measurement (like perimeter) to make fair comparisons across objects of different sizes
@@ -41,6 +42,7 @@ Before we get to pixels, though, it's worth reviewing where "distance" comes fro
 - [imregionalmax](https://www.mathworks.com/help/images/ref/imregionalmax.html): Regional maxima of an image
 - [imreconstruct](https://www.mathworks.com/help/images/ref/imreconstruct.html): Morphological reconstruction
 - [bwconncomp](https://www.mathworks.com/help/images/ref/bwconncomp.html): Find connected components in a binary image
+- [watershed](https://www.mathworks.com/help/images/ref/watershed.html): Watershed transform (used by the course function `mmGetWatershed`)
 
 ---
 
@@ -72,7 +74,7 @@ text(1, 2.5, 'c = ?')
 
 ![the triangle's vertices and filled face, with the hypotenuse labeled as unknown](images/dt-triangle-vertices.png){ width="250"}
 
-How long is the hypotenuse, *c*? The Pythagorean theorem gives us the answer, once we know the lengths of the two legs, *a* and *b*:
+How long is the hypotenuse, *c*? The Pythagorean theorem gives us the answer, once we know the lengths of the two legs, *a* and *b*, which we can calculate from the x and y positions of the vertices.
 
 ```matlab linenums="1" title="Pythagorean theorem"
 a = 3-0; % length of a
@@ -205,6 +207,37 @@ imshow(B2,parula(35))
 
     Euclidean gives a circle, cityblock gives a diamond, and chessboard gives a square—a nice reminder that "distance" is a choice, not just a fact about the pixels.
 
+### Distance Transform and the Watershed
+
+So far, we have measured each pixel's distance *to* the `TRUE` pixels with `bwdist(BW)`. If you invert the mask with `~`, you get the opposite: `bwdist(~BW)` gives every pixel *inside* an object its distance to the nearest background pixel. The center of each object has the largest value, and the values fall off toward its edges. Where two objects touch, the distance dips at the narrow "neck" between them.
+
+That dip is what lets us separate touching objects. The course function **`mmGetWatershed`** does this in three steps:
+
+1. **Distance transform.** It computes `bwdist(~BW)` and inverts it (`-bwdist(~BW)`), which turns the center of each object into the bottom of a basin.
+2. **Choose the basins.** It uses **`imextendedmin`** to keep only the basins that are deep enough to count as separate objects (see below).
+3. **Flood the basins.** The **`watershed`** function "floods" each basin and draws a dividing line wherever two basins meet, right at the neck between touching objects. Setting those dividing pixels to `false` splits the objects apart.
+
+![watershed steps](images/strawberry-watershed-steps.png){ width="650"}
+
+>**`mmGetWatershed` with `ShowSteps=true`**, applied to the strawberry mask from [Color Segmentation](ImageColorSegmentation.md#separating-touching-objects). **Left:** the inverted distance transform, where each strawberry's center is a dark basin. **Middle:** the watershed regions, with the basins chosen by `imextendedmin` overlaid in yellow. **Right:** the mask before and after separation; the green lines are the pixels removed to split touching strawberries.
+
+#### Choosing the Basin Depth
+
+The second input to `mmGetWatershed` is the **minimum basin depth**, measured in pixels of distance. An object is split off from its neighbor only if its center is at least that many pixels farther from the background than the narrowest point of the neck between them. Shallower basins are merged with their neighbors.
+
+- **Larger values** split fewer objects. They are conservative and keep a single, irregularly shaped object from being cut into pieces (*over-segmentation*).
+- **Smaller values** split more objects. They separate tightly fused objects, but increase the risk of over-segmentation.
+
+You can also pass a vector of depths to run the watershed several times. For example, `mmGetWatershed(BW,[3 2 2])` runs three passes, going from conservative to aggressive: the first pass makes only the obvious splits, and the later passes split the objects that are still fused.
+
+#### Where the Watershed Is Used in This Course
+
+- **[Color Segmentation](ImageColorSegmentation.md#separating-touching-objects):** separating touching strawberries and candies (`mmGetWatershed(mask,5)`)
+- **[Classifying Kidney Tubules](#segmenting-nuclei-and-ducts)** (below): separating touching nuclei (`mmGetWatershed(nuc.mask,[3 2 2])`)
+- **[Volume Segmentation](../volumeProcessing/volumeSegmentation.md#example-bubbles):** separating touching bubbles in a 3D volume (`mmGetWatershed(Mask,[3 1])`). `bwdist` works the same way in 3D; the depth is simply measured in voxels instead of pixels.
+
+See the [`mmGetWatershed` reference](../reference/courseFunctions.md#mmgetwatershed) for all of its options.
+
 ## Example: Classifying Kidney Tubules
 
 Consider this cross-section through kidney tissue:
@@ -241,7 +274,7 @@ nuc.mask = p.label == nucLabel;
 
 ![raw nuclei mask from k-means](images/kidney-nuclei-raw.png){ width="650"}
 
->Nice—the nuclei are correctly identified. A standard morphological cleanup (fill holes, remove small noise) followed by a repeated watershed (run three times, with progressively smaller minima, to separate touching nuclei) finishes the job:
+>Nice—the nuclei are correctly identified. A standard morphological cleanup (fill holes, remove small noise) followed by a repeated [watershed](#distance-transform-and-the-watershed) (run three times, with progressively smaller basin depths, to separate touching nuclei) finishes the job:
 
 ```matlab linenums="1" title="Clean and separate the nuclei"
 nuc.mask = imfill(nuc.mask, 'holes');

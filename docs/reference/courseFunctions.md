@@ -164,29 +164,30 @@ nexttile; imshow(img2)
 
 ### mmGetWatershed
 
-Performs the necessary steps for the watershed transformation of a mask. Based on this [MATLAB blog](http://blogs.mathworks.com/steve/2013/11/19/watershed-transform-question-from-tech-support/)
+Separates touching objects in a 2D or 3D mask using the watershed transform. The function inverts the distance transform of the mask so that each object's center becomes a basin, keeps only the basins that are deep enough, and then floods them with the watershed transform. The dividing lines between basins are cut out of the mask. See [Distance Transform and the Watershed](../imageProcessing/ImageDistanceTransform.md#distance-transform-and-the-watershed) for a full explanation. Based on this [MATLAB blog](https://blogs.mathworks.com/steve/2013/11/19/watershed-transform-question-from-tech-support/).
 
 ![watershed example](images/mmGetWatershed_example.png){ width="450"}
 
 **INPUTS**
 
-- **BW**:  logical array (2D or 3D)
-- **PixSz**: Pixel Size of the extended regional minima inside the blobs being separated. The smaller the value, the smaller the extended regional minima - see imextendedmin
+- **BW**: logical array (2D or 3D), the mask to separate
+- **PixSz**: minimum basin depth, in pixels (2D) or voxels (3D) of distance. An object is split from its neighbor only if its center is at least `PixSz` pixels farther from the background than the narrowest point of the neck joining them. Larger values split fewer objects (conservative); smaller values split more (aggressive). A vector, e.g. `[5 3 1]`, runs one pass per value. Passed to `imextendedmin` as `H`. Default: `3`
 
-**OPTIONAL INPUTS**
+**OPTIONAL INPUTS (name-value)**
 
-- **conn**: connectivity  - see imextendedmin
-- **ShowSteps**: boolean - display watershed steps
+- **conn**: connectivity passed to `imextendedmin` and `watershed` (e.g. 4 or 8 in 2D; 6, 18, or 26 in 3D). Default: `0`, which uses the MATLAB defaults (8 in 2D, 26 in 3D)
+- **ShowSteps**: logical. If `true`, displays each pass (2D only): the inverted distance transform, the watershed regions with the chosen basins overlaid, and the mask before vs. after. Default: `false`
 
-**OUTPUT**
+**OUTPUTS**
 
-- **BW**: Watershed transformed Mask
+- **BW**: the mask with touching objects separated
+- **pLd1**: (optional) watershed label matrix from the last pass, before it is masked to `BW`
 
 ```matlab linenums="1" title="Examples" 
-BW = mmGetWatershed(BW,5);
-BW = mmGetWatershed(BW,5,ShowSteps=true); % displays transformation steps
-BW = mmGetWatershed(BW,5,8); % pixel size 5, connectivity 8
-BW = mmGetWatershed(BW,[5 3 1]);  % runs the watershed 3 times with 3 different pixel sizes
+BW = mmGetWatershed(BW,5);                 % one pass, basin depth 5
+BW = mmGetWatershed(BW,5,ShowSteps=true);  % display the steps
+BW = mmGetWatershed(BW,5,conn=4);          % basin depth 5, 4-connectivity
+BW = mmGetWatershed(BW,[5 3 1]);           % three passes, depths 5, 3, then 1
 ```
 
 ### mmGetTextureFilters

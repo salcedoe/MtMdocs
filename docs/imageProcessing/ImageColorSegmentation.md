@@ -166,7 +166,7 @@ Masks that lump multiple touching objects into one blob will undercount them. Be
 
 ![cleaned strawberry mask](images/strawberry-cleaned-mask.png){ width="550"}
 
-Then apply the **watershed transform**, which can detach regions that are only barely touching. The course function **`mmGetWatershed`** automates the usual multi-step watershed recipe. Its `ShowSteps` option visualizes what's happening under the hood: the distance transform (left), the watershed regions with their seed points overlaid (middle), and the mask before and after separation (right):
+Then apply the **watershed transform**, which can detach regions that are only barely touching. The course function **`mmGetWatershed`** automates the usual multi-step watershed recipe, which is built on the distance transform (see [Distance Transform and the Watershed](ImageDistanceTransform.md#distance-transform-and-the-watershed) for how it works). Its `ShowSteps` option visualizes what's happening under the hood: the distance transform (left), the watershed regions with their seed points overlaid (middle), and the mask before and after separation (right):
 
 ![watershed steps](images/strawberry-watershed-steps.png){ width="650"}
 

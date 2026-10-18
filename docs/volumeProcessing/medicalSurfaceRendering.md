@@ -124,9 +124,9 @@ title("Right Kidney")
 
 ![surface render of right kidney](images/surface-render-right-kidney.png){ width="250"}
 
-## Rendering using the Medical Imaging Toolbox
+## Rendering with `viewer3d`
 
-You can also render a segment using the Medical Imaging Toolbox, as follows:
+You can also render a segment in a `viewer3d` scene using `images.ui.graphics.Surface`, as follows:
 
 ```matlab
 hvr = viewer3d("BackgroundColor",'white','BackgroundGradient','off'); % create viewer
