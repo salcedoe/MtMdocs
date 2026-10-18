@@ -24,6 +24,10 @@ In addition to depth, image stacks can also contain color or time information. T
 
 >So, in an `XYCZT` volume, the first 2 dimensions, X and Y, contain information for a given image plane in the volume, while the higher dimensions represent color, depth, and time, in that order. Note that the order of dimensions can vary depending on the imaging system or software used. For instance, some volumes may be organized as XYZCT or follow another similar permutation.
 
+!!! note "Rows come first in MATLAB"
+
+    MATLAB arrays are indexed as **rows, then columns**, so the first two dimensions are swapped: an `XYCZT` dataset loads into MATLAB as `YXCZT` (rows × columns × channels × slices × time). For example, the taste bud stack below is `512x512x3x12`: 512 rows (Y), 512 columns (X), 3 channels, and 12 slices. See [Indexing Image Stacks](volumeIndexing.md) for how to work with these dimensions.
+
 ![A color confocal image stack showing taste bud structures](images/image-stack-tastebud-color.png){ width="450"}
 
 >**Color Image Stack**. As you can see in the above volume, a color component was also captured with each slice.

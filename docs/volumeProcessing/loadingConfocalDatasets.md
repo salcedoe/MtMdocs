@@ -105,7 +105,7 @@ ans =
 The function **`imread`** can read slices from a .TIF image stack. To read in a slice, you call **`imread`** as you would for a 2D image. The following code loads the first slice from a 3D image stack.
 
 ```matlab linenums="1" title="Read a single slice using imread"
-slice = imread("TasteBud3D.tif") % read in the first slice
+slice1 = imread("TasteBud3D.tif") % read in the first slice
 ```
 
 If you want to load a different slice, you indicate the slice number as a second input to **imread**:
@@ -125,8 +125,8 @@ STACK = zeros(num_rows, num_cols, num_slices,'uint8'); % preallocate the variabl
 
 % load image stack slice by slice
 for n=1:num_slices
-    slice = imread("TasteBud3D.tif",n); % read slice from file
-    STACK(:,:,n) = slice; % add slice to incrementing location in stack
+    img = imread("TasteBud3D.tif",n); % read slice from file
+    STACK(:,:,n) = img; % add slice to incrementing location in stack
 end
 ```
 

@@ -79,6 +79,7 @@ nav:
       - Loading Confocal Datasets: volumeProcessing/loadingConfocalDatasets.md
       - Loading Medical Datasets: volumeProcessing/loadingMedicalDatasets.md
     - Volume Visualization: 
+      - Indexing Image Stacks: volumeProcessing/volumeIndexing.md
       - Viewing Image Slices: volumeProcessing/volumeVisualization.md
     - Rendering:
       - volumeProcessing/index.md

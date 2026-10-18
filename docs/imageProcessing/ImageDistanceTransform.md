@@ -96,10 +96,9 @@ c = hypot(a,b) % c = 5
 
 The same trick measures the straight-line (**Euclidean**) distance between any two points—just build the implied triangle:
 
-
 ![the two points with their implied right triangle, sides a, b, and c labeled](images/dt-twopoints-triangle.png){ width="550"}
 
->When measuring two points, visualize the triangle that the two points imply: *a* is the horizontal leg, *b* is the vertical leg, and *c*, the hypotenuse, is the straight-line distance between the points.
+>When measuring two points, visualize the triangle that the two points imply. Then, you just calculate *a* as the horizontal leg and *b* as the vertical leg of the triangle. With those two pieces of information, you then have enough information to calculate *c*, the hypotenuse and straight-line distance between your two points.
 
 ```matlab linenums="1" title="Assign Points"
 pts = [2 3; 5 7] % (2,3) and (5,7)
@@ -129,7 +128,6 @@ dist =
 
      5
 ```
-
 
 ### Length of a Polyline
 

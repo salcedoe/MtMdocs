@@ -8,11 +8,11 @@ This image stack has 4 dimensions. Its size is `512x512x3x12`, where the first t
 
 ## Viewing Individual Slices
 
-A simple way to review the image stack is to index out and view single slices, as follows.
+A simple way to review the image stack is to index out and view single slices, as follows (see [Indexing Image Stacks](volumeIndexing.md) for more on indexing).
 
 ```matlab linenums="1" title="Display single channel slice"
-slice = RGB4(:,:,1,6); % all rows, all columns, channel 1, slice 6
-imshow(slice)
+redSlice = RGB4(:,:,1,6); % all rows, all columns, channel 1, slice 6
+imshow(redSlice)
 title("Red Channel, Slice 6")
 ```
 
@@ -64,7 +64,7 @@ montage(BLUE)
 
 ## Max Projections
 
-Another way to view an image stack is as a max projection, which enhances visibility by collapsing the brightest structures across slices into a single image. This technique is particularly useful for highlighting features that span multiple slices or for summarizing the entire stack in one view. It's like an aerial view of the image stack.
+Another way to view an image stack is as a [max projection](volumeIndexing.md#max-projections), which enhances visibility by collapsing the brightest structures across slices into a single image. This technique is particularly useful for highlighting features that span multiple slices or for summarizing the entire stack in one view. It's like an aerial view of the image stack.
 
 Here, we create a max projection of the BLUE array we created above. Recall that *`BLUE`* is a 3D array where the z-axis is in the 3rd dimension:
 
