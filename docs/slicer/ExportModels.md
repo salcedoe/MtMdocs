@@ -47,4 +47,4 @@ For this example, we will use the segmentations that we generated for the [CTACa
 
 Post your models on [Sketchfab](https://sketchfab.com/feed).
 
-[Instructions for posting on Sketchfab](SKETCHFAB-upload-model.pdf)
+[Instructions for posting on Sketchfab](SketchfabUpload.md)

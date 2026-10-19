@@ -114,6 +114,7 @@ nav:
     - Surface Models:
       - Creating Surface Models: slicer/CreateModels.md
       - Exporting Models: slicer/ExportModels.md
+      - Uploading to Sketchfab: slicer/SketchfabUpload.md
     - Generating Animations:
       #- Screen Capture Module: slicer/ScreenCapture.md
       - Image sequence to video (MAC): slicer/ImageSequenceToVideo.md
