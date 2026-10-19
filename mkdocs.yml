@@ -71,6 +71,7 @@ nav:
       - Introduction: imaging/medicalImagingIntro.md
       - X-ray Imaging: imaging/XrayImaging.md
       - CT Imaging: imaging/CTImaging.md
+      - MRI: imaging/MRImaging.md
       - MRI Atlas: imaging/Liesel_Brain_Atlas.html    
   - Volume Processing: 
     - Overview: volumeProcessing/volumeOverview.md
