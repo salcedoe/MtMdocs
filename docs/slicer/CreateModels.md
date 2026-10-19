@@ -4,7 +4,7 @@ So far, we have created segmentations packaged into segmentation volumes (aka la
 
 Segmentations are useful for masking regions of interest in a volume and for calculating statistics, like volume and length. However, they can be a bit unwieldy to manage without specialized software and tend to be rather large. Segmentations are defined by their location in the larger segmentation volume. This can make it difficult to compare multiple masks across multiple segmentation volumes, especially when some of these masks are chiral (e.g. left vs right kidney or femur)
 
-In certain situations, 3D surfaces can offer some advantages. A 3D surface is typically represented as a series of vertices and faces. So, 3D surfaces can be more compact: you can create surfaces of the internal structures, not the entire volume, so they are independent from the segmentation volume. 3D surfaces can be displayed by the major Operating Systems (PC, Mac), and 3D surfaces can be uploaded to websites designed to share and display 3D surfaces (e.g. Sketchfab).
+In certain situations, 3D surfaces can offer some advantages. A 3D surface is typically represented as a series of vertices and faces. So, 3D surfaces can be more compact: you can create surfaces of the internal structures, not the entire volume, so they are independent from the segmentation volume. 3D surfaces can be displayed by the major Operating Systems (PC, Mac), and 3D surfaces can be uploaded to websites designed to share and display 3D surfaces (e.g. [Sketchfab](SketchfabUpload.md)).
 
 ## Creating models from the CTACardio segmentations
 
