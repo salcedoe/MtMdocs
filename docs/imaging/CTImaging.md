@@ -55,7 +55,8 @@ Many projections → computer reconstruction → 2D slice
 
 CT captures Radon transform data, which is often called a **sinogram** because the Radon transform of an off-center point traces a sinusoid. Each horizontal line of a sinogram is a 1D projection of the 2D slice at one angle.
 
-![diagram of a radon transform](images/CT_scan_sprawls.jpg){ width="450"}
+![views and the sinogram](images/ct-views-sinogram.png){ width="720" }
+> **Views become rows of the sinogram**. Left: a simple slice with a soft-tissue body, a dense (bone-like) disc, and a low-density (fat-like) disc. At view 1 (0˚, cyan), vertical rays pass through the slice and the detector records the profile below. At view 90 (90˚, orange), horizontal rays give the profile on the left. Right: the sinogram stacks the profile from every view, one row per angle. The two highlighted rows are the profiles from the left
 
 For each angle, the detectors capture a projection (a line integral): the sum of the *attenuation* of everything along each ray. Brightness in the sinogram therefore corresponds to the total radiographic density along that ray.
 
@@ -67,9 +68,14 @@ For each angle, the detectors capture a projection (a line integral): the sum of
 
 To see the slice, the sinogram must be computationally reconstructed into an image. The simplest method is **back projection** (an inverse Radon transform): each profile is smeared back across the image along the direction it was measured, and the smears from all angles are added up.
 
-![ct one view](images/ct_one_view_sprawls.jpg){ width="450"}
+![back projection of one view](images/ct-backprojection-one-view.png){ width="720" }
+> **Back projection of one view**. X-rays pass through the slice (1), and the detector records a profile (2). Back projection smears that profile back across the image along the direction of the rays (3). One view says *how much* material lies along each ray, but not *where* along the ray it is
 
-![ct two views](images/ct_two_views_sprawls.jpg){ width="450"}
+![back projection of two views](images/ct-backprojection-two-views.png){ width="720" }
+> **Back projection of two views**. The view at 0˚ smears into vertical bands and the view at 90˚ into horizontal bands. Where the bands add up, the dense disc starts to appear
+
+![back projection with more views](images/ct-backprojection-views.png){ width="600" }
+> **Adding more views**. With more views, the object emerges, but even 180 views give a blurry, haloed image without filtering. Filtered back projection (bottom right) recovers the sharp slice. You can make these figures yourself with MATLAB's `radon` and `iradon` functions (see the X1 CT Radon Transform live script)
 
 <video src="../videos/ct-back-projection.mp4" poster="../videos/ct-back-projection.jpg" width="720" style="max-width:100%" autoplay loop muted playsinline controls></video>
 
