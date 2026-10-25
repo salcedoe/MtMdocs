@@ -293,6 +293,24 @@ By choosing TR and TE, the operator controls how much each tissue property contr
 | T2        | Long  | Long  | Bright |
 | PD        | Long  | Short | Intermediate |
 
+!!! note "How short is short?"
+
+    There is no single cut-off between "short" and "long". These are typical values for a spin echo sequence at 1.5 T:
+
+    |        | Short | Long |
+    | :----- | :---- | :--- |
+    | **TR** | Less than about 800 ms (often 400–600 ms) | More than about 2000 ms (often 2000–4000 ms) |
+    | **TE** | Less than about 30 ms (often 10–20 ms) | More than about 80 ms (often 80–120 ms) |
+
+    Values in between give mixed weighting. The ranges make sense when you compare them with the tissues' relaxation times (see [Tissues Relax at Different Rates](#tissues-relax-at-different-rates)):
+
+    - A **short TR** is close to the T1 of soft tissue (about 250–1000 ms), so the next pulse catches each tissue partway through its recovery, and differences in T1 show
+    - A **long TR** is several times longer than the T1 of most soft tissue, so nearly everything has recovered and T1 differences fade
+    - A **short TE** is much shorter than the T2 of soft tissue (about 80–100 ms), so little decay has happened and T2 differences are small
+    - A **long TE** is about as long as the T2 of soft tissue, which is where the differences in T2 decay are largest
+
+    The exact values depend on the scanner and the sequence. T1 gets longer at higher field strength, so TRs are usually a bit longer at 3 T. Faster sequences, such as fast spin echo and gradient echo, use their own ranges.
+
 ![T1, T2 and PD weighted images](images/mri-t1-t2-pd.jpg){ width="541" }
 > **The same brain with T1, T2 and PD weighting**. CSF in the ventricles is dark on T1, bright on T2, and intermediate on PD. Note that the white matter is brighter than the gray matter on T1 and darker on T2 (Image: [KieranMaher](https://commons.wikimedia.org/wiki/File:T1t2PD.jpg), public domain)
 
