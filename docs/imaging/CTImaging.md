@@ -122,21 +122,8 @@ Check the anchors: for water, the numerator is µ<sub>water</sub> − µ<sub>wat
 
 **Negative HU** values attenuate less than water (fat, lung, air) and look darker. **Positive HU** values attenuate more than water (soft tissue, blood, bone) and look brighter. HU values are widely used in clinical practice to tell tissues and pathology apart.
 
-| Substance              | HU                |
-| :--------------------- | :---------------: |
-| Air                    | −1000             |
-| Lung                   | −900 to −500      |
-| Fat                    | −100 to −50       |
-| Water                  | 0                 |
-| CSF                    | 15                |
-| Kidney                 | 30                |
-| Blood                  | +30 to +45        |
-| Muscle                 | +10 to +40        |
-| Grey matter            | +37 to +45        |
-| White matter           | +20 to +30        |
-| Liver                  | +40 to +60        |
-| Soft Tissue, Contrast  | +100 to +300      |
-| Bone                   | +700 to +3000     |
+![Hounsfield scale](images/ct-hounsfield-scale.png)
+> **Where tissues fall on the Hounsfield scale**. Air, lung, and fat attenuate less than water and have negative HU. Soft tissues cluster just above water, between about +10 and +60 HU, which is why they are hard to tell apart on CT. Contrast-enhanced tissue and bone attenuate much more. The gray of each swatch increases with HU; the values are approximate and the swatches are not drawn to scale
 
 ### Windowing: One Scan, Many Views
 
@@ -150,12 +137,15 @@ Anything below the window is black and anything above it is white.
 ![CT windowing](images/ct-windowing-lung.png)
 > **The same chest CT slice in three windows**. The lung window shows the vessels and airways in the lung, the soft-tissue window shows the heart, vessels, and muscle, and the bone window shows the structure of the vertebra and ribs
 
-| Window | Width (W) | Level (L) | Grays span |
+![Windowing scale](images/ct-windowing-scale.png)
+> **How each window maps HU to gray**. Each bar shows the gray that every HU value gets in that window. The orange outline marks the window: HU values inside it are spread from black to white, everything below it is black, and everything above it is white. The narrow brain window gives all of its grays to 0 to +80 HU, while the wide bone window spreads −500 to +1500 HU across the grays
+
+<!-- | Window | Width (W) | Level (L) | Grays span |
 | :----- | :-------: | :-------: | :--------- |
 | Brain  | 80        | 40        | 0 to +80 HU |
 | Soft tissue (abdomen) | 400 | 40 to 50 | about −160 to +250 HU |
 | Lung   | 1500      | −600      | −1350 to +150 HU |
-| Bone   | 2000      | 500       | −500 to +1500 HU |
+| Bone   | 2000      | 500       | −500 to +1500 HU | -->
 
 - **A narrow window shows soft-tissue detail.** Gray and white matter, blood, and edema differ by only tens of HU, so they need the grays packed close together. In a brain window, fractures disappear into solid white.
 - **A wide window shows bone detail.** Cortex, marrow, and fracture lines spread across the grays, but the whole brain collapses into one flat gray, hiding soft-tissue lesions.
