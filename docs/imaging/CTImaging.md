@@ -105,20 +105,27 @@ Plain back projection blurs the image, because every smear also spreads signal i
 
 Each CT voxel stores how strongly that tissue attenuates X-rays, described by its **linear attenuation coefficient (µ)**. Raw µ values depend on the scanner and the X-ray energy, so CT converts them to a standard scale: **Hounsfield units (HU)**. The scale is anchored to two reference materials: **water = 0 HU** and **air = −1000 HU**.
 
-\(HU = 1000 \times \frac{\mu - \mu_{water}}{\mu_{water} - \mu_{air}}\)
+!!! note "Hounsfield Units"
 
-Where:
+    \(HU = 1000 \times \frac{\mu - \mu_{water}}{\mu_{water} - \mu_{air}}\)
 
-- \(\mu\) is the linear attenuation coefficient of the tissue in the voxel
-- \(\mu_{water}\) and \(\mu_{air}\) are the linear attenuation coefficients of water and air
+    Where:
 
-Read the formula in pieces:
+    - \(\mu\) is the linear attenuation coefficient of the tissue in the voxel
+    - \(\mu_{water}\) and \(\mu_{air}\) are the linear attenuation coefficients of water and air
 
-- **Numerator**: how much more (or less) the tissue attenuates than water
-- **Denominator**: the attenuation gap between water and air, used as the ruler
-- **× 1000**: spreads that gap over 1000 steps
+    Read the formula in pieces:
 
-Check the anchors: for water, the numerator is µ<sub>water</sub> − µ<sub>water</sub> = 0, so water is **0 HU**. For air, the fraction becomes −1, so air is **−1000 HU**. Because µ<sub>air</sub> is nearly zero, the formula is often written with just µ<sub>water</sub> in the denominator.
+    - **Numerator**: how much more (or less) the tissue attenuates than water
+    - **Denominator**: the attenuation gap between water and air, used as the ruler
+    - **× 1000**: spreads that gap over 1000 steps
+
+### Check the anchors in the HU formula
+
+- For water, the numerator is µ<sub>water</sub> − µ<sub>water</sub> = 0, so water is **0 HU**.
+- For air, the fraction becomes −1, so air is **−1000 HU**. Because µ<sub>air</sub> is nearly zero, the formula is often written with just µ<sub>water</sub> in the denominator.
+
+### Hounsfield Scale
 
 **Negative HU** values attenuate less than water (fat, lung, air) and look darker. **Positive HU** values attenuate more than water (soft tissue, blood, bone) and look brighter. HU values are widely used in clinical practice to tell tissues and pathology apart.
 
