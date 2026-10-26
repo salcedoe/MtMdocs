@@ -32,6 +32,10 @@ Switch to the `Volume Rendering` module.
 
 ### ID STRUCTURE
 
+Turn off Volume render, but keep axial and coronal slices in the 3D viewer. Toggle slice intersection.
+
+![slice interaction menu](images/MRHead-toggle-slice-interaction-menu.png){ width="250"}
+
 1. Lobes and Sulci
     - temporal lobe
     - occipital lobe
