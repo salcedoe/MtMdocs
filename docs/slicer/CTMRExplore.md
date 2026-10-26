@@ -30,11 +30,15 @@ Select each volume in the Node Tab and then examine in the Volume Information th
 - Scalar Type
 - Scalar Range
 
-!!! note "Volumes Module"
+ The following are three separate screen grabs from the Volume Information tab in the Volumes Module. Notice how the information changes when you select a different volume in the Nodes tab
 
-    The following are three separate screen grabs from the Volume Information tab in the Volumes Module. Notice how the information changes when you select a different volume in the Nodes tab
+<div class="grid cards" markdown>
 
-    ![volume info](images/CT-MR-volume-info.png){ width="450"}
+- ![volume info ctbrain](images/CT-MR-vol-info-CTBrain.png){ width="450"}
+- ![volume info MRBrainT1](images/CT-MR-vol-info-MRBrainT1.png){ width="450"}
+- ![volume info MRBrainT2](images/CT-MR-vol-info-MRBrainT2.png){ width="450"}
+
+</div>
 
 ??? question "Which volume is the largest (has the largest dimensions)?"
 
