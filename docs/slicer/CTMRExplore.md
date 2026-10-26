@@ -10,21 +10,33 @@ Load the "CT-MR Brain" dataset
 
 Use the Data module to review the loaded datasets: ![img-name](images/button-data-module.png){ width="30"}
 
-![CT-MR-data module](images/CT-MR-data.png){ width="450"}
+!!! note "Data Module"
 
->notice that the default is to hide the first two volumes and display MRBrainT2 (only row with an open eye icon)
+    ![CT-MR-data module](images/CT-MR-data.png){ width="450"}
+
+    >**Screen grab from Data Module**. Notice the first two volumes are hidden (eye icons closed) Only MRBrainT2 is being shown (only row with an open eye icon)
 
 ## Volume Information Exploration
 
-1. Open the `Volumes` module and review the Information
-2. Select each volume in the Active Volume Menu and then examine the:
-    - Image Dimensions and Image Spacing
-    - Scalar Type
-    - Scalar Range
+Open the `Volumes` module and review the Information. At the top of the module is the node list, which displays any loaded volumes
 
-![volume infor](images/CT-MR-volume-info.png){ width="450"}
+!!! note "Node List"
 
-??? question "Which is the largest volume (has the largest dimensions)?"
+    ![node list](images/CT-MR-volumes-node-list.png){ width="450"}
+
+Select each volume in the Node Tab and then examine in the Volume Information the following:
+
+- Image Dimensions and Image Spacing
+- Scalar Type
+- Scalar Range
+
+!!! note "Volumes Module"
+
+    The following are three separate screen grabs from the Volume Information tab in the Volumes Module. Notice how the information changes when you select a different volume in the Nodes tab
+
+    ![volume info](images/CT-MR-volume-info.png){ width="450"}
+
+??? question "Which volume is the largest (has the largest dimensions)?"
 
     - The CT volume has the most Z-slices and the most voxels: nearly 20 million voxels (512 X 507 X 76).
     - The MR volumes only have roughly 5 million voxels.
@@ -55,7 +67,11 @@ Use the Data module to review the loaded datasets: ![img-name](images/button-dat
    2. Clicking on the Chain icon to close the chain link
    3. Changing the listed volume
 
-![red menu screen shot](images/CT-MR-red-viewer-menu.png){ width="450"}
+!!! note "Red Slice Viewer"
+
+    ![red menu screen shot](images/CT-MR-red-viewer-menu.png){ width="450"}
+
+    >Link the Chains icon in the red slice viewer and then select a volume to display (e.g. MRBRainT2)
 
 As you scrub through each volume, what differences do you notice right away?
 
@@ -124,8 +140,13 @@ Sync the CTBrain and T1 slices to the tumor location.
 
 We can compare the CT to MR scans by overlaying the volumes. Switch to the `View Controllers` module and set up the viewer volumes as follows:
 
-![img-name](images/CT-MR-view-controllers.png){ width="450"}
->Only Change the Red and Yellow slice controllers. Set the overlay transparency to 0.70
+!!! note "Overlay settings in Slice Viewers"
+
+    ![img-name](images/CT-MR-view-controllers.png){ width="450"}
+    
+    - Notice that the chain icon is unlinked.
+    - Only the Red and Yellow slice controllers overlay two different volumes.
+    - Set the overlay transparency to 0.70 for both.
 
 You should now see the following in the viewers:
 
