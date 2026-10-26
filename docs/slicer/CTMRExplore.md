@@ -1,6 +1,6 @@
 # CT vs MRI
 
-In this exercise, we load a dataset that contains a CT and two MRI volumes, all aligned with each other
+In this exercise, we load a dataset from the same patient that contains a series of CT and MRI registered volumes (all aligned with each other)
 
 ## Sample Data
 
