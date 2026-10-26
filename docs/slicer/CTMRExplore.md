@@ -10,7 +10,7 @@ Load the "CT-MR Brain" dataset
 
 Use the Data module to review the loaded datasets: ![img-name](images/button-data-module.png){ width="30"}
 
-![img-name](images/CT-MR-data.png){ width="450"}
+![CT-MR-data module](images/CT-MR-data.png){ width="450"}
 
 >notice that the default is to hide the first two volumes and display MRBrainT2 (only row with an open eye icon)
 
@@ -22,7 +22,7 @@ Use the Data module to review the loaded datasets: ![img-name](images/button-dat
     - Scalar Type
     - Scalar Range
 
-![img-name](images/CT-MR-volume-info.png){ width="450"}
+![volume infor](images/CT-MR-volume-info.png){ width="450"}
 
 ??? question "Which is the largest volume (has the largest dimensions)?"
 
@@ -39,6 +39,13 @@ Use the Data module to review the loaded datasets: ![img-name](images/button-dat
 ??? question "Which volume has the widest dynamic range?"
 
     The CT volume ranges from -3024 to 1996, so that's the widest range. Notice how CT volumes have negative values, which MR volumes do not
+
+### Change CT Window
+
+1. Make sure CT is showing in the Red Viewer
+2. Select `CTBrain` in the Node view
+3. Under display, select the CT-brain preset
+4. CT display should change to emphasize tissue. Air around Skull should be completely black.
 
 ## Display Volumes in the viewers
 
