@@ -35,6 +35,8 @@ This page covers the following MRI topics: nuclear magnetism, excitation, relaxa
 
 ## Useful Resources
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1CGzk-nV06g?si=zQ8hwauqsPur6w9X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 - [MRI Questions](http://mriquestions.com/index.html)
 - [IMAIOS e-MRI](https://www.imaios.com/en/e-Courses/e-MRI) (requires a free account)
     - [Nuclear Magnetic Resonance](https://www.imaios.com/en/e-Courses/e-MRI/NMR)
@@ -177,6 +179,8 @@ The RF pulse does two things at once: it tips the net magnetization, and it brin
 > **Into phase**. At first the spins rotate out of phase, and their transverse arrows, added head to tail (right), close into a loop: the sum is 0. When the RF pulse switches on, the spins swing into line, the chain straightens, and the sum climbs to 100%
 
 Once the spins rotate together, their transverse parts add up to a net M<sub>xy</sub>: a magnet spinning at the Larmor frequency. That rotating magnet is what produces the MR signal.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/at894kkMQQc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Relaxation and the MR Signal
 
