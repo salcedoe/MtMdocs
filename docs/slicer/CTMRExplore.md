@@ -1,6 +1,6 @@
 # CT vs MRI
 
-In this exercise, we load a dataset from the same patient that contains a series of CT and MRI registered volumes (all aligned with each other)
+In this exercise, we load a dataset from the same patient that contains a series of CT and MRI registered volumes (all aligned with each other).
 
 ## Sample Data
 
@@ -109,36 +109,48 @@ Be sure to fit all the volumes to the Window: ![img-name](images/button-fit-to-w
 - In which volume(s) can you see the white and gray matter most clearly?
 - In which volume is the skull the brightest?
 
-In the **MR volumes**
+<div class="grid cards" markdown>
 
-- Compare the colors of the white vs gray matter
-- Compare the MR volumes to the CT volumes
-- What Structures can you identify?
+- :fontawesome-solid-brain:  **MR Volumes**
 
-In the **T2 Volume**, find:
+    ---
 
-- The uncus
-- The basal ganglia.
-- The thalamus
-- The Cochlea? (Look for the Shrek ears on slice -23.9265mm)
+    - Compare the colors of the white vs gray matter
+    - Compare the MR volumes to the CT volumes
+    - What Structures can you identify?
 
-In the **T1 Volume**, find:
+-  :fontawesome-solid-brain: **CT Volume**
 
-- Corpus Callosum
-- Fornix
-- Cerebral Aqueduct
-- Thalamus
-- 4th ventricle
-- Pituitary Gland
+    ---
 
-In the **CT Volume**, find:
+    - The **pineal gland.** The pineal gland is often calcified. Look for a small white dot.
+    - A **putative meningioma** (calcified falcine tumor) in the forebrain?
 
-- The **pineal gland.** The pineal gland is often calcified. Look for a small white dot.
-- A **putative meningioma** (calcified falcine tumor) in the forebrain?
+    Sync the CTBrain and T1 slices to the tumor location.
 
-Sync the CTBrain and T1 slices to the tumor location.
+    - Can you see evidence of the tumor in the T1 scan?
+     
+- :fontawesome-solid-brain:  **T2 Volume**
 
-- Can you see evidence of the tumor in the T1 scan?
+    ---
+
+    - The uncus
+    - The basal ganglia.
+    - The thalamus
+    - The Cochlea? (Look for the Shrek ears on slice -23.9265mm)
+
+-  :fontawesome-solid-brain: **T1 Volume**
+
+    ---
+
+    - Corpus Callosum
+    - Fornix
+    - Cerebral Aqueduct
+    - Thalamus
+    - 4th ventricle
+    - Pituitary Gland
+
+</div>
 
 ### Overlay volumes
 
