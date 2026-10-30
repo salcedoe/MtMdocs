@@ -192,27 +192,35 @@ To remove the edges of the slices in the 3D view, switch to the **Volume Module*
 | MRT1   | 70              |
 | MRT2   | 30              |
 
-
-
-
 ## Volume Render the Skull
 
 Switch to the `Volume Rendering` module. Render and review each volume by selecting the volume in the `Volume` pop-up menu and toggling the eye icon. Create the following three renders (sequentially, not at the same time).
 
 ![CT MR Render panel](images/CTMR-3D-VolRender-panel.png){ width="650"}
->**3D renders of the CT-MR volumes.**
+>**3D renders of the CT-MR volumes.** Each 3D render displays the Volume indicated in the top right corner, cropped sagittally, the Axial MR T2 slice and the sagittal T1 Slice.
 
-Crop the rendered volume to get the views shown in T1 and CT.
+2D Slices
 
-- Be sure to remove the left halves of the volumes.
-- Add the MR slices to the 3D viewer (Red and Yellow viewers) for all renders.
-- Remove the edges of the MR slices 
+In each image show:
 
-For the T1 render
+- Red Slice Viewer: Axial MR T2 slice
+- Yellow Slice Viewer: the sagittal T1 Slice
+- Be sure to threshold the T1 slice
+
+3D Volume
+
+For, each image, only render one 3D volume.  Be sure to crop the render to remove the left half of the volume.
+
+For the T1 render:
 
 - Select the MR-default preset
 - Notice how thick the slices are in T1 render in the 3D viewer
 - This gives you an indication of the resolution of the volume.
+
+For the T2 render:
+
+- There is only half a head (the lower half of the head)
+- The top half seen in the image is the sagittal T1 Slice
 
 For the CT render:
 
