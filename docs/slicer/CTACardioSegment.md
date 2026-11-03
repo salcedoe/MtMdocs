@@ -538,3 +538,27 @@ Use the following settings to Segment all the organs found in CTACardio Crop. Be
 Note, the first time you run Total Segmentator, you may need to install some extra stuff (python related) and it will take time.
 
 When the segmentation is complete, you should find a new segmentation node in the Data module called "CTACardio Crop Segmentation"
+#### Check for an extra slice
+
+Some versions of Slicer (including the 5.13 preview) add an extra, empty slice to the top of the TotalSegmentator segmentation. For example, CTA Crop might have 390 slices, while the segmentation has 391 slices. This will create a problem for analysis in MATLAB, which won't be able to compare the volumes voxel by voxel with the CT volume or with your own segmentation.
+
+You can check in MATLAB after you load the segmentation: `NumTransverseSlices` should be 390, the same as `CTACardio Crop`.
+
+If your segmentation has the extra slice, you can fix it in Slicer before you save it:
+
+1. Switch to the **Segment Editor**
+2. Set **Segmentation** to `CTACardio Crop segmentation` and **Source volume** to `CTACardio Crop`
+3. Click the **Specify geometry** button, just to the right of the **Source volume** selector
+4. Set **Source geometry** to `CTACardio Crop`. Leave **Oversampling** at 1, and leave **Pad output** off
+5. Click `OK`
+6. Save the segmentation (**File → Save Data**), and overwrite the old file
+
+!!! note "If Specify geometry doesn't fix it"
+    In Slicer 5.13, Specify geometry may not remove the extra slice. In that case, you have two options:
+
+    - Open the scene in Slicer 5.12, and repeat the steps above
+    - Leave the file as it is, and fix it in MATLAB with **mmMatchVolumeGeometry** from MtMtools. It removes the empty slice, so that the segmentation matches the CT volume:
+
+    ```matlab
+    totalMV = mmMatchVolumeGeometry(totalMV, ctMV);
+    ```

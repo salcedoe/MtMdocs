@@ -38,9 +38,10 @@ This exercise is based on the following Slicer tutorial: [pdf](https://www.dropb
 This exercise requires the following extensions:
 
 - [HDBrainExtraction](https://github.com/lassoan/SlicerHDBrainExtraction#hdbrainextraction).
-- PyTorch
+- PyTorch (should be installed with TotalSegmentator Extension)
+- SynthSeg
 
-Be sure to [install those extensions](CustomizeSlicer.md) before continuing.
+Be sure to [install these extensions](CustomizeSlicer.md) before continuing.
 
 ## Load the Tumor datasets
 
@@ -64,11 +65,11 @@ Hover over the names of these volumes. Notice that you get some information on t
 
     No.
 
-### Volume Module
+### Volumes Module
 
-Bring up the Volume module ![img-name](images/button_volumes_module.png){ width="50"}
+Bring up the Volumes module ![img-name](images/button_volumes_module.png){ width="50"}
 
-The volume module gives you more detailed information on the volumes and allows you to change the display properties of the volumes.
+The Volumes module gives you more detailed information on the volumes and allows you to change the display properties of the volumes.
 
 ??? question "What are the dimensions of the volume (Image Dimensions) and voxels (Image Spacing)? What is the Scalar type and Range?"
 
@@ -89,11 +90,21 @@ Starting with MRBrainTumor1, find the tumor and get all three slice viewers alig
 
 Then inspect Tumor 2.
 
-**Baseline radiologist's clinical impression:**
+The two volumes are MRIs of the same patient, taken at two different times. Here is what the radiologists reported:
+
+**Baseline radiologist's clinical impression (MRBrainTumor1):**
 
 - large falcine lesion is identified.
 - measures 3.10 cm anteroposteriorly and 3.51 cm in height.
 - enhances moderately on post gadolinium imaging.
+
+**Follow-up radiologist's clinical impression (MRBrainTumor2):**
+
+- left frontal lobe mass appears unchanged on all series.
+- measures 3.3 x 3.2 cm in maximum dimension.
+- enhances moderately on post gadolinium imaging.
+
+Keep these reports in mind. Later, you will compare them with your own measurements.
 
 ### Volume Render the Tumors
 
@@ -116,8 +127,8 @@ In this step, we will render the MRI volume in 3D and then use the crop tool to 
 ![img-name](images/MRTumor-red-slice-controller.png){width=50%}
 
 - Use the Slice controllers to overlay the volume.
-    - **Foreground**: `Tumor2`
-    - **Background**: `Tumor1`
+    - **Foreground**: `MRBrainTumor2`
+    - **Background**: `MRBrainTumor1`
 - Change the transparency between the 2 volumes to 50%
 - Are the volumes aligned?
 
@@ -158,11 +169,11 @@ SAVE YOUR WORK!
 
 ## Segmentation
 
-Next, we'll segment the tumors using the segmentation tool. 
+Next, we'll segment the tumors using the segmentation tool.
 
 ### Segment Tumor1
 
-We will use the Grow-from-seeds method to segment the Tumor in the MRBrainTumor1 volume. First, though, we need to segment three orthogonal sections from the tumor (and sample the background). 
+We will use the Grow-from-seeds method to segment the Tumor in the MRBrainTumor1 volume. First, though, we need to segment three orthogonal sections from the tumor (and sample the background).
 
 #### 2D Slice Viewers
 
@@ -178,8 +189,8 @@ Bring up the Segment Editor and use the following settings:
 1. **Segmentation:** Rename new segmentation as `SegTumor1`
    ![img-name](images/seg-editor-rename-segment.png){ width="450"}
 2. **Source Volume:** Set to `MRBrainTumor1`
-3. Create a new Segmentation called Tumor1
-4. Create another segmentation called Not_tumor
+3. Add a new segment called `Tumor1`
+4. Add another segment called `Not_Tumor`
 
 ![segmentation table](images/MRTumor-seg-editor-seg-list1.png){ width="450"}
 
@@ -253,7 +264,7 @@ Ok, repeat the segmentation for Tumor2, with the following changes:
 
 1. Create a New Segmentation as `SegTumor2`
 2. Change the Source Volume to `MRBT2mvd`
-3. Create a new Segment called Tumor2. Change the color of this segment to Blue (or a different color from the original tumor)
+3. Add a new segment called `Tumor2`. Change the color of this segment to Blue (or a different color from the original tumor)
 
 ![img-name](images/MRTumor-seg-editor-seg-list2.png){ width="450"}
 
@@ -275,7 +286,7 @@ Review how slicer organizes the data.
 1. Each Segmentation contains segments that are specific to a volume (MRBrainTumor1 or MRBT2mvd, in this case)
 2. Click on MRBrainTumor1
     - Notice how other items in the Data table light up - these are connected to Tumor1 in some fashion
-3. Hover over one of the Segmentations (Like Tumor1). After a beat, you get information about that volume:
+3. Hover over one of the segments (like Tumor1). After a beat, you get information about that segment:
     >Segment - ID, Segment_1, Representations: Binary labelmap, Closed Surface, Color: (128, 174, 128)
 4. Compare that information to the information that you get for the volumes, like "MRBrainTumor1"
     >Volume (Dimensions: 256 X 256 X 112 Spacing: 0.938 x 0.938 x 1.42mm )
@@ -288,9 +299,9 @@ Review how slicer organizes the data.
 
 ![tumor overlay](images/MRTumor-segment-overlay-4up.png){ width="450"}
 
-## Region Properties
+## Measure the Tumors
 
-So, have the tumors changed in size?
+So, have the tumors changed in size? In this step, you measure each tumor by hand. Later, in MATLAB, you will import these measurements and calculate the volume, the overlap (Dice), and the surface distance of the two tumor segmentations.
 
 ### Manually Measure Tumor With Ruler
 
@@ -313,7 +324,7 @@ Switch to the **Markups** module to keep track of your markup measurements.
    - Be sure to measure all three anatomical axes of the tumors: A-P, L-R, S-I
    - Make sure that you measure across the widest part of the tumors in each plane.
 
-??? tip "Making Multiple Sequential Line Measurements"
+!!! tip "Making Multiple Sequential Line Measurements"
 
     You can make several measurements at the same time by turning on the "Place Multiple Control Points" setting. In the Markups tool bar, bring up the **Place Control Points** menu by clicking on the triangle next to this icon: 
 
@@ -325,6 +336,7 @@ Switch to the **Markups** module to keep track of your markup measurements.
 
 1. As you measure each length, an entry will be added into the Markups table, prefaced by an "L" (for length)
 2. Double-click on that name and rename it to indicate tumor number and Anatomical Axes, e.g. `T1-LR`
+    - Use exactly these six names: `T1-AP`, `T1-LR`, `T1-SI`, `T2-AP`, `T2-LR`, and `T2-SI`. Slicer saves each line in a file with the same name (e.g. `T1-LR.mrk.json`), and the MATLAB live script uses these names to import your measurements
 3. Also, for each measurement, under the **Display:Advanced tab**, uncheck `Properties Label` to remove text from the slices
 4. When you are ready to Measure the second tumor, hide all of the first tumor markups by closing the eye icons for each measurement in the Markups table
 5. Finally, when you have made all of your measurements, create a new folder in the Markups module called Line Measurements and drag all of your measurements into this folder
@@ -333,7 +345,11 @@ You should end up with something that looks like this:
 
 ![img-name](images/MRTumor-markups-table.png){ height="450"} ![img-name](images/MRTumor-4up-line-measurements.png){height="450"}
 
-### Segment Statistics
+??? question "How do your measurements compare with the radiologists' impressions?"
+
+    Compare your measurements of Tumor1 with the baseline impression, and your measurements of Tumor2 with the follow-up impression (see [Inspect the Tumors](#inspect-the-tumors)). Did the tumor change in size?
+
+<!-- ### Segment Statistics
 
 You can calculate properties like volume and surface area using the **Segment Statistics Module**
 
@@ -377,20 +393,14 @@ Once you have set-up all of the options, click **Apply**
 4. Open Microsoft Excel
 5. Paste
 
-Repeat the steps for "Tumor2".
-
-### Follow-up radiologist's clinical impression
-
-- left frontal lobe mass appears unchanged on all series.
-- measures 3.3 x 3.2 cm in maximum dimension.
-- enhances moderately on post gadolinium imaging.
+Repeat the steps for "Tumor2". -->
 
 ## Skull Stripping
 
 In this step, we will remove the skulls from the volumes using the **HD Brain Extraction tool.**
 This is not strictly necessary to segment the tumors but it does highlight a cool new technique.
 
-Select the HD Brain Extraction tool from the Modules Menu
+Select the HD Brain Extraction tool from the Modules/Segmentation Menu
 
 ![img-name](images/mod-menu-HD-Brain-Extract.png){ width="350"}
 
@@ -398,7 +408,7 @@ And set:
 
 1. **Input volume** to `MRBrainTumor1`
 2. **Skull-stripped volume** to `Create New Volume`
-3. **Brain Segmentation** to `Create New Segmentation` as "MRBT1SkullStrip"
+3. **Brain Segmentation** to `Create New Segmentation` 
     ![img-name](images/MRTumor-HDBrainExtract-settings.png){ width="450"}
 4. Click **Apply**.
     - You may get a notice that PyTorch will be installed. Just wait...
@@ -415,6 +425,71 @@ Switch to the **Data** Module and notice that:
 - A new segmentation node has been added called `MRBT1SkullStrip` and it contains one segment: "brain"
 
 Go to the Segment Editor and turn on the 3D view to see the brain in 3D
+
+SAVE YOUR WORK!!!!
+
+## SynthSeg
+
+SynthSeg is a deep learning model that segments the brain into about 30 structures, such as the cerebral cortex, the white matter, the ventricles, and the hippocampus. It was trained on healthy brains, so let's see what it does with a tumor.
+
+Bring up the SynthSeg module and set:
+
+1. **Input Volume:** `MRBrainTumor1 stripped`
+2. **Model:** `SynthSeg 2.0`
+3. Click **Run Segmentation**. This can take a few minutes.
+
+!!! warning "If SynthSeg fails the first time"
+
+    The first time you run SynthSeg, Slicer installs the Python packages that SynthSeg needs. These packages may not work until Slicer restarts, so the first run can fail or crash. If that happens:
+
+    1. Save your work
+    2. Restart Slicer and reload your scene
+    3. Run SynthSeg again
+
+    If it still fails, open the error log (**View > Error Log**), and send the error message to your instructor.
+
+![synth seg output 4 up](images/MRTumor-SynthSeg-4up.png){ width="450"}
+>SynthSeg output showing the right cerebral cortex, the left cerebral white matter, and the tumors
+
+Scrub through the slices. Is there any segmentation at the tumors?
+
+SynthSeg creates a new segmentation node, with one segment per brain structure. It also calculates the volume of each structure, and saves them in a CSV file (`MRBT1stripped_volumes.csv`) when the segmentation is done. You will use this file in MATLAB.
+
+SAVE YOUR WORK!
+
+## Save Your Files for MATLAB
+
+In the MATLAB live script (SLCR3 Tumor Comparisons), you will analyze your segmentations and measurements. To get ready, merge your segmentations into one node, and save your files with the names that the live script expects.
+
+### Merge the segmentations
+
+The live script loads the brain and both tumors from a single segmentation node. As in the [CTA Cardio exercise](CTACardioSegment.md), we copy segments from one node to another:
+
+1. Bring up the **Segmentations** module
+2. Set the **Active segmentation** to `MRBT1SkullStrip` (the node with the "brain" segment)
+3. Open the **Copy/move segments** tab
+4. On the right-hand side, select `SegTumor1`, select the `Tumor1` segment, and click the `<+` button to copy it into `MRBT1SkullStrip`
+5. Repeat for the `Tumor2` segment in `SegTumor2`
+6. `MRBT1SkullStrip` should now contain three segments: brain, Tumor1, and Tumor2
+7. In the **Data** module, rename `MRBT1SkullStrip` to `Merged Segmentations`
+
+Because the tumors are inside the brain (and overlap each other), Slicer stores each segment in its own **layer**. You will learn how to handle these layers in MATLAB.
+
+### Save the files
+
+Click the **Save** button and save your files into your project folder. In the **File Name** column, make sure that these files have these names:
+
+| Data | File name |
+| --- | --- |
+| Skull-stripped volume (`MRBrainTumor1 stripped`) | `MRBT1stripped.nrrd` |
+| Merged segmentation (brain, Tumor1, Tumor2) | `Merged Segmentations.seg.nrrd` |
+| Line measurements | `T1-AP.mrk.json`, `T1-LR.mrk.json`, `T1-SI.mrk.json`, `T2-AP.mrk.json`, `T2-LR.mrk.json`, `T2-SI.mrk.json` |
+| SynthSeg segmentation | `MRBT1stripped_synthseg_v2.seg.nrrd` |
+| SynthSeg volumes (created by SynthSeg; copy it into your project folder if it isn't there already) | `MRBT1stripped_volumes.csv` |
+
+!!! tip
+
+    You can edit a file name by double-clicking it in the **File Name** column of the Save dialog. The line measurements are saved with the names that you gave them in the Markups module.
 
 ## Challenge
 
