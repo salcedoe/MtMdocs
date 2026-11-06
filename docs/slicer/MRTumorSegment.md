@@ -417,6 +417,15 @@ Eventually, you should get something awesome, like the following:
 
 ![img-name](images/MRTumor-hdbrain-stripped-4up.png){ width="450"}
 
+!!! tip "If HD Brain Extraction hangs or fails: skull stripping and SynthSeg in MATLAB"
+
+    You can do this step and the [SynthSeg](#synthseg) step in MATLAB instead, with the live script [Skull Stripping and SynthSeg in MATLAB](https://github.com/salcedoe/MtMtools/blob/main/scripts/unit3/SynthSeg_Tumor_MATLAB.m) (`SynthSeg_Tumor_MATLAB.m`). You don't need Python or any Slicer extension.
+
+    1. Open the live script in MATLAB, choose your project folder, and run each section. The live script starts from `MRBrainTumor1`, and runs SynthSeg once to find both the brain and its structures
+    2. It saves four files in your project folder: `MRBT1stripped.nrrd`, `MRBT1SkullStrip.seg.nrrd`, `MRBT1stripped_synthseg_v2.seg.nrrd`, and `MRBT1stripped_volumes.csv`
+    3. Drag `MRBT1stripped.nrrd` and `MRBT1SkullStrip.seg.nrrd` into Slicer. They open as the volume `MRBT1stripped` (use it wherever this page says `MRBrainTumor1 stripped`) and the segmentation `MRBT1SkullStrip`, with the segment "brain"
+    4. Continue with [Review Stripping Results](#review-stripping-results), and skip the [SynthSeg](#synthseg) section: you already have its files
+
 ### Review Stripping Results
 
 Switch to the **Data** Module and notice that:
@@ -446,7 +455,16 @@ Bring up the SynthSeg module and set:
     2. Restart Slicer and reload your scene
     3. Run SynthSeg again
 
-    If it still fails, open the error log (**View > Error Log**), and send the error message to your instructor.
+    If it still fails, run SynthSeg in MATLAB instead (see below).
+
+!!! tip "SynthSeg in MATLAB"
+
+    If the SynthSeg extension doesn't work on your computer, you can run the same model (SynthSeg 2.0) in MATLAB, with the live script [Skull Stripping and SynthSeg in MATLAB](https://github.com/salcedoe/MtMtools/blob/main/scripts/unit3/SynthSeg_Tumor_MATLAB.m) (`SynthSeg_Tumor_MATLAB.m`). You don't need Python or any Slicer extension.
+
+    1. Save the skull-stripped volume (`MRBrainTumor1 stripped`) in your project folder as `MRBT1stripped.nrrd` (see [Save the files](#save-the-files)). The live script finds it, and only runs SynthSeg
+    2. Open the live script in MATLAB, choose your project folder, and run each section
+
+    The live script saves `MRBT1stripped_synthseg_v2.seg.nrrd` and `MRBT1stripped_volumes.csv` in your project folder, with the names that the SLCR3 live script expects. To see the segmentation in Slicer, drag `MRBT1stripped_synthseg_v2.seg.nrrd` into Slicer. Then skip to [Save Your Files for MATLAB](#save-your-files-for-matlab).
 
 ![synth seg output 4 up](images/MRTumor-SynthSeg-4up.png){ width="450"}
 >SynthSeg output showing the right cerebral cortex, the left cerebral white matter, and the tumors
