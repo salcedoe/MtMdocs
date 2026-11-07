@@ -260,7 +260,7 @@ Switch to "Local Threshold" (included with the [SegmentEditorExtraEffects extens
 
 Your implants should look like the following:
 
-![knee implant](images/Femur-3D-implant.png){ width="250"}
+![knee implant](images/Femur-3D-implant-Color2.png){ width="250"}
 
 ### Clean up Left Femur
 
@@ -270,21 +270,37 @@ The Left Femur segmentation is incorrect at the knee. It looks as if the implant
 
 So, to clean up the segmentation, we need to remove any extraneous femoral segmentation at the level of the knee. If you review the left femur segmentation axially through the implant, you can see how the segmentation does not accurately represent the bone at the level of the implant. It just seems to have guessed where bone should have been. But in reality, that bone was cut away to make room for the implant. As you scrub axially through the implant, there should be a point where the actual femur disappears, as shown below:
 
-![femur screenshot](images/Femur-implant-interface.png){ width="450"}
+Depending on how you created the implant segmentation, some femur segmentation may be inside the implant, which of course is anatomically impossible. So, first we use a Boolean (logical) operation to remove any such segmentation.
 
->Left femur segmentation showing the implant in cyan and femur segmentation in green. The femur segmentation does not accurately represent the bone.
+!!! abstract "Boolean operation to remove segmentation from inside implant"
 
-To remove this inaccurate segmentation, we are going to cut the segmentation at the level where the actual femur ends. Then we'll remove any femur segmentation inferior to that position.
+    ![boolean button](images/seg-editor-boolean-button.png){ width="24"}  Switch to the Logical Operations tool
+
+    Use these settings:
+
+    ![boolean settings](images/Femur-Boolean-Settings.png){ width="450"}
+
+    - Be sure to select **left femur** in the top table and **femoral implant** in the bottom table
+    - Set the Operation to Subtract
+    - Click on Apply
+
+    ![femur implant axial view](images/Femur-boolean-subtraction.png){ width="450"}
+
+    >Axial view of femur and implant segmentation before and after Boolean Subtraction.
+
+#### Remove incorrect segmentation below femur
+
+To remove this inaccurate segmentation, we first create a break in the segmentation at the level where the actual femur ends. Then we remove any femur segmentation inferior to that position.
 
 It's easiest to find the bottom of femur in the Coronal (green) viewer. Hover the mouse at the base of the femur (just above the implant) while holding shift. The axial view should now show the corresponding view, as shown above.
 
-!!! abstract "Slice Cut Femur Segmentation at base of actual femur"
+!!! abstract "Cut the segmentation at the base of the actual femur"
 
-    ![img-name](images/seg-editor-erase-button.png){ width="48"} 
+    For this step, we create a simple break, or slice cut, in the segmentation along the axial plane. This will allow us to then remove much of the incorrect segmentation below the femur.
 
-    Erase the segmentation slice using the following steps:
+    Create the cut using the following steps in the Red (axial) Slice viewer:
 
-    1. Switch to the **Erase tool**. 
+    1. Switch to the **Erase tool**. ![erase button](images/seg-editor-erase-button.png){ width="24"}
     2. Select the **"left femur"** segmentation in the segmentation table
     3. Under masking, for `Editable Area`, select "left femur"
     4. Do not check anything else in the Erase details settings
@@ -292,23 +308,31 @@ It's easiest to find the bottom of femur in the Coronal (green) viewer. Hover th
     6. Position the **erase tool** over the femur segmentation
     7. Increase the diameter of the tool by holding shift and scrubbing the mouse wheel
     8. When the diameter is larger than the Femur Segmentation, click on the slice
-    9. The Femur segmentation (green) should disappear
+    9. The Femur segmentation (red) should disappear
 
-There should now be a very evident break in the segmentation in the Coronal Slice viewer (as shown below):
+    There should now be a very evident break in the segmentation in the Coronal Slice viewer (as shown below):
 
-![femur slice cut](images/Femur-Coronal-Segmentation-Slice-Cut.png){ width="450"}
->**Coronal view of Left Knee with Femur and Implant Segmentations. Left.** Femur Slice cut, as detailed above. **Right.** Segmentation removal inferior to slice cut, as detailed below.
+    ![femur slice cut 4up](images/Femur-Slice-Cut-4up.png){ width="450"}
+
+    >**Four-up view of the left knee with the femur and implant segmentations after the slice cut with the Erase tool.** The large circle in the Axial (red) slice viewer shows the size of the eraser; the cut also appears as a thin disk in the 3D view. The femur (red) no longer appears in the axial slice, and gaps in the femur can be seen in the Coronal (green) and Sagittal (yellow) slice viewers.
+
+Next, we use the Islands tool to remove much of the incorrect femur segmentation below where we made the cut.
 
 !!! abstract "Remove Femur Segmentation inferior to Slice Cut"
 
-    ![img-name](images/seg-editor-islands-button.png){ width="48"}
+    ![islands button](images/seg-editor-islands-button.png){ width="48"}
 
     Switch to the Islands Tool and remove segmentation inferior to the slice cut as follows:
 
     1. Select "Remove Selected Island"
-    2. In the Coronal Slice viewer, click on the Femur Segmentation below the slice cut
+    2. In the Sagittal (yellow) Slice viewer, click on the Femur Segmentation below the slice cut
 
-There is still some remaining femur segmentation that artificially hangs outside the implant
+    ![femur remove selected island result](images/Femur-RemoveSelectedIsland-4up.png){ width="450"}
+
+    >**Four-up view of the left knee with the femur and implant segmentations after "Remove Selected Island".** Notice that the femur segmentation (red) inferior to the slice cut has been removed. The mouse pointer in the Sagittal (yellow) slice viewer marks where the segmentation was clicked, which is also where it was removed.
+
+
+There may still be some incorrect femur segmentation outside the implant.
 
 !!! abstract "Final Segmentation Clean up"
 
@@ -327,4 +351,4 @@ There is still some remaining femur segmentation that artificially hangs outside
 
 ## Final Result
 
-![femur final result](images/Femur-Dual3D-Final-Result.png){ width="650"}
+![cleaned up femur](images/Femur-Final-Scissors-4UP.png){ width="450"}
