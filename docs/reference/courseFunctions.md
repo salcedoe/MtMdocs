@@ -1,13 +1,35 @@
 # MtM Toolbox
 
-The MtM toolbox is a collection of functions designed to simplify Plotting, Image Processing, Processing 3D Slicer segmentation volumes, working with Surface Meshes, and several other utility actions. These functions can be found in the `MtMresouces/toolbox` folder.
+The MtM toolbox is a collection of functions designed to simplify Plotting, Image Processing, Processing 3D Slicer segmentation volumes, working with Surface Meshes, and several other utility actions. These functions can be found in the `MtMresources/toolbox` folder.
 
 !!! warning "The MtM toolbox folder must be added to search path for these functions to work"
 
-    Add the `MtMresouces/toolbox` folder to the MATLAB search path as described on the [setup page](../setup/matlabInstallation.md#add-toolboxes-to-the-matlab-search-path).
+    Add the `MtMresources/toolbox` folder to the MATLAB search path as described on the [setup page](../setup/matlabInstallation.md#add-toolboxes-to-the-matlab-search-path).
 
 !!! note "Most MtM toolbox functions are prefaced with `mm`"
     You can get a quick summary of the available course functions in the MtMtoolbox by entering `help MtMtoolbox` in the command window.
+
+!!! tip "Get the full help for any function"
+    Enter `help` and the function name in the command window (for example, `help mmSurfaceDistance`) to see all of its inputs, options, and examples. The help text in MATLAB is always the most up to date.
+
+## Which function do I need?
+
+| I want to... | Function | Used in |
+| --- | --- | --- |
+| Read the segment names and colors of a Slicer file | [mmGetSlicerSegmentInfo](#mmgetslicersegmentinfo) | SLCR1–7 |
+| Read every Slicer file in a folder (a whole class) | [mmGetSlicerSegmentInfoAll](#mmgetslicersegmentinfoall) | SLCR5, SLCR6 |
+| Get the mask of one segment (e.g., the aorta) | [mmGetMedicalVolumeSegment](#mmgetmedicalvolumesegment) | SLCR2–7 |
+| Fix a segmentation that is one slice off from its CT | [mmMatchVolumeGeometry](#mmmatchvolumegeometry) | SLCR2, SLCR4 |
+| Plot every segment as a 3D surface | [mmPlotAllSeg](#mmplotallseg) | SLCR1, SLCR4 |
+| Plot one mask as a 3D surface | [mmPlotMask2Surface](#mmplotmask2surface) | SLCR1–5 |
+| Show where two segmentations of the same structure differ | [mmSurfaceDistance](#mmsurfacedistance) | SLCR2, SLCR3, SLCR5 |
+| Compare a left organ to the right one | [mmMirrorAlign](#mmmirroralign) | SLCR5 |
+| Measure the diameter of a bone or vessel along its length | [mmCrossSectionProfile](#mmcrosssectionprofile) | SLCR4, SLCR6 |
+| Segment a CT scan automatically | [mmTotalSegmentator](#mmtotalsegmentator) | SLCR7 |
+| Segment a brain MRI automatically | [mmSynthSeg2](#mmsynthseg2) | SynthSeg_Brain_Segmentation |
+| Remove the skull from a brain MRI | [mmSkullStrip](#mmskullstrip) | SynthSeg_Tumor_MATLAB |
+| Save a volume or segmentation that Slicer can open | [mmWriteNRRD](#mmwritenrrd) | |
+| Plot data as a box chart with the points on top | [mmBoxSwarm](#mmboxswarm) | SLCR5–7 |
 
 ## Plotting Functions
 
@@ -281,19 +303,27 @@ segT = mmGetSlicerSegmentInfo(seg_file_path)
 
 ### mmGetSlicerSegmentInfoAll
 
-Loads the metadata and Segmentation Properties from all Slicer segmentation files found in the same folder
+Reads the segment names, colors, and label values from every Slicer segmentation file (`*.seg.nrrd`) in a folder, and stacks them into one table. Use it to load a whole class's segmentations at once. A file that can't be read is reported in the command window and skipped.
+
+The **ID** of each file is the start of its file name, before the first space (for example, `Salcedo` in `Salcedo CTACardio.seg.nrrd`). So start each file name with your name or another ID.
 
 **INPUTS**
 
-- **filePath:** file path to the folder containing segmentation files (`*.seg.nrrd`)
+- **folderPath**: the folder that contains the segmentation files
 
-**OUTPUT**
+**OPTIONAL INPUTS (name-value)**
 
-- **T**: Slicer Segmentation table. Contains information (name, color) about segmentations created in Slicer Segment Editor module
-- **contentT**: Table containing information about the segmentation files
+- **idDelimiter**: the text that ends the ID in each file name (default = `" "`, a space). Use `"_"` for file names like `Salcedo_CTACardio.seg.nrrd`
+- **subFolders** (logical, default = false): also search every subfolder (for example, one folder per student)
 
-```matlab linenums="1" title="Example"
-[segT,contentT] = mmGetSlicerSegmentInfoAll(fullfile(paths.folder, paths.fileWC))
+**OUTPUTS**
+
+- **allSegT**: one row per segment per file, with the file number (`Num`), `ID`, `Filename`, and the columns of `mmGetSlicerSegmentInfo`
+- **contentT**: one row per file, with the file name, folder, date, ID, volume size, and pixel spacing
+
+```matlab linenums="1" title="Examples"
+[allSegT, contentT] = mmGetSlicerSegmentInfoAll(paths.classFolder);
+[allSegT, contentT] = mmGetSlicerSegmentInfoAll(paths.classFolder, subFolders=true, idDelimiter="_");
 ```
 
 ### mmGetMedicalVolumeSegment
@@ -323,6 +353,263 @@ If segName not provided, you will be prompted to select one segmentation from th
 S = mmGetMedicalVolumeSegment(mv,segT,segName="right kidney")
 ```
 
+### mmMatchVolumeGeometry
+
+Puts a segmentation on the same voxel grid as the CT or MRI it was made from, by adding or removing slices at the edges. Use it when a Slicer segmentation is a slightly different size than its volume (for example, TotalSegmentator in Slicer 5.13 can add one extra empty slice). The function only pads or crops, so the two volumes must already have the same voxel spacing and orientation. If they don't, resample the segmentation in Slicer instead.
+
+**INPUTS**
+
+- **mV**: `medicalVolume` to fix (usually a segmentation)
+- **refMV**: `medicalVolume` with the size and position to match (usually the CT)
+
+**OPTIONAL INPUTS (name-value)**
+
+- **Tolerance**: allowed mismatch, as a fraction of a voxel (default = 0.01)
+
+**OUTPUT**
+
+- **mVout**: a `medicalVolume` with the same size and geometry as `refMV`. Added slices are zeros. You get a warning if any removed slices contained segmented voxels.
+
+```matlab linenums="1" title="Example"
+ctMV = medicalVolume(paths.ct);
+segMV = medicalVolume(paths.seg);
+segMV = mmMatchVolumeGeometry(segMV, ctMV);
+```
+
+### mmWriteNRRD
+
+Saves a `medicalVolume` as a file that 3D Slicer can open. MATLAB can read NRRD files, but it can't write them. Save an image volume as `.nrrd`, or a segmentation as `.seg.nrrd` with named and colored segments. The voxel spacing, orientation, and position are kept, so the file lines up with the original volume in Slicer.
+
+**INPUTS**
+
+- **filename**: the file to write (`.nrrd`, or `.seg.nrrd` for a segmentation)
+- **mv**: a `medicalVolume`. For a segmentation, each voxel holds a label value (0 = background)
+
+**OPTIONAL INPUTS (name-value)**
+
+- **Segments**: a table with the variables `SegName`, `LabelValue`, and `Color` (like the output of `mmGetSlicerSegmentInfo`). Include it to save a Slicer segmentation.
+- **Compress** (logical, default = true): compress the voxels with gzip
+
+```matlab linenums="1" title="Examples"
+mmWriteNRRD("MRBT1stripped.nrrd", strippedMV)   % an image volume
+
+segT = table("brain", 1, [0.9 0.7 0.6], VariableNames=["SegName" "LabelValue" "Color"]);
+mmWriteNRRD("brain.seg.nrrd", brainMV, Segments=segT)   % a segmentation
+```
+
+## Measure and Compare Segmentations
+
+Functions to measure segmentations and to compare two segmentations of the same structure. They all take the structures returned by `mmGetMedicalVolumeSegment`, and they all work in millimeters.
+
+### mmSurfaceDistance
+
+Compares two segmentations of the same structure (for example, your aorta and TotalSegmentator's aorta) by the distance between their surfaces, like the CloudCompare program. For every point on the surface of A, it measures the distance to the surface of B: negative if the point is inside B, positive if it is outside. The figure shows the surface colored by this distance (blue = inside, red = outside) next to a histogram of the distances.
+
+**INPUTS**
+
+- **A**, **B**: the two segmentations. Either structures from `mmGetMedicalVolumeSegment`, or 3D logical masks of the same size (then also give `Tform` or `VoxelSpacing`)
+
+**OPTIONAL INPUTS (name-value)**
+
+- **Names**: names of A and B, for the figure and table (default = `["A" "B"]`)
+- **Direction**: `"AtoB"` (default) measures from A to B. `"both"` also measures from B to A. Use `"both"` when neither segmentation is the reference.
+- **Tolerance**: distance (mm) at which the surfaces count as agreeing (default = 2)
+- **Limit**: color limit (mm). Default: the 95th percentile of the distances
+- **Smooth** (logical, default = false): smooth both masks first (useful for blocky segmentations)
+- **ReduceFactor**: fraction of the surface triangles to keep (default = 0.3)
+- **BinWidth**: histogram bin width in mm (default = 0.5)
+- **Title**: title of the figure window
+- **Plot** (logical, default = true): false skips the figure
+- **UsePatch** (logical, default = false): plot with `patch` instead of `surfaceMeshShow`
+- **Tform**, **VoxelSpacing**: voxel-to-mm conversion, for mask inputs
+
+**OUTPUTS**
+
+- **T**: a table with one row per direction: the mean, median, 95th percentile (HD95), and largest (Hausdorff) distance in mm, the percent of the surface within the tolerance, the mean signed distance, and the Dice coefficient
+- **S**: the surfaces (`fv`) and the distance at each vertex
+
+```matlab linenums="1" title="Examples"
+T = mmSurfaceDistance(mySeg, totSeg, Names=["Ours" "TotalSegmentator"]);
+T = mmSurfaceDistance(t1Seg, t2Seg, Names=["Tumor1" "Tumor2"], Direction="both");
+```
+
+!!! note "Requirements"
+    Image Processing Toolbox. The surfaces are shown with `surfaceMeshShow` (Lidar Toolbox, or Point Cloud Toolbox in newer releases) if you have it; otherwise `patch` is used.
+
+### mmMirrorAlign
+
+Mirrors one segmentation across the patient's midline (left ↔ right) and aligns it to another, so you can compare paired structures like the left and right kidneys or femurs. After mirroring, it lines the two up with ICP (a rigid registration: rotation and translation only), and puts the result on the voxel grid of the first segmentation. Then you can compare the two with `dice` or `mmSurfaceDistance`.
+
+**INPUTS**
+
+- **fixedSeg**, **movingSeg**: structures from `mmGetMedicalVolumeSegment`. The moving segmentation is mirrored and moved onto the fixed one.
+
+**OPTIONAL INPUTS (name-value)**
+
+- **Mirror** (logical, default = true): false aligns without mirroring
+- **MaxIterations**: maximum number of ICP iterations (default = 100)
+- **GridSize**: the surfaces are downsampled to this grid (mm) for ICP (default = 1)
+
+**OUTPUTS**
+
+- **alignedSeg**: a structure like `fixedSeg`, holding the mirrored and aligned moving segmentation
+- **rmse**: root-mean-square distance (mm) between the two surfaces after alignment. Lower means a better fit
+- **worldTform**: the `affinetform3d` that maps the moving segmentation onto the fixed one, mirror included
+
+```matlab linenums="1" title="Example"
+rk = mmGetMedicalVolumeSegment(segMV, segT, segName="right kidney");
+lk = mmGetMedicalVolumeSegment(segMV, segT, segName="left kidney");
+lkOnRk = mmMirrorAlign(rk, lk);
+mmSurfaceDistance(rk, lkOnRk, Names=["Right kidney" "Left kidney (mirrored)"], Direction="both")
+```
+
+!!! note "Requirements"
+    Computer Vision Toolbox (for `pcregistericp`).
+
+### mmCrossSectionProfile
+
+Measures the cross-sections of a long structure, like a femur or the aorta, along its whole length. The function finds the long axis of the structure (or traces a curved centerline), cuts the structure into thin slabs perpendicular to it, and measures each slab:
+
+- **Area** and **equivalent diameter**: the diameter of a circle with the same area
+- **Inscribed diameter**: the diameter of the largest sphere that fits inside the slab
+- **Narrowest** and **widest** widths of the cross-section (the minimum and maximum Feret diameters)
+
+The figure shows the structure colored by its diameter, the cross-section at the chosen position, and the diameter profile along the length.
+
+**INPUTS**
+
+- **seg**: a structure from `mmGetMedicalVolumeSegment`, or a 3D logical mask (then also give `Tform`). The voxels must be cubes.
+
+**OPTIONAL INPUTS (name-value)**
+
+- **Centerline**: `"straight"` (default) uses a straight long axis. Use it for long bones. `"curved"` traces a smooth centerline through the middle of the structure. Use it for curved vessels, like the aorta. You can also give an N-by-3 array of [x y z] points (mm).
+- **SlabWidth**: thickness of each slab in mm (default = two voxels)
+- **At**: position (% of the length, from the inferior end) of the cross-section shown in the figure and returned in `S.At` (default = 50, the middle)
+- **Smoothing**: length (mm) of the window used to smooth a curved centerline (default = 30)
+- **Plot** (logical, default = true): false skips the figure
+- **Title**: title of the figure
+- **Tform**: voxel-to-mm conversion, for mask inputs
+
+**OUTPUTS**
+
+- **T**: a table with one row per slab, from the inferior end: position (mm and %), area, equivalent diameter, inscribed diameter, and narrowest and widest widths
+- **S**: the length of the structure, its centerline, and the cross-section at the `At` position (`S.At`), including its left-right (`WidthLR_mm`) and front-back (`WidthAP_mm`) widths. For a femur, these are the mediolateral and anteroposterior widths.
+
+```matlab linenums="1" title="Examples"
+[T, S] = mmCrossSectionProfile(femurSeg);                       % femur
+[T, S] = mmCrossSectionProfile(aortaSeg, Centerline="curved");  % aorta
+S.At                                                            % the cross-section at midshaft
+```
+
+!!! note "Requirements"
+    Image Processing Toolbox.
+
+## Automatic Segmentation
+
+Functions that segment a CT or MRI with an AI model, without opening Slicer. Use them to segment many scans in a loop, or to get a reference segmentation to compare yours to.
+
+### mmTotalSegmentator
+
+Segments a CT scan with [TotalSegmentator](../slicer/TotalSegmentator.md) from MATLAB, using the copy of TotalSegmentator that the extension installed in 3D Slicer. It gives the same result as the TotalSegmentator module in Slicer, with the same segment names and colors, and it uses the GPU when Slicer can (for example, on a Mac with Apple silicon). Use it to segment many scans in a loop.
+
+!!! warning "Set up Slicer first"
+    Install 3D Slicer and its TotalSegmentator extension, and run TotalSegmentator once in Slicer. This installs everything it needs and downloads the AI models. You don't need to install Python.
+
+**INPUTS**
+
+- **input**: a CT as a `medicalVolume`, or the name of a file that `medicalVolume` can read (`.nrrd`, `.nii`, `.nii.gz`, or a DICOM folder)
+
+**OPTIONAL INPUTS (name-value)**
+
+- **OutputFile**: a `.seg.nrrd` file for the segmentation
+- **VolumesFile**: a `.csv` file with the volume of each structure
+- **Quality**: `"normal"`, `"fast"` (3 mm), or `"fastest"` (6 mm). Default `"auto"`: normal with a GPU, fast without one
+- **Structures**: segment only these structures, for example `["aorta" "left kidney"]`. Faster, but the result can differ slightly from a full run
+- **Task**: the TotalSegmentator task (default = `"total"`)
+- **Device**: `"auto"` (default), `"gpu"`, `"mps"` (Mac GPU), or `"cpu"`
+- **SlicerPath**: the Slicer to use. Default: the newest Slicer that has TotalSegmentator
+- **Verbose** (logical, default = true): show progress messages
+
+**OUTPUTS**
+
+- **segMV**: a `medicalVolume` with the label of each voxel, on the same voxel grid as the CT. The label values are TotalSegmentator's (for example, 52 = aorta), so they are the same in every scan
+- **segT**: a table with one row per structure found: its Slicer name, label value, color, TotalSegmentator name, and volume (mL)
+
+```matlab linenums="1" title="Examples"
+ctMV = medicalVolume("CTACardio Crop.nrrd");
+[segMV, segT] = mmTotalSegmentator(ctMV, OutputFile="CTACardio Crop segmentation.seg.nrrd");
+aortaMask = segMV.Voxels == segT.LabelValue(segT.SegName == "aorta");
+
+% only the kidneys and the aorta
+[segMV, segT] = mmTotalSegmentator(ctMV, Structures=["left kidney" "right kidney" "aorta"]);
+```
+
+!!! quote "Citation"
+    Wasserthal J et al. TotalSegmentator: robust segmentation of 104 anatomic structures in CT images. *Radiology: Artificial Intelligence*, 2023.
+
+### mmSynthSeg2
+
+Segments a brain MRI into 32 structures with SynthSeg 2.0, entirely in MATLAB. SynthSeg works on MRIs of any contrast (T1, T2, FLAIR) and resolution. You don't need Python or the SynthSeg extension for Slicer, and you get the same structure names and label values as the Slicer extension. The first time you run it, it downloads the model (about 50 MB).
+
+**INPUTS**
+
+- **input**: a brain MRI as a `medicalVolume`, or the name of a file that `medicalVolume` can read (`.nrrd`, `.nii`, `.nii.gz`, or a DICOM folder)
+
+**OPTIONAL INPUTS (name-value)**
+
+- **OutputFile**: a `.seg.nrrd` file for the segmentation. You can drag it into 3D Slicer
+- **VolumesFile**: a `.csv` file of the volumes, with the same columns as the Slicer extension's file
+- **ModelFile**: the SynthSeg 2.0 model file (default: downloaded automatically)
+- **Verbose** (logical, default = true): show progress messages
+
+**OUTPUTS**
+
+- **segMV**: a `medicalVolume` with the label of each voxel, on the 1 mm grid that SynthSeg uses. To put the labels on the voxels of your MRI, use `resample(segMV, mriMV.VolumeGeometry, Method="nearest")`
+- **segT**: a table with the name, label value, and color of each structure (like `mmGetSlicerSegmentInfo`)
+- **volumes**: a table of the volume of each structure (mm³) and the total intracranial volume
+
+```matlab linenums="1" title="Example"
+mriMV = medicalVolume("MRBT1stripped.nrrd");
+[segMV, segT, volumes] = mmSynthSeg2(mriMV, OutputFile="MRBT1stripped_synthseg.seg.nrrd");
+```
+
+!!! note "Requirements"
+    Deep Learning Toolbox, Image Processing Toolbox, and Medical Imaging Toolbox, and about 8 GB of memory.
+
+!!! quote "Citation"
+    Billot B et al. SynthSeg. *Medical Image Analysis*, 2023. Billot B et al. SynthSeg 2.0. *PNAS*, 2023.
+
+### mmSkullStrip
+
+Removes the skull from a brain MRI. It finds the brain with SynthSeg 2.0 (`mmSynthSeg2`) and sets every voxel outside the brain to 0. A tumor inside the brain is kept, even though SynthSeg doesn't label it. This replaces the HD Brain Extraction extension of 3D Slicer.
+
+**INPUTS**
+
+- **input**: a brain MRI as a `medicalVolume`, or the name of a file that `medicalVolume` can read
+
+**OPTIONAL INPUTS (name-value)**
+
+- **OutputFile**: a `.nrrd` file for the skull-stripped MRI
+- **MaskFile**: a `.seg.nrrd` file for the brain mask, as a Slicer segmentation
+- **SynthSeg**: the first output of `mmSynthSeg2`, if you already have it. Then SynthSeg doesn't run again
+- **Verbose** (logical, default = true): show progress messages
+
+**OUTPUTS**
+
+- **strippedMV**: the MRI, with 0 outside the brain
+- **brainMV**: the brain mask (1 = brain, 0 = outside)
+
+```matlab linenums="1" title="Examples"
+mriMV = medicalVolume("MRBrainTumor1.nrrd");
+strippedMV = mmSkullStrip(mriMV, OutputFile="MRBT1stripped.nrrd", MaskFile="MRBT1SkullStrip.seg.nrrd");
+
+% segment the brain and remove the skull with one run of SynthSeg
+synthMV = mmSynthSeg2(mriMV);
+strippedMV = mmSkullStrip(mriMV, SynthSeg=synthMV);
+```
+
+## Display Segmentations
+
 ### mmPlotAllSeg
 
 Wrapper function that plots all segmentations from a 3D Slicer segmentation volume. Options include Smoothing and decimation, and lighting.
@@ -332,11 +619,12 @@ Wrapper function that plots all segmentations from a 3D Slicer segmentation volu
 - **mV**: `medicalVolume` of a Slicer Segmentation dataset
 - **segT**: Table containing the following slicer info — Name, Layer, LabelValue, Color
 
-**OPTIONAL INPUTS**. Enter empty brackets if skipping.
+**OPTIONAL INPUTS (name-value)**
 
-- **new_figure**: logical (default = true). Create new figure if true
+- **new_figure**: logical (default = false). Create a new figure if true
 - **falpha**: scalar (0-1, default = 0.5) - transparency of the faces
 - **smooth**: boolean (default=false). True means Smooth volume
+- **dec_factor**: scalar (0-1, default = 0.15) - fraction of the surface triangles to keep
 
 **OUTPUT**
 

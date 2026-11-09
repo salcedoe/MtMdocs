@@ -112,6 +112,7 @@ nav:
       - MR Tumors: slicer/MRTumorSegment.md
       - CT Femur: slicer/CTFemurSegment_9553F.md
       - Total Segmentator: slicer/TotalSegmentator.md
+      - Slicer to MATLAB Workflow: slicer/SlicerMATLABWorkflow.md
     - Surface Models:
       - Creating Surface Models: slicer/CreateModels.md
       - Exporting Models: slicer/ExportModels.md
