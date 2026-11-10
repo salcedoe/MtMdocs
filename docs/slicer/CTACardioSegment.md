@@ -319,7 +319,6 @@ Verify that you have successfully changed the labels by hovering over the kidney
 
 If everything works, select Segment_1 label in the table and click on **Remove**. You should now have two segmented kidneys and nothing else.
 
-
 #### Segmentation Cleanup
 
 We can clean-up our segmentations using the Scissors tool to cut away extraneous regions and Morphological operations, such as the  Islands and Smoothing Tools.
@@ -433,9 +432,9 @@ This requires the Lung CT Analyzer & Segmenter extension to be installed.
 
 #### Lung CT Segmenter
 
-[YouTube demonstration](https://www.youtube.com/watch?v=fpLxm7uAvZQ)
+First, watch the [YouTube demonstration](https://www.youtube.com/watch?v=fpLxm7uAvZQ).
 
-Open the Lung CT Segmenter:
+Next, open the Lung CT Segmenter:
 
 ![img-name](images/mod-menu-LungCTSegment.png){ width="250"}
 >This menu item is only available after you have installed the extension

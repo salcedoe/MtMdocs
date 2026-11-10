@@ -20,6 +20,9 @@ The MtM toolbox is a collection of functions designed to simplify Plotting, Imag
 | Read every Slicer file in a folder (a whole class) | [mmGetSlicerSegmentInfoAll](#mmgetslicersegmentinfoall) | SLCR5, SLCR6 |
 | Get the mask of one segment (e.g., the aorta) | [mmGetMedicalVolumeSegment](#mmgetmedicalvolumesegment) | SLCR2–7 |
 | Fix a segmentation that is one slice off from its CT | [mmMatchVolumeGeometry](#mmmatchvolumegeometry) | SLCR2, SLCR4 |
+| Fix a segmentation that has layers (4-D voxels) | [mmCollapseSegmentLayers](#mmcollapsesegmentlayers) | SLCR4, SLCR5 |
+| Fix volumes whose voxels are not isotropic | [mmResampleIsotropic](#mmresampleisotropic) | SLCR4, SLCR5 |
+| Save isotropic copies of your Slicer files | [mmResampleSlicerFiles](#mmresampleslicerfiles) | SLCR5 |
 | Plot every segment as a 3D surface | [mmPlotAllSeg](#mmplotallseg) | SLCR1, SLCR4 |
 | Plot one mask as a 3D surface | [mmPlotMask2Surface](#mmplotmask2surface) | SLCR1–5 |
 | Show where two segmentations of the same structure differ | [mmSurfaceDistance](#mmsurfacedistance) | SLCR2, SLCR3, SLCR5 |
@@ -376,6 +379,121 @@ segMV = medicalVolume(paths.seg);
 segMV = mmMatchVolumeGeometry(segMV, ctMV);
 ```
 
+### mmCollapseSegmentLayers
+
+Combines the layers of a Slicer segmentation into one label volume, with the same result as collapsing the layers in Slicer, but without changing your file. Slicer saves a segmentation in more than one layer when its segments overlap. MATLAB then loads the voxels as a 4-D array (one label volume per layer), and functions that expect one 3-D label volume, like `regionprops3`, `categorical`, and `labeloverlay`, fail. If the segmentation has only one layer, the function returns your inputs unchanged. See [Check your segmentation file](../slicer/SlicerMATLABWorkflow.md#check-your-segmentation-file) for when to use it.
+
+**INPUTS**
+
+- **segMV**: `medicalVolume` of a Slicer segmentation
+- **segT**: the segment table of that file, from `mmGetSlicerSegmentInfo`
+
+**OPTIONAL INPUTS (name-value)**
+
+- **OutputFile**: also save the collapsed segmentation as a new `.seg.nrrd` file that Slicer can open (default = don't save)
+
+**OUTPUTS**
+
+- **segMV**: a `medicalVolume` with one 3-D label volume, and the same geometry
+- **segT**: the updated segment table. Each segment's `LabelValue` is now its row number, and every `Layer` is 1. The names and colors don't change.
+- **overlapT**: a table of the voxels that were overwritten (empty if the segments don't overlap)
+
+```matlab linenums="1" title="Example"
+segMV = medicalVolume(paths.segment);
+segT = mmGetSlicerSegmentInfo(paths.segment);
+size(segMV.Voxels)     % four numbers: the segmentation has layers
+[segMV, segT] = mmCollapseSegmentLayers(segMV, segT);
+```
+
+```text title="Command Window"
+mmCollapseSegmentLayers: collapsed 2 layers into 1 (6 segments).
+  Some segments overlap. Where they do, the segment in the higher layer won (as in Slicer):
+  - Implant lost 7363 voxels (9.13 mL) to right tibia
+```
+
+!!! warning "Overlapping segments"
+    One voxel can hold only one label. Where two segments overlap, the segment in the **higher layer** (the `Layer` column of the segment table) keeps the voxels, as in Slicer, and the function tells you which segments lost voxels and how many. If the overlap is what you want to study (for example, two segmentations of the same tumor in SLCR3), don't collapse: `mmGetMedicalVolumeSegment` reads each segment from its own layer.
+
+### mmResampleIsotropic
+
+Resamples an intensity volume and its segmentation to isotropic voxels (the same size in all three directions), on exactly the same voxel grid, without changing your files. Many scans have voxels that are longer in one direction (for example 0.9 × 0.9 × 3 mm), and functions that measure in voxels, like `regionprops3` and `volshow`, then give distorted results. Use this function if you forgot to resample the volume in Slicer. If the voxels are already isotropic, the function returns your inputs unchanged. See [Check your segmentation file](../slicer/SlicerMATLABWorkflow.md#check-your-segmentation-file) for when to use it.
+
+**INPUTS**
+
+- **mV**: `medicalVolume` of the intensity volume (CT or MRI)
+- **segMV** (optional): `medicalVolume` of the segmentation of that volume. It can have layers.
+
+**OPTIONAL INPUTS (name-value)**
+
+- **VoxelSize**: the size of the new voxels in mm (default = the smallest voxel dimension of the volume, so no detail is lost)
+- **Segments**: the segment table from `mmGetSlicerSegmentInfo`. Only used to show the segment names in the report.
+- **Method**: interpolation of the intensity volume: `"linear"` (default), `"cubic"`, or `"nearest"`
+
+**OUTPUTS**
+
+- **mV**: a `medicalVolume` with isotropic voxels, which covers the same space as before
+- **segMV**: the segmentation on the same voxel grid as `mV`. The label values don't change, so your segment table is still valid.
+
+```matlab linenums="1" title="Example"
+ctMV = medicalVolume(paths.intensity);
+segMV = medicalVolume(paths.segment);
+segT = mmGetSlicerSegmentInfo(paths.segment);
+ctMV.VoxelSpacing     % three different numbers: not isotropic
+[ctMV, segMV] = mmResampleIsotropic(ctMV, segMV, Segments=segT);
+```
+
+```text title="Command Window"
+mmResampleIsotropic: resampled the intensity volume
+  voxel size: 0.9336 x 0.9336 x 1.25 mm  ->  0.9336 mm isotropic
+  size:       512 x 512 x 321  ->  512 x 512 x 430 voxels
+  Resampled the segmentation to the same voxel grid (nearest neighbor). Segment volumes:
+  - right lung: 1263.46 mL  ->  1263.35 mL (-0.0%)
+  - left lung: 1224.69 mL  ->  1224.71 mL (+0.0%)
+  - other: 37.63 mL  ->  37.41 mL (-0.6%)
+```
+
+!!! warning "The segmentation is not averaged"
+    Label values are names, not amounts, so they can't be averaged: each new voxel takes the label of the nearest old voxel, as in Slicer. Large segments barely change. Small or thin segments can change by a few percent, and their surfaces can look stepped along the direction of the long voxels. Check the report: if a segment that matters to you changed a lot, resample the volume in Slicer and segment again.
+
+### mmResampleSlicerFiles
+
+Saves isotropic copies of a Slicer volume and its segmentation. Use it if you forgot to resample your volume in Slicer before you segmented it, and you need corrected **files** (for example, to upload to the class folder). The function loads both files, resamples them to the same isotropic voxel grid with [mmResampleIsotropic](#mmresampleisotropic), and saves two new files next to the originals, with " isotropic" added to the names. Your original files are never changed. Slicer can open the new files: the segment names, colors, and layers are kept. If the files are already isotropic, no files are written. See [Check your segmentation file](../slicer/SlicerMATLABWorkflow.md#check-your-segmentation-file) for when to use it.
+
+**INPUTS**
+
+- **intensityFile**: the intensity volume (CT or MRI) saved from Slicer (`.nrrd`)
+- **segmentFile**: the segmentation of that volume (`.seg.nrrd`)
+
+**OPTIONAL INPUTS (name-value)**
+
+- **VoxelSize**: the size of the new voxels in mm (default = the smallest voxel dimension of the intensity volume)
+- **OutputFolder**: where to save the new files (default = the folder of each original file)
+- **Overwrite**: `true` replaces " isotropic" files from an earlier run (default = `false`). The original files are never replaced.
+
+**OUTPUTS**
+
+- **newIntensityFile**, **newSegmentFile**: the full paths of the files to use from now on (your original files, if nothing had to change)
+
+```matlab linenums="1" title="Example"
+paths.intensity = fullfile(paths.project, "CTACardio.nrrd");
+paths.segment = fullfile(paths.project, "Salcedo Segmentation.seg.nrrd");
+[paths.intensity, paths.segment] = mmResampleSlicerFiles(paths.intensity, paths.segment);
+```
+
+```text title="Command Window"
+mmResampleIsotropic: resampled the intensity volume
+  voxel size: 0.9336 x 0.9336 x 1.25 mm  ->  0.9336 mm isotropic
+  size:       512 x 512 x 321  ->  512 x 512 x 430 voxels
+  Resampled the segmentation to the same voxel grid (nearest neighbor). Segment volumes:
+  - right lung: 1263.46 mL  ->  1263.35 mL (-0.0%)
+  - left lung: 1224.69 mL  ->  1224.71 mL (+0.0%)
+  - other: 37.63 mL  ->  37.41 mL (-0.6%)
+mmResampleSlicerFiles:
+  saved .../CTACardio isotropic.nrrd
+  saved .../Salcedo Segmentation isotropic.seg.nrrd
+  Your original files were not changed.
+```
+
 ### mmWriteNRRD
 
 Saves a `medicalVolume` as a file that 3D Slicer can open. MATLAB can read NRRD files, but it can't write them. Save an image volume as `.nrrd`, or a segmentation as `.seg.nrrd` with named and colored segments. The voxel spacing, orientation, and position are kept, so the file lines up with the original volume in Slicer.
@@ -383,7 +501,7 @@ Saves a `medicalVolume` as a file that 3D Slicer can open. MATLAB can read NRRD 
 **INPUTS**
 
 - **filename**: the file to write (`.nrrd`, or `.seg.nrrd` for a segmentation)
-- **mv**: a `medicalVolume`. For a segmentation, each voxel holds a label value (0 = background)
+- **mv**: a `medicalVolume`. For a segmentation, each voxel holds a label value (0 = background). A segmentation with layers (4-D voxels) is saved with its layers: `Segments` is then required, with its `Layer` column.
 
 **OPTIONAL INPUTS (name-value)**
 

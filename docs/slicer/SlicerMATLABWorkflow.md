@@ -7,7 +7,8 @@ Each step has a picture of the result, the few lines of code that make it, and a
 ```mermaid
 flowchart TD
     A["1. Segment in Slicer<br/>save .seg.nrrd"] --> B["2. Load in MATLAB<br/>medicalVolume"]
-    B --> C["3. Display<br/>2D and 3D"]
+    B --> K["Check the file<br/>names, layers, size, voxels"]
+    K --> C["3. Display<br/>2D and 3D"]
     C --> D["4. Pull out one segment<br/>voxels to mm"]
     D --> E["5. Measure<br/>volume, length, diameter"]
     D --> F["6. Compare two<br/>segmentations"]
@@ -19,7 +20,8 @@ flowchart TD
 | Step | What you do | Main functions | Live script |
 | --- | --- | --- | --- |
 | [1](#1-segment-and-save-in-slicer) | Segment and save in Slicer | Segment Editor | [CTACardio](CTACardioSegment.md), [CT Femur](CTFemurSegment_9553F.md) |
-| [2](#2-load-the-volumes-in-matlab) | Load the CT and the segmentation | `medicalVolume`, `mmGetSlicerSegmentInfo`, `mmMatchVolumeGeometry` | SLCR1, SLCR2 |
+| [2](#2-load-the-volumes-in-matlab) | Load the CT and the segmentation | `medicalVolume`, `mmGetSlicerSegmentInfo` | SLCR1, SLCR2 |
+| [✓](#check-your-segmentation-file) | Check your segmentation file | `mmCollapseSegmentLayers`, `mmMatchVolumeGeometry`, `mmResampleIsotropic`, `mmResampleSlicerFiles` | SLCR4, SLCR5 |
 | [3](#3-display-the-segmentation) | Display in 2D and 3D | `labeloverlay`, `volshow`, `mmPlotAllSeg` | SLCR1 |
 | [4](#4-pull-out-one-segment) | Pull out one segment, in mm | `mmGetMedicalVolumeSegment`, `mmPlotMask2Surface` | SLCR1, SLCR2 |
 | [5](#5-measure) | Measure volume, length, and diameter | `regionprops3`, `mmAlignSurface2Axes`, `mmCrossSectionProfile` | SLCR4 |
@@ -67,12 +69,125 @@ segT = mmGetSlicerSegmentInfo(fullfile(folder, "Salcedo Segmentation.seg.nrrd"))
 
 Every voxel of `segMV.Voxels` holds a label value: 0 for background, 1 for the right kidney, 2 for the left kidney, and 3 for the aorta.
 
-!!! warning "Is the segmentation the same size as the CT?"
-    Some versions of Slicer add an empty slice to a segmentation. Then MATLAB can't compare it voxel by voxel with the CT. `mmMatchVolumeGeometry` adds or removes the extra slices, so the two line up:
+Before you go on, [check your segmentation file](#check-your-segmentation-file): four quick checks catch the problems that stop the later steps.
 
-    ```matlab
-    segMV = mmMatchVolumeGeometry(segMV, ctMV);
-    ```
+## Check your segmentation file
+
+A segmentation can look fine in Slicer and still stop your MATLAB script, or give wrong measurements. Run these four checks right after you load the volumes. Each one takes one line, and each problem can be fixed in MATLAB with a course function, without going back to Slicer.
+
+| Check | Look at | Problem if | Fix in MATLAB | Or fix in Slicer |
+| --- | --- | --- | --- | --- |
+| [Names](#are-the-names-right) | the file name and `segT.SegName` | the file doesn't end in `.seg.nrrd`, or a segment has the wrong name | rename the file; use the name you see in `segT` | rename the segment and save again |
+| [Layers](#does-the-segmentation-have-layers) | `size(segMV.Voxels)` | four numbers instead of three | `mmCollapseSegmentLayers` | [collapse the layers](CTACardioSegment.md#review-segmentation-module) |
+| [Size](#is-the-segmentation-the-same-size-as-the-ct) | `size(segMV.Voxels)` and `size(ctMV.Voxels)` | the sizes are different | `mmMatchVolumeGeometry` | |
+| [Voxel size](#are-the-voxels-isotropic) | `ctMV.VoxelSpacing` | the three numbers are not equal | `mmResampleIsotropic` (in your script), `mmResampleSlicerFiles` (new files) | [resample](CTACardioSegment.md#crop-module), then segment again |
+
+```matlab linenums="1" title="The four checks"
+segT                      % names: are the segment names what your script expects?
+size(segMV.Voxels)        % layers: three numbers (four = layers)
+size(ctMV.Voxels)         % size: the same three numbers as the segmentation
+ctMV.VoxelSpacing         % voxel size: three equal numbers (isotropic)
+```
+
+```text title="A file that passes"
+ans =
+   465   276   390
+ans =
+   465   276   390
+ans =
+    1.0270    1.0270    1.0270
+```
+
+If all four pass, go on to [step 3](#3-display-the-segmentation). If not, apply the fixes below **in this order**:
+
+```matlab linenums="1" title="All the fixes, in order (use only the ones you need)"
+[segMV, segT] = mmCollapseSegmentLayers(segMV, segT);              % layers
+segMV = mmMatchVolumeGeometry(segMV, ctMV);                        % size
+[ctMV, segMV] = mmResampleIsotropic(ctMV, segMV, Segments=segT);   % voxel size
+```
+
+Each function leaves a file that has no problem unchanged, and none of them changes the files on your computer.
+
+### Are the names right?
+
+MATLAB finds your files and your segments by name:
+
+- **The file** must end in `.seg.nrrd`. `mmGetSlicerSegmentInfo` stops with "Slicer *.seg.nrrd files only" for a file like `SalcedoSegmentation.nrrd`. For a class folder, start the name with your last name and a space (`Salcedo Segmentation.seg.nrrd`): the part before the space becomes your ID in [step 8](#8-compare-a-whole-class).
+- **The segments** must have the names that your script asks for. `mmGetMedicalVolumeSegment(segMV, segT, segName="aorta")` can't find a segment called "Aorta 1" or "Segment_3". Look at `segT.SegName`, and either use that name in your script, or rename the segment in Slicer and save again.
+
+### Does the segmentation have layers?
+
+When segments overlap (like MRTumor1 and MRTumor2), Slicer saves them in more than one layer. In MATLAB, `segMV.Voxels` is then 4-D instead of 3-D: you get four numbers for `size(segMV.Voxels)` (the fourth is the number of layers), and the `Layer` column of `segT` has values above 1. Steps that need one label volume, like `regionprops3`, `categorical`, and `volshow`, then fail.
+
+`mmCollapseSegmentLayers` combines the layers into one label volume, with the same result as [collapsing the layers in Slicer](CTACardioSegment.md#review-segmentation-module):
+
+```matlab
+[segMV, segT] = mmCollapseSegmentLayers(segMV, segT);
+```
+
+```text title="Command Window"
+mmCollapseSegmentLayers: collapsed 2 layers into 1 (6 segments).
+  Some segments overlap. Where they do, the segment in the higher layer won (as in Slicer):
+  - Implant lost 7363 voxels (9.13 mL) to right tibia
+```
+
+!!! warning "Read the report"
+    One voxel can hold only one label, so where two segments overlap, one of them loses those voxels. Check that the numbers are small. If the overlap is what you want to study (two segmentations of the same tumor in SLCR3), don't collapse: `mmGetMedicalVolumeSegment` reads each segment from its own layer.
+
+### Is the segmentation the same size as the CT?
+
+Some versions of Slicer add an empty slice to a segmentation. Then MATLAB can't compare it voxel by voxel with the CT. `mmMatchVolumeGeometry` adds or removes the extra slices, so that the two line up:
+
+```matlab
+segMV = mmMatchVolumeGeometry(segMV, ctMV);
+```
+
+It only adds or removes slices at the edges. If the two volumes have a different **voxel size**, it stops and tells you: that is the next check.
+
+### Are the voxels isotropic?
+
+**Isotropic** voxels have the same size in all three directions. Many scans don't: the original CTACardio volume has voxels of 0.93 × 0.93 × 1.25 mm. Steps that measure in voxels (`regionprops3`, `bwdist`, the aorta diameter in SLCR5) then give distorted results. The Slicer tutorials resample the volume to isotropic voxels [when you crop it](CTACardioSegment.md#crop-module). If the three numbers of `ctMV.VoxelSpacing` are not equal, you skipped that step, or you segmented the original volume instead of the cropped one.
+
+`mmResampleIsotropic` resamples the volume and the segmentation to the same isotropic voxel grid:
+
+```matlab
+[ctMV, segMV] = mmResampleIsotropic(ctMV, segMV, Segments=segT);
+```
+
+```text title="Command Window"
+mmResampleIsotropic: resampled the intensity volume
+  voxel size: 0.9336 x 0.9336 x 1.25 mm  ->  0.9336 mm isotropic
+  size:       512 x 512 x 321  ->  512 x 512 x 430 voxels
+  Resampled the segmentation to the same voxel grid (nearest neighbor). Segment volumes:
+  - right lung: 1263.46 mL  ->  1263.35 mL (-0.0%)
+  - left lung: 1224.69 mL  ->  1224.71 mL (+0.0%)
+  - other: 37.63 mL  ->  37.41 mL (-0.6%)
+```
+
+!!! note "Why the two volumes are resampled differently"
+    CT values are amounts, so a new voxel can be the average of its neighbors (linear interpolation). Label values are names: the average of label 1 (right kidney) and label 3 (aorta) is not label 2 (left kidney). So each new voxel of the segmentation takes the label of the nearest old voxel, as in Slicer. Large segments barely change. Small or thin segments can change by a few percent: check the report.
+
+### Save a corrected file
+
+The fixes above change the variables in MATLAB, not your files. That is enough for your own script. You need a corrected **file** when someone else reads it, for example when you upload your segmentation to a class folder ([step 8](#8-compare-a-whole-class)): the class script loads every file the same way, and it can't fix yours.
+
+| To save | Use |
+| --- | --- |
+| Isotropic copies of the volume and the segmentation | `mmResampleSlicerFiles` |
+| A segmentation with its layers collapsed | `mmCollapseSegmentLayers` with `OutputFile` |
+| Any `medicalVolume` that you changed | `mmWriteNRRD` |
+
+```matlab linenums="1" title="Save isotropic copies of your Slicer files"
+myIntensity = "/path/to/your/folder/CTACardio.nrrd";                    % the volume that you segmented
+mySegment = "/path/to/your/folder/Salcedo Segmentation.seg.nrrd";       % your segmentation
+[newIntensity, newSegment] = mmResampleSlicerFiles(myIntensity, mySegment)
+```
+
+`mmResampleSlicerFiles` needs **both** files, from the Slicer folder on your computer, so that the segmentation lands on the grid of the resampled volume. It saves two new files next to the originals, `CTACardio isotropic.nrrd` and `Salcedo Segmentation isotropic.seg.nrrd`, and never changes the originals. Slicer can open the new files: the segment names, colors, and layers are kept.
+
+```matlab linenums="1" title="Save a collapsed segmentation"
+[segMV, segT] = mmCollapseSegmentLayers(segMV, segT, OutputFile="Salcedo Segmentation collapsed.seg.nrrd");
+```
 
 ## 3. Display the segmentation
 
@@ -271,7 +386,7 @@ end
 
 ### Look for mistakes first
 
-Before you calculate anything, look at every segmentation. Mistakes are easy to see in a gallery:
+Before you calculate anything, look at every segmentation. A class script can't repair a file, so each file must already pass the [four checks](#check-your-segmentation-file): a file with the wrong segment name is skipped, and a file with voxels that are not isotropic gives wrong lengths and diameters. Its owner can make a corrected copy with [`mmResampleSlicerFiles`](#save-a-corrected-file). Other mistakes are easy to see in a gallery:
 
 ![every student's left femur](images/workflow/step8-femur-gallery.png){ width="650"}
 
@@ -314,6 +429,6 @@ Pair each student's right and left measurements. If every line slopes the same w
 Two toolbox functions segment scans without opening Slicer, so you can process many scans in a loop:
 
 - [mmTotalSegmentator](../reference/courseFunctions.md#mmtotalsegmentator) segments a CT into more than 100 structures (see SLCR7)
-- [mmSynthSeg2](../reference/courseFunctions.md#mmsynthseg2) segments a brain MRI into 32 structures
+- [mmSynthSeg2](../reference/courseFunctions.md#mmsynthseg2) segments a brain MRI into 32 structures (See the SynthSeg_Brain_Segmentation.m script)
 
 Their output works with every step on this page, starting at step 2.
