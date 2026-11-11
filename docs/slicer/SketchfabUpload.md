@@ -27,15 +27,15 @@ You need **both** the `.obj` and the `.mtl` file. The OBJ file holds the surface
 
 As soon as the upload starts, Sketchfab opens the **Edit model** page. The left panel shows the upload progress (**Upload**, **Processing**, **Ready to publish**). You can fill in the settings while the model processes.
 
-![Edit model page](images/sketchfab-model-settings.png){ width="450"}
+![Edit model page](images/sketchfab-model-settings.png){ width="700"}
 
 1. **Title**: Sketchfab fills this in from the file name. Change it if needed.
 2. **Description**: Add a short description of the model, e.g. which structures were segmented and that the model was made in [3D Slicer](https://www.slicer.org).
 3. **Categories**: Select **Science & Technology** from the dropdown.
-4. **Tags**: Type a tag and press **Return** after each one. Be sure to add the **ucdenver** and **MSMHA** tags.
+4. **Tags**: Type a tag and press **Return** after each one. Be sure to add the **cu-anschutz**, **modern-human-anatomy**, and **3d-slicer** tags. Tags can't contain spaces: Sketchfab splits `Modern Human Anatomy` into three separate tags, so use hyphens instead.
 5. **Download**: Select **Free**.
 6. Click **Save** at the bottom right.
->![Save and Save & Publish buttons](images/sketchfab-save-buttons.png){ width="250"}
+>![Save and Save & Publish buttons](images/sketchfab-save-buttons.png){ width="216"}
 
 !!! warning "Select Free download"
 
@@ -55,7 +55,7 @@ The editor has a row of tabs across the top of the left panel: **General** (gear
 
     Changes in the 3D editor are not saved automatically. Click **Save Settings** at the top right before you leave the editor. Do not click **Publish** unless you are ready to make your model public.
 
-    ![Exit, Publish, and Save Settings buttons](images/sketchfab-3d-save-settings.png){ width="300"}
+    ![Exit, Publish, and Save Settings buttons](images/sketchfab-3d-save-settings.png){ width="400"}
 
 ### General
 
@@ -65,7 +65,7 @@ Models exported from Slicer usually do not load in the right orientation. Use th
     - For this model, one click on the right arrow next to **X** turns the model so that the lungs are on top and the aorta runs vertically.
 2. Check **Show advanced rotation** to show a rotation gizmo in the viewer. Drag the colored rings to fine-tune the orientation.
 
-![General settings with the model straightened](images/sketchfab-3d-general.png){ width="450"}
+![General settings with the model straightened](images/sketchfab-3d-general.png){ width="700"}
 
 ### Background
 
@@ -81,7 +81,7 @@ The **Environment** option places your model in a 3D scene.
 4. Set **Blur** to `0`.
 5. Increase the **Brightness**.
 
-![Environment background](images/sketchfab-3d-background-environment.png){ width="450"}
+![Environment background](images/sketchfab-3d-background-environment.png){ width="700"}
 
 #### Color
 
@@ -90,7 +90,7 @@ Or you can set the background to a solid color.
 1. Click **Color**.
 2. Click in the color picker, or type a hex value (e.g. `#131111` for near black) in the box below it.
 
-![Color background](images/sketchfab-3d-background-color.png){ width="450"}
+![Color background](images/sketchfab-3d-background-color.png){ width="700"}
 
 ### Lighting
 
@@ -98,7 +98,7 @@ Or you can set the background to a solid color.
 2. Turn the **Lights** toggle **ON** so you can control the lights.
 3. Click **Load Lighting Preset**, then select a preset (e.g. **Three-point Lighting**).
 
-![Lighting presets](images/sketchfab-3d-lighting-presets.png){ width="450"}
+![Lighting presets](images/sketchfab-3d-lighting-presets.png){ width="700"}
 
 ### Materials
 
@@ -109,7 +109,7 @@ The Materials tab changes the appearance of each segment (material) in your mode
     - The material names come from the MTL file that Slicer wrote (e.g. `mtl60716`), not from your segment names. Click through the list to find the segment you want.
 3. Scroll down to **Opacity** and make sure it is **ON**. Expand the section and lower the value (e.g. `0.4`) to make the segment see-through.
 
-![Lung opacity set to 0.4](images/sketchfab-3d-materials-opacity.png){ width="450"}
+![Lung opacity set to 0.4](images/sketchfab-3d-materials-opacity.png){ width="700"}
 
 ### Post Processing Filters
 
@@ -119,7 +119,7 @@ Many settings here change the overall appearance of your model.
 2. Try turning on **Sharpness** and **Vignette**.
 3. Expand a filter (click its name) to adjust its settings.
 
-![Post processing filters](images/sketchfab-3d-post-processing.png){ width="450"}
+![Post processing filters](images/sketchfab-3d-post-processing.png){ width="700"}
 
 ### Annotations
 
@@ -130,7 +130,7 @@ Annotations are numbered labels attached to points on your model.
 3. Type a **Title** and a **Description**, then click **OK**.
 4. To change an annotation later, click **Edit** next to it in the left panel. Click the camera icon to save the current view for that annotation.
 
-![Adding an annotation](images/sketchfab-3d-annotations.png){ width="450"}
+![Adding an annotation](images/sketchfab-3d-annotations.png){ width="700"}
 
 !!! note
 
@@ -146,7 +146,7 @@ Annotations are numbered labels attached to points on your model.
 
 After you exit the editor, you see your model's page. While the model is a draft, the page shows a yellow **This model is a Draft** box with a **Publish** button, and the title has a **Draft** label.
 
-![Draft model page](images/sketchfab-draft-model-page.png){ width="450"}
+![Draft model page](images/sketchfab-draft-model-page.png){ width="650"}
 
 ### Publish
 
@@ -158,12 +158,12 @@ When you are ready to share your model, click **Publish**. Sketchfab confirms th
 
 Once your model is published, the model page shows **Download 3D Model**, **Add To**, **Embed**, and **Share** links below the model. You can interact with the model by dragging on it.
 
-![Published model page](images/sketchfab-published-model-page.png){ width="450"}
+![Published model page](images/sketchfab-published-model-page.png){ width="500"}
 
 1. Click **Share** to get a short **Direct link** to your model. Click **Copy** to copy it.
->![Share dialog](images/sketchfab-share-dialog.png){ width="300"}
+>![Share dialog](images/sketchfab-share-dialog.png){ width="320"}
 2. To place the model in another web page, click **Get Embed Code** in the Share dialog (or click **Embed** on the model page). The **Embed viewer** window shows a preview, options for the embedded viewer, and the embed code. Click **Copy to Clipboard** to copy the code.
->![Embed viewer](images/sketchfab-embed-viewer.png){ width="450"}
+>![Embed viewer](images/sketchfab-embed-viewer.png){ width="550"}
 
 ### Example: Embedded Model
 
