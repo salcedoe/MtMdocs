@@ -471,11 +471,11 @@ Notice that a new Segmentation Node has been added: "Lung Segmentation". There a
 
 Save your work!
 
-#### Review Segmentation Module
+### Review Segmentation Module
 
-You can also review the segmentations in the Segmentations Module.
+You can review all the segmentations you created in the Segmentations Module.
 
-![img-name](images/mod-menu-segmentations_2025.png){ width="150"}
+![segmentations menu](images/mod-menu-segmentations_2025.png){ width="150"}
 
 In the segmentations module, you find a segmentations table similar to the one in the Segment Editor.
 
@@ -494,6 +494,8 @@ Slicer manages overlapping segmentations by creating layers. You can see the num
 
 Compare to the Segmentation Node with the Kidneys, by selecting the Segmentation node with your last name in it at the top of the module. There are no layers (or there should be no layers) in that node. If there are layers, no worries. We will fix that in the next step
 
+#### Merge Segmentations
+
 !!! abstract "Copy segmentations from one node to another node"
 
     For processing, sometimes it is easier to collect all segmentations into one node. In this step, we copy the lungs and trachea over to the segmentation node that already contains our kidneys and aorta.
@@ -510,6 +512,8 @@ Compare to the Segmentation Node with the Kidneys, by selecting the Segmentation
     ![slicer screengrab](images/ctacardio-segmentations-copy-MOVED.png){ width="450"}
 
 Ok, great. Now we have a single segmentation node that contains all the segments we want to process. But, since Lung segmentation had layers, those layers have been transferred to the new segmentation node. Having layers makes things kind of hard to process, so let's get rid of those layers
+
+#### Collapse Layers
 
 !!! abstract "Collapse Layers in a Segmentation Node"
 
