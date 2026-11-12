@@ -1,0 +1,5959 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://salcedoe.github.io/MtMdocs/slicer/SlicerMATLABWorkflow/">
+      
+      
+        <link rel="prev" href="../TotalSegmentator/">
+      
+      
+        <link rel="next" href="../CreateModels/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/skull-scan-blue.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Slicer to MATLAB Workflow - Muddling through Medical Imaging</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-SPQ0E4H9P9"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-SPQ0E4H9P9",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-SPQ0E4H9P9",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>if("undefined"!=typeof __md_analytics){var consent=__md_get("__consent");consent&&consent.analytics&&__md_analytics()}</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#from-slicer-to-matlab-a-segmentation-workflow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Muddling through Medical Imaging" class="md-header__button md-logo" aria-label="Muddling through Medical Imaging" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 0C.9 0 0 .9 0 2v4h2V2h4V0zm16 0v2h4v4h2V2c0-1.1-.9-2-2-2zm-6 3c-4.4 0-8 3.6-8 8 0 2.5 1.2 4.8 3 6.2V21h2v-3h2v3h2v-3h2v3h2v-3.8c1.8-1.5 3-3.7 3-6.2 0-4.4-3.6-8-8-8M8 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m2.5 2 1.5-3 1.5 3zm5.5-2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2M0 18v4c0 1.1.9 2 2 2h4v-2H2v-4zm22 0v4h-4v2h4c1.1 0 2-.9 2-2v-4z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Muddling through Medical Imaging
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Slicer to MATLAB Workflow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/salcedoe/MtMtools" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../setup/softwareOverview/" class="md-tabs__link">
+          
+  
+  
+  Setup
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/courseFunctions/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../matlabBasics/MatlabIntro/" class="md-tabs__link">
+          
+  
+  
+  MATLAB Basics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dataProcessing/" class="md-tabs__link">
+          
+  
+  
+  Data Processing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../imageProcessing/ImageIntro/" class="md-tabs__link">
+          
+  
+  
+  Image Processing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../imaging/electromagneticRadiation/" class="md-tabs__link">
+          
+  
+  
+  Imaging
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../volumeProcessing/volumeOverview/" class="md-tabs__link">
+          
+  
+  
+  Volume Processing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../InterfaceIntro/" class="md-tabs__link">
+          
+  
+  
+  3D Slicer
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Muddling through Medical Imaging" class="md-nav__button md-logo" aria-label="Muddling through Medical Imaging" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 0C.9 0 0 .9 0 2v4h2V2h4V0zm16 0v2h4v4h2V2c0-1.1-.9-2-2-2zm-6 3c-4.4 0-8 3.6-8 8 0 2.5 1.2 4.8 3 6.2V21h2v-3h2v3h2v-3h2v3h2v-3.8c1.8-1.5 3-3.7 3-6.2 0-4.4-3.6-8-8-8M8 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m2.5 2 1.5-3 1.5 3zm5.5-2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2M0 18v4c0 1.1.9 2 2 2h4v-2H2v-4zm22 0v4h-4v2h4c1.1 0 2-.9 2-2v-4z"/></svg>
+
+    </a>
+    Muddling through Medical Imaging
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/salcedoe/MtMtools" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/softwareOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/matlabInstallation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installing MATLAB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/githubRepoInstallation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Github Repositories
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/computerSetup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/courseFunctions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MtM Toolbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/MATLABReferencePages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MATLAB resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MATLAB Basics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    MATLAB Basics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/MatlabIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Muddling Through MATLAB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/matlabInterface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The MATLAB Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Basic Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/DataOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/ArrayAssignmentOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Array Assignment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/BinaryNumbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Binary Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Data Classes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Basic Data Classes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Numeric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numeric Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Logical/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logical Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Character/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Character Arrays
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complex Data Classes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Complex Data Classes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Cell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cells
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Strings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Structures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/Tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simple Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Simple Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/ControlFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/FilesFolders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Files and Folders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Plotting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingComponents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingBasics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/PlottingOverlaysTiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting Overlays and Tiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/groupStats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting Group Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scripts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlabBasics/scripts/Control_Flow_Functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control Flow and Functions in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Processing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Processing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/dataTypes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/tidyData/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tidy Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/groupStats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plotting Group Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/SamplesDistributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sampling and Distributions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/HypTesting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hypothesis Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataProcessing/EffectSize/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Effect Size
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Processing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Image Processing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grayscale Images
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageEnhancement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Enhancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageSegmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageSegmentationCleanup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Segmentation Cleanup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageRegionProcessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Region Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageRGB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RGB Images
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageRGBEnhancement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RGB Enhancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageColorSegmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Color Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageTextureSegmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Texture Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imageProcessing/ImageDistanceTransform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distance Transform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Imaging
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Imaging
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Imaging Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Imaging Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/electromagneticRadiation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Light
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/humanVision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human Vision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/colorModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Color Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Imaging with Light
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Imaging with Light
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/digitalPhotography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digital Photography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/digitalMicroscopy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digital Microscopy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Medical Imaging
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Medical Imaging
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/medicalImagingIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/XrayImaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    X-ray Imaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/CTImaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CT Imaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/MRImaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MRI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/UltrasoundImaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ultrasound
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../imaging/Liesel_Brain_Atlas.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MRI Atlas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume Processing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Volume Processing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volumeOverview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loading Volumes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Loading Volumes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/medicalFileFormats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Medical File Formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/loadingConfocalDatasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loading Confocal Datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/loadingMedicalDatasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loading Medical Datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_3" id="__nav_8_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume Visualization
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Volume Visualization
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volumeIndexing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indexing Image Stacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volumeVisualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Viewing Image Slices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_4" id="__nav_8_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rendering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume and Surface Rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/medVolumeViewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Medical Volume Viewer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volshow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering with volshow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/renderingConfocalVolumes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering Confocal Volumes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_4_5" id="__nav_8_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Surface Rendering
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Surface Rendering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/surfaceModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Surface Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/medicalSurfaceRendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering Medical Datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/surfaceModelTransformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transforming Surface Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_5" id="__nav_8_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume Analysis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Volume Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../volumeProcessing/volumeSegmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3D Slicer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3D Slicer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../InterfaceIntro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CustomizeSlicer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customize Slicer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshootingSlicer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting Slicer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Exploration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Exploration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTChestExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTChest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTPETExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PET CT (Multi-modal Dataset)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTMRExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CT MRI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MRHeadExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MRHead
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UltrasoundExplore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ultrasound
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImportDICOMDataset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Import DICOM datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volume Segmentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Volume Segmentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTACardioSegment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTACardio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MRTumorSegment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MR Tumors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTFemurSegment_9553F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CT Femur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TotalSegmentator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Total Segmentator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Slicer to MATLAB Workflow
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Slicer to MATLAB Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-segment-and-save-in-slicer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Segment and save in Slicer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-load-the-volumes-in-matlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Load the volumes in MATLAB
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-segmentation-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check your segmentation file
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Check your segmentation file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#are-the-names-right" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Are the names right?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#does-the-segmentation-have-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Does the segmentation have layers?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-the-segmentation-the-same-size-as-the-ct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is the segmentation the same size as the CT?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#are-the-voxels-isotropic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Are the voxels isotropic?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-a-corrected-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Save a corrected file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-display-the-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Display the segmentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-pull-out-one-segment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Pull out one segment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-measure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Measure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Measure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#volume-and-mean-intensity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Volume and mean intensity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Length
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diameter-along-the-length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diameter along the length
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-compare-two-segmentations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Compare two segmentations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Compare two segmentations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-do-they-overlap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where do they overlap?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-far-apart-are-the-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How far apart are the surfaces?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-compare-left-and-right" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Compare left and right
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-compare-a-whole-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Compare a whole class
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Compare a whole class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-every-file-in-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load every file in a folder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#look-for-mistakes-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Look for mistakes first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot-the-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plot the class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-much-do-the-raters-disagree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How much do the raters disagree?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-the-difference-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is the difference real?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shortcut-let-ai-segment-for-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shortcut: let AI segment for you
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Surface Models
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Surface Models
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CreateModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Surface Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ExportModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exporting Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SketchfabUpload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uploading to Sketchfab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_7" id="__nav_9_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generating Animations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Generating Animations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ImageSequenceToVideo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image sequence to video (MAC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-segment-and-save-in-slicer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Segment and save in Slicer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-load-the-volumes-in-matlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Load the volumes in MATLAB
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-segmentation-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check your segmentation file
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Check your segmentation file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#are-the-names-right" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Are the names right?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#does-the-segmentation-have-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Does the segmentation have layers?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-the-segmentation-the-same-size-as-the-ct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is the segmentation the same size as the CT?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#are-the-voxels-isotropic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Are the voxels isotropic?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-a-corrected-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Save a corrected file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-display-the-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Display the segmentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-pull-out-one-segment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Pull out one segment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-measure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Measure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Measure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#volume-and-mean-intensity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Volume and mean intensity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Length
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diameter-along-the-length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diameter along the length
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-compare-two-segmentations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Compare two segmentations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Compare two segmentations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-do-they-overlap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where do they overlap?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-far-apart-are-the-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How far apart are the surfaces?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-compare-left-and-right" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Compare left and right
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-compare-a-whole-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Compare a whole class
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Compare a whole class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-every-file-in-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load every file in a folder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#look-for-mistakes-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Look for mistakes first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot-the-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plot the class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-much-do-the-raters-disagree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How much do the raters disagree?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-the-difference-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is the difference real?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shortcut-let-ai-segment-for-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shortcut: let AI segment for you
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../InterfaceIntro/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    3D Slicer
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../CTACardioSegment/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Volume Segmentation
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="from-slicer-to-matlab-a-segmentation-workflow">From Slicer to MATLAB: a Segmentation Workflow</h1>
+<p>You have segmented some anatomy in 3D Slicer. Now what? This page walks through the whole path from a Slicer segmentation to measurements, comparisons, and class statistics in MATLAB. It follows the SLCR live scripts in Unit 3, and each step tells you which script covers it in detail.</p>
+<p>Each step has a picture of the result, the few lines of code that make it, and a link to the <a href="../../reference/courseFunctions/">MtM Toolbox</a> page for the full details of each function.</p>
+<pre class="mermaid"><code>flowchart TD
+    A["1. Segment in Slicer&lt;br/&gt;save .seg.nrrd"] --&gt; B["2. Load in MATLAB&lt;br/&gt;medicalVolume"]
+    B --&gt; K["Check the file&lt;br/&gt;names, layers, size, voxels"]
+    K --&gt; C["3. Display&lt;br/&gt;2D and 3D"]
+    C --&gt; D["4. Pull out one segment&lt;br/&gt;voxels to mm"]
+    D --&gt; E["5. Measure&lt;br/&gt;volume, length, diameter"]
+    D --&gt; F["6. Compare two&lt;br/&gt;segmentations"]
+    F --&gt; G["7. Compare left&lt;br/&gt;and right"]
+    E --&gt; H["8. Compare a&lt;br/&gt;whole class"]
+    G --&gt; H</code></pre>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What you do</th>
+<th>Main functions</th>
+<th>Live script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#1-segment-and-save-in-slicer">1</a></td>
+<td>Segment and save in Slicer</td>
+<td>Segment Editor</td>
+<td><a href="../CTACardioSegment/">CTACardio</a>, <a href="../CTFemurSegment_9553F/">CT Femur</a></td>
+</tr>
+<tr>
+<td><a href="#2-load-the-volumes-in-matlab">2</a></td>
+<td>Load the CT and the segmentation</td>
+<td><code>medicalVolume</code>, <code>mmGetSlicerSegmentInfo</code></td>
+<td>SLCR1, SLCR2</td>
+</tr>
+<tr>
+<td><a href="#check-your-segmentation-file">✓</a></td>
+<td>Check your segmentation file</td>
+<td><code>mmCollapseSegmentLayers</code>, <code>mmMatchVolumeGeometry</code>, <code>mmResampleIsotropic</code>, <code>mmResampleSlicerFiles</code></td>
+<td>SLCR4, SLCR5</td>
+</tr>
+<tr>
+<td><a href="#3-display-the-segmentation">3</a></td>
+<td>Display in 2D and 3D</td>
+<td><code>labeloverlay</code>, <code>volshow</code>, <code>mmPlotAllSeg</code></td>
+<td>SLCR1</td>
+</tr>
+<tr>
+<td><a href="#4-pull-out-one-segment">4</a></td>
+<td>Pull out one segment, in mm</td>
+<td><code>mmGetMedicalVolumeSegment</code>, <code>mmPlotMask2Surface</code></td>
+<td>SLCR1, SLCR2</td>
+</tr>
+<tr>
+<td><a href="#5-measure">5</a></td>
+<td>Measure volume, length, and diameter</td>
+<td><code>regionprops3</code>, <code>mmAlignSurface2Axes</code>, <code>mmCrossSectionProfile</code></td>
+<td>SLCR4</td>
+</tr>
+<tr>
+<td><a href="#6-compare-two-segmentations">6</a></td>
+<td>Compare two segmentations</td>
+<td><code>dice</code>, <code>mmSurfaceDistance</code></td>
+<td>SLCR2, SLCR3</td>
+</tr>
+<tr>
+<td><a href="#7-compare-left-and-right">7</a></td>
+<td>Compare left and right</td>
+<td><code>mmMirrorAlign</code>, <code>mmSurfaceDistance</code></td>
+<td>SLCR5</td>
+</tr>
+<tr>
+<td><a href="#8-compare-a-whole-class">8</a></td>
+<td>Compare the whole class</td>
+<td><code>mmGetSlicerSegmentInfoAll</code>, <code>mmBoxSwarm</code></td>
+<td>SLCR5, SLCR6</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Before you start</p>
+<ul>
+<li>Add the MtM toolbox to your MATLAB path (see the <a href="../../setup/matlabInstallation/#add-toolboxes-to-the-matlab-search-path">setup page</a>)</li>
+<li>You need the <strong>Medical Imaging Toolbox</strong> and the <strong>Image Processing Toolbox</strong></li>
+<li>Get the SLCR live scripts with <code>mmGetScript(3)</code></li>
+</ul>
+</div>
+<h2 id="1-segment-and-save-in-slicer">1. Segment and save in Slicer</h2>
+<p>Segment your structures in the Segment Editor, following the <a href="../CTACardioSegment/">CTACardio</a> or <a href="../CTFemurSegment_9553F/">CT Femur</a> tutorial. Then save your work (<strong>File → Save Data</strong>). Slicer saves two files that MATLAB needs:</p>
+<ul>
+<li>the <strong>intensity volume</strong> (the CT or MRI), as a <code>.nrrd</code> file. For example, <code>CTACardio Crop.nrrd</code></li>
+<li>the <strong>segmentation</strong>, as a <code>.seg.nrrd</code> file. For example, <code>Salcedo Segmentation.seg.nrrd</code></li>
+</ul>
+<p><img alt="segmented kidneys in the four-up view" src="../images/CTACardio-4up-Kidneys-Threshold-Segmentation.png" width="450" /></p>
+<blockquote>
+<p>The kidneys segmented in Slicer. Each segment has a name and a color, and Slicer stores both in the <code>.seg.nrrd</code> file.</p>
+</blockquote>
+<div class="admonition tip">
+<p class="admonition-title">Name your segments and files carefully</p>
+<p>MATLAB finds segments by name, so use the names in the tutorial ("right kidney", "left femur"). Start the file name with your last name and a space (<code>Salcedo Segmentation.seg.nrrd</code>): in step 8, the part before the space becomes your ID.</p>
+</div>
+<h2 id="2-load-the-volumes-in-matlab">2. Load the volumes in MATLAB</h2>
+<p>Load both files as <code>medicalVolume</code> objects. A <code>medicalVolume</code> holds the voxels and the geometry of the volume: its voxel size, orientation, and position in the patient. Then read the segment names, label values, and colors with <code>mmGetSlicerSegmentInfo</code>.</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Load the volumes (SLCR1)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">folder</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">fullfile</span><span class="p">(</span><span class="n">mmSetUnitDataFolder</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="s">"CTACardio"</span><span class="p">);</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">ctMV</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">medicalVolume</span><span class="p">(</span><span class="nb">fullfile</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span><span class="w"> </span><span class="s">"CTACardio Crop.nrrd"</span><span class="p">));</span><span class="w">                  </span><span class="c">% CT</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">segMV</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">medicalVolume</span><span class="p">(</span><span class="nb">fullfile</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span><span class="w"> </span><span class="s">"Salcedo Segmentation.seg.nrrd"</span><span class="p">));</span><span class="w">       </span><span class="c">% segmentation</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="n">segT</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetSlicerSegmentInfo</span><span class="p">(</span><span class="nb">fullfile</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span><span class="w"> </span><span class="s">"Salcedo Segmentation.seg.nrrd"</span><span class="p">))</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><span class="filename">segT</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>       SegName        Layer    LabelValue                Color
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    ______________    _____    __________    _____________________________
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    "right kidney"      1          1         0.56471    0.93333    0.56471
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    "left kidney"       1          2               0    0.59216    0.80784
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    "aorta"             1          3         0.84706    0.39608     0.3098
+</span></code></pre></div>
+<p>Every voxel of <code>segMV.Voxels</code> holds a label value: 0 for background, 1 for the right kidney, 2 for the left kidney, and 3 for the aorta.</p>
+<p>Before you go on, <a href="#check-your-segmentation-file">check your segmentation file</a>: four quick checks catch the problems that stop the later steps.</p>
+<h2 id="check-your-segmentation-file">Check your segmentation file</h2>
+<p>A segmentation can look fine in Slicer and still stop your MATLAB script, or give wrong measurements. Run these four checks right after you load the volumes. Each one takes one line, and each problem can be fixed in MATLAB with a course function, without going back to Slicer.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Look at</th>
+<th>Problem if</th>
+<th>Fix in MATLAB</th>
+<th>Or fix in Slicer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#are-the-names-right">Names</a></td>
+<td>the file name and <code>segT.SegName</code></td>
+<td>the file doesn't end in <code>.seg.nrrd</code>, or a segment has the wrong name</td>
+<td>rename the file; use the name you see in <code>segT</code></td>
+<td>rename the segment and save again</td>
+</tr>
+<tr>
+<td><a href="#does-the-segmentation-have-layers">Layers</a></td>
+<td><code>size(segMV.Voxels)</code></td>
+<td>four numbers instead of three</td>
+<td><code>mmCollapseSegmentLayers</code></td>
+<td><a href="../CTACardioSegment/#review-segmentation-module">collapse the layers</a></td>
+</tr>
+<tr>
+<td><a href="#is-the-segmentation-the-same-size-as-the-ct">Size</a></td>
+<td><code>size(segMV.Voxels)</code> and <code>size(ctMV.Voxels)</code></td>
+<td>the sizes are different</td>
+<td><code>mmMatchVolumeGeometry</code></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#are-the-voxels-isotropic">Voxel size</a></td>
+<td><code>ctMV.VoxelSpacing</code></td>
+<td>the three numbers are not equal</td>
+<td><code>mmResampleIsotropic</code> (in your script), <code>mmResampleSlicerFiles</code> (new files)</td>
+<td><a href="../CTACardioSegment/#crop-module">resample</a>, then segment again</td>
+</tr>
+</tbody>
+</table>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">The four checks</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">segT</span><span class="w">                      </span><span class="s">%</span><span class="w"> </span><span class="s">names:</span><span class="w"> </span><span class="s">are</span><span class="w"> </span><span class="s">the</span><span class="w"> </span><span class="s">segment</span><span class="w"> </span><span class="s">names</span><span class="w"> </span><span class="s">what</span><span class="w"> </span><span class="s">your</span><span class="w"> </span><span class="s">script</span><span class="w"> </span><span class="s">expects?</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nb">size</span><span class="p">(</span><span class="n">segMV</span><span class="p">.</span><span class="n">Voxels</span><span class="p">)</span><span class="w">        </span><span class="c">% layers: three numbers (four = layers)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nb">size</span><span class="p">(</span><span class="n">ctMV</span><span class="p">.</span><span class="n">Voxels</span><span class="p">)</span><span class="w">         </span><span class="c">% size: the same three numbers as the segmentation</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="n">ctMV</span><span class="p">.</span><span class="n">VoxelSpacing</span><span class="w">         </span><span class="c">% voxel size: three equal numbers (isotropic)</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><span class="filename">A file that passes</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ans =
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>   465   276   390
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>ans =
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>   465   276   390
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>ans =
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    1.0270    1.0270    1.0270
+</span></code></pre></div>
+<p>If all four pass, go on to <a href="#3-display-the-segmentation">step 3</a>. If not, apply the fixes below <strong>in this order</strong>:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">All the fixes, in order (use only the ones you need)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="p">[</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmCollapseSegmentLayers</span><span class="p">(</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">);</span><span class="w">              </span><span class="c">% layers</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="n">segMV</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmMatchVolumeGeometry</span><span class="p">(</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">ctMV</span><span class="p">);</span><span class="w">                        </span><span class="c">% size</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="p">[</span><span class="n">ctMV</span><span class="p">,</span><span class="w"> </span><span class="n">segMV</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmResampleIsotropic</span><span class="p">(</span><span class="n">ctMV</span><span class="p">,</span><span class="w"> </span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">Segments</span><span class="p">=</span><span class="n">segT</span><span class="p">);</span><span class="w">   </span><span class="c">% voxel size</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Each function leaves a file that has no problem unchanged, and none of them changes the files on your computer.</p>
+<h3 id="are-the-names-right">Are the names right?</h3>
+<p>MATLAB finds your files and your segments by name:</p>
+<ul>
+<li><strong>The file</strong> must end in <code>.seg.nrrd</code>. <code>mmGetSlicerSegmentInfo</code> stops with "Slicer *.seg.nrrd files only" for a file like <code>SalcedoSegmentation.nrrd</code>. For a class folder, start the name with your last name and a space (<code>Salcedo Segmentation.seg.nrrd</code>): the part before the space becomes your ID in <a href="#8-compare-a-whole-class">step 8</a>.</li>
+<li><strong>The segments</strong> must have the names that your script asks for. <code>mmGetMedicalVolumeSegment(segMV, segT, segName="aorta")</code> can't find a segment called "Aorta 1" or "Segment_3". Look at <code>segT.SegName</code>, and either use that name in your script, or rename the segment in Slicer and save again.</li>
+</ul>
+<h3 id="does-the-segmentation-have-layers">Does the segmentation have layers?</h3>
+<p>When segments overlap (like MRTumor1 and MRTumor2), Slicer saves them in more than one layer. In MATLAB, <code>segMV.Voxels</code> is then 4-D instead of 3-D: you get four numbers for <code>size(segMV.Voxels)</code> (the fourth is the number of layers), and the <code>Layer</code> column of <code>segT</code> has values above 1. Steps that need one label volume, like <code>regionprops3</code>, <code>categorical</code>, and <code>volshow</code>, then fail.</p>
+<p><code>mmCollapseSegmentLayers</code> combines the layers into one label volume, with the same result as <a href="../CTACardioSegment/#review-segmentation-module">collapsing the layers in Slicer</a>:</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">[</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmCollapseSegmentLayers</span><span class="p">(</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">);</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Command Window</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>mmCollapseSegmentLayers: collapsed 2 layers into 1 (6 segments).
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  Some segments overlap. Where they do, the segment in the higher layer won (as in Slicer):
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  - Implant lost 7363 voxels (9.13 mL) to right tibia
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Read the report</p>
+<p>One voxel can hold only one label, so where two segments overlap, one of them loses those voxels. Check that the numbers are small. If the overlap is what you want to study (two segmentations of the same tumor in SLCR3), don't collapse: <code>mmGetMedicalVolumeSegment</code> reads each segment from its own layer.</p>
+</div>
+<h3 id="is-the-segmentation-the-same-size-as-the-ct">Is the segmentation the same size as the CT?</h3>
+<p>Some versions of Slicer add an empty slice to a segmentation. Then MATLAB can't compare it voxel by voxel with the CT. <code>mmMatchVolumeGeometry</code> adds or removes the extra slices, so that the two line up:</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">segMV</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmMatchVolumeGeometry</span><span class="p">(</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">ctMV</span><span class="p">);</span>
+</span></code></pre></div>
+<p>It only adds or removes slices at the edges. If the two volumes have a different <strong>voxel size</strong>, it stops and tells you: that is the next check.</p>
+<h3 id="are-the-voxels-isotropic">Are the voxels isotropic?</h3>
+<p><strong>Isotropic</strong> voxels have the same size in all three directions. Many scans don't: the original CTACardio volume has voxels of 0.93 × 0.93 × 1.25 mm. Steps that measure in voxels (<code>regionprops3</code>, <code>bwdist</code>, the aorta diameter in SLCR5) then give distorted results. The Slicer tutorials resample the volume to isotropic voxels <a href="../CTACardioSegment/#crop-module">when you crop it</a>. If the three numbers of <code>ctMV.VoxelSpacing</code> are not equal, you skipped that step, or you segmented the original volume instead of the cropped one.</p>
+<p><code>mmResampleIsotropic</code> resamples the volume and the segmentation to the same isotropic voxel grid:</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">[</span><span class="n">ctMV</span><span class="p">,</span><span class="w"> </span><span class="n">segMV</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmResampleIsotropic</span><span class="p">(</span><span class="n">ctMV</span><span class="p">,</span><span class="w"> </span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">Segments</span><span class="p">=</span><span class="n">segT</span><span class="p">);</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Command Window</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>mmResampleIsotropic: resampled the intensity volume
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  voxel size: 0.9336 x 0.9336 x 1.25 mm  -&gt;  0.9336 mm isotropic
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  size:       512 x 512 x 321  -&gt;  512 x 512 x 430 voxels
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  Resampled the segmentation to the same voxel grid (nearest neighbor). Segment volumes:
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  - right lung: 1263.46 mL  -&gt;  1263.35 mL (-0.0%)
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  - left lung: 1224.69 mL  -&gt;  1224.71 mL (+0.0%)
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  - other: 37.63 mL  -&gt;  37.41 mL (-0.6%)
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Why the two volumes are resampled differently</p>
+<p>CT values are amounts, so a new voxel can be the average of its neighbors (linear interpolation). Label values are names: the average of label 1 (right kidney) and label 3 (aorta) is not label 2 (left kidney). So each new voxel of the segmentation takes the label of the nearest old voxel, as in Slicer. Large segments barely change. Small or thin segments can change by a few percent: check the report.</p>
+</div>
+<h3 id="save-a-corrected-file">Save a corrected file</h3>
+<p>The fixes above change the variables in MATLAB, not your files. That is enough for your own script. You need a corrected <strong>file</strong> when someone else reads it, for example when you upload your segmentation to a class folder (<a href="#8-compare-a-whole-class">step 8</a>): the class script loads every file the same way, and it can't fix yours.</p>
+<table>
+<thead>
+<tr>
+<th>To save</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Isotropic copies of the volume and the segmentation</td>
+<td><code>mmResampleSlicerFiles</code></td>
+</tr>
+<tr>
+<td>A segmentation with its layers collapsed</td>
+<td><code>mmCollapseSegmentLayers</code> with <code>OutputFile</code></td>
+</tr>
+<tr>
+<td>Any <code>medicalVolume</code> that you changed</td>
+<td><code>mmWriteNRRD</code></td>
+</tr>
+</tbody>
+</table>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Save isotropic copies of your Slicer files</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="n">myIntensity</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"/path/to/your/folder/CTACardio.nrrd"</span><span class="p">;</span><span class="w">                    </span><span class="c">% the volume that you segmented</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="n">mySegment</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"/path/to/your/folder/Salcedo Segmentation.seg.nrrd"</span><span class="p">;</span><span class="w">       </span><span class="c">% your segmentation</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="p">[</span><span class="n">newIntensity</span><span class="p">,</span><span class="w"> </span><span class="n">newSegment</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmResampleSlicerFiles</span><span class="p">(</span><span class="n">myIntensity</span><span class="p">,</span><span class="w"> </span><span class="n">mySegment</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<p><code>mmResampleSlicerFiles</code> needs <strong>both</strong> files, from the Slicer folder on your computer, so that the segmentation lands on the grid of the resampled volume. It saves two new files next to the originals, <code>CTACardio isotropic.nrrd</code> and <code>Salcedo Segmentation isotropic.seg.nrrd</code>, and never changes the originals. Slicer can open the new files: the segment names, colors, and layers are kept.</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Save a collapsed segmentation</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="p">[</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmCollapseSegmentLayers</span><span class="p">(</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">,</span><span class="w"> </span><span class="n">OutputFile</span><span class="p">=</span><span class="s">"Salcedo Segmentation collapsed.seg.nrrd"</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="3-display-the-segmentation">3. Display the segmentation</h2>
+<p>Check your segmentation before you measure it. First, overlay one slice of the segmentation on the CT, in the segment colors from Slicer:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">One slice (SLCR1)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="n">ctSlice</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">extractSlice</span><span class="p">(</span><span class="n">ctMV</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="s">"transverse"</span><span class="p">);</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="n">labelSlice</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">extractSlice</span><span class="p">(</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="s">"transverse"</span><span class="p">);</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="nb">imshow</span><span class="p">(</span><span class="n">labeloverlay</span><span class="p">(</span><span class="n">mat2gray</span><span class="p">(</span><span class="n">ctSlice</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">160</span><span class="w"> </span><span class="mi">240</span><span class="p">]),</span><span class="w"> </span><span class="n">labelSlice</span><span class="p">,</span><span class="w"> </span><span class="n">Colormap</span><span class="p">=</span><span class="n">segT</span><span class="p">.</span><span class="n">Color</span><span class="p">,</span><span class="w"> </span><span class="n">Transparency</span><span class="p">=</span><span class="mf">0.3</span><span class="p">))</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="CT slice with the kidneys and aorta overlaid" src="../images/workflow/step2-slice-overlay.png" width="450" /></p>
+<blockquote>
+<p>A transverse slice through both kidneys, with the segmentation in the Slicer colors.</p>
+</blockquote>
+<p>Then look at it in 3D. <code>volshow</code> renders the CT and the segmentation together. <code>mmPlotAllSeg</code> turns every segment into a surface:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">3D (SLCR1)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="n">viewer</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">viewer3d</span><span class="p">(</span><span class="n">BackgroundColor</span><span class="p">=</span><span class="s">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">BackgroundGradient</span><span class="p">=</span><span class="s">"off"</span><span class="p">);</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="n">volshow</span><span class="p">(</span><span class="n">ctMV</span><span class="p">,</span><span class="w"> </span><span class="n">Parent</span><span class="p">=</span><span class="n">viewer</span><span class="p">,</span><span class="w"> </span><span class="n">RenderingStyle</span><span class="p">=</span><span class="s">"GradientOpacity"</span><span class="p">,</span><span class="w"> </span><span class="n">OverlayData</span><span class="p">=</span><span class="n">segMV</span><span class="p">.</span><span class="n">Voxels</span><span class="p">);</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="n">figure</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="s">mmPlotAllSeg(segMV,</span><span class="w"> </span><span class="s">segT)</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="volshow of the CT with the segmentation overlay" src="../images/workflow/step3-volshow-overlay.png" width="300" /> <img alt="every segment plotted as a surface" src="../images/workflow/step3-plotallseg.png" width="190" /></p>
+<blockquote>
+<p>Left: <code>volshow</code> with the segmentation as an overlay. Right: <code>mmPlotAllSeg</code> plots each segment as a surface, in its Slicer color.</p>
+</blockquote>
+<h2 id="4-pull-out-one-segment">4. Pull out one segment</h2>
+<p>Most analyses work on one structure at a time. <code>mmGetMedicalVolumeSegment</code> returns a structure with the mask of one segment, its color, and <code>tform</code>: the transformation that converts voxel positions to millimeters in the patient. Use <code>tform</code> whenever you make a surface, so that your measurements are in mm, not voxels.</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">One segment (SLCR1, SLCR2)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="n">rk</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetMedicalVolumeSegment</span><span class="p">(</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">,</span><span class="w"> </span><span class="n">segName</span><span class="p">=</span><span class="s">"right kidney"</span><span class="p">)</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="n">mmPlotMask2Surface</span><span class="p">(</span><span class="n">rk</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span><span class="w"> </span><span class="n">fcolor</span><span class="p">=</span><span class="n">rk</span><span class="p">.</span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="nb">transform</span><span class="p">=</span><span class="n">rk</span><span class="p">.</span><span class="n">tform</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><span class="filename">rk</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>    segName: "right kidney"
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>       mask: [465×276×390 logical]
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>      color: [0.5647 0.9333 0.5647]
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>      tform: [1×1 affinetform3d]
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    spacing: [1.027 1.027 1.027]
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>     volume: 99574
+</span></code></pre></div>
+<p><img alt="the right kidney as a surface, in mm" src="../images/workflow/step4-one-segment.png" width="300" /></p>
+<blockquote>
+<p>The right kidney as a surface. The axes are in mm, because the surface was transformed with <code>rk.tform</code>.</p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title"><code>volume</code> is in voxels</p>
+<p>Multiply by the volume of one voxel to get mm³: <code>rk.volume * prod(segMV.VoxelSpacing)</code>. Divide by 1000 for mL. For this kidney, that's 108 mL.</p>
+</div>
+<h2 id="5-measure">5. Measure</h2>
+<h3 id="volume-and-mean-intensity">Volume and mean intensity</h3>
+<p><code>regionprops3</code> measures every segment at once. Turn the label volume into a <code>categorical</code> array first, so the rows are named after the segments:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Volume and mean HU (SLCR1, SLCR4)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span>
+<span class="normal"><a href="#__codelineno-16-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="n">segCat</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">categorical</span><span class="p">(</span><span class="n">segMV</span><span class="p">.</span><span class="n">Voxels</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">.</span><span class="n">LabelValue</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">.</span><span class="n">SegName</span><span class="p">);</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="n">rp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">regionprops3</span><span class="p">(</span><span class="n">segCat</span><span class="p">,</span><span class="w"> </span><span class="n">ctMV</span><span class="p">.</span><span class="n">Voxels</span><span class="p">,</span><span class="w"> </span><span class="s">"Volume"</span><span class="p">,</span><span class="w"> </span><span class="s">"MeanIntensity"</span><span class="p">);</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="n">rp</span><span class="p">.</span><span class="n">Volume_mL</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">rp</span><span class="p">.</span><span class="n">Volume</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">prod</span><span class="p">(</span><span class="n">segMV</span><span class="p">.</span><span class="n">VoxelSpacing</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="length">Length</h3>
+<p>SLCR4 measures the femurs of donor 9553F. To measure the length of a bone, center its surface, turn its long axis upright with <code>mmAlignSurface2Axes</code>, and measure its range along z:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Femur length (SLCR4)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="n">rSeg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetMedicalVolumeSegment</span><span class="p">(</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">,</span><span class="w"> </span><span class="n">segName</span><span class="p">=</span><span class="s">"right femur"</span><span class="p">);</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="n">hp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmPlotMask2Surface</span><span class="p">(</span><span class="n">rSeg</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span><span class="w"> </span><span class="n">fcolor</span><span class="p">=</span><span class="n">rSeg</span><span class="p">.</span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="n">smooth</span><span class="p">=</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">transform</span><span class="p">=</span><span class="n">rSeg</span><span class="p">.</span><span class="n">tform</span><span class="p">);</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="n">v</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmAlignSurface2Axes</span><span class="p">(</span><span class="n">hp</span><span class="p">.</span><span class="n">Vertices</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">mean</span><span class="p">(</span><span class="n">hp</span><span class="p">.</span><span class="n">Vertices</span><span class="p">));</span><span class="w">   </span><span class="c">% long axis along x</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="n">hp</span><span class="p">.</span><span class="n">Vertices</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmRotateSurfaceVertices</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="s">'y'</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">);</span><span class="w">           </span><span class="c">% long axis along z</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="n">femurLength</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="n">hp</span><span class="p">.</span><span class="n">Vertices</span><span class="p">(:,</span><span class="mi">3</span><span class="p">))</span><span class="w">                        </span><span class="c">% mm</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="femurs and implants" src="../images/workflow/step5-femur-allseg.png" width="150" /> <img alt="the right femur before and after alignment" src="../images/workflow/step5-femur-aligned.png" width="450" /></p>
+<blockquote>
+<p>Left: the femur segmentation of donor 9553F, with a hip implant in the left femur. Right: the right femur, centered and aligned. Its length is 509 mm.</p>
+</blockquote>
+<h3 id="diameter-along-the-length">Diameter along the length</h3>
+<p><code>mmCrossSectionProfile</code> cuts a bone or vessel into thin slabs, perpendicular to its long axis, and measures every slab: its area, its equivalent diameter, and its narrowest and widest widths.</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Cross-sections (SLCR4)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="p">[</span><span class="n">profileT</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmCrossSectionProfile</span><span class="p">(</span><span class="n">rSeg</span><span class="p">,</span><span class="w"> </span><span class="n">Title</span><span class="p">=</span><span class="s">"Right femur"</span><span class="p">);</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="n">info</span><span class="p">.</span><span class="n">At</span><span class="w">          </span><span class="c">% the cross-section at midshaft (50% of the length)</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="mmCrossSectionProfile figure for the right femur" src="../images/workflow/step5-cross-section-profile.png" width="550" /></p>
+<blockquote>
+<p>The femur colored by diameter (top left), the cross-section at midshaft with its narrowest and widest widths (top right), and the diameter profile from the knee (0%) to the hip (100%).</p>
+</blockquote>
+<p>Plot two profiles together to compare bones. The implant hardly changes the diameter of the left femur:</p>
+<p><img alt="diameter profiles of the right and left femur" src="../images/workflow/step5-left-right-profiles.png" width="550" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Curved structures</p>
+<p>For a curved vessel like the aorta, use <code>Centerline="curved"</code>. The function then follows the middle of the vessel instead of a straight axis. Try it in the challenge at the end of SLCR4.</p>
+</div>
+<h2 id="6-compare-two-segmentations">6. Compare two segmentations</h2>
+<p>How well do two segmentations of the same structure agree? In SLCR2 you compare your kidney with the kidney from <a href="../TotalSegmentator/">TotalSegmentator</a>. In SLCR3 you compare two segmentations of the same tumor.</p>
+<h3 id="where-do-they-overlap">Where do they overlap?</h3>
+<p>The <strong>Dice coefficient</strong> measures the overlap: 1 is a perfect match, 0 is no overlap. To see <em>where</em> they differ, color each voxel by which segmentation it belongs to:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Overlap (SLCR2)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span>
+<span class="normal"><a href="#__codelineno-19-3">3</a></span>
+<span class="normal"><a href="#__codelineno-19-4">4</a></span>
+<span class="normal"><a href="#__codelineno-19-5">5</a></span>
+<span class="normal"><a href="#__codelineno-19-6">6</a></span>
+<span class="normal"><a href="#__codelineno-19-7">7</a></span>
+<span class="normal"><a href="#__codelineno-19-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="n">mySeg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetMedicalVolumeSegment</span><span class="p">(</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">,</span><span class="w"> </span><span class="n">segName</span><span class="p">=</span><span class="s">"right kidney"</span><span class="p">);</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="n">totSeg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetMedicalVolumeSegment</span><span class="p">(</span><span class="n">totalMV</span><span class="p">,</span><span class="w"> </span><span class="n">totalT</span><span class="p">,</span><span class="w"> </span><span class="n">segName</span><span class="p">=</span><span class="s">"right kidney"</span><span class="p">);</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="n">dice</span><span class="p">(</span><span class="n">mySeg</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span><span class="w"> </span><span class="n">totSeg</span><span class="p">.</span><span class="n">mask</span><span class="p">)</span><span class="w">      </span><span class="c">% 0.78</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4"></a>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="n">compare</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">zeros</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">mySeg</span><span class="p">.</span><span class="n">mask</span><span class="p">),</span><span class="w"> </span><span class="s">"uint8"</span><span class="p">);</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="n">compare</span><span class="p">(</span><span class="n">mySeg</span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">totSeg</span><span class="p">.</span><span class="n">mask</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">      </span><span class="c">% both (green)</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="n">compare</span><span class="p">(</span><span class="n">totSeg</span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="n">mySeg</span><span class="p">.</span><span class="n">mask</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">     </span><span class="c">% TotalSegmentator only (cyan)</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="n">compare</span><span class="p">(</span><span class="n">mySeg</span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="n">totSeg</span><span class="p">.</span><span class="n">mask</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">     </span><span class="c">% ours only (magenta)</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="kidney comparison slices" src="../images/workflow/step6-compare-slices.png" width="550" /></p>
+<blockquote>
+<p>Green: in both segmentations. Cyan: only in TotalSegmentator's. Our kidney leaves out the renal sinus (the cyan areas inside), which TotalSegmentator fills in.</p>
+</blockquote>
+<h3 id="how-far-apart-are-the-surfaces">How far apart are the surfaces?</h3>
+<p><code>mmSurfaceDistance</code> measures, for every point on one surface, the distance to the other surface: negative (blue) if the point is inside the other segmentation, positive (red) if it is outside. The table summarizes the distances.</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Surface distance (SLCR2)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="n">T</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmSurfaceDistance</span><span class="p">(</span><span class="n">mySeg</span><span class="p">,</span><span class="w"> </span><span class="n">totSeg</span><span class="p">,</span><span class="w"> </span><span class="n">Names</span><span class="p">=[</span><span class="s">"Ours"</span><span class="w"> </span><span class="s">"TotalSegmentator"</span><span class="p">])</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="surface distance between our kidney and TotalSegmentator's" src="../images/workflow/step6-surface-distance.png" width="600" /></p>
+<blockquote>
+<p>The outside of our kidney agrees with TotalSegmentator's (white). The blue peak in the histogram, 5–10 mm inside, comes from the surfaces of the holes inside our kidney. SLCR2 shows how to fill them.</p>
+</blockquote>
+<p>When neither segmentation is the reference, as with the two tumor segmentations in SLCR3, measure in both directions:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Two tumor segmentations (SLCR3)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="n">T</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmSurfaceDistance</span><span class="p">(</span><span class="n">t1Seg</span><span class="p">,</span><span class="w"> </span><span class="n">t2Seg</span><span class="p">,</span><span class="w"> </span><span class="n">Names</span><span class="p">=[</span><span class="s">"Tumor1"</span><span class="w"> </span><span class="s">"Tumor2"</span><span class="p">],</span><span class="w"> </span><span class="n">Direction</span><span class="p">=</span><span class="s">"both"</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="surface distance between two tumor segmentations" src="../images/workflow/step6-tumor-distance.png" width="550" /></p>
+<blockquote>
+<p>Top: Tumor1 measured against Tumor2. Bottom: Tumor2 measured against Tumor1. More than 90% of both surfaces are within 2 mm of each other (Dice 0.93).</p>
+</blockquote>
+<h2 id="7-compare-left-and-right">7. Compare left and right</h2>
+<p>Are the left and right kidneys the same shape? To compare them, <code>mmMirrorAlign</code> flips the left kidney across the midline, then rotates and moves it until it fits the right kidney as closely as possible. Now both are on the same voxel grid, and you can compare them like two segmentations of the same structure.</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Mirror and align (SLCR5)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
+<span class="normal"><a href="#__codelineno-22-2">2</a></span>
+<span class="normal"><a href="#__codelineno-22-3">3</a></span>
+<span class="normal"><a href="#__codelineno-22-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="n">rk</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetMedicalVolumeSegment</span><span class="p">(</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">,</span><span class="w"> </span><span class="n">segName</span><span class="p">=</span><span class="s">"right kidney"</span><span class="p">);</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="n">lk</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetMedicalVolumeSegment</span><span class="p">(</span><span class="n">segMV</span><span class="p">,</span><span class="w"> </span><span class="n">segT</span><span class="p">,</span><span class="w"> </span><span class="n">segName</span><span class="p">=</span><span class="s">"left kidney"</span><span class="p">);</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="p">[</span><span class="n">lkOnRk</span><span class="p">,</span><span class="w"> </span><span class="n">rmse</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmMirrorAlign</span><span class="p">(</span><span class="n">rk</span><span class="p">,</span><span class="w"> </span><span class="n">lk</span><span class="p">);</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4"></a><span class="n">mmSurfaceDistance</span><span class="p">(</span><span class="n">rk</span><span class="p">,</span><span class="w"> </span><span class="n">lkOnRk</span><span class="p">,</span><span class="w"> </span><span class="n">Names</span><span class="p">=[</span><span class="s">"Right kidney"</span><span class="w"> </span><span class="s">"Left kidney (mirrored)"</span><span class="p">],</span><span class="w"> </span><span class="n">Direction</span><span class="p">=</span><span class="s">"both"</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="right and left kidney before and after mirroring" src="../images/workflow/step7-mirror-align.png" width="550" /></p>
+<blockquote>
+<p>Before: the two kidneys where they sit in the body. After: the left kidney, mirrored and aligned on the right kidney.</p>
+</blockquote>
+<p><img alt="surface distance between the right and mirrored left kidney" src="../images/workflow/step7-mirror-distance.png" width="550" /></p>
+<blockquote>
+<p>The right kidney is mostly outside the mirrored left kidney (red): in this donor, the right kidney is larger.</p>
+</blockquote>
+<h2 id="8-compare-a-whole-class">8. Compare a whole class</h2>
+<p>One segmentation is one opinion. With everyone's segmentations of the same scan, you can ask two new questions: how much do the raters disagree, and is a left–right difference bigger than that disagreement?</p>
+<div class="admonition note">
+<p class="admonition-title">The figures in this step use made-up class data</p>
+<p>The ten "students" below are fake segmentations, each with a typical mistake built in. Your class results will look different.</p>
+</div>
+<h3 id="load-every-file-in-a-folder">Load every file in a folder</h3>
+<p>Put everyone's <code>.seg.nrrd</code> files in one folder. <code>mmGetSlicerSegmentInfoAll</code> reads all of them, and takes each student's ID from the start of the file name:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Every file (SLCR5, SLCR6)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="p">[</span><span class="n">classSegT</span><span class="p">,</span><span class="w"> </span><span class="n">contentT</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mmGetSlicerSegmentInfoAll</span><span class="p">(</span><span class="n">classFolder</span><span class="p">);</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2"></a><span class="nb">groupsummary</span><span class="p">(</span><span class="n">classSegT</span><span class="p">,</span><span class="w"> </span><span class="s">"SegName"</span><span class="p">)</span><span class="w">      </span><span class="c">% did everyone name their segments the same way?</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Then measure each file in a loop. Wrap each file in <code>try</code>/<code>catch</code>, so that one bad file doesn't stop the loop. The local functions in SLCR5 and SLCR6 (<code>measureKidneys</code>, <code>loadFemur</code>) also fix common mistakes, like swapped left and right labels or names in capital letters.</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Measure every file (SLCR5)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span>
+<span class="normal"><a href="#__codelineno-24-2">2</a></span>
+<span class="normal"><a href="#__codelineno-24-3">3</a></span>
+<span class="normal"><a href="#__codelineno-24-4">4</a></span>
+<span class="normal"><a href="#__codelineno-24-5">5</a></span>
+<span class="normal"><a href="#__codelineno-24-6">6</a></span>
+<span class="normal"><a href="#__codelineno-24-7">7</a></span>
+<span class="normal"><a href="#__codelineno-24-8">8</a></span>
+<span class="normal"><a href="#__codelineno-24-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="n">kidneyT</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">table</span><span class="p">();</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="nb">height</span><span class="p">(</span><span class="n">contentT</span><span class="p">)</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="w">    </span><span class="n">file</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">fullfile</span><span class="p">(</span><span class="n">contentT</span><span class="p">.</span><span class="n">folder</span><span class="p">(</span><span class="n">k</span><span class="p">),</span><span class="w"> </span><span class="n">contentT</span><span class="p">.</span><span class="n">name</span><span class="p">(</span><span class="n">k</span><span class="p">));</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4"></a><span class="w">    </span><span class="k">try</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5"></a><span class="w">        </span><span class="n">kidneyT</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">kidneyT</span><span class="p">;</span><span class="w"> </span><span class="n">measureKidneys</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="n">contentT</span><span class="p">.</span><span class="n">ID</span><span class="p">(</span><span class="n">k</span><span class="p">))];</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6"></a><span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="n">err</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7"></a><span class="w">        </span><span class="nb">warning</span><span class="p">(</span><span class="s">"%s: %s"</span><span class="p">,</span><span class="w"> </span><span class="n">contentT</span><span class="p">.</span><span class="n">ID</span><span class="p">(</span><span class="n">k</span><span class="p">),</span><span class="w"> </span><span class="n">err</span><span class="p">.</span><span class="n">message</span><span class="p">)</span><span class="w">   </span><span class="c">% skip this file</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8"></a><span class="w">    </span><span class="k">end</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9"></a><span class="k">end</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="look-for-mistakes-first">Look for mistakes first</h3>
+<p>Before you calculate anything, look at every segmentation. A class script can't repair a file, so each file must already pass the <a href="#check-your-segmentation-file">four checks</a>: a file with the wrong segment name is skipped, and a file with voxels that are not isotropic gives wrong lengths and diameters. Its owner can make a corrected copy with <a href="#save-a-corrected-file"><code>mmResampleSlicerFiles</code></a>. Other mistakes are easy to see in a gallery:</p>
+<p><img alt="every student's left femur" src="../images/workflow/step8-femur-gallery.png" width="650" /></p>
+<blockquote>
+<p>The left femur of each (made-up) student. Kim forgot to cut the femur at the base of the implant, so the whole femur is included. Kim's left femur is 40 mm longer than everyone else's, and it shows up as an outlier in the next plot.</p>
+</blockquote>
+<h3 id="plot-the-class">Plot the class</h3>
+<p><code>mmBoxSwarm</code> draws a box chart with each measurement as a point on top, so you can see every student and the spread at once:</p>
+<div class="language-matlab highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Box and swarm (SLCR5, SLCR6)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="n">mmBoxSwarm</span><span class="p">(</span><span class="n">femurT</span><span class="p">.</span><span class="n">Side</span><span class="p">,</span><span class="w"> </span><span class="n">femurT</span><span class="p">.</span><span class="n">Length_mm</span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="femur measurements of the class" src="../images/workflow/step8-femur-boxswarm.png" width="600" /></p>
+<blockquote>
+<p>Femur length, shaft diameter, and volume for each student. The right femur (segmented automatically) barely varies. The left femur (cut by hand) varies more, and Kim's femur is the outlier at the top.</p>
+</blockquote>
+<p><img alt="kidney measurements of the class" src="../images/workflow/step8-class-boxswarm.png" width="500" /></p>
+<blockquote>
+<p>Kidney measurements for each student. Every student found the right kidney larger than the left.</p>
+</blockquote>
+<h3 id="how-much-do-the-raters-disagree">How much do the raters disagree?</h3>
+<p>The <strong>coefficient of variation</strong> (CV) is the standard deviation between raters as a percent of the mean. Below 5% is good agreement. Above 10% is poor.</p>
+<p><img alt="coefficient of variation of each kidney measurement" src="../images/workflow/step8-class-cv.png" width="450" /></p>
+<blockquote>
+<p>The raters agree closely on length, width, and thickness, but less on volume, which depends on every voxel at the edge.</p>
+</blockquote>
+<h3 id="is-the-difference-real">Is the difference real?</h3>
+<p>Pair each student's right and left measurements. If every line slopes the same way, the difference is in the anatomy, not in the raters:</p>
+<p><img alt="each student's right and left kidney volume" src="../images/workflow/step8-class-paired.png" width="350" /></p>
+<blockquote>
+<p>Each line is one student. Every student's right kidney is larger than their left. SLCR5 tests this with a signed-rank test, and compares the difference with the disagreement between raters.</p>
+</blockquote>
+<h2 id="shortcut-let-ai-segment-for-you">Shortcut: let AI segment for you</h2>
+<p>Two toolbox functions segment scans without opening Slicer, so you can process many scans in a loop:</p>
+<ul>
+<li><a href="../../reference/courseFunctions/#mmtotalsegmentator">mmTotalSegmentator</a> segments a CT into more than 100 structures (see SLCR7)</li>
+<li><a href="../../reference/courseFunctions/#mmsynthseg2">mmSynthSeg2</a> segments a brain MRI into 32 structures (See the SynthSeg_Brain_Segmentation.m script)</li>
+</ul>
+<p>Their output works with every step on this page, starting at step 2.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2025 <a href="https://github.com/salcedoe"  target="_blank" rel="noopener">Ernesto Salcedo</a> - <a href="#__consent">Change cookie settings</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+
+  
+
+
+<h4>Cookie consent</h4>
+<p>We use cookies to recognize repeated visits and measure site usage. With your consent, you're helping us improve this documentation.</p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+    
+      
+        
+  
+  
+    
+    
+  
+  <li class="task-list-item">
+    <label class="task-list-control">
+      <input type="checkbox" name="analytics" checked>
+      <span class="task-list-indicator"></span>
+      Google Analytics
+    </label>
+  </li>
+
+      
+    
+    
+      
+        
+  
+  
+    
+    
+  
+  <li class="task-list-item">
+    <label class="task-list-control">
+      <input type="checkbox" name="github" checked>
+      <span class="task-list-indicator"></span>
+      GitHub
+    </label>
+  </li>
+
+      
+    
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Manage settings</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.instant", "navigation.top", "navigation.path", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotate", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
